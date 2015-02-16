@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="C:\Users\DumpOSK129\Copy\Android Studio\Android Studio Project\CreateStoriesApp\app\build\intermediates\exploded-aar\com.android.support\support-v4\21.0.3\libs\internal_impl-21.0.3.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="01ec05bfbafcc07646ba813000bf2ef11742dd03">
+        <dex dex="C:\Users\DumpOSK129\Copy\Android Studio\Android Studio Project\CreateStoriesApp\app\build\intermediates\pre-dexed\debug\internal_impl-21.0.3-ca3ff6de263aa340abf040b3ffcab2837c42af35.jar" />
+    </item>
+    <item
+        jar="C:\Users\DumpOSK129\Copy\android sdk\extras\android\m2repository\com\android\support\support-annotations\21.0.3\support-annotations-21.0.3.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="4b74cefe1f0c1b819e7260c8627a14674e37fd35">
+        <dex dex="C:\Users\DumpOSK129\Copy\Android Studio\Android Studio Project\CreateStoriesApp\app\build\intermediates\pre-dexed\debug\support-annotations-21.0.3-923659a482627e55838781703e1bea760db27a7f.jar" />
+    </item>
+    <item
+        jar="C:\Users\DumpOSK129\Copy\Android Studio\Android Studio Project\CreateStoriesApp\app\build\intermediates\exploded-aar\com.android.support\support-v4\21.0.3\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="2c91c949a45a21cdecf26e03951e46c7beec9ad8">
+        <dex dex="C:\Users\DumpOSK129\Copy\Android Studio\Android Studio Project\CreateStoriesApp\app\build\intermediates\pre-dexed\debug\classes-ae75c5505172cd3252d8d0baaf6f5eb807aee28e.jar" />
+    </item>
+    <item
+        jar="C:\Users\DumpOSK129\Copy\Android Studio\Android Studio Project\CreateStoriesApp\app\build\intermediates\exploded-aar\com.balysv\material-ripple\1.0.0\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="44f9dc1574dcadc1bb91366af87caff1bb867e23">
+        <dex dex="C:\Users\DumpOSK129\Copy\Android Studio\Android Studio Project\CreateStoriesApp\app\build\intermediates\pre-dexed\debug\classes-e69ff0b32aeb122159c1f10793b11bdcd1e962f1.jar" />
+    </item>
+    <item
+        jar="C:\Users\DumpOSK129\Copy\Android Studio\Android Studio Project\CreateStoriesApp\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\21.0.3\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="81d42bf983a8741f4888a6e333e454e4a5e0eeb7">
+        <dex dex="C:\Users\DumpOSK129\Copy\Android Studio\Android Studio Project\CreateStoriesApp\app\build\intermediates\pre-dexed\debug\classes-d72665a4f7faad86cc6b4da65b41f9337c10c13e.jar" />
+    </item>
+    <item
+        jar="C:\Users\DumpOSK129\Copy\Android Studio\Android Studio Project\CreateStoriesApp\app\build\intermediates\exploded-aar\com.android.support\recyclerview-v7\21.0.3\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="4b8945fc23a7461c6fdde15753456d64b0a9358b">
+        <dex dex="C:\Users\DumpOSK129\Copy\Android Studio\Android Studio Project\CreateStoriesApp\app\build\intermediates\pre-dexed\debug\classes-33205df5b766bb41edb5ca08d06dd65352eccb7b.jar" />
+    </item>
+
+</items>

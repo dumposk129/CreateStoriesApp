@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">แอพพลิเคชันสร้างนิทาน</string>
+    <string name="create">สร้างนิทาน</string>
+    <string name="edit">แก้ไขนิทาน</string>
+    <string name="ques">แบบทดสอบ</string>
+    <string name="read">อ่านนิทาน</string>
+</resources>
