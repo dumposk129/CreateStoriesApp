@@ -2,6 +2,13 @@
 <items version="2" >
 
     <item
+        jar="C:\Users\DumpOSK129\Copy\Android Studio\Android Studio Project\CreateStoriesApp\app\build\intermediates\exploded-aar\com.oguzdev\CircularFloatingActionMenu\1.0.2\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="607d961caf1a59b6e782724654c1f3229e036c20">
+        <dex dex="C:\Users\DumpOSK129\Copy\Android Studio\Android Studio Project\CreateStoriesApp\app\build\intermediates\pre-dexed\debug\classes-125a4c620c55646dbc790c339d5f13e9f60803d5.jar" />
+    </item>
+    <item
         jar="C:\Users\DumpOSK129\Copy\Android Studio\Android Studio Project\CreateStoriesApp\app\build\intermediates\exploded-aar\com.android.support\support-v4\21.0.3\libs\internal_impl-21.0.3.jar"
         jumboMode="false"
         revision="21.1.2"
