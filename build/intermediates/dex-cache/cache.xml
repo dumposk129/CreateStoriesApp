@@ -16,6 +16,13 @@
         <dex dex="C:\Users\DumpOSK129\Copy\Android Studio\Android Studio Project\CreateStoriesApp\app\build\intermediates\pre-dexed\debug\internal_impl-21.0.3-ca3ff6de263aa340abf040b3ffcab2837c42af35.jar" />
     </item>
     <item
+        jar="C:\Users\DumpOSK129\Copy\Android Studio\Android Studio Project\CreateStoriesApp\app\build\intermediates\exploded-aar\com.getbase\floatingactionbutton\1.8.0\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="7a055a4323187e6f6a5e63f01b5a59bff71869a5">
+        <dex dex="C:\Users\DumpOSK129\Copy\Android Studio\Android Studio Project\CreateStoriesApp\app\build\intermediates\pre-dexed\debug\classes-c12abec3b96dc1982dfe7a367459a5fee2614ef0.jar" />
+    </item>
+    <item
         jar="C:\Users\DumpOSK129\Copy\android sdk\extras\android\m2repository\com\android\support\support-annotations\21.0.3\support-annotations-21.0.3.jar"
         jumboMode="false"
         revision="21.1.2"

@@ -2,8 +2,13 @@
 <resources>
     <color name="primaryColor">#00BCD4</color>
     <color name="primaryColorDark">#0097A7</color>
-    <color name="accentColor">#FFEB3B</color>
+    <color name="accentColor">#F44336</color>
+    <color name="red">#F44336</color>
+    <color name="red_pressed">#D32F2F</color>
+    <color name="half_black">#808080</color>
+    <color name="white">#fafafa</color>
     <color name="textPrimaryColor">#000</color>
     <color name="textSecondaryColor">#616161</color>
     <color name="colorHighlight">#B6B6B6</color>
+    <color name="black_semi_transparent">#B2000000</color>
 </resources>
