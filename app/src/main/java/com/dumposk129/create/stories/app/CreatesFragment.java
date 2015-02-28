@@ -9,6 +9,7 @@ import android.support.v7.widget.Toolbar;
 public class CreatesFragment extends ActionBarActivity {
 
     private Toolbar mToolbar;
+    Floating_Action_Button floating_action_button;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +25,7 @@ public class CreatesFragment extends ActionBarActivity {
                 getSupportFragmentManager().findFragmentById(R.id.fragment_navigation_drawer);
         drawerFragment.setUp(R.id.fragment_navigation_drawer, (DrawerLayout)findViewById(R.id.drawer_layout), mToolbar);
 
-        Floating_Action_Button fab = new Floating_Action_Button();
+        floating_action_button = new Floating_Action_Button();
+        floating_action_button.doing();
     }
 }

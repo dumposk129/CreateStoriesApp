@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
-import android.widget.TextView;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -14,7 +13,7 @@ public class MainActivity extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_main_below_appbar);
 
         mToolbar = (Toolbar) findViewById(R.id.app_bar);
         setSupportActionBar(mToolbar);
@@ -30,8 +29,8 @@ public class MainActivity extends ActionBarActivity {
        //storyTable.delete(3);
         Story story = storyTable.getById(2);
 
-        TextView textView = (TextView) findViewById(R.id.text);
-        textView.setText(story.getId() + ":" + story.getName());
+       // TextView textView = (TextView) findViewById(R.id.text);
+        //textView.setText(story.getId() + ":" + story.getName());
 
         /*List<Story> stories = null;
         try {

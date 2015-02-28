@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     tools:context="com.dumposk129.create.stories.app.NavigationDrawerFragment">
 
-    <LinearLayout
+   <!-- <LinearLayout
         android:id="@+id/containerDrawerImage"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -14,13 +14,12 @@
             android:layout_height="140dp"
             android:scaleType="fitXY"
             android:src="@mipmap/ic_android_nav"/>
-    </LinearLayout>
+    </LinearLayout>-->
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/drawerList"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/containerDrawerImage">
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
     </android.support.v7.widget.RecyclerView>
 
 </RelativeLayout>
