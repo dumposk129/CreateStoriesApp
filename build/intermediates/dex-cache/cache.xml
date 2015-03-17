@@ -9,11 +9,53 @@
         <dex dex="C:\Users\DumpOSK129\Developer\Android Studio Project\CreateStoriesApp\app\build\intermediates\pre-dexed\debug\classes-8e53eb4ea028122303b8cb71ad573f17e04e33eb.jar" />
     </item>
     <item
+        jar="C:\Users\DumpOSK129\Copy\android sdk\extras\android\m2repository\com\android\support\support-annotations\21.0.3\support-annotations-21.0.3.jar"
+        jumboMode="false"
+        revision="22.0.0"
+        sha1="4b74cefe1f0c1b819e7260c8627a14674e37fd35">
+        <dex dex="C:\Users\DumpOSK129\Developer\Android Studio Project\CreateStoriesApp\app\build\intermediates\pre-dexed\debug\support-annotations-21.0.3-923659a482627e55838781703e1bea760db27a7f.jar" />
+    </item>
+    <item
+        jar="C:\Users\DumpOSK129\Developer\Android Studio Project\CreateStoriesApp\app\build\intermediates\exploded-aar\com.oguzdev\CircularFloatingActionMenu\1.0.2\classes.jar"
+        jumboMode="false"
+        revision="22.0.0"
+        sha1="607d961caf1a59b6e782724654c1f3229e036c20">
+        <dex dex="C:\Users\DumpOSK129\Developer\Android Studio Project\CreateStoriesApp\app\build\intermediates\pre-dexed\debug\classes-aec8a4fe1e137bc7581042a373f8ef43cb621e4f.jar" />
+    </item>
+    <item
         jar="C:\Users\DumpOSK129\Developer\Android Studio Project\CreateStoriesApp\app\build\intermediates\exploded-aar\com.android.support\support-v4\21.0.3\libs\internal_impl-21.0.3.jar"
         jumboMode="false"
         revision="21.1.2"
         sha1="01ec05bfbafcc07646ba813000bf2ef11742dd03">
         <dex dex="C:\Users\DumpOSK129\Developer\Android Studio Project\CreateStoriesApp\app\build\intermediates\pre-dexed\debug\internal_impl-21.0.3-637b802150ec81b48336d48dcc78c9e63b68de3c.jar" />
+    </item>
+    <item
+        jar="C:\Users\DumpOSK129\Developer\Android Studio Project\CreateStoriesApp\app\build\intermediates\exploded-aar\com.android.support\support-v4\21.0.3\classes.jar"
+        jumboMode="false"
+        revision="22.0.0"
+        sha1="2c91c949a45a21cdecf26e03951e46c7beec9ad8">
+        <dex dex="C:\Users\DumpOSK129\Developer\Android Studio Project\CreateStoriesApp\app\build\intermediates\pre-dexed\debug\classes-2c1e93995f300c37db0c97ca904a6be781269509.jar" />
+    </item>
+    <item
+        jar="C:\Users\DumpOSK129\Developer\Android Studio Project\CreateStoriesApp\app\build\intermediates\exploded-aar\com.balysv\material-ripple\1.0.0\classes.jar"
+        jumboMode="false"
+        revision="22.0.0"
+        sha1="44f9dc1574dcadc1bb91366af87caff1bb867e23">
+        <dex dex="C:\Users\DumpOSK129\Developer\Android Studio Project\CreateStoriesApp\app\build\intermediates\pre-dexed\debug\classes-b01effd314fb0d8bac1e6b399dc0eea710bd73a3.jar" />
+    </item>
+    <item
+        jar="C:\Users\DumpOSK129\Developer\Android Studio Project\CreateStoriesApp\app\build\intermediates\exploded-aar\com.android.support\recyclerview-v7\21.0.3\classes.jar"
+        jumboMode="false"
+        revision="22.0.0"
+        sha1="4b8945fc23a7461c6fdde15753456d64b0a9358b">
+        <dex dex="C:\Users\DumpOSK129\Developer\Android Studio Project\CreateStoriesApp\app\build\intermediates\pre-dexed\debug\classes-e75d1a2d3743ba12e12196d5ecf4ba4311173c25.jar" />
+    </item>
+    <item
+        jar="C:\Users\DumpOSK129\Developer\Android Studio Project\CreateStoriesApp\app\build\intermediates\exploded-aar\com.getbase\floatingactionbutton\1.8.0\classes.jar"
+        jumboMode="false"
+        revision="22.0.0"
+        sha1="7a055a4323187e6f6a5e63f01b5a59bff71869a5">
+        <dex dex="C:\Users\DumpOSK129\Developer\Android Studio Project\CreateStoriesApp\app\build\intermediates\pre-dexed\debug\classes-acdb301521ec2bdb2d4ceade5803c3d24bd4dbce.jar" />
     </item>
     <item
         jar="C:\Users\DumpOSK129\Copy\android sdk\extras\android\m2repository\com\android\support\support-annotations\21.0.3\support-annotations-21.0.3.jar"
@@ -23,11 +65,25 @@
         <dex dex="C:\Users\DumpOSK129\Developer\Android Studio Project\CreateStoriesApp\app\build\intermediates\pre-dexed\debug\support-annotations-21.0.3-923659a482627e55838781703e1bea760db27a7f.jar" />
     </item>
     <item
+        jar="C:\Users\DumpOSK129\Developer\Android Studio Project\CreateStoriesApp\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\21.0.3\classes.jar"
+        jumboMode="false"
+        revision="22.0.0"
+        sha1="81d42bf983a8741f4888a6e333e454e4a5e0eeb7">
+        <dex dex="C:\Users\DumpOSK129\Developer\Android Studio Project\CreateStoriesApp\app\build\intermediates\pre-dexed\debug\classes-8e53eb4ea028122303b8cb71ad573f17e04e33eb.jar" />
+    </item>
+    <item
         jar="C:\Users\DumpOSK129\Developer\Android Studio Project\CreateStoriesApp\app\build\intermediates\exploded-aar\com.oguzdev\CircularFloatingActionMenu\1.0.2\classes.jar"
         jumboMode="false"
         revision="21.1.2"
         sha1="607d961caf1a59b6e782724654c1f3229e036c20">
         <dex dex="C:\Users\DumpOSK129\Developer\Android Studio Project\CreateStoriesApp\app\build\intermediates\pre-dexed\debug\classes-aec8a4fe1e137bc7581042a373f8ef43cb621e4f.jar" />
+    </item>
+    <item
+        jar="C:\Users\DumpOSK129\Developer\Android Studio Project\CreateStoriesApp\app\build\intermediates\exploded-aar\com.android.support\support-v4\21.0.3\libs\internal_impl-21.0.3.jar"
+        jumboMode="false"
+        revision="22.0.0"
+        sha1="01ec05bfbafcc07646ba813000bf2ef11742dd03">
+        <dex dex="C:\Users\DumpOSK129\Developer\Android Studio Project\CreateStoriesApp\app\build\intermediates\pre-dexed\debug\internal_impl-21.0.3-637b802150ec81b48336d48dcc78c9e63b68de3c.jar" />
     </item>
     <item
         jar="C:\Users\DumpOSK129\Developer\Android Studio Project\CreateStoriesApp\app\build\intermediates\exploded-aar\com.balysv\material-ripple\1.0.0\classes.jar"
