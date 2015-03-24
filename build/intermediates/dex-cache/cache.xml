@@ -9,11 +9,11 @@
         <dex dex="C:\Users\DumpOSK129\Developer\Android Studio Project\CreateStoriesApp\app\build\intermediates\pre-dexed\debug\classes-8e53eb4ea028122303b8cb71ad573f17e04e33eb.jar" />
     </item>
     <item
-        jar="C:\Users\DumpOSK129\Copy\android sdk\extras\android\m2repository\com\android\support\support-annotations\21.0.3\support-annotations-21.0.3.jar"
+        jar="C:\Users\DumpOSK129\Developer\Android Studio Project\CreateStoriesApp\app\build\intermediates\exploded-aar\com.android.support\support-v4\21.0.3\libs\internal_impl-21.0.3.jar"
         jumboMode="false"
-        revision="22.0.0"
-        sha1="4b74cefe1f0c1b819e7260c8627a14674e37fd35">
-        <dex dex="C:\Users\DumpOSK129\Developer\Android Studio Project\CreateStoriesApp\app\build\intermediates\pre-dexed\debug\support-annotations-21.0.3-923659a482627e55838781703e1bea760db27a7f.jar" />
+        revision="21.1.2"
+        sha1="01ec05bfbafcc07646ba813000bf2ef11742dd03">
+        <dex dex="C:\Users\DumpOSK129\Developer\Android Studio Project\CreateStoriesApp\app\build\intermediates\pre-dexed\debug\internal_impl-21.0.3-637b802150ec81b48336d48dcc78c9e63b68de3c.jar" />
     </item>
     <item
         jar="C:\Users\DumpOSK129\Developer\Android Studio Project\CreateStoriesApp\app\build\intermediates\exploded-aar\com.oguzdev\CircularFloatingActionMenu\1.0.2\classes.jar"
@@ -21,13 +21,6 @@
         revision="22.0.0"
         sha1="607d961caf1a59b6e782724654c1f3229e036c20">
         <dex dex="C:\Users\DumpOSK129\Developer\Android Studio Project\CreateStoriesApp\app\build\intermediates\pre-dexed\debug\classes-aec8a4fe1e137bc7581042a373f8ef43cb621e4f.jar" />
-    </item>
-    <item
-        jar="C:\Users\DumpOSK129\Developer\Android Studio Project\CreateStoriesApp\app\build\intermediates\exploded-aar\com.android.support\support-v4\21.0.3\libs\internal_impl-21.0.3.jar"
-        jumboMode="false"
-        revision="21.1.2"
-        sha1="01ec05bfbafcc07646ba813000bf2ef11742dd03">
-        <dex dex="C:\Users\DumpOSK129\Developer\Android Studio Project\CreateStoriesApp\app\build\intermediates\pre-dexed\debug\internal_impl-21.0.3-637b802150ec81b48336d48dcc78c9e63b68de3c.jar" />
     </item>
     <item
         jar="C:\Users\DumpOSK129\Developer\Android Studio Project\CreateStoriesApp\app\build\intermediates\exploded-aar\com.android.support\support-v4\21.0.3\classes.jar"
@@ -58,11 +51,11 @@
         <dex dex="C:\Users\DumpOSK129\Developer\Android Studio Project\CreateStoriesApp\app\build\intermediates\pre-dexed\debug\classes-acdb301521ec2bdb2d4ceade5803c3d24bd4dbce.jar" />
     </item>
     <item
-        jar="C:\Users\DumpOSK129\Copy\android sdk\extras\android\m2repository\com\android\support\support-annotations\21.0.3\support-annotations-21.0.3.jar"
+        jar="C:\Users\DumpOSK129\MEGA\android sdk\extras\android\m2repository\com\android\support\support-annotations\21.0.3\support-annotations-21.0.3.jar"
         jumboMode="false"
         revision="21.1.2"
         sha1="4b74cefe1f0c1b819e7260c8627a14674e37fd35">
-        <dex dex="C:\Users\DumpOSK129\Developer\Android Studio Project\CreateStoriesApp\app\build\intermediates\pre-dexed\debug\support-annotations-21.0.3-923659a482627e55838781703e1bea760db27a7f.jar" />
+        <dex dex="C:\Users\DumpOSK129\Developer\Android Studio Project\CreateStoriesApp\app\build\intermediates\pre-dexed\debug\support-annotations-21.0.3-1a15290b8d445e20adf0697211969b1bc38f6722.jar" />
     </item>
     <item
         jar="C:\Users\DumpOSK129\Developer\Android Studio Project\CreateStoriesApp\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\21.0.3\classes.jar"
@@ -91,6 +84,13 @@
         revision="21.1.2"
         sha1="44f9dc1574dcadc1bb91366af87caff1bb867e23">
         <dex dex="C:\Users\DumpOSK129\Developer\Android Studio Project\CreateStoriesApp\app\build\intermediates\pre-dexed\debug\classes-b01effd314fb0d8bac1e6b399dc0eea710bd73a3.jar" />
+    </item>
+    <item
+        jar="C:\Users\DumpOSK129\MEGA\android sdk\extras\android\m2repository\com\android\support\support-annotations\21.0.3\support-annotations-21.0.3.jar"
+        jumboMode="false"
+        revision="22.0.0"
+        sha1="4b74cefe1f0c1b819e7260c8627a14674e37fd35">
+        <dex dex="C:\Users\DumpOSK129\Developer\Android Studio Project\CreateStoriesApp\app\build\intermediates\pre-dexed\debug\support-annotations-21.0.3-1a15290b8d445e20adf0697211969b1bc38f6722.jar" />
     </item>
     <item
         jar="C:\Users\DumpOSK129\Developer\Android Studio Project\CreateStoriesApp\app\build\intermediates\exploded-aar\com.android.support\support-v4\21.0.3\classes.jar"

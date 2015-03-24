@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Create Stories Application</string>
 
-    <string name="action_settings">Settings</string>
+
     <string name="drawer_open" translatable="false">Open</string>
     <string name="drawer_close" translatable="false">Close</string>
     <array name="drawer_item_array">
@@ -11,6 +11,16 @@
         <item>Questionnaires</item>
     </array>
 
+    //Action bar
+    <string name="action_settings">Settings</string>
+    <string name="action_select_backgrounds">Select Backgrounds</string>
+    <string name="action_select_charactors">Select Characters</string>
+    <string name="action_sounds">Sounds</string>
+    <string name="action_subtitles">Subtitles</string>
+    <string name="action_search">Search</string>
+    <string name="action_save">Save</string>
+
+
     <string name="write_text_to_sdcard"></string>
 
 
@@ -18,7 +28,6 @@
     <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
     <string name="title_activity_reads_fragment">Reads</string>
     <string name="title_activity_creates_fragment">Creates</string>
-    <string name="title_activity_edits_fragment">Edits</string>
     <string name="title_activity_questionnaires_fragment">Questionnaires</string>
     <string name="title_activity_settings_fragment">Settings</string>
     <string name="title_activity_edit_story">EditStory</string>

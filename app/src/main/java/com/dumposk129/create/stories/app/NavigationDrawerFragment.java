@@ -66,7 +66,7 @@ public class NavigationDrawerFragment extends Fragment implements MyAdapter.Clic
         String[] titles = getResources().getStringArray(R.array.drawer_item_array);
         for (int i = 0; i < titles.length; i++) {
             Information current = new Information();
-            current.title = titles[i];
+            current.title = titles[i % titles.length];
             data.add(current);
         }
         return data;
@@ -123,11 +123,9 @@ public class NavigationDrawerFragment extends Fragment implements MyAdapter.Clic
                 break;
             case 1: startActivity(new Intent(getActivity(), CreatesFragment.class));
                 break;
-            case 2: startActivity(new Intent(getActivity(), EditsFragment.class));
+            case 2: startActivity(new Intent(getActivity(), QuestionnairesFragment.class));
                 break;
-            case 3: startActivity(new Intent(getActivity(), QuestionnairesFragment.class));
-                break;
-            case 4: startActivity(new Intent(getActivity(), SettingsFragment.class));
+            case 3: startActivity(new Intent(getActivity(), SettingsFragment.class));
                 break;
         }
     }

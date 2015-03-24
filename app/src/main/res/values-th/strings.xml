@@ -5,4 +5,12 @@
     <string name="edit">แก้ไขนิทาน</string>
     <string name="ques">แบบทดสอบ</string>
     <string name="read">อ่านนิทาน</string>
+    <string name="action_select_backgrounds">เลือกพื้นหลัง</string>
+    <string name="action_select_charactor">เลือกตัวละคร</string>
+    <string name="action_settings">ตั้งค่า</string>
+    <string name="action_sound">อัดเสียง</string>
+    <string name="action_subtitle">คำบรรยาย</string>
+    <string name="title_activity_creates_fragment">สร้างหรือแก้ไขนิทาน</string>
+    <string name="title_activity_edit_story"></string>
+    <string name="title_activity_questionnaires_fragment"></string>
 </resources>
