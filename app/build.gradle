@@ -7,9 +7,10 @@ android {
     defaultConfig {
         applicationId "com.dumposk129.create.stories.app"
         minSdkVersion 17
-        targetSdkVersion 22
+        targetSdkVersion 21
         versionCode 1
         versionName "1.0"
+        multiDexEnabled = true
     }
     buildTypes {
         release {
@@ -19,10 +20,15 @@ android {
     }
 }
 
+repositories {
+    mavenCentral()
+    maven { url 'https://maven.fabric.io/public' }
+}
+
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile 'com.android.support:appcompat-v7:21.0.+'
-    compile 'com.android.support:recyclerview-v7:21.0.+'
+    compile 'com.android.support:appcompat-v7:22'
+    compile 'com.android.support:recyclerview-v7:21.1.2'
     compile 'com.balysv:material-ripple:1.0.0'
     compile 'com.oguzdev:CircularFloatingActionMenu:1.0.2'
     compile 'com.getbase:floatingactionbutton:1.8.0'
