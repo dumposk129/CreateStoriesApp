@@ -7,8 +7,8 @@
     <array name="drawer_item_array">
         <item>Reads</item>
         <item>Creates</item>
-        <item>Edits</item>
         <item>Questionnaires</item>
+        <item>Settings</item>
     </array>
 
     //Action bar
