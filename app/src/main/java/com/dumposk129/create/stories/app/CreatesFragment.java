@@ -1,5 +1,7 @@
 package com.dumposk129.create.stories.app;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
@@ -14,8 +16,6 @@ import android.widget.Toast;
 public class CreatesFragment extends ActionBarActivity {
 
     private Toolbar mToolbar;
-    int windowWidth;
-    int windowHeight;
     public static LinearLayout.LayoutParams layoutParams;
     private int RESULT_GALLERY = 1;
 
@@ -32,6 +32,24 @@ public class CreatesFragment extends ActionBarActivity {
         NavigationDrawerFragment drawerFragment = (NavigationDrawerFragment)
                 getSupportFragmentManager().findFragmentById(R.id.fragment_navigation_drawer);
         drawerFragment.setUp(R.id.fragment_navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout), mToolbar);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(getApplicationContext());
+        builder.setMessage("Do you want to Create or Edit Stories")
+                .setPositiveButton("Create", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Intent intent = new Intent(getApplicationContext(), CreateStory.class);
+                        startActivity(intent);
+                    }
+                })
+                .setNegativeButton("Edit", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Intent intent = new Intent(getApplicationContext(), SelectStory.class);
+                        startActivity(intent);
+                    }
+                });
+        builder.show();
     }
 
     @Override
@@ -62,12 +80,12 @@ public class CreatesFragment extends ActionBarActivity {
                     Intent galleryIntent = new Intent(
                             Intent.ACTION_PICK,
                             android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                    startActivityForResult(galleryIntent , RESULT_GALLERY );
+                    startActivityForResult(galleryIntent, RESULT_GALLERY);
 
-                }catch (Exception e){
+                } catch (Exception e) {
                     Toast.makeText(getApplicationContext(), "Error", Toast.LENGTH_LONG).show();
                 }
-                return  true;
+                return true;
 
             case R.id.action_sound:
                 Toast.makeText(getApplicationContext(), "Sound Selected", Toast.LENGTH_LONG).show();

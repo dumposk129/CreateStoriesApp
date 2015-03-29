@@ -16,7 +16,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 
 
-public class EditStory extends ActionBarActivity {
+public class CreateStory extends ActionBarActivity {
     int windowWidth;
     int windowHeight;
     public static LinearLayout.LayoutParams layoutParams;

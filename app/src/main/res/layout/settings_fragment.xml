@@ -16,19 +16,31 @@
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-            <ListView
-                android:id="@+id/listViewQuestion"
+
+            <LinearLayout
+                android:orientation="horizontal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
 
-            </ListView>
+                <Switch
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Subtitle"
+                    android:textSize="24sp"
+                    android:layout_marginLeft="20dp"
+                    android:switchMinWidth="50sp"
+                    android:switchPadding="50sp"/>
+            </LinearLayout>
+
         </FrameLayout>
 
+
+        <!--Navigation Drawer -->
         <fragment
             android:id="@+id/fragment_navigation_drawer"
             android:name="com.dumposk129.create.stories.app.NavigationDrawerFragment"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_gravity="start"
             app:layout="@layout/fragment_navigation_drawer"
             tools:layout="@layout/fragment_navigation_drawer" />

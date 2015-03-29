@@ -123,7 +123,7 @@ public class NavigationDrawerFragment extends Fragment implements MyAdapter.Clic
                 break;
             case 1: startActivity(new Intent(getActivity(), CreatesFragment.class));
                 break;
-            case 2: startActivity(new Intent(getActivity(), QuestionnairesFragment.class));
+            case 2: startActivity(new Intent(getActivity(), QuizFragment.class));
                 break;
             case 3: startActivity(new Intent(getActivity(), SettingsFragment.class));
                 break;

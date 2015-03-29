@@ -7,7 +7,7 @@
     <array name="drawer_item_array">
         <item>Reads</item>
         <item>Creates</item>
-        <item>Questionnaires</item>
+        <item>Quiz</item>
         <item>Settings</item>
     </array>
 
@@ -28,9 +28,17 @@
     <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
     <string name="title_activity_reads_fragment">Reads</string>
     <string name="title_activity_creates_fragment">Creates</string>
-    <string name="title_activity_questionnaires_fragment">Questionnaires</string>
+    <string name="title_activity_quiz_fragment">Quiz</string>
     <string name="title_activity_settings_fragment">Settings</string>
     <string name="title_activity_edit_story">EditStory</string>
+
+    //QuestionFragment
+    <string name="choose_item">Choose Item</string>
+    <array name="create_answer">
+        <item>Create Question</item>
+        <item>Answer</item>
+        <item>Cancel</item>
+    </array>
 
     <string name="hello_world">Hello world!</string>
 </resources>

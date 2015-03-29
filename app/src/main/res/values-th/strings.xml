@@ -13,4 +13,6 @@
     <string name="title_activity_creates_fragment">สร้างหรือแก้ไขนิทาน</string>
     <string name="title_activity_edit_story"></string>
     <string name="title_activity_questionnaires_fragment"></string>
+    <string name="Choose_item">โปรดเลือก</string>
+    <string name="action_save"></string>
 </resources>
