@@ -1,8 +1,10 @@
-package com.dumposk129.create.stories.app;
+package com.dumposk129.create.stories.app.quiz;
 
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.support.v7.app.ActionBarActivity;
+
+import com.dumposk129.create.stories.app.R;
 
 
 public class Question extends ActionBarActivity{

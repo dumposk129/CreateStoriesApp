@@ -1,4 +1,4 @@
-package com.dumposk129.create.stories.app;
+package com.dumposk129.create.stories.app.create;
 
 import android.app.Activity;
 import android.content.Context;

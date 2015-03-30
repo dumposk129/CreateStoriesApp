@@ -1,4 +1,4 @@
-package com.dumposk129.create.stories.app;
+package com.dumposk129.create.stories.app.quiz;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -12,6 +12,9 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+
+import com.dumposk129.create.stories.app.R;
+import com.dumposk129.create.stories.app.navigation_drawer.NavigationDrawerFragment;
 
 
 public class QuizFragment extends ActionBarActivity {

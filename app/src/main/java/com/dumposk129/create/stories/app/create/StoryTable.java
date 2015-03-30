@@ -1,10 +1,12 @@
-package com.dumposk129.create.stories.app;
+package com.dumposk129.create.stories.app.create;
 
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteStatement;
+
+import com.dumposk129.create.stories.app.sql.MySQLiteOpenHelper;
 
 import java.util.ArrayList;
 import java.util.List;

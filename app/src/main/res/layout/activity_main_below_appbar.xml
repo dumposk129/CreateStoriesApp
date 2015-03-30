@@ -20,7 +20,7 @@
 
         <fragment
             android:id="@+id/fragment_navigation_drawer"
-            android:name="com.dumposk129.create.stories.app.NavigationDrawerFragment"
+            android:name="com.dumposk129.create.stories.app.navigation_drawer.NavigationDrawerFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="start"

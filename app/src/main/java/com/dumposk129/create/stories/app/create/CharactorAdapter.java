@@ -1,4 +1,4 @@
-package com.dumposk129.create.stories.app;
+package com.dumposk129.create.stories.app.create;
 
 import android.content.Context;
 import android.view.View;
@@ -6,6 +6,8 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
+
+import com.dumposk129.create.stories.app.R;
 
 /**
  * Created by DumpOSK129 on 3/6/2015.

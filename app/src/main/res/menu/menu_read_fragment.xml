@@ -2,7 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context="com.dumposk129.create.stories.app.ReadsFragment">
+    tools:context="com.dumposk129.create.stories.app.read.ReadsFragment">
 
     <item android:id="@+id/action_search"
         android:title="@string/action_search"

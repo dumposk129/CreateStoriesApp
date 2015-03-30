@@ -1,4 +1,4 @@
-package com.dumposk129.create.stories.app;
+package com.dumposk129.create.stories.app.navigation_drawer;
 
 import android.content.Context;
 import android.content.Intent;
@@ -13,6 +13,12 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.dumposk129.create.stories.app.quiz.QuizFragment;
+import com.dumposk129.create.stories.app.R;
+import com.dumposk129.create.stories.app.read.ReadsFragment;
+import com.dumposk129.create.stories.app.settings.SettingsFragment;
+import com.dumposk129.create.stories.app.create.CreatesFragment;
 
 import java.util.ArrayList;
 import java.util.List;

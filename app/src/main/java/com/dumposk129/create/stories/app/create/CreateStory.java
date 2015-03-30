@@ -1,4 +1,4 @@
-package com.dumposk129.create.stories.app;
+package com.dumposk129.create.stories.app.create;
 
 import android.content.Intent;
 import android.graphics.Point;
@@ -11,6 +11,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
+
+import com.dumposk129.create.stories.app.R;
 
 import java.io.File;
 import java.io.FileOutputStream;

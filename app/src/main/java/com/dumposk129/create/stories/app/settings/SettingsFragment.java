@@ -1,9 +1,12 @@
-package com.dumposk129.create.stories.app;
+package com.dumposk129.create.stories.app.settings;
 
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
+
+import com.dumposk129.create.stories.app.R;
+import com.dumposk129.create.stories.app.navigation_drawer.NavigationDrawerFragment;
 
 
 public class SettingsFragment extends ActionBarActivity {

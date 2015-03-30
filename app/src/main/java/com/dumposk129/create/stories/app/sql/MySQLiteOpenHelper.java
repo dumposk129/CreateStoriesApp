@@ -1,8 +1,10 @@
-package com.dumposk129.create.stories.app;
+package com.dumposk129.create.stories.app.sql;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+
+import com.dumposk129.create.stories.app.create.StoryTable;
 
 
 public class MySQLiteOpenHelper extends SQLiteOpenHelper {

@@ -1,4 +1,4 @@
-package com.dumposk129.create.stories.app;
+package com.dumposk129.create.stories.app.create;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -11,6 +11,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.LinearLayout;
 import android.widget.Toast;
+
+import com.dumposk129.create.stories.app.navigation_drawer.NavigationDrawerFragment;
+import com.dumposk129.create.stories.app.R;
 
 
 public class CreatesFragment extends ActionBarActivity {

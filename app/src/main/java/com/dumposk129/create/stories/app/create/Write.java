@@ -1,10 +1,12 @@
-package com.dumposk129.create.stories.app;
+package com.dumposk129.create.stories.app.create;
 
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.Toast;
+
+import com.dumposk129.create.stories.app.R;
 
 /**
  * Created by DumpOSK129 on 3/6/2015.
