@@ -41,7 +41,7 @@ public class CreatesFragment extends ActionBarActivity {
                 .setPositiveButton("Create", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Intent intent = new Intent(getApplicationContext(), CreateStory.class);
+                        Intent intent = new Intent(getApplicationContext(), EditStory.class);
                         startActivity(intent);
                     }
                 })

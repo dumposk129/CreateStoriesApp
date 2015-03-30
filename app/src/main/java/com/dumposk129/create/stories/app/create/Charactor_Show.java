@@ -29,7 +29,7 @@ public class Charactor_Show extends ActionBarActivity{
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Toast.makeText(getApplicationContext(),"clicked", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(getApplicationContext(), CreateStory.class);
+                Intent intent = new Intent(getApplicationContext(), EditStory.class);
                 intent.putExtra(CHARACTOR_INDEX,String.valueOf(position));
                 startActivity(intent);
             }

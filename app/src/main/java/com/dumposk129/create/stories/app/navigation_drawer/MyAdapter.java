@@ -33,7 +33,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
         Information current = data.get(position);
-        holder.title.setText(current.title);
+        holder.title.setText(current.group);
     }
 
     public void setClickListener(ClickListener clickListener){

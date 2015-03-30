@@ -1,15 +1,35 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.dumposk129.create.stories.app.quiz.Question">
+    android:orientation="vertical">
 
-<TextView
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:text="Question page"
-    android:textSize="40sp"
-    android:gravity="center"
-    />
+    <include
+        android:id="@+id/app_bar"
+        layout="@layout/app_bar" />
 
-</RelativeLayout>
+    <android.support.v4.widget.DrawerLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/drawer_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+        </FrameLayout>
+
+
+        <!--Navigation Drawer -->
+        <fragment
+            android:id="@+id/fragment_navigation_drawer"
+            android:name="com.dumposk129.create.stories.app.navigation_drawer.NavigationDrawerFragment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            app:layout="@layout/fragment_navigation_drawer"
+            tools:layout="@layout/fragment_navigation_drawer" />
+    </android.support.v4.widget.DrawerLayout>
+
+</LinearLayout>
