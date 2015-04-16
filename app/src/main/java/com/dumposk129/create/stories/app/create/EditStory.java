@@ -29,7 +29,7 @@ public class EditStory extends ActionBarActivity {
         ImageView imageView_Background = new ImageView(this);
 
         //โหลดจากฐานข้อมูล สมมุติว่าได้ชื่อ background01.jpg
-        imageView_Background.setBackgroundResource(R.mipmap.bg_night);
+        //imageView_Background.setBackgroundResource(R.mipmap.bg_night);
         relativeLayout = (RelativeLayout) findViewById(R.id.relativeLayout);
         relativeLayout.addView(imageView_Background);
 
@@ -113,7 +113,7 @@ public class EditStory extends ActionBarActivity {
         if(from == "background") {
             switch (imageIndex) {
                 case 0:
-                    imageView.setBackgroundResource(R.mipmap.bg_night); break;
+                 //   imageView.setBackgroundResource(R.mipmap.bg_night); break;
                 /*case 1:
                     imageView.setBackgroundResource(R.drawable.background02); break;*/
             }
