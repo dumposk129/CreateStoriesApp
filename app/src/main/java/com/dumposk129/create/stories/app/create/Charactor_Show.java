@@ -1,3 +1,4 @@
+/*
 package com.dumposk129.create.stories.app.create;
 
 import android.content.Intent;
@@ -10,9 +11,11 @@ import android.widget.Toast;
 
 import com.dumposk129.create.stories.app.R;
 
+*/
 /**
  * Created by DumpOSK129 on 3/6/2015.
- */
+ *//*
+
 public class Charactor_Show extends ActionBarActivity{
     public static String CHARACTOR_INDEX;
 
@@ -36,3 +39,4 @@ public class Charactor_Show extends ActionBarActivity{
         });
     }
 }
+*/

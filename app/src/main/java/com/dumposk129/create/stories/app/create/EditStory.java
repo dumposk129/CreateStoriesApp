@@ -22,13 +22,14 @@ public class EditStory extends ActionBarActivity {
     int windowWidth;
     int windowHeight;
     RelativeLayout relativeLayout;
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.edit_story);
         //load save image
         ImageView imageView_Background = new ImageView(this);
 
-        //โหลดจากฐานข้อมูล สมมุติว่าได้ชื่อ background01.jpg
+
         //imageView_Background.setBackgroundResource(R.mipmap.bg_night);
         relativeLayout = (RelativeLayout) findViewById(R.id.relativeLayout);
         relativeLayout.addView(imageView_Background);
@@ -37,14 +38,14 @@ public class EditStory extends ActionBarActivity {
         ImageView imageView = null;//= (ImageView)findViewById(R.id.imageView);
 
         //background image
-        if(this.getIntent().getExtras() != null && this.getIntent().getExtras().containsKey("backgroundId")){
+        if (this.getIntent().getExtras() != null && this.getIntent().getExtras().containsKey("backgroundId")) {
             String background_message = this.getIntent().getStringExtra("backgroundId");
             imageView = imageIntend(Integer.parseInt(background_message), "background");
             relativeLayout.addView(imageView);
         }
 
         //character image
-        if(this.getIntent().getExtras() != null && this.getIntent().getExtras().containsKey("characterId")){
+        if (this.getIntent().getExtras() != null && this.getIntent().getExtras().containsKey("characterId")) {
             String character_message = this.getIntent().getStringExtra("characterId");
             imageView = imageIntend(Integer.parseInt(character_message), "character");
             relativeLayout.addView(imageView);
@@ -56,7 +57,7 @@ public class EditStory extends ActionBarActivity {
         windowWidth = size.x;
         windowHeight = size.y;
         View.OnTouchListener backListener = new TouchImage(imageView);
-        //สร้าง innerclass แทน
+
 //        View.OnTouchListener backListener=new View.OnTouchListener(){
 //            public boolean onTouch(View v, MotionEvent event){
 //                layoutParams = (LinearLayout.LayoutParams) imageView.getLayoutParams();
@@ -80,61 +81,91 @@ public class EditStory extends ActionBarActivity {
 //        };
         imageView.setOnTouchListener(backListener);
     }
+
     //public static LinearLayout.LayoutParams layoutParams;
     public RelativeLayout.LayoutParams layoutParams;
-    class TouchImage implements  View.OnTouchListener{
+
+    class TouchImage implements View.OnTouchListener {
         ImageView imageView;
-        TouchImage(ImageView imageView){
+
+        TouchImage(ImageView imageView) {
             this.imageView = imageView;
         }
-        public boolean onTouch(View v, MotionEvent event){
+
+        public boolean onTouch(View v, MotionEvent event) {
             layoutParams = (RelativeLayout.LayoutParams) imageView.getLayoutParams();
-            switch(event.getAction())
-            {
-                case MotionEvent.ACTION_DOWN:  break;
+            switch (event.getAction()) {
+                case MotionEvent.ACTION_DOWN:
+                    break;
                 case MotionEvent.ACTION_MOVE:
-                    int x_cord = (int)event.getRawX();
-                    int y_cord = (int)event.getRawY();
-                    if(x_cord>windowWidth){x_cord = windowWidth;}
-                    if(y_cord>windowHeight){y_cord = windowHeight;}
+                    int x_cord = (int) event.getRawX();
+                    int y_cord = (int) event.getRawY();
+                    if (x_cord > windowWidth) {
+                        x_cord = windowWidth;
+                    }
+                    if (y_cord > windowHeight) {
+                        y_cord = windowHeight;
+                    }
                     layoutParams.leftMargin = x_cord - 25;
                     layoutParams.topMargin = y_cord - 75;
                     imageView.setLayoutParams(layoutParams);
-                    //ปัญทึกลงฐานตำแหน่งข้อมูล หรือจะสร้างปุ่มคำสั่งให้บันทึกก๊ได้
                     break;
-                default: break;
+                default:
+                    break;
             }
             return true;
         }
     }
-    private ImageView imageIntend(int imageIndex, String from){
+
+    private ImageView imageIntend(int imageIndex, String from) {
         //final ImageView imageView = (ImageView)findViewById(R.id.imageView);
         ImageView imageView = new ImageView(this);
-        if(from == "background") {
+        if (from == "background") {
             switch (imageIndex) {
                 case 0:
-                 //   imageView.setBackgroundResource(R.mipmap.bg_night); break;
-                /*case 1:
-                    imageView.setBackgroundResource(R.drawable.background02); break;*/
+                    //   imageView.setBackgroundResource(R.mipmap.bg_night); break;
+                case 1:
+                    //    imageView.setBackgroundResource(R.drawable.background02); break;
+
             }
         }
-        if(from == "character") {
-            switch (imageIndex) {
-                case 0: imageView.setBackgroundResource(R.mipmap.Cat); break;
-                case 1: imageView.setBackgroundResource(R.mipmap.CatSit); break;
-                case 2: imageView.setBackgroundResource(R.mipmap.boysit); break;
-                case 3: imageView.setBackgroundResource(R.mipmap.boystand); break;
-                case 4: imageView.setBackgroundResource(R.mipmap.boywalk); break;
-                /*case 5: imageView.setBackgroundResource(R.drawable.sample_5); break;
-                case 6: imageView.setBackgroundResource(R.drawable.sample_6); break;
-                case 7: imageView.setBackgroundResource(R.drawable.sample_7); break;*/
-            }
+        if (from == "character") {
+
+          /*  switch (imageIndex) {
+                case 0:
+                    imageView.setBackgroundResource(R.mipmap.Cat);
+                    break;
+                case 1:
+                    imageView.setBackgroundResource(R.mipmap.CatSit);
+                    break;
+                case 2:
+                    imageView.setBackgroundResource(R.mipmap.boysit);
+                    break;
+                case 3:
+                    imageView.setBackgroundResource(R.mipmap.boystand);
+                    break;
+                case 4:
+                    imageView.setBackgroundResource(R.mipmap.boywalk);
+                    break;
+
+                case 5:
+                    imageView.setBackgroundResource(R.drawable.sample_5);
+                    break;
+                case 6:
+                    imageView.setBackgroundResource(R.drawable.sample_6);
+                    break;
+                case 7:
+                    imageView.setBackgroundResource(R.drawable.sample_7);
+                    break;
+            }*/
         }
+
         return imageView;
     }
-    private void savePoint(String x, String y){
+
+    private void savePoint(String x, String y) {
         File sdcard = Environment.getExternalStorageDirectory();
-        File file = new File(sdcard,"tmp/testFile.txt");
+        File file = new File(sdcard, "tmp/testFile.txt");
 
         FileOutputStream fos;
         try {

@@ -12,8 +12,8 @@ import android.view.MenuItem;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import com.dumposk129.create.stories.app.navigation_drawer.NavigationDrawerFragment;
 import com.dumposk129.create.stories.app.R;
+import com.dumposk129.create.stories.app.navigation_drawer.NavigationDrawerFragment;
 
 
 public class CreatesFragment extends ActionBarActivity {
@@ -41,19 +41,20 @@ public class CreatesFragment extends ActionBarActivity {
                 .setPositiveButton("Create", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Intent intent = new Intent(getApplicationContext(), EditStory.class);
+                        Intent intent = new Intent(CreatesFragment.this, EditStory.class);
                         startActivity(intent);
                     }
                 })
                 .setNegativeButton("Edit", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Intent intent = new Intent(getApplicationContext(), SelectStory.class);
+                        Intent intent = new Intent(CreatesFragment.this, EditStory.class);
                         startActivity(intent);
                     }
                 });
         builder.show();
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

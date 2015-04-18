@@ -1,3 +1,4 @@
+/*
 package com.dumposk129.create.stories.app.create;
 
 import android.content.Context;
@@ -9,21 +10,26 @@ import android.widget.ImageView;
 
 import com.dumposk129.create.stories.app.R;
 
+*/
 /**
  * Created by DumpOSK129 on 3/6/2015.
- */
-public class CharactorAdapter extends BaseAdapter{
+ *//*
+
+public class CharactorAdapter extends BaseAdapter {
 
     private Context mContext;
-    public Integer[] thumbIds = {
+   */
+/* public Integer[] thumbIds = {
             R.mipmap.boysit,
             R.mipmap.boysleep,
             R.mipmap.boystand,
             R.mipmap.boywalk,
             R.mipmap.boywalkfull
-    };
+    };*//*
 
-    public CharactorAdapter(Context context){
+
+    */
+/*public CharactorAdapter(Context context){
         mContext = context;
     }
 
@@ -53,7 +59,9 @@ public class CharactorAdapter extends BaseAdapter{
         }else {
             imageView = (ImageView) view;
         }
-        imageView.setImageResource(thumbIds[position]);
+       // imageView.setImageResource(thumbIds[position]);
         return imageView;
-    }
+    }*//*
+
 }
+*/

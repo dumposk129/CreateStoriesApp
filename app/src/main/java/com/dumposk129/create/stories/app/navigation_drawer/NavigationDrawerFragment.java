@@ -16,7 +16,7 @@ import android.view.ViewGroup;
 
 import com.dumposk129.create.stories.app.quiz.QuizFragment;
 import com.dumposk129.create.stories.app.R;
-import com.dumposk129.create.stories.app.read.ReadsFragment;
+import com.dumposk129.create.stories.app.watch.WatchesFragment;
 import com.dumposk129.create.stories.app.settings.SettingsFragment;
 import com.dumposk129.create.stories.app.create.CreatesFragment;
 
@@ -125,7 +125,7 @@ public class NavigationDrawerFragment extends Fragment implements MyAdapter.Clic
     @Override
     public void itemClicked(View view, int position) {
         switch (position){
-            case 0: startActivity(new Intent(getActivity(), ReadsFragment.class));
+            case 0: startActivity(new Intent(getActivity(), WatchesFragment.class));
                 break;
             case 1: startActivity(new Intent(getActivity(), CreatesFragment.class));
                 break;
