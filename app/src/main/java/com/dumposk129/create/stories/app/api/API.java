@@ -6,4 +6,6 @@ package com.dumposk129.create.stories.app.api;
 public class  API {
     public static final String _SHOWQUIZ = "show_quiz";
     public static final String _CREATEQUIZ = "create_quiz";
+    public static final String _LISTCHOICE = "list_choice";
+    public static final String _SHOWQUESTION = "show_question";
 }

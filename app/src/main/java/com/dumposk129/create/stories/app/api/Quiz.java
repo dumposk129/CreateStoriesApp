@@ -16,7 +16,18 @@ public class Quiz {
         JSONParser jParser = new JSONParser();
         List<NameValuePair> params = new ArrayList<>();
         return jParser.makeHttpRequest(ApiConfig.hostname(API._SHOWQUIZ) , ApiConfig.GET, params);
+    }
 
+    public static JSONObject getAllAnswer(){
+        JSONParser jParser = new JSONParser();
+        List<NameValuePair> params = new ArrayList<>();
+        return jParser.makeHttpRequest(ApiConfig.hostname(API._LISTCHOICE) , ApiConfig.GET, params);
+    }
+
+    public static JSONObject getAllQuestion(){
+        JSONParser jParser = new JSONParser();
+        List<NameValuePair> params = new ArrayList<>();
+        return jParser.makeHttpRequest(ApiConfig.hostname(API._SHOWQUESTION) , ApiConfig.GET, params);
     }
 
 }
