@@ -135,29 +135,4 @@
         android:layout_gravity="right"
         android:onClick="onNextQuestionButtonClicked" >
     </Button>
-
-
-    <!--<android.support.v4.widget.DrawerLayout xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/drawer_layout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-
-        </FrameLayout>
-
-        &lt;!&ndash;Navigation Drawer &ndash;&gt;
-        <fragment
-            android:id="@+id/fragment_navigation_drawer"
-            android:name="com.dumposk129.create.stories.app.navigation_drawer.NavigationDrawerFragment"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="start"
-            app:layout="@layout/fragment_navigation_drawer"
-            tools:layout="@layout/fragment_navigation_drawer" />
-    </android.support.v4.widget.DrawerLayout>
--->
 </LinearLayout>

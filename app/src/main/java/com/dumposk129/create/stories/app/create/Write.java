@@ -16,7 +16,7 @@ public class Write extends Activity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.edit_story);
+        setContentView(R.layout.select_character);
         SharedPreferences sp = getSharedPreferences(   getString(R.string.write_text_to_sdcard),
                                                                             Context.MODE_PRIVATE  );
 

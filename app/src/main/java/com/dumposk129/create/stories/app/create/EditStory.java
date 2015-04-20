@@ -25,7 +25,7 @@ public class EditStory extends ActionBarActivity {
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.edit_story);
+        setContentView(R.layout.select_character);
         //load save image
         ImageView imageView_Background = new ImageView(this);
 

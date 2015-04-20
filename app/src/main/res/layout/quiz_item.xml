@@ -6,8 +6,7 @@
 
     <include
         android:id="@+id/app_bar"
-        layout="@layout/app_bar"
-        />
+        layout="@layout/app_bar" />
 
     <android.support.v4.widget.DrawerLayout xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/drawer_layout"
@@ -17,11 +16,20 @@
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-            <VideoView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-            </VideoView>
+
+            <TextView
+                android:id="@+id/qid"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"/>
+
+            <TextView
+                android:id="@+id/qname"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                />
         </FrameLayout>
+
 
         <!--Navigation Drawer -->
         <fragment

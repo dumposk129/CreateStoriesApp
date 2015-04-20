@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="app_bar_top_padding">0dp</dimen>
-    <dimen name="navigation_drawer_width">280dp</dimen>
+    <dimen name="nav_drawer_width">280dp</dimen>
     <dimen name="main_ring_button_diameter">56dp</dimen>
     <dimen name="sub_ring_button_diameter">40dp</dimen>
     <dimen name="add_button_margin">16dp</dimen>

@@ -26,7 +26,7 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
-    <string name="title_activity_watch_fragment">Watches</string>
+    <string name="title_activity_watches_fragment">Watches</string>
     <string name="title_activity_creates_fragment">Creates</string>
     <string name="title_activity_quiz_fragment">Quiz</string>
     <string name="title_activity_settings_fragment">Settings</string>
@@ -50,4 +50,6 @@
 
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_watch">Watch</string>
+    <string name="title_activity_number_of_item">NumberOfItem</string>
+    <string name="title_activity_select_background">SelectBackground</string>
 </resources>

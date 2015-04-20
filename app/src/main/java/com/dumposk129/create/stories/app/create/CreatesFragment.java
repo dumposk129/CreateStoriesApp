@@ -1,7 +1,5 @@
 package com.dumposk129.create.stories.app.create;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
@@ -36,7 +34,7 @@ public class CreatesFragment extends ActionBarActivity {
                 getSupportFragmentManager().findFragmentById(R.id.fragment_navigation_drawer);
         drawerFragment.setUp(R.id.fragment_navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout), mToolbar);
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(getApplicationContext());
+        /*AlertDialog.Builder builder = new AlertDialog.Builder(getApplicationContext());
         builder.setMessage("Do you want to Create or Edit Stories")
                 .setPositiveButton("Create", new DialogInterface.OnClickListener() {
                     @Override
@@ -52,7 +50,7 @@ public class CreatesFragment extends ActionBarActivity {
                         startActivity(intent);
                     }
                 });
-        builder.show();
+        builder.show();*/
     }
 
 

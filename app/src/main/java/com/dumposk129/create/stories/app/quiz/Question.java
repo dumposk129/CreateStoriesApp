@@ -25,6 +25,11 @@ public class Question extends ActionBarActivity{
         answer3 =  (EditText) findViewById(R.id.textAnswer3);
         answer4 =  (EditText) findViewById(R.id.textAnswer4);
         btnNext = (Button) findViewById(R.id.btnNext_question);
+
+        Bundle extras = getIntent().getExtras();
+        if (extras != null){
+            String value = extras.getString("numOfItem");
+        }
     }
 
     public void onNextQuestionButtonClicked(){

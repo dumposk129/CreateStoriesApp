@@ -17,10 +17,11 @@
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-            <VideoView
+            <ListView
+                android:id="@+id/listViewQuestion"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
-            </VideoView>
+                android:layout_height="wrap_content">
+            </ListView>
         </FrameLayout>
 
         <!--Navigation Drawer -->
