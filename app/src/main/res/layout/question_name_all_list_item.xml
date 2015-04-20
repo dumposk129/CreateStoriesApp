@@ -1,8 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
     <include
         android:id="@+id/app_bar"
@@ -16,17 +16,26 @@
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
+            <ListView
+                android:id="@+id/question_name_all_list_item"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+            </ListView>
+
         </FrameLayout>
 
-        <!--Navigation Drawer -->
+
+        <!-- Navigation Drawer-->
         <fragment
             android:id="@+id/fragment_navigation_drawer"
             android:name="com.dumposk129.create.stories.app.navigation_drawer.NavigationDrawerFragment"
             android:layout_width="@dimen/nav_drawer_width"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_gravity="start"
-            app:layout="@layout/fragment_navigation_drawer"
-            tools:layout="@layout/fragment_navigation_drawer" />
+            app:layout="@layout/navigation_drawer"
+            tools:layout="@layout/fragment_navigation_drawer"
+            layout="@layout/navigation_drawer" />
     </android.support.v4.widget.DrawerLayout>
 
 </LinearLayout>

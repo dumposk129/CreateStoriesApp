@@ -6,13 +6,10 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.dumposk129.create.stories.app.R;
 import com.dumposk129.create.stories.app.api.ApiConfig;
@@ -43,7 +40,7 @@ public class QuizFragment extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.quiz_fragment);
+        setContentView(R.layout.quizzes_list_all_story_name);
         mToolbar = (Toolbar) findViewById(R.id.app_bar);
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -62,9 +59,9 @@ public class QuizFragment extends ActionBarActivity {
         //ListAdapter adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, android.R.id.text1, data);
 
         // Send listItem to ListView
-        listView = (ListView) findViewById(R.id.listViewQuestion);
-        tvQuizID = (TextView) findViewById(R.id.qid);
-        tvQuizName = (TextView) findViewById(R.id.qname);
+        listView = (ListView) findViewById(R.id.listViewStoryName);
+        tvQuizID = (TextView) findViewById(R.id.quizzId);
+        tvQuizName = (TextView) findViewById(R.id.quizzesName);
 
         //listView.setAdapter(adapter);
 
@@ -147,9 +144,9 @@ public class QuizFragment extends ActionBarActivity {
                 @Override
                 public void run() {
                     ListAdapter adapter = new SimpleAdapter(
-                            QuizFragment.this, quizList, R.layout.quiz_item,
+                            QuizFragment.this, quizList, R.layout.quizzes_id_name,
                             new String[]{ApiConfig.TAG_QUIZID, ApiConfig.TAG_STORYTITLE},
-                            new int[]{R.id.qid, R.id.qname});
+                            new int[]{R.id.quizzId, R.id.quizzesName});
                     //{R.id.qid, R.id.name});
                    // ListAdapter adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, android.R.id.text1, quizList);
                     listView.setAdapter(adapter);
@@ -158,7 +155,7 @@ public class QuizFragment extends ActionBarActivity {
         }
     }
 
-    @Override
+    /*@Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_search_fragment, menu);
         return super.onCreateOptionsMenu(menu);
@@ -171,5 +168,5 @@ public class QuizFragment extends ActionBarActivity {
             Toast.makeText(getApplicationContext(), "select search", Toast.LENGTH_LONG).show();
         }
         return true;
-    }
+    }*/
 }

@@ -12,7 +12,7 @@ public class SelectBackground extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.select_background);
+        setContentView(R.layout.create_and_edit_select_background);
     }
 
     @Override

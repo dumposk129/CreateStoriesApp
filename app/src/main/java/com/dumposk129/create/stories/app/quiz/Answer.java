@@ -17,7 +17,7 @@ public class Answer extends ActionBarActivity{
     @Override
     public void onCreate(Bundle savedInstanceState, PersistableBundle persistentState) {
         super.onCreate(savedInstanceState, persistentState);
-        setContentView(R.layout.question);
+        setContentView(R.layout.question_form);
 
         //casting
         question = (TextView) findViewById(R.id.txtQuestion);

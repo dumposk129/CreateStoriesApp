@@ -23,7 +23,7 @@ public class CreatesFragment extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.creates_fragment);
+        setContentView(R.layout.create_main);
 
         //casting
         mToolbar = (Toolbar) findViewById(R.id.app_bar);

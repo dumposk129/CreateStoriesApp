@@ -27,7 +27,7 @@ public class WatchesFragment extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.watches_fragment);
+        setContentView(R.layout.use_list_all_stories_name);
         mToolbar = (Toolbar) findViewById(R.id.app_bar);
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -42,7 +42,7 @@ public class WatchesFragment extends ActionBarActivity {
         ListAdapter adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, android.R.id.text1, data);
 
         // Send listItem to ListView
-        ListView listView = (ListView) findViewById(R.id.listViewQuestion);
+        ListView listView = (ListView) findViewById(R.id.listViewStoryName);
         listView.setAdapter(adapter);
 
         // Set Item Click Listener

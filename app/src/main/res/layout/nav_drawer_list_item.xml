@@ -6,7 +6,7 @@
     android:clickable="true">
 
     <TextView
-        android:id="@+id/listItem"
+        android:id="@+id/navListItem"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="15dp"

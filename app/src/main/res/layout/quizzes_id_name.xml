@@ -6,8 +6,7 @@
 
     <include
         android:id="@+id/app_bar"
-        layout="@layout/app_bar"
-        />
+        layout="@layout/app_bar" />
 
     <android.support.v4.widget.DrawerLayout xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/drawer_layout"
@@ -17,12 +16,21 @@
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-            <ListView
-                android:id="@+id/listViewQuestion"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-            </ListView>
+
+            <TextView
+                android:id="@+id/quizzId"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"/>
+
+            <TextView
+                android:id="@+id/quizzesName"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                />
+
         </FrameLayout>
+
 
         <!--Navigation Drawer -->
         <fragment
@@ -31,7 +39,8 @@
             android:layout_width="@dimen/nav_drawer_width"
             android:layout_height="match_parent"
             android:layout_gravity="start"
-            app:layout="@layout/fragment_navigation_drawer"
-            tools:layout="@layout/fragment_navigation_drawer" />
+            app:layout="@layout/navigation_drawer"
+            tools:layout="@layout/navigation_drawer" />
     </android.support.v4.widget.DrawerLayout>
+
 </LinearLayout>

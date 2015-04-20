@@ -58,7 +58,7 @@ public class NavigationDrawerFragment extends Fragment implements MyAdapter.Clic
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View layout = inflater.inflate(R.layout.fragment_navigation_drawer, container, false);
+        View layout = inflater.inflate(R.layout.navigation_drawer, container, false);
         recyclerView = (RecyclerView) layout.findViewById(R.id.drawerList);
         myAdapter = new MyAdapter(getActivity(), getData());
         myAdapter.setClickListener(this);
