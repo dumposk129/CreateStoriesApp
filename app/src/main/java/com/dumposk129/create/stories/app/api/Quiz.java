@@ -7,9 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-/**
- * Created by DumpOSK129 on 4/19/2015.
- */
 public class Quiz {
 
     public static JSONObject getAllQuiz(){

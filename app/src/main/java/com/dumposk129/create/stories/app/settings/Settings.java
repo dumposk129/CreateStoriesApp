@@ -9,7 +9,7 @@ import com.dumposk129.create.stories.app.R;
 import com.dumposk129.create.stories.app.navigation_drawer.NavigationDrawerFragment;
 
 
-public class SettingsFragment extends ActionBarActivity {
+public class Settings extends ActionBarActivity {
 
     private Toolbar mToolbar;
 

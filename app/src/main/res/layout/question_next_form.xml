@@ -27,10 +27,10 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
-                <TextView
+                <EditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/tvAnswerFinish_question"
+                    android:id="@+id/txtQuestionNext_question"
                     android:hint="What is your question?"
                     android:textSize="30sp"
                     android:paddingLeft="50dp" />
@@ -46,22 +46,13 @@
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Finish"
-                android:id="@+id/btnAnswerFinish"
+                android:text="Next"
+                android:id="@+id/btnQuestionNext"
                 android:layout_gravity="right|bottom"
-                android:onClick="onFinishAnswerButtonClicked"></Button>
-
-            <TextView
-                android:id="@+id/tvCorrect"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Correct"
-                android:textSize="20sp"
-                android:paddingLeft="20dp"
-                android:layout_gravity="left|bottom" />
+                android:onClick="onNextQuestionButtonClicked"></Button>
 
             <RadioGroup
-                android:id="@+id/rgAnswerFinishForm"
+                android:id="@+id/rgQuestionNextForm"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="50dp"
@@ -77,13 +68,13 @@
                     android:layout_margin="10dp">
 
                     <RadioButton
-                        android:id="@+id/rbAnswerFinish_answer1"
+                        android:id="@+id/rbQuestionNext_answer1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:onClick="onRadioButtonClicked" />
 
-                    <TextView
-                        android:id="@+id/tvAnswerFinish_answer1"
+                    <EditText
+                        android:id="@+id/txtQuestionNext_answer1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:hint="answer 1"
@@ -101,13 +92,13 @@
                     android:layout_margin="10dp">
 
                     <RadioButton
-                        android:id="@+id/rbAnswerFinish_answer2"
+                        android:id="@+id/rbQuestionNext_answer2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:onClick="onRadioButtonClicked" />
 
-                    <TextView
-                        android:id="@+id/tvAnswerFinish_answer2"
+                    <EditText
+                        android:id="@+id/txtQuestionNext_answer2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:hint="answer 2"
@@ -122,20 +113,19 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:layout_margin="10dp"
-                    android:onClick="onRadioButtonClicked">
+                    android:layout_margin="10dp">
 
                     <RadioButton
-                        android:id="@+id/rbAnswerFinish_answer3"
+                        android:id="@+id/rbQuestionNext_answer3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:onClick="onRadioButtonClicked" />
 
-                    <TextView
-                        android:id="@+id/tvAnswerFinish_answer3"
+                    <EditText
+                        android:id="@+id/txtQuestionNext_answer3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:hint="answer 3"
+                        android:hint="answer3"
                         android:textSize="20sp" />
 
                 </LinearLayout>
@@ -150,13 +140,13 @@
                     android:layout_margin="10dp">
 
                     <RadioButton
-                        android:id="@+id/rbAnswerFinish_answer4"
+                        android:id="@+id/rbQuestionNext_answer4"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:onClick="onRadioButtonClicked" />
 
-                    <TextView
-                        android:id="@+id/tvAnswerFinish_answer4"
+                    <EditText
+                        android:id="@+id/txtQuestionNext_answer4"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:hint="answer 4"
@@ -166,8 +156,7 @@
             </RadioGroup>
         </FrameLayout>
 
-
-        <!--  Navigation Drawer -->
+        <!-- Navigation Drawer-->
         <fragment
             android:id="@+id/fragment_navigation_drawer"
             android:name="com.dumposk129.create.stories.app.navigation_drawer.NavigationDrawerFragment"

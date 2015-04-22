@@ -25,7 +25,7 @@ import java.util.HashMap;
 import java.util.List;
 
 
-public class QuizFragment extends ActionBarActivity {
+public class Quizzes extends ActionBarActivity {
 
     private Toolbar mToolbar;
     private ListView listView;
@@ -40,7 +40,7 @@ public class QuizFragment extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.quizzes_list_all_story_name);
+        setContentView(R.layout.use_list_all_stories_name);
         mToolbar = (Toolbar) findViewById(R.id.app_bar);
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -59,7 +59,7 @@ public class QuizFragment extends ActionBarActivity {
         //ListAdapter adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, android.R.id.text1, data);
 
         // Send listItem to ListView
-        listView = (ListView) findViewById(R.id.listViewStoryName);
+        listView = (ListView) findViewById(R.id.listViewStoriesName);
         tvQuizID = (TextView) findViewById(R.id.quizzId);
         tvQuizName = (TextView) findViewById(R.id.quizzesName);
 
@@ -144,7 +144,7 @@ public class QuizFragment extends ActionBarActivity {
                 @Override
                 public void run() {
                     ListAdapter adapter = new SimpleAdapter(
-                            QuizFragment.this, quizList, R.layout.quizzes_id_name,
+                            Quizzes.this, quizList, R.layout.quizzes_id_name,
                             new String[]{ApiConfig.TAG_QUIZID, ApiConfig.TAG_STORYTITLE},
                             new int[]{R.id.quizzId, R.id.quizzesName});
                     //{R.id.qid, R.id.name});

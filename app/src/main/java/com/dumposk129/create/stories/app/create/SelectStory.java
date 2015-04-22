@@ -1,3 +1,4 @@
+/*
 package com.dumposk129.create.stories.app.create;
 
 import android.content.Intent;
@@ -17,9 +18,11 @@ import android.widget.Toast;
 import com.dumposk129.create.stories.app.R;
 import com.dumposk129.create.stories.app.navigation_drawer.NavigationDrawerFragment;
 
+*/
 /**
  * Created by DumpOSK129 on 3/29/2015.
- */
+ *//*
+
 public class SelectStory extends ActionBarActivity{
     private Toolbar mToolbar;
     private ListView listView;
@@ -55,19 +58,5 @@ public class SelectStory extends ActionBarActivity{
             }
         });
     }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_search_fragment, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        if (id == R.id.action_search){
-            Toast.makeText(getApplicationContext(), "select search", Toast.LENGTH_LONG).show();
-        }
-        return true;
-    }
 }
+*/

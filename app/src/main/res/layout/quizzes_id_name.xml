@@ -32,8 +32,8 @@
         </FrameLayout>
 
 
-        <!--Navigation Drawer -->
-        <fragment
+    <!--Navigation Drawer -->
+    <fragment
             android:id="@+id/fragment_navigation_drawer"
             android:name="com.dumposk129.create.stories.app.navigation_drawer.NavigationDrawerFragment"
             android:layout_width="@dimen/nav_drawer_width"

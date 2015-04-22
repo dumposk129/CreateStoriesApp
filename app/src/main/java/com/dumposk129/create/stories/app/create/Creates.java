@@ -1,20 +1,16 @@
 package com.dumposk129.create.stories.app.create;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import com.dumposk129.create.stories.app.R;
 import com.dumposk129.create.stories.app.navigation_drawer.NavigationDrawerFragment;
 
 
-public class CreatesFragment extends ActionBarActivity {
+public class Creates extends ActionBarActivity {
 
     private Toolbar mToolbar;
     public static LinearLayout.LayoutParams layoutParams;
@@ -54,7 +50,7 @@ public class CreatesFragment extends ActionBarActivity {
     }
 
 
-    @Override
+    /*@Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_create_fragment, menu);
         return super.onCreateOptionsMenu(menu);
@@ -99,5 +95,5 @@ public class CreatesFragment extends ActionBarActivity {
 
         }
         return super.onOptionsItemSelected(item);
-    }
+    }*/
 }

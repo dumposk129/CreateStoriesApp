@@ -30,7 +30,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/tvAnswerFinish_question"
+                    android:id="@+id/tvAnswerNext_question"
                     android:hint="What is your question?"
                     android:textSize="30sp"
                     android:paddingLeft="50dp" />
@@ -46,13 +46,13 @@
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Finish"
-                android:id="@+id/btnAnswerFinish"
+                android:text="Next"
+                android:id="@+id/btnAnswerNext"
                 android:layout_gravity="right|bottom"
-                android:onClick="onFinishAnswerButtonClicked"></Button>
+                android:onClick="onNextAnswerButtonClicked"></Button>
 
             <TextView
-                android:id="@+id/tvCorrect"
+                android:id="@+id/tvAnswerNext_Correct"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Correct"
@@ -61,7 +61,7 @@
                 android:layout_gravity="left|bottom" />
 
             <RadioGroup
-                android:id="@+id/rgAnswerFinishForm"
+                android:id="@+id/rgAnswerNextForm"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="50dp"
@@ -77,13 +77,13 @@
                     android:layout_margin="10dp">
 
                     <RadioButton
-                        android:id="@+id/rbAnswerFinish_answer1"
+                        android:id="@+id/rbAnswerNext_answer1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:onClick="onRadioButtonClicked" />
 
                     <TextView
-                        android:id="@+id/tvAnswerFinish_answer1"
+                        android:id="@+id/tvAnswerNext_answer1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:hint="answer 1"
@@ -101,13 +101,13 @@
                     android:layout_margin="10dp">
 
                     <RadioButton
-                        android:id="@+id/rbAnswerFinish_answer2"
+                        android:id="@+id/rbAnswerNext_answer2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:onClick="onRadioButtonClicked" />
 
                     <TextView
-                        android:id="@+id/tvAnswerFinish_answer2"
+                        android:id="@+id/tvAnswerNet_answer2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:hint="answer 2"
@@ -126,13 +126,13 @@
                     android:onClick="onRadioButtonClicked">
 
                     <RadioButton
-                        android:id="@+id/rbAnswerFinish_answer3"
+                        android:id="@+id/rbAnswerNext_answer3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:onClick="onRadioButtonClicked" />
 
                     <TextView
-                        android:id="@+id/tvAnswerFinish_answer3"
+                        android:id="@+id/tvAnswerNext_answer3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:hint="answer 3"
@@ -150,13 +150,13 @@
                     android:layout_margin="10dp">
 
                     <RadioButton
-                        android:id="@+id/rbAnswerFinish_answer4"
+                        android:id="@+id/rbAnswerNext_answer4"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:onClick="onRadioButtonClicked" />
 
                     <TextView
-                        android:id="@+id/tvAnswerFinish_answer4"
+                        android:id="@+id/tvAnswerNext_answer4"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:hint="answer 4"
