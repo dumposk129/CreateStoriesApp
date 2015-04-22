@@ -1,4 +1,10 @@
+/*
 package com.dumposk129.create.stories.app.create;
+
+*/
+/**
+ * Created by DumpOSK129.
+ *//*
 
 public class Story {
     private int id;
@@ -31,3 +37,4 @@ public class Story {
         return this;
     }
 }
+*/

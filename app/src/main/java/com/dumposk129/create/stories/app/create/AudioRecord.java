@@ -14,6 +14,9 @@ import android.widget.LinearLayout;
 
 import java.io.IOException;
 
+/**
+ * Created by DumpOSK129.
+ */
 public class AudioRecord extends Activity{
     private static final String LOG_TAG = "AudioRecord";
     private static String mFileName = null;

@@ -1,7 +1,7 @@
 package com.dumposk129.create.stories.app.model;
 
 /**
- * Created by DumpOSK129 on 4/20/2015.
+ * Created by DumpOSK129.
  */
 public class Choice {
     private boolean isCorrect;

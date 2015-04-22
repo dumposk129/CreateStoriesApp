@@ -7,7 +7,9 @@ import android.support.v7.widget.Toolbar;
 
 import com.dumposk129.create.stories.app.R;
 
-
+/**
+ * Created by DumpOSK129.
+ */
 public class MainActivity extends ActionBarActivity {
 
     private Toolbar mToolbar;

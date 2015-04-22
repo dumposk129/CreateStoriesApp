@@ -11,7 +11,9 @@ import android.widget.ListView;
 import com.dumposk129.create.stories.app.R;
 import com.dumposk129.create.stories.app.navigation_drawer.NavigationDrawerFragment;
 
-
+/**
+ * Created by DumpOSK129.
+ */
 public class Reads extends ActionBarActivity {
 
     private Toolbar mToolbar;

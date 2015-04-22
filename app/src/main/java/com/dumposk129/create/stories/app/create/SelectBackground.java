@@ -8,6 +8,12 @@ import android.view.MenuItem;
 
 import com.dumposk129.create.stories.app.R;
 
+
+*/
+/**
+ * Created by DumpOSK129.
+ *//*
+
 public class SelectBackground extends ActionBarActivity {
 
     @Override
@@ -16,4 +22,5 @@ public class SelectBackground extends ActionBarActivity {
         setContentView(R.layout.create_and_edit_select_background);
     }
 }
+
 */

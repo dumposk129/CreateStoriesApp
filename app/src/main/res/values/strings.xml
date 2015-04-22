@@ -5,7 +5,7 @@
     <string name="drawer_open" translatable="false">Open</string>
     <string name="drawer_close" translatable="false">Close</string>
     <array name="drawer_item_array">
-        <item>Watches</item>
+        <item>Reads</item>
         <item>Creates</item>
         <item>Quiz</item>
         <item>Settings</item>

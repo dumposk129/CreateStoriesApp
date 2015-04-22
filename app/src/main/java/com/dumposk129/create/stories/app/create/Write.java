@@ -1,3 +1,4 @@
+/*
 package com.dumposk129.create.stories.app.create;
 
 import android.app.Activity;
@@ -8,9 +9,11 @@ import android.widget.Toast;
 
 import com.dumposk129.create.stories.app.R;
 
+*/
 /**
- * Created by DumpOSK129 on 3/6/2015.
- */
+ * Created by DumpOSK129.
+ *//*
+
 public class Write extends Activity{
 
     @Override
@@ -27,3 +30,4 @@ public class Write extends Activity{
         Toast.makeText(getApplicationContext(), stringValue, Toast.LENGTH_LONG).show();
     }
 }
+*/

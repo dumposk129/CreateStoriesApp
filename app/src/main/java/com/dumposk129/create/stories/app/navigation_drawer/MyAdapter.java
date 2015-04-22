@@ -12,6 +12,9 @@ import com.dumposk129.create.stories.app.R;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * Created by DumpOSK129.
+ */
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
     private LayoutInflater inflater;

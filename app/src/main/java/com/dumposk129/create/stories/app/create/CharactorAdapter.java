@@ -12,7 +12,7 @@ import com.dumposk129.create.stories.app.R;
 
 */
 /**
- * Created by DumpOSK129 on 3/6/2015.
+ * Created by DumpOSK129.
  *//*
 
 public class CharactorAdapter extends BaseAdapter {

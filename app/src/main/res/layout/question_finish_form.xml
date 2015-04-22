@@ -48,8 +48,7 @@
                 android:layout_height="wrap_content"
                 android:text="Finish"
                 android:id="@+id/btnQuestionFinish"
-                android:layout_gravity="right|bottom"
-                android:onClick="onFinishQuestionButtonClicked"></Button>
+                android:layout_gravity="right|bottom"></Button>
 
             <RadioGroup
                 android:id="@+id/rgQuestionFinishForm"

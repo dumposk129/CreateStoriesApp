@@ -8,7 +8,9 @@ import android.support.v7.widget.Toolbar;
 import com.dumposk129.create.stories.app.R;
 import com.dumposk129.create.stories.app.navigation_drawer.NavigationDrawerFragment;
 
-
+/**
+ * Created by DumpOSK129.
+ */
 public class Settings extends ActionBarActivity {
 
     private Toolbar mToolbar;

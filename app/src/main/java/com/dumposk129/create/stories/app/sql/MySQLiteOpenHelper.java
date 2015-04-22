@@ -1,3 +1,4 @@
+/*
 package com.dumposk129.create.stories.app.sql;
 
 import android.content.Context;
@@ -6,6 +7,10 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import com.dumposk129.create.stories.app.create.StoryTable;
 
+*/
+/**
+ * Created by DumpOSK129.
+ *//*
 
 public class MySQLiteOpenHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "the_story.db";
@@ -27,3 +32,4 @@ public class MySQLiteOpenHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 }
+*/

@@ -1,58 +1,80 @@
 package com.dumposk129.create.stories.app.quiz;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.support.v7.app.ActionBarActivity;
+import android.view.View;
 import android.widget.Button;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.dumposk129.create.stories.app.R;
 
-public class AnswerNext extends ActionBarActivity{
-    private TextView question, answer1, answer2, answer3, answer4;
-    private Button btnNext;
+/**
+ * Created by DumpOSK129.
+ */
+public class AnswerNext extends ActionBarActivity {
+    private TextView answerNext_question, answerNext_answer1, answerNext_answer2,
+            answerNext_answer3, answerNext_answer4, answerNext_isCorrect;
+
+    private Button answerNext_btnNext;
+    private RadioGroup answerNext_rg;
 
     @Override
     public void onCreate(Bundle savedInstanceState, PersistableBundle persistentState) {
         super.onCreate(savedInstanceState, persistentState);
         setContentView(R.layout.answer_next_form);
 
-        /*//casting
-        question = (TextView) findViewById(R.id.txtQuestion);
-        answer1 =  (TextView) findViewById(R.id.textAnswer1);
-        answer2 =  (TextView) findViewById(R.id.textAnswer2);
-        answer3 =  (TextView) findViewById(R.id.textAnswer3);
-        answer4 =  (TextView) findViewById(R.id.textAnswer4);
-        btnNext = (Button) findViewById(R.id.btnNext_answer);*/
-    }
+        // Casting
+        answerNext_question = (TextView) findViewById(R.id.tvAnswerNext_question);
+        answerNext_answer1 = (TextView) findViewById(R.id.tvAnswerNext_answer1);
+        answerNext_answer2 = (TextView) findViewById(R.id.tvAnswerNext_answer2);
+        answerNext_answer3 = (TextView) findViewById(R.id.tvAnswerNext_answer3);
+        answerNext_answer4 = (TextView) findViewById(R.id.tvAnswerNext_answer4);
+        answerNext_btnNext = (Button) findViewById(R.id.btnAnswerNext);
+        answerNext_isCorrect = (TextView) findViewById(R.id.tvAnswerNext_isCorrect);
 
-   /* public void onRadioButtonClicked(View view){
-        //Is the button now checked?
-        boolean checked = ((RadioButton) view).isChecked();
+        // Show question and answer from database
 
-        //Check which radio button was clicked
-        switch (view.getId()){
-            case R.id.textAnswer1:
-                if (checked)
 
-                    break;
-            case R.id.textAnswer2:
-                if (checked)
+        // Answer
+        for (int i = 0; i < /*question_id*/; i++) {
+            if (/*question_id != i*/) {
+                answerNext_btnNext.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        //Selected Radio Button
+                        int selectedId = answerNext_rg.getCheckedRadioButtonId();
 
-                    break;
-            case R.id.textAnswer3:
-                if (checked)
-
-                    break;
-            case R.id.textAnswer4:
-                if (checked)
-
-                    break;
+                        // Switch case compared by Radio Button Id
+                        switch (selectedId) {
+                            case R.id.rbQuestionNext_answer1:
+                                if (/*is_correct*/)
+                                    answerNext_isCorrect.setVisibility(View.VISIBLE);
+                                else // Show is Correct Answer
+                                    break;
+                            case R.id.rbQuestionNext_answer2:
+                                if (/*is_correct*/)
+                                    answerNext_isCorrect.setVisibility(View.VISIBLE);
+                                else // Show is Correct Answer
+                                    break;
+                            case R.id.rbQuestionNext_answer3:
+                                if (/*is_correct*/)
+                                    answerNext_isCorrect.setVisibility(View.VISIBLE);
+                                else // Show is Correct Answer
+                                    break;
+                            case R.id.rbQuestionNext_answer4:
+                                if (/*is_correct*/)
+                                    answerNext_isCorrect.setVisibility(View.VISIBLE);
+                                else // Show is Correct Answer
+                                    break;
+                        }
+                    }
+                });
+            }else {
+                Intent lastQuestion = new Intent(getApplicationContext(), AnswerFinish.class);
+            }
         }
-    }*/
-
-    public void onNextAnswerButtonClicked(){
-
     }
-
 }

@@ -23,7 +23,9 @@ import com.dumposk129.create.stories.app.create.Creates;
 import java.util.ArrayList;
 import java.util.List;
 
-
+/**
+ * Created by DumpOSK129.
+ */
 public class NavigationDrawerFragment extends Fragment implements MyAdapter.ClickListener {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER

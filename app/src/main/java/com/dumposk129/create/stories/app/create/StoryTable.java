@@ -1,3 +1,4 @@
+/*
 package com.dumposk129.create.stories.app.create;
 
 import android.content.Context;
@@ -10,6 +11,11 @@ import com.dumposk129.create.stories.app.sql.MySQLiteOpenHelper;
 
 import java.util.ArrayList;
 import java.util.List;
+
+*/
+/**
+ * Created by DumpOSK129.
+ *//*
 
 public class StoryTable {
     public static final String ID = "_id";
@@ -119,3 +125,4 @@ public class StoryTable {
     }
 
 }
+*/

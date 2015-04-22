@@ -48,8 +48,7 @@
                 android:layout_height="wrap_content"
                 android:text="Next"
                 android:id="@+id/btnQuestionNext"
-                android:layout_gravity="right|bottom"
-                android:onClick="onNextQuestionButtonClicked"></Button>
+                android:layout_gravity="right|bottom"></Button>
 
             <RadioGroup
                 android:id="@+id/rgQuestionNextForm"

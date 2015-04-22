@@ -18,7 +18,7 @@
         android:layout_height="wrap_content"
         android:inputType="number"
         android:ems="10"
-        android:id="@+id/editText"
+        android:id="@+id/txtNumOfQuestion"
         android:layout_margin="40dp"
         android:layout_gravity="center_horizontal" />
 

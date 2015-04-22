@@ -9,7 +9,9 @@ import android.widget.LinearLayout;
 import com.dumposk129.create.stories.app.R;
 import com.dumposk129.create.stories.app.navigation_drawer.NavigationDrawerFragment;
 
-
+/**
+ * Created by DumpOSK129.
+ */
 public class Creates extends ActionBarActivity {
 
     private Toolbar mToolbar;

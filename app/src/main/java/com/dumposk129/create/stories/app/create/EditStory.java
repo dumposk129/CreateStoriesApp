@@ -17,7 +17,9 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-
+/**
+ * Created by DumpOSK129.
+ */
 public class EditStory extends ActionBarActivity {
     int windowWidth;
     int windowHeight;

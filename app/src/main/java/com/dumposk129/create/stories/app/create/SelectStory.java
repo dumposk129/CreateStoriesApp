@@ -20,7 +20,7 @@ import com.dumposk129.create.stories.app.navigation_drawer.NavigationDrawerFragm
 
 */
 /**
- * Created by DumpOSK129 on 3/29/2015.
+ * Created by DumpOSK129.
  *//*
 
 public class SelectStory extends ActionBarActivity{

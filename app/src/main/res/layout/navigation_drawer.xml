@@ -7,8 +7,11 @@
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/drawerList"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_width="240dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="left|start"
+        android:choiceMode="singleChoice"
+        android:divider="@null">
     </android.support.v7.widget.RecyclerView>
 
 </RelativeLayout>
