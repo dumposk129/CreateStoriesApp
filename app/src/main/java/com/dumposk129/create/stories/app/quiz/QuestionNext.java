@@ -1,6 +1,5 @@
 package com.dumposk129.create.stories.app.quiz;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -143,7 +142,7 @@ public class QuestionNext extends ActionBarActivity {
         @Override
         protected String doInBackground(String... params) {
             onQuestionNextClickListener();
-            return Ques;
+            return null;
         }
     }
 }
