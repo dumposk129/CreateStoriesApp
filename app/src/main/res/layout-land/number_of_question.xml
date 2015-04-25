@@ -22,9 +22,20 @@
         android:layout_height="wrap_content"
         android:inputType="number"
         android:ems="10"
-        android:id="@+id/editText"
+        android:id="@+id/txtNumOfQuestion"
         android:layout_margin="40dp"
         android:layout_gravity="center_horizontal" />
+
+    <EditText
+        android:layout_width="104dp"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:ems="10"
+        android:id="@+id/quizId"
+        android:layout_margin="40dp"
+        android:visibility="gone"
+        android:layout_gravity="center_horizontal" />
+
 
     <Button
         android:id="@+id/btnNumOfQuestion"

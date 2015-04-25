@@ -27,10 +27,11 @@ import java.util.List;
 public class QuestionNext extends ActionBarActivity {
 
     private Toolbar mToolbar;
-    private EditText questionNext_question, questionNext_answer1, questionNext_answer2, questionNext_answer3, questionNext_answer4;
-    private Button questionNext_btnNext;
-    private RadioGroup questionNext_rg;
-    private RadioButton questionNext_rb;
+    private EditText txtQuestionNext_question, txtQuestionNext_answer1, txtQuestionNext_answer2, txtQuestionNext_answer3,
+            txtQuestionNext_answer4;
+    private Button btnQuestionNext_next;
+    private RadioGroup rgQuestionNext;
+    private RadioButton rbQuestionNext_answer1, rbQuestionNext_answer2, rbQuestionNext_answer3, rbQuestionNext_answer4;
     private String quizId;
     private int currentIndex;
     private int noOfQuestion;
@@ -42,14 +43,17 @@ public class QuestionNext extends ActionBarActivity {
 
         //casting
         mToolbar = (Toolbar) findViewById(R.id.app_bar);
-        questionNext_question = (EditText) findViewById(R.id.txtQuestionNext_question);
-        questionNext_answer1 = (EditText) findViewById(R.id.txtQuestionNext_answer1);
-        questionNext_answer2 = (EditText) findViewById(R.id.txtQuestionNext_answer2);
-        questionNext_answer3 = (EditText) findViewById(R.id.txtQuestionNext_answer3);
-        questionNext_answer4 = (EditText) findViewById(R.id.txtQuestionNext_answer4);
-        questionNext_rg = (RadioGroup) findViewById(R.id.rgQuestionNextForm);
-        questionNext_btnNext = (Button) findViewById(R.id.btnQuestionNext);
-
+        txtQuestionNext_question = (EditText) findViewById(R.id.txtQuestionNext_question);
+        txtQuestionNext_answer1 = (EditText) findViewById(R.id.txtQuestionNext_answer1);
+        txtQuestionNext_answer2 = (EditText) findViewById(R.id.txtQuestionNext_answer2);
+        txtQuestionNext_answer3 = (EditText) findViewById(R.id.txtQuestionNext_answer3);
+        txtQuestionNext_answer4 = (EditText) findViewById(R.id.txtQuestionNext_answer4);
+        rgQuestionNext = (RadioGroup) findViewById(R.id.rgQuestionNextForm);
+        rbQuestionNext_answer1 = (RadioButton) findViewById(R.id.rbQuestionNext_answer1);
+        rbQuestionNext_answer2 = (RadioButton) findViewById(R.id.rbQuestionNext_answer2);
+        rbQuestionNext_answer3 = (RadioButton) findViewById(R.id.rbQuestionNext_answer3);
+        rbQuestionNext_answer4 = (RadioButton) findViewById(R.id.rbQuestionNext_answer4);
+        btnQuestionNext_next = (Button) findViewById(R.id.btnQuestionNext);
 
         // Navigation Drawer
         setSupportActionBar(mToolbar);
@@ -67,55 +71,71 @@ public class QuestionNext extends ActionBarActivity {
         currentIndex = bundle.getInt("index") + 1;
 
         if (noOfQuestion == currentIndex) {
-            questionNext_btnNext.setText("Finished");
+            btnQuestionNext_next.setText("Finished");
         }
 
-        questionNext_btnNext.setOnClickListener(new View.OnClickListener() {
+        btnQuestionNext_next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // Call AsyncTask
                 new SaveQuestionTask().execute();
+                //Toast.makeText(getApplicationContext(),"Click",Toast.LENGTH_SHORT).show();
             }
         });
     }
 
     private void onQuestionNextClickListener() {
         //Fill Question amd Answer
-        String quesNext_question = questionNext_question.getText().toString();
+        String quesNext_question = txtQuestionNext_question.getText().toString();
         String[] quesNext_answer = new String[4];
-        quesNext_answer[0] = questionNext_answer1.getText().toString();
-        quesNext_answer[1] = questionNext_answer2.getText().toString();
-        quesNext_answer[2] = questionNext_answer3.getText().toString();
-        quesNext_answer[3] = questionNext_answer4.getText().toString();
+        quesNext_answer[0] = txtQuestionNext_answer1.getText().toString();
+        quesNext_answer[1] = txtQuestionNext_answer2.getText().toString();
+        quesNext_answer[2] = txtQuestionNext_answer3.getText().toString();
+        quesNext_answer[3] = txtQuestionNext_answer4.getText().toString();
 
         // Save Question to DB
         int questionID = Quiz.saveQuestion(quesNext_question, quizId); //get question from db
 
         final int[] correctAnswer = {0};
 
-        questionNext_rg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-
+        // Radio Button ClickListener
+        rgQuestionNext.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
 
-                // Switch case compared by Radio Button Id
-                switch (checkedId) {
-                    case R.id.rbQuestionNext_answer1: //is Correct
-                        correctAnswer[0] = 1;
-                        break;
-                    case R.id.rbQuestionNext_answer2: //is Correct
-                        correctAnswer[1] = 2;
-                        break;
-                    case R.id.rbQuestionNext_answer3: //is Correct
-                        correctAnswer[2] = 3;
-                        break;
-                    case R.id.rbQuestionNext_answer4: //is Correct
-                        correctAnswer[3] = 4;
-                        break;
+                if (rbQuestionNext_answer1.isChecked()) {
+                    correctAnswer[0] = 1;
+                } else if (rbQuestionNext_answer2.isChecked()) {
+                    correctAnswer[1] = 2;
+                } else if (rbQuestionNext_answer3.isChecked()) {
+                    correctAnswer[2] = 3;
+                } else {
+                    correctAnswer[3] = 4;
                 }
+
+
+/*
+                    // Compared by Radio Button Id using checkedId
+                    switch (checkedId) {
+                        case R.id.rbQuestionNext_answer1: //is Correct
+
+                            break;
+
+                        case R.id.rbQuestionNext_answer2: //is Correct
+                            correctAnswer[1] = 2;
+                            break;
+
+                        case R.id.rbQuestionNext_answer3: //is Correct
+                            correctAnswer[2] = 3;
+                            break;
+
+                        case R.id.rbQuestionNext_answer4: //is Correct
+                            correctAnswer[3] = 4;
+                            break;
+                    }
+*/
             }
         });
-
 
         // Set up choices data, it should be ready for saving to db.
         List<Choice> choices = new ArrayList<>(4);
@@ -137,11 +157,12 @@ public class QuestionNext extends ActionBarActivity {
         if (isSuccess) {
             if (currentIndex == noOfQuestion) {
                 // Go to Final Question
-                Intent intent = new Intent(getApplicationContext(), Quizzes.class);
-                startActivity(intent);
+                /*Intent intent = new Intent(getApplicationContext(), Quizzes.class);
+                startActivity(intent);*/
+                btnQuestionNext_next.setText("Dene");
             } else {
                 // Create Next Question
-                Intent intent = new Intent(getApplicationContext(), QuestionNext.class);
+                Intent intent = new Intent(QuestionNext.this, QuestionNext.class);
                 intent.putExtra("NumOfQuestion", noOfQuestion);
                 intent.putExtra("QuizID", quizId);
                 intent.putExtra("index", currentIndex);
@@ -152,20 +173,20 @@ public class QuestionNext extends ActionBarActivity {
         }
     }
 
-    private class SaveQuestionTask extends AsyncTask<String, Void, String> {
+    private class SaveQuestionTask extends AsyncTask<String, Void, Void> {
 
         @Override
         protected void onPreExecute() {
         }
 
         @Override
-        protected String doInBackground(String... params) {
+        protected Void doInBackground(String... params) {
             onQuestionNextClickListener();
             return null;
         }
 
         @Override
-        protected void onPostExecute(String s) {
+        protected void onPostExecute(Void s) {
 
         }
     }
