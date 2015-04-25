@@ -155,9 +155,18 @@ public class QuestionNext extends ActionBarActivity {
     private class SaveQuestionTask extends AsyncTask<String, Void, String> {
 
         @Override
+        protected void onPreExecute() {
+        }
+
+        @Override
         protected String doInBackground(String... params) {
             onQuestionNextClickListener();
             return null;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+
         }
     }
 }
