@@ -3,7 +3,9 @@ package com.dumposk129.create.stories.app.quiz;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -14,6 +16,7 @@ import com.dumposk129.create.stories.app.R;
 import com.dumposk129.create.stories.app.api.ApiConfig;
 import com.dumposk129.create.stories.app.api.Quiz;
 import com.dumposk129.create.stories.app.model.Choice;
+import com.dumposk129.create.stories.app.navigation_drawer.NavigationDrawerFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +25,8 @@ import java.util.List;
  * Created by DumpOSK129.
  */
 public class QuestionNext extends ActionBarActivity {
+
+    private Toolbar mToolbar;
     private EditText questionNext_question, questionNext_answer1, questionNext_answer2, questionNext_answer3, questionNext_answer4;
     private Button questionNext_btnNext;
     private RadioGroup questionNext_rg;
@@ -36,6 +41,7 @@ public class QuestionNext extends ActionBarActivity {
         setContentView(R.layout.question_next_form);
 
         //casting
+        mToolbar = (Toolbar) findViewById(R.id.app_bar);
         questionNext_question = (EditText) findViewById(R.id.txtQuestionNext_question);
         questionNext_answer1 = (EditText) findViewById(R.id.txtQuestionNext_answer1);
         questionNext_answer2 = (EditText) findViewById(R.id.txtQuestionNext_answer2);
@@ -43,6 +49,15 @@ public class QuestionNext extends ActionBarActivity {
         questionNext_answer4 = (EditText) findViewById(R.id.txtQuestionNext_answer4);
         questionNext_rg = (RadioGroup) findViewById(R.id.rgQuestionNextForm);
         questionNext_btnNext = (Button) findViewById(R.id.btnQuestionNext);
+
+
+        // Navigation Drawer
+        setSupportActionBar(mToolbar);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        NavigationDrawerFragment drawerFragment = (NavigationDrawerFragment)
+                getSupportFragmentManager().findFragmentById(R.id.fragment_navigation_drawer);
+        drawerFragment.setUp(R.id.fragment_navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout), mToolbar);
+
 
         // Get Data
         Intent intent = getIntent();

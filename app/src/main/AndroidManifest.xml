@@ -56,7 +56,7 @@
             android:label="@string/title_activity_creates_fragment" />
         <activity
             android:name=".quiz.Quizzes"
-            android:label="@string/title_activity_quiz">
+            android:label="@string/title_activity_quizzes">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -88,7 +88,7 @@
 
         <activity
             android:name=".quiz.NumberOfQuestion"
-            android:label="@string/title_activity_num_of_question" />
+            android:label="@string/title_activity_num_of_questions" />
 
     </application>
 
