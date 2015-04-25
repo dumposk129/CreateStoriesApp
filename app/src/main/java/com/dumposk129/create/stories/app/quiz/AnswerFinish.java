@@ -1,3 +1,4 @@
+/*
 package com.dumposk129.create.stories.app.quiz;
 
 import android.os.Bundle;
@@ -10,9 +11,11 @@ import android.widget.TextView;
 
 import com.dumposk129.create.stories.app.R;
 
+*/
 /**
  * Created by DumpOSK129.
- */
+ *//*
+
 public class AnswerFinish extends ActionBarActivity {
     private TextView answerNext_question, answerNext_answer1, answerNext_answer2,
             answerNext_answer3, answerNext_answer4, answerNext_isCorrect;
@@ -47,22 +50,30 @@ public class AnswerFinish extends ActionBarActivity {
                 // Switch case compared by Radio Button Id
                 switch (selectedId) {
                     case R.id.rbQuestionNext_answer1:
-                        if (/*is_correct*/)
+                        if (*/
+/*is_correct*//*
+)
                             answerNext_isCorrect.setVisibility(View.VISIBLE);
                         else // Show is Correct Answer
                             break;
                     case R.id.rbQuestionNext_answer2:
-                        if (/*is_correct*/)
+                        if (*/
+/*is_correct*//*
+)
                             answerNext_isCorrect.setVisibility(View.VISIBLE);
                         else // Show is Correct Answer
                             break;
                     case R.id.rbQuestionNext_answer3:
-                        if (/*is_correct*/)
+                        if (*/
+/*is_correct*//*
+)
                             answerNext_isCorrect.setVisibility(View.VISIBLE);
                         else // Show is Correct Answer
                             break;
                     case R.id.rbQuestionNext_answer4:
-                        if (/*is_correct*/)
+                        if (*/
+/*is_correct*//*
+)
                             answerNext_isCorrect.setVisibility(View.VISIBLE);
                         else // Show is Correct Answer
                             break;
@@ -70,4 +81,4 @@ public class AnswerFinish extends ActionBarActivity {
             }
         });
     }
-}
+}*/

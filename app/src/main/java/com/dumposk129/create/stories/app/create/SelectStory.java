@@ -53,7 +53,7 @@ public class SelectStory extends ActionBarActivity{
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(getApplicationContext(), EditStory.class);
+                Intent intent = new Intent(getApplicationContext(), SelectBackground.class);
                 startActivity(intent);
             }
         });

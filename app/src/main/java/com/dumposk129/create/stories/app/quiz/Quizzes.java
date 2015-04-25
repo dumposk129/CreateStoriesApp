@@ -1,11 +1,19 @@
 package com.dumposk129.create.stories.app.quiz;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.dumposk129.create.stories.app.R;
 import com.dumposk129.create.stories.app.navigation_drawer.NavigationDrawerFragment;
@@ -47,48 +55,54 @@ public class Quizzes extends ActionBarActivity {
 
 
         // Assign data
-       // final String[] data = new String[]{"Test1", "Test2", "Test3", "T4", "T5"};
+        final String[] data = new String[]{"Test1", "Test2", "Test3", "T4", "T5"};
 
         // Create ArrayAdapter
-        //ListAdapter adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, android.R.id.text1, data);
+        ListAdapter adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, android.R.id.text1, data);
 
         // Send listItem to ListView
-       /* listView = (ListView) findViewById(R.id.listViewStoriesName);
+        listView = (ListView) findViewById(R.id.listViewStoriesName);
         tvQuizID = (TextView) findViewById(R.id.quizzId);
-        tvQuizName = (TextView) findViewById(R.id.quizzesName);*/
+        tvQuizName = (TextView) findViewById(R.id.quizzesName);
 
-        //listView.setAdapter(adapter);
+        listView.setAdapter(adapter);
 
       // new LoadAllQuiz().execute();
+
         // Set Item Click Listener
-/*
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                final AlertDialog.Builder builder = new AlertDialog.Builder(QuizFragment.this);
+                Toast.makeText(getApplication(), "Click", Toast.LENGTH_LONG).show();
+
+               /* Intent intent = new Intent(Quizzes.this, NumberOfQuestion.class);
+                startActivity(intent);
+*/
+                final AlertDialog.Builder builder = new AlertDialog.Builder(Quizzes.this);
                 builder.setTitle(R.string.choose_item).setItems(R.array.create_answer, new DialogInterface.OnClickListener() {
                             @Override
-                            public void onClick(DialogInterface dialog, int which) {
+                            public void onClick(DialogInterface dialog, int position) {
                                 Intent intent;
-                                switch (which){
+                                switch (position){
                                     case 0:
-                                        intent = new Intent(QuizFragment.this, Question.class);
+                                        Toast.makeText(getApplicationContext(), "CLick", Toast.LENGTH_SHORT).show();
+                                        intent = new Intent(Quizzes.this, NumberOfQuestion.class);
+                                        intent.putExtra("quizID", 1);
                                         startActivity(intent);
                                         break;
-                                    case 1:
-                                        intent = new Intent(QuizFragment.this, Answer.class);
+                                  /*  case 1:
+                                        in
                                         startActivity(intent);
-                                        break;
-                                    case 2: dialog.dismiss();
+                                        break;*/
+                                    case 1: dialog.dismiss();
                                 }
                             }
                         });
                 builder.show();
             }
         });
-*/
     }
 
 

@@ -9,22 +9,36 @@
         android:id="@+id/app_bar"
         layout="@layout/app_bar" />
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="580dp"
-        android:id="@+id/imgViewBg"
-        android:layout_above="@+id/btnNextSelChar" />
-    <Button
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Next to Select Character"
-        android:id="@+id/btnNextSelChar"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:layout_gravity="right" />
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="580dp"
+            android:id="@+id/imgViewBg"
+            android:layout_above="@+id/btnNextSelChar" />
 
+        <Button
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Select Background"
+            android:id="@+id/btnSelectBg"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_gravity="left|bottom" />
+
+        <Button
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Next to Select Character"
+            android:id="@+id/btnNextSelChar"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_gravity="right|bottom" />
+    </FrameLayout>
 
 
 </LinearLayout>

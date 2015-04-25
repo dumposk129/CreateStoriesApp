@@ -13,32 +13,43 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="580dp"
-            android:id="@+id/imgViewBg"
-            android:layout_above="@+id/btnNextSelChar" />
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textMultiLine"
+            android:ems="10"
+            android:id="@+id/txtSubtitle"
+            android:layout_gravity="center_horizontal|top" />
 
         <Button
             style="?android:attr/buttonStyleSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Select Characters"
-            android:id="@+id/btnSelectCharacters"
+            android:text="OK"
+            android:layout_margin="200dp"
+            android:id="@+id/btnOK"
             android:layout_alignParentBottom="true"
             android:layout_alignParentEnd="true"
-            android:layout_gravity="left|bottom" />
+            android:layout_gravity="center_horizontal" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Preview"
+            android:id="@+id/btnPreview"
+            android:layout_gravity="center" />
 
         <Button
             style="?android:attr/buttonStyleSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Next to Record Audio"
-            android:id="@+id/btnNextAudio"
+            android:text="Submit"
+            android:id="@+id/btnSubmit"
             android:layout_alignParentBottom="true"
             android:layout_alignParentEnd="true"
             android:layout_gravity="right|bottom" />
-    </FrameLayout>
 
+    </FrameLayout>
 
 </LinearLayout>

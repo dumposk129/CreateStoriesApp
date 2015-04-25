@@ -37,65 +37,17 @@ public class Creates extends ActionBarActivity {
                 .setPositiveButton("Create", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Intent intent = new Intent(CreatesFragment.this, EditStory.class);
+                        Intent intent = new Intent(getApplicationContext(), SelectBackground.class);
                         startActivity(intent);
                     }
                 })
                 .setNegativeButton("Edit", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Intent intent = new Intent(CreatesFragment.this, EditStory.class);
+                        Intent intent = new Intent(getApplicationContext(), SelectStory.class);
                         startActivity(intent);
                     }
                 });
         builder.show();*/
     }
-
-
-    /*@Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_create_fragment, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // int id = item.getItemId();
-
-        switch (item.getItemId()) {
-            case R.id.action_select_backgrounds:
-                try {
-                    Intent galleryIntent = new Intent(
-                            Intent.ACTION_PICK,
-                            android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                    startActivityForResult(galleryIntent, RESULT_GALLERY);
-
-                } catch (Exception e) {
-                    Toast.makeText(getApplicationContext(), "Error", Toast.LENGTH_LONG).show();
-                }
-                return true;
-
-            case R.id.action_select_characters:
-                try {
-                    Intent galleryIntent = new Intent(
-                            Intent.ACTION_PICK,
-                            android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                    startActivityForResult(galleryIntent, RESULT_GALLERY);
-
-                } catch (Exception e) {
-                    Toast.makeText(getApplicationContext(), "Error", Toast.LENGTH_LONG).show();
-                }
-                return true;
-
-            case R.id.action_sound:
-                Toast.makeText(getApplicationContext(), "Sound Selected", Toast.LENGTH_LONG).show();
-                return true;
-
-            case R.id.subtitle:
-                Toast.makeText(getApplicationContext(), "Subtitle Selected", Toast.LENGTH_LONG).show();
-                return true;
-
-        }
-        return super.onOptionsItemSelected(item);
-    }*/
 }

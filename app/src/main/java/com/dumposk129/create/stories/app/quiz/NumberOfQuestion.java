@@ -13,9 +13,9 @@ import com.dumposk129.create.stories.app.R;
  * Created by DumpOSK129.
  */
 public class NumberOfQuestion extends ActionBarActivity{
-    private EditText numOfQues;
+    private EditText numOfQues, qId;
     private Button   numOfQues_btnOK;
-
+    private String quizID;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,6 +23,14 @@ public class NumberOfQuestion extends ActionBarActivity{
 
         numOfQues = (EditText) findViewById(R.id.txtNumOfQuestion);
         numOfQues_btnOK = (Button) findViewById(R.id.btnNumOfQuestion);
+        qId = (EditText) findViewById(R.id.quizId);
+
+        Intent intent = getIntent();
+        Bundle bundle = intent.getExtras();
+        quizID = bundle.getString("quizID");
+
+        qId.setText(quizID);
+
 
         numOfQues_btnOK.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -31,6 +39,8 @@ public class NumberOfQuestion extends ActionBarActivity{
 
                 Intent intent = new Intent(NumberOfQuestion.this, QuestionNext.class);
                 intent.putExtra("NumOfQuestion", number);
+                intent.putExtra("QuizID", quizID);
+                intent.putExtra("index", 0);
                 startActivity(intent);
             }
         });

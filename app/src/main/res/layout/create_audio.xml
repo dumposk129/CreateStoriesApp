@@ -13,32 +13,37 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="580dp"
-            android:id="@+id/imgViewBg"
-            android:layout_above="@+id/btnNextSelChar" />
-
         <Button
             style="?android:attr/buttonStyleSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Select Characters"
-            android:id="@+id/btnSelectCharacters"
+            android:text="Record Audio"
+            android:id="@+id/btnRecord"
+            android:layout_margin="20dp"
             android:layout_alignParentBottom="true"
             android:layout_alignParentEnd="true"
-            android:layout_gravity="left|bottom" />
+            android:layout_gravity="top|center_horizontal" />
 
         <Button
             style="?android:attr/buttonStyleSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Next to Record Audio"
-            android:id="@+id/btnNextAudio"
+            android:text="Record Audio"
+            android:layout_margin="100dp"
+            android:id="@+id/btnPreview"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_gravity="center_horizontal" />
+
+        <Button
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Next to Subtitle"
+            android:id="@+id/btnNextFillSubtitle"
             android:layout_alignParentBottom="true"
             android:layout_alignParentEnd="true"
             android:layout_gravity="right|bottom" />
     </FrameLayout>
-
 
 </LinearLayout>

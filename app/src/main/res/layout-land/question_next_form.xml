@@ -48,7 +48,8 @@
                 android:layout_height="wrap_content"
                 android:text="Next"
                 android:id="@+id/btnQuestionNext"
-                android:layout_gravity="right|bottom"></Button>
+                android:layout_gravity="right|bottom"
+                android:onClick="onQuestionNextClickListener"></Button>
 
             <RadioGroup
                 android:id="@+id/rgQuestionNextForm"
@@ -69,8 +70,7 @@
                     <RadioButton
                         android:id="@+id/rbQuestionNext_answer1"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:onClick="onRadioButtonClicked" />
+                        android:layout_height="wrap_content" />
 
                     <EditText
                         android:id="@+id/txtQuestionNext_answer1"
@@ -93,8 +93,7 @@
                     <RadioButton
                         android:id="@+id/rbQuestionNext_answer2"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:onClick="onRadioButtonClicked" />
+                        android:layout_height="wrap_content" />
 
                     <EditText
                         android:id="@+id/txtQuestionNext_answer2"
@@ -117,8 +116,7 @@
                     <RadioButton
                         android:id="@+id/rbQuestionNext_answer3"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:onClick="onRadioButtonClicked" />
+                        android:layout_height="wrap_content" />
 
                     <EditText
                         android:id="@+id/txtQuestionNext_answer3"
@@ -141,8 +139,7 @@
                     <RadioButton
                         android:id="@+id/rbQuestionNext_answer4"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:onClick="onRadioButtonClicked" />
+                        android:layout_height="wrap_content" />
 
                     <EditText
                         android:id="@+id/txtQuestionNext_answer4"
