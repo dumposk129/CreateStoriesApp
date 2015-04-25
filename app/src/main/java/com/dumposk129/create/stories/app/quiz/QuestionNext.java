@@ -49,10 +49,10 @@ public class QuestionNext extends ActionBarActivity {
         txtQuestionNext_answer3 = (EditText) findViewById(R.id.txtQuestionNext_answer3);
         txtQuestionNext_answer4 = (EditText) findViewById(R.id.txtQuestionNext_answer4);
         rgQuestionNext = (RadioGroup) findViewById(R.id.rgQuestionNextForm);
-        rbQuestionNext_answer1 = (RadioButton) findViewById(R.id.rbQuestionNext_answer1);
-        rbQuestionNext_answer2 = (RadioButton) findViewById(R.id.rbQuestionNext_answer2);
-        rbQuestionNext_answer3 = (RadioButton) findViewById(R.id.rbQuestionNext_answer3);
-        rbQuestionNext_answer4 = (RadioButton) findViewById(R.id.rbQuestionNext_answer4);
+     /*   rbQuestionNext_answer1 = (RadioButton) rgQuestionNext.findViewById(rgQuestionNext.getCheckedRadioButtonId());
+        rbQuestionNext_answer2 = (RadioButton) rgQuestionNext.findViewById(rgQuestionNext.getCheckedRadioButtonId());
+        rbQuestionNext_answer3 = (RadioButton) rgQuestionNext.findViewById(rgQuestionNext.getCheckedRadioButtonId());
+        rbQuestionNext_answer4 = (RadioButton) rgQuestionNext.findViewById(rgQuestionNext.getCheckedRadioButtonId());*/
         btnQuestionNext_next = (Button) findViewById(R.id.btnQuestionNext);
 
         // Navigation Drawer
@@ -98,42 +98,30 @@ public class QuestionNext extends ActionBarActivity {
 
         final int[] correctAnswer = {0};
 
-        // Radio Button ClickListener
         rgQuestionNext.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
+                // Compared by Radio Button Id using checkedId
 
-                if (rbQuestionNext_answer1.isChecked()) {
-                    correctAnswer[0] = 1;
-                } else if (rbQuestionNext_answer2.isChecked()) {
-                    correctAnswer[1] = 2;
-                } else if (rbQuestionNext_answer3.isChecked()) {
-                    correctAnswer[2] = 3;
-                } else {
-                    correctAnswer[3] = 4;
+                int pos = rgQuestionNext.indexOfChild(findViewById(checkedId));
+
+                switch (pos) {
+                    case 0: //is Correct
+                        correctAnswer[0] = 1;
+                        break;
+
+                    case 1: //is Correct
+                        correctAnswer[1] = 2;
+                        break;
+
+                    case 2: //is Correct
+                        correctAnswer[2] = 3;
+                        break;
+
+                    case 3: //is Correct
+                        correctAnswer[3] = 4;
+                        break;
                 }
-
-
-/*
-                    // Compared by Radio Button Id using checkedId
-                    switch (checkedId) {
-                        case R.id.rbQuestionNext_answer1: //is Correct
-
-                            break;
-
-                        case R.id.rbQuestionNext_answer2: //is Correct
-                            correctAnswer[1] = 2;
-                            break;
-
-                        case R.id.rbQuestionNext_answer3: //is Correct
-                            correctAnswer[2] = 3;
-                            break;
-
-                        case R.id.rbQuestionNext_answer4: //is Correct
-                            correctAnswer[3] = 4;
-                            break;
-                    }
-*/
             }
         });
 
