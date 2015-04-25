@@ -1,11 +1,14 @@
 package com.dumposk129.create.stories.app.quiz;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 import com.dumposk129.create.stories.app.R;
@@ -23,9 +26,11 @@ public class QuestionNext extends ActionBarActivity {
     private EditText questionNext_question, questionNext_answer1, questionNext_answer2, questionNext_answer3, questionNext_answer4;
     private Button questionNext_btnNext;
     private RadioGroup questionNext_rg;
+    private RadioButton questionNext_rb;
     private String quizId;
     private int currentIndex;
     private int noOfQuestion;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,17 +52,17 @@ public class QuestionNext extends ActionBarActivity {
         quizId = bundle.getString("quizId");
         currentIndex = bundle.getInt("index") + 1;
 
-        if(noOfQuestion == currentIndex) {
+        if (noOfQuestion == currentIndex) {
             questionNext_btnNext.setText("Finished");
         }
 
         questionNext_btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onQuestionNextClickListener();
+                // Call AsyncTask
+                new SaveQuestionTask().execute();
             }
         });
-
     }
 
     private void onQuestionNextClickListener() {
@@ -72,34 +77,40 @@ public class QuestionNext extends ActionBarActivity {
         // Save Question to DB
         int questionID = Quiz.saveQuestion(quesNext_question, quizId); //get question from db
 
-        //Selected Radio Button
-        int selectedId = questionNext_rg.getCheckedRadioButtonId();
-        int correctAnswer = 0;
+        final int[] correctAnswer = {0};
 
-        // Switch case compared by Radio Button Id
-        switch (selectedId) {
-            case R.id.rbQuestionNext_answer1: //is Correct
-                correctAnswer = 1;
-                break;
-            case R.id.rbQuestionNext_answer2: //is Correct
-                correctAnswer = 2;
-                break;
-            case R.id.rbQuestionNext_answer3: //is Correct
-                correctAnswer = 3;
-                break;
-            case R.id.rbQuestionNext_answer4: //is Correct
-                correctAnswer = 4;
-                break;
-        }
+        questionNext_rg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+
+                // Switch case compared by Radio Button Id
+                switch (checkedId) {
+                    case R.id.rbQuestionNext_answer1: //is Correct
+                        correctAnswer[0] = 1;
+                        break;
+                    case R.id.rbQuestionNext_answer2: //is Correct
+                        correctAnswer[1] = 2;
+                        break;
+                    case R.id.rbQuestionNext_answer3: //is Correct
+                        correctAnswer[2] = 3;
+                        break;
+                    case R.id.rbQuestionNext_answer4: //is Correct
+                        correctAnswer[3] = 4;
+                        break;
+                }
+            }
+        });
+
 
         // Set up choices data, it should be ready for saving to db.
         List<Choice> choices = new ArrayList<>(4);
-        for(int s=1; s <= 4; s++) {
+        for (int s = 1; s <= 4; s++) {
             Choice choice = new Choice();
-            choice.setChoiceName(quesNext_answer[s-1]);
-            if(correctAnswer == s){
+            choice.setChoiceName(quesNext_answer[s - 1]);
+            if (correctAnswer[0] == s) {
                 choice.setIsCorrect(ApiConfig._TRUE);
-            }else{
+            } else {
                 choice.setIsCorrect(ApiConfig._FALSE);
             }
             choice.setChoiceId(s);
@@ -108,13 +119,13 @@ public class QuestionNext extends ActionBarActivity {
         }
 
         // Save List of choices to DB
-        boolean isSuccess = Quiz.saveChoices(choices,questionID);
-        if(isSuccess) {
-            if(currentIndex == noOfQuestion){
+        boolean isSuccess = Quiz.saveChoices(choices, questionID);
+        if (isSuccess) {
+            if (currentIndex == noOfQuestion) {
                 // Go to Final Question
                 Intent intent = new Intent(getApplicationContext(), Quizzes.class);
                 startActivity(intent);
-            }else {
+            } else {
                 // Create Next Question
                 Intent intent = new Intent(getApplicationContext(), QuestionNext.class);
                 intent.putExtra("NumOfQuestion", noOfQuestion);
@@ -122,8 +133,17 @@ public class QuestionNext extends ActionBarActivity {
                 intent.putExtra("index", currentIndex);
                 startActivity(intent);
             }
-        }else {
+        } else {
             // Show Warning
+        }
+    }
+
+    private class SaveQuestionTask extends AsyncTask<String, Void, String> {
+
+        @Override
+        protected String doInBackground(String... params) {
+            onQuestionNextClickListener();
+            return Ques;
         }
     }
 }
