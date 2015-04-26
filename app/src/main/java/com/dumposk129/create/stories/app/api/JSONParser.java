@@ -29,19 +29,17 @@ public class JSONParser {
     static JSONObject jObj = null;
     static String json = "";
 
-    // constructor
+    // Constructor
     public JSONParser() {
 
     }
 
     // function get json from url
-    // by making HTTP POST or GET mehtod
-    public JSONObject makeHttpRequest(String url, String method,
-                                      List<NameValuePair> params) {
+    // by making HTTP POST or GET method
+    public JSONObject makeHttpRequest(String url, String method, List<NameValuePair> params) {
 
         // Making HTTP request
         try {
-
             // check for request method
             if(method == "POST"){
                 // request method is POST

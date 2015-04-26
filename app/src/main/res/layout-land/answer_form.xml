@@ -3,171 +3,122 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:weightSum="1"
-    android:paddingBottom="40dp">
+    android:weightSum="1">
 
+    <!-- App Bar -->
     <include
         android:id="@+id/app_bar"
         layout="@layout/app_bar" />
 
+    <!-- Navigation Drawer -->
     <android.support.v4.widget.DrawerLayout xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/drawer_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
+        <!-- Below App Bar for use show question name and answer-->
         <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent">
 
-
-            //Question
-
-            <LinearLayout
+            <!-- Question -->
+            <TextView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/tvAnswerNext_question"
-                    android:hint="What is your question?"
-                    android:textSize="30sp"
-                    android:paddingLeft="50dp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="100dp">
+                android:id="@+id/tvQuestionName"
+                android:hint="What is your question?"
+                android:textSize="30sp"
+                android:paddingLeft="20dp" />
 
-            </LinearLayout>
-
+            <!-- Button OK -->
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Next"
-                android:id="@+id/btnAnswerNext"
-                android:layout_gravity="right|bottom"></Button>
+                android:id="@+id/btnNext"
+                android:layout_gravity="right|bottom"
+                android:onClick="onQuestionNextClickListener" />
 
-            <TextView
-                android:id="@+id/tvAnswerNext_isCorrect"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Correct"
-                android:textSize="20sp"
-                android:paddingLeft="20dp"
-                android:layout_gravity="left|bottom"
-                android:visibility="invisible"/>
-
+            <!-- Radio Group for Answer -->
             <RadioGroup
-                android:id="@+id/rgAnswerNextForm"
+                android:id="@+id/rgAnswerForm"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="50dp"
-                android:layout_gravity="left|top">
+                android:layout_marginTop="70dp"
+                android:layout_marginLeft="10dp"
+                android:layout_gravity="top|left">
 
-
-                //Answer 1
-
-                <LinearLayout
+                <RadioButton
+                    android:id="@+id/rbAnswer_1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_margin="10dp">
+                    android:paddingTop="30dp" />
 
-                    <RadioButton
-                        android:id="@+id/rbAnswerNext_answer1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:onClick="onRadioButtonClicked" />
-
-                    <TextView
-                        android:id="@+id/tvAnswerNext_answer1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:hint="answer 1"
-                        android:textSize="20sp" />
-
-                </LinearLayout>
-
-
-                //Answer 2
-
-                <LinearLayout
+                <RadioButton
+                    android:id="@+id/rbAnswer_2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_margin="10dp">
+                    android:paddingTop="30dp" />
 
-                    <RadioButton
-                        android:id="@+id/rbAnswerNext_answer2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:onClick="onRadioButtonClicked" />
-
-                    <TextView
-                        android:id="@+id/tvAnswerNext_answer2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:hint="answer 2"
-                        android:textSize="20sp" />
-
-                </LinearLayout>
-
-
-                //Answer 3
-
-                <LinearLayout
+                <RadioButton
+                    android:id="@+id/rbAnswer_3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_margin="10dp"
-                    android:onClick="onRadioButtonClicked">
+                    android:paddingTop="30dp" />
 
-                    <RadioButton
-                        android:id="@+id/rbAnswerNext_answer3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:onClick="onRadioButtonClicked" />
-
-                    <TextView
-                        android:id="@+id/tvAnswerNext_answer3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:hint="answer 3"
-                        android:textSize="20sp" />
-
-                </LinearLayout>
-
-
-                // Answer 4
-
-                <LinearLayout
+                <RadioButton
+                    android:id="@+id/rbAnswer_4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_margin="10dp">
-
-                    <RadioButton
-                        android:id="@+id/rbAnswerNext_answer4"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:onClick="onRadioButtonClicked" />
-
-                    <TextView
-                        android:id="@+id/tvAnswerNext_answer4"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:hint="answer 4"
-                        android:textSize="20sp" />
-                </LinearLayout>
-
+                    android:paddingTop="30dp" />
             </RadioGroup>
+
+            <!-- Answer 1 -->
+            <TextView
+                android:id="@+id/tvAnswer_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left|right"
+                android:hint="answer 1"
+                android:layout_marginTop="80dp"
+                android:layout_marginLeft="45dp"
+                android:textSize="20sp" />
+
+            <!-- Answer 2 -->
+            <TextView
+                android:id="@+id/tvAnswer_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left|right"
+                android:hint="answer 2"
+                android:layout_marginTop="125dp"
+                android:layout_marginLeft="45dp"
+                android:textSize="20sp" />
+
+            <!-- Answer 3 -->
+            <TextView
+                android:id="@+id/tvAnswer_3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left|right"
+                android:hint="answer 3"
+                android:layout_marginTop="170dp"
+                android:layout_marginLeft="45dp"
+                android:textSize="20sp" />
+
+            <!-- Answer 4 -->
+            <TextView
+                android:id="@+id/tvAnswer_4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="answer 4"
+                android:layout_gravity="left|right"
+                android:layout_marginTop="215dp"
+                android:layout_marginLeft="45dp"
+                android:textSize="20sp" />
+
         </FrameLayout>
 
-
-        <!--  Navigation Drawer -->
+        <!-- Navigation Drawer -->
         <fragment
             android:id="@+id/fragment_navigation_drawer"
             android:name="com.dumposk129.create.stories.app.navigation_drawer.NavigationDrawerFragment"
@@ -176,6 +127,7 @@
             android:layout_gravity="start"
             app:layout="@layout/navigation_drawer"
             tools:layout="@layout/navigation_drawer" />
+
     </android.support.v4.widget.DrawerLayout>
 
 </LinearLayout>

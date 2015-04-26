@@ -64,7 +64,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".quiz.QuestionNext"
+            android:name=".quiz.Questions"
             android:label="@string/title_activity_question_next">
 
 <!--

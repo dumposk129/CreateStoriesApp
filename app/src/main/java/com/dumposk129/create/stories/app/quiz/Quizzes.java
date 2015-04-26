@@ -54,22 +54,23 @@ public class Quizzes extends ActionBarActivity {
         data = new ArrayList<>();
 
 
-        // Assign data
+        // Assign data.
         final String[] data = new String[]{"Test1", "Test2", "Test3", "T4", "T5"};
 
-        // Create ArrayAdapter
+        // Create ArrayAdapter.
         ListAdapter adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, android.R.id.text1, data);
 
-        // Send listItem to ListView
+        // Casting.
         listView = (ListView) findViewById(R.id.listViewStoriesName);
         tvQuizID = (TextView) findViewById(R.id.quizzId);
         tvQuizName = (TextView) findViewById(R.id.quizzesName);
 
+        // Send listItem to ListView.
         listView.setAdapter(adapter);
 
       // new LoadAllQuiz().execute();
 
-        // Set Item Click Listener
+        // Set Item Click Listener.
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
@@ -77,9 +78,7 @@ public class Quizzes extends ActionBarActivity {
 
                 Toast.makeText(getApplication(), "Click", Toast.LENGTH_LONG).show();
 
-               /* Intent intent = new Intent(Quizzes.this, NumberOfQuestion.class);
-                startActivity(intent);
-*/
+                // Show Dialog and users choose it.
                 final AlertDialog.Builder builder = new AlertDialog.Builder(Quizzes.this);
                 builder.setTitle(R.string.choose_item).setItems(R.array.create_answer, new DialogInterface.OnClickListener() {
                             @Override
@@ -87,7 +86,6 @@ public class Quizzes extends ActionBarActivity {
                                 Intent intent;
                                 switch (position){
                                     case 0:
-                                        Toast.makeText(getApplicationContext(), "Click", Toast.LENGTH_SHORT).show();
                                         intent = new Intent(Quizzes.this, NumberOfQuestion.class);
                                         intent.putExtra("quizID", "1");
                                         startActivity(intent);

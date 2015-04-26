@@ -25,14 +25,13 @@ import java.util.List;
 /**
  * Created by DumpOSK129.
  */
-public class QuestionNext extends ActionBarActivity {
+public class Questions extends ActionBarActivity {
 
     private Toolbar mToolbar;
-    private EditText txtQuestionNext_question, txtQuestionNext_answer1, txtQuestionNext_answer2, txtQuestionNext_answer3,
-            txtQuestionNext_answer4;
-    private Button btnQuestionNext_next;
-    private RadioGroup rgQuestionNext;
-    private RadioButton rbQuestionNext_answer1, rbQuestionNext_answer2, rbQuestionNext_answer3, rbQuestionNext_answer4;
+    private EditText txtQuestion, txtAnswer1, txtAnswer2, txtAnswer3, txtAnswer4;
+    private Button btnNext;
+    private RadioGroup radGrp;
+    private RadioButton rbAnswer1, rbAnswer2, rbAnswer3, rbAnswer4;
     private String quizId;
     private int currentIndex;
     private int noOfQuestion;
@@ -43,81 +42,82 @@ public class QuestionNext extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.question_form);
 
-        //casting
+        // Casting.
         mToolbar = (Toolbar) findViewById(R.id.app_bar);
-        txtQuestionNext_question = (EditText) findViewById(R.id.txtQuestionNext_question);
-        txtQuestionNext_answer1 = (EditText) findViewById(R.id.txtQuestionNext_answer1);
-        txtQuestionNext_answer2 = (EditText) findViewById(R.id.txtQuestionNext_answer2);
-        txtQuestionNext_answer3 = (EditText) findViewById(R.id.txtQuestionNext_answer3);
-        txtQuestionNext_answer4 = (EditText) findViewById(R.id.txtQuestionNext_answer4);
-        rgQuestionNext = (RadioGroup) findViewById(R.id.rgQuestionNextForm);
-        rbQuestionNext_answer1 = (RadioButton) findViewById(R.id.rbQuestionNext_answer1);
-        rbQuestionNext_answer2 = (RadioButton) findViewById(R.id.rbQuestionNext_answer2);
-        rbQuestionNext_answer3 = (RadioButton) findViewById(R.id.rbQuestionNext_answer3);
-        rbQuestionNext_answer4 = (RadioButton) findViewById(R.id.rbQuestionNext_answer4);
-        btnQuestionNext_next = (Button) findViewById(R.id.btnQuestionNext);
+        txtQuestion = (EditText) findViewById(R.id.txtQuestionName);
+        txtAnswer1 = (EditText) findViewById(R.id.txtAnswer_1);
+        txtAnswer2 = (EditText) findViewById(R.id.txtAnswer_2);
+        txtAnswer3 = (EditText) findViewById(R.id.txtAnswer_3);
+        txtAnswer4 = (EditText) findViewById(R.id.txtAnswer_4);
+        radGrp = (RadioGroup) findViewById(R.id.rgQuestionForm);
+        rbAnswer1 = (RadioButton) findViewById(R.id.rbAnswer_1);
+        rbAnswer2 = (RadioButton) findViewById(R.id.rbAnswer_2);
+        rbAnswer3 = (RadioButton) findViewById(R.id.rbAnswer_3);
+        rbAnswer4 = (RadioButton) findViewById(R.id.rbAnswer_4);
+        btnNext = (Button) findViewById(R.id.btnNext);
 
-        // Navigation Drawer
+        // Toolbar and Navigation Drawer.
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         NavigationDrawerFragment drawerFragment = (NavigationDrawerFragment)
                 getSupportFragmentManager().findFragmentById(R.id.fragment_navigation_drawer);
         drawerFragment.setUp(R.id.fragment_navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout), mToolbar);
 
-
-        // Get Data
+        // Get Data.
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
         noOfQuestion = bundle.getInt("NumOfQuestion");
         quizId = bundle.getString("QuizID");
         currentIndex = bundle.getInt("index") + 1;
 
+        // Change textView from Next to Finished when NumberOfQuestion equal currentIndex.
         if (noOfQuestion == currentIndex) {
-            btnQuestionNext_next.setText("Finished");
+            btnNext.setText("Finished");
         }
 
-        btnQuestionNext_next.setOnClickListener(new View.OnClickListener() {
+        // Set ButtonNextClickListener.
+        btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // SET Correct Answer
-                int selectedID = rgQuestionNext.getCheckedRadioButtonId();
 
-                if(selectedID == rbQuestionNext_answer1.getId()){
+                // SET Correct Answer
+                int selectedID = radGrp.getCheckedRadioButtonId();
+
+                if (selectedID == rbAnswer1.getId()) {
                     correctAnswer = 1;
-                }else if(selectedID == rbQuestionNext_answer2.getId()){
+                } else if (selectedID == rbAnswer2.getId()) {
                     correctAnswer = 2;
-                }else if(selectedID == rbQuestionNext_answer3.getId()){
+                } else if (selectedID == rbAnswer3.getId()) {
                     correctAnswer = 3;
-                }else if(selectedID == rbQuestionNext_answer4.getId()){
+                } else if (selectedID == rbAnswer4.getId()) {
                     correctAnswer = 4;
                 }
 
                 // Call AsyncTask
                 new SaveQuestionTask().execute();
-                //Toast.makeText(getApplicationContext(),"Click",Toast.LENGTH_SHORT).show();
             }
         });
-
     }
 
+    // Method Next Click Listener.
+    private void onNextClickListener() {
 
-    private void onQuestionNextClickListener() {
-        //Fill Question amd Answer
-        String quesNext_question = txtQuestionNext_question.getText().toString();
-        String[] quesNext_answer = new String[4];
-        quesNext_answer[0] = txtQuestionNext_answer1.getText().toString();
-        quesNext_answer[1] = txtQuestionNext_answer2.getText().toString();
-        quesNext_answer[2] = txtQuestionNext_answer3.getText().toString();
-        quesNext_answer[3] = txtQuestionNext_answer4.getText().toString();
+        // Fill Question amd Answer.
+        String question = txtQuestion.getText().toString();
+        String[] answer = new String[4];
+        answer[0] = txtAnswer1.getText().toString();
+        answer[1] = txtAnswer2.getText().toString();
+        answer[2] = txtAnswer3.getText().toString();
+        answer[3] = txtAnswer4.getText().toString();
 
-        // Save Question to DB
-        int questionID = Quiz.saveQuestion(quesNext_question, quizId); //get question from db
+        // Save Question to DB.
+        int questionID = Quiz.saveQuestion(question, quizId); //get question from db
 
-        // Set up choices data, it should be ready for saving to db.
+        // Set up choices data, it should be ready for saving to DB.
         List<Choice> choices = new ArrayList<>(4);
         for (int s = 1; s <= 4; s++) {
             Choice choice = new Choice();
-            choice.setChoiceName(quesNext_answer[s - 1]);
+            choice.setChoiceName(answer[s - 1]);
             if (correctAnswer == s) {
                 choice.setIsCorrect(ApiConfig._TRUE);
             } else {
@@ -125,19 +125,22 @@ public class QuestionNext extends ActionBarActivity {
             }
             choice.setChoiceId(s);
 
+            // Add Choices and isCorrect to DB.
             choices.add(choice);
         }
 
-        // Save List of choices to DB
+        // Save List of choices to DB.
         boolean isSuccess = Quiz.saveChoices(choices, questionID);
         if (isSuccess) {
             if (currentIndex == noOfQuestion) {
-                // Go to Final Question
-                Intent intent = new Intent(QuestionNext.this, Quizzes.class);
+
+                // Go to Final Question.
+                Intent intent = new Intent(Questions.this, Quizzes.class);
                 startActivity(intent);
             } else {
-                // Create Next Question
-                Intent intent = new Intent(QuestionNext.this, QuestionNext.class);
+
+                // Create Next Question.
+                Intent intent = new Intent(Questions.this, Questions.class);
                 intent.putExtra("NumOfQuestion", noOfQuestion);
                 intent.putExtra("QuizID", quizId);
                 intent.putExtra("index", currentIndex);
@@ -148,26 +151,25 @@ public class QuestionNext extends ActionBarActivity {
         }
     }
 
+    // Class SaveQuestionTask using AsyncTask.
     private class SaveQuestionTask extends AsyncTask<String, Void, Void> {
 
-        @Override
-        protected void onPreExecute() {
-        }
-
+        // Do method onNextCLickListener in background.
         @Override
         protected Void doInBackground(String... params) {
-            onQuestionNextClickListener();
+            onNextClickListener();
             return null;
         }
 
+        // When save data has finished.
         @Override
         protected void onPostExecute(Void s) {
             Toast.makeText(getApplicationContext(), "Save Question Already", Toast.LENGTH_LONG).show();
         }
 
+        // Saving Question.
         @Override
         protected void onProgressUpdate(Void... values) {
-
             Toast.makeText(getApplicationContext(), "Saving Question", Toast.LENGTH_LONG).show();
         }
     }

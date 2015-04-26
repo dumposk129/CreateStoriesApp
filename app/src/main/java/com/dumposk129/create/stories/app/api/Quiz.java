@@ -16,18 +16,21 @@ import java.util.List;
  */
 public class Quiz {
 
+    // Show All Quizzes
     public static JSONObject getAllQuiz(){
         JSONParser jParser = new JSONParser();
         List<NameValuePair> params = new ArrayList<>();
         return jParser.makeHttpRequest(ApiConfig.hostname(API.SHOW_QUIZ) , ApiConfig.GET, params);
     }
 
+    // Show All Answer
     public static JSONObject getAllAnswer(){
         JSONParser jParser = new JSONParser();
         List<NameValuePair> params = new ArrayList<>();
         return jParser.makeHttpRequest(ApiConfig.hostname(API.LIST_CHOICE) , ApiConfig.GET, params);
     }
 
+    // Show All
     public static JSONObject getAllQuestion(){
         JSONParser jParser = new JSONParser();
         List<NameValuePair> params = new ArrayList<>();

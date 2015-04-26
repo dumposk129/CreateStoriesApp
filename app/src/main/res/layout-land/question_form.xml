@@ -3,155 +3,128 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:weightSum="1"
-    android:paddingBottom="40dp">
+    android:weightSum="1">
 
+
+    <!-- App Bar -->
     <include
         android:id="@+id/app_bar"
         layout="@layout/app_bar" />
 
+
+    <!-- Navigation Drawer -->
     <android.support.v4.widget.DrawerLayout xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/drawer_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+
+        <!-- Below App Bar for use show question name and answer-->
         <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent">
 
-            //Question
-
-            <LinearLayout
+            <!-- Question -->
+            <EditText
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
-
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/txtQuestionNext_question"
-                    android:hint="What is your question?"
-                    android:textSize="30sp"
-                    android:paddingLeft="50dp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="100dp">
+                android:id="@+id/txtQuestionName"
+                android:hint="What is your question?"
+                android:textSize="30sp"
+                android:paddingLeft="20dp" />
 
-            </LinearLayout>
 
+            <!-- Button OK -->
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Next"
-                android:id="@+id/btnQuestionNext"
+                android:id="@+id/btnNext"
                 android:layout_gravity="right|bottom"
-                android:onClick="onQuestionNextClickListener"></Button>
+                android:onClick="onQuestionNextClickListener" />
 
+            <!-- Radio Group for Answer -->
             <RadioGroup
-                android:id="@+id/rgQuestionNextForm"
+                android:id="@+id/rgQuestionForm"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="50dp"
-                android:layout_gravity="left|top">
+                android:layout_marginTop="70dp"
+                android:layout_marginLeft="10dp"
+                android:layout_gravity="top|left">
 
-
-                //Answer 1
-
-                <LinearLayout
+                <RadioButton
+                    android:id="@+id/rbAnswer_1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_margin="10dp">
+                    android:paddingTop="30dp" />
 
-                    <RadioButton
-                        android:id="@+id/rbQuestionNext_answer1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-
-                    <EditText
-                        android:id="@+id/txtQuestionNext_answer1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:hint="answer 1"
-                        android:textSize="20sp" />
-
-                </LinearLayout>
-
-
-                //Answer 2
-
-                <LinearLayout
+                <RadioButton
+                    android:id="@+id/rbAnswer_2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_margin="10dp">
+                    android:paddingTop="30dp" />
 
-                    <RadioButton
-                        android:id="@+id/rbQuestionNext_answer2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-
-                    <EditText
-                        android:id="@+id/txtQuestionNext_answer2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:hint="answer 2"
-                        android:textSize="20sp" />
-
-                </LinearLayout>
-
-
-                //Answer 3
-
-                <LinearLayout
+                <RadioButton
+                    android:id="@+id/rbAnswer_3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_margin="10dp">
+                    android:paddingTop="30dp" />
 
-                    <RadioButton
-                        android:id="@+id/rbQuestionNext_answer3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-
-                    <EditText
-                        android:id="@+id/txtQuestionNext_answer3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:hint="answer3"
-                        android:textSize="20sp" />
-
-                </LinearLayout>
-
-
-                // Answer 4
-
-                <LinearLayout
+                <RadioButton
+                    android:id="@+id/rbAnswer_4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_margin="10dp">
-
-                    <RadioButton
-                        android:id="@+id/rbQuestionNext_answer4"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-
-                    <EditText
-                        android:id="@+id/txtQuestionNext_answer4"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:hint="answer 4"
-                        android:textSize="20sp" />
-                </LinearLayout>
-
+                    android:paddingTop="30dp" />
             </RadioGroup>
+
+            <!-- Answer 1 -->
+            <EditText
+                android:id="@+id/txtAnswer_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="answer 1"
+                android:layout_gravity="left|right"
+                android:layout_marginTop="68dp"
+                android:layout_marginLeft="45dp"
+                android:textSize="20sp" />
+
+            <!-- Answer 2 -->
+            <EditText
+                android:id="@+id/txtAnswer_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="answer 2"
+                android:layout_gravity="left|right"
+                android:layout_marginTop="115dp"
+                android:layout_marginLeft="45dp"
+                android:textSize="20sp" />
+
+            <!-- Answer 3 -->
+            <EditText
+                android:id="@+id/txtAnswer_3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="answer 3"
+                android:layout_gravity="left|right"
+                android:layout_marginTop="160dp"
+                android:layout_marginLeft="45dp"
+                android:textSize="20sp" />
+
+            <!-- Answer 4 -->
+            <EditText
+                android:id="@+id/txtAnswer_4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="answer 4"
+                android:layout_gravity="left|right"
+                android:layout_marginTop="210dp"
+                android:layout_marginLeft="45dp"
+                android:textSize="20sp" />
+
+
         </FrameLayout>
 
-        <!-- Navigation Drawer-->
+        <!-- Navigation Drawer -->
         <fragment
             android:id="@+id/fragment_navigation_drawer"
             android:name="com.dumposk129.create.stories.app.navigation_drawer.NavigationDrawerFragment"
@@ -161,5 +134,4 @@
             app:layout="@layout/navigation_drawer"
             tools:layout="@layout/navigation_drawer" />
     </android.support.v4.widget.DrawerLayout>
-
 </LinearLayout>

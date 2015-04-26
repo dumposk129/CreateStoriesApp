@@ -1,3 +1,4 @@
+/*
 package com.dumposk129.create.stories.app.quiz;
 
 import android.content.Intent;
@@ -12,9 +13,11 @@ import android.widget.TextView;
 import com.dumposk129.create.stories.app.R;
 
 
+*/
 /**
  * Created by DumpOSK129.
- */
+ *//*
+
 public class Answer extends ActionBarActivity {
     private TextView answerNext_question, answerNext_answer1, answerNext_answer2,
             answerNext_answer3, answerNext_answer4, answerNext_isCorrect;
@@ -91,3 +94,4 @@ is_correct
         }
     }
 }
+*/

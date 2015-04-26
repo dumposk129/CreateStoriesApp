@@ -16,37 +16,40 @@ import com.dumposk129.create.stories.app.R;
 public class NumberOfQuestion extends ActionBarActivity{
     private Toolbar mToolbar;
     private EditText numOfQues, qId;
-    private Button   numOfQues_btnOK;
+    private Button btnOK;
     private String quizID;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.number_of_question);
 
-        // casting
+        // Casting.
         mToolbar = (Toolbar) findViewById(R.id.app_bar);
         numOfQues = (EditText) findViewById(R.id.txtNumOfQuestion);
-        numOfQues_btnOK = (Button) findViewById(R.id.btnNumOfQuestion);
+        btnOK = (Button) findViewById(R.id.btnNumOfQuestion);
         qId = (EditText) findViewById(R.id.quizId);
 
-        // Toolbar
+        // Toolbar.
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-
+        // Get quizID.
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
-        quizID = bundle.getString("quizID");
+        quizID = bundle.getString("quizID"); // quizID is auto increase.
 
+        // Set quizID but not show because users not required.
         qId.setText(quizID);
 
-
-        numOfQues_btnOK.setOnClickListener(new View.OnClickListener() {
+        // Button ClickListener.
+        btnOK.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String number = numOfQues.getText().toString();
 
-                Intent intent = new Intent(NumberOfQuestion.this, QuestionNext.class);
+                // Send Data to Question.class
+                Intent intent = new Intent(NumberOfQuestion.this, Questions.class);
                 intent.putExtra("NumOfQuestion", Integer.parseInt(number));
                 intent.putExtra("QuizID", quizID);
                 intent.putExtra("index", 0);
