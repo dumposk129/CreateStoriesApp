@@ -48,19 +48,19 @@ public class Quiz {
 
 
 
-        JSONObject json = jsonParser.makeHttpRequest(ApiConfig.hostname(API.CREATE_QUESTION), ApiConfig.POST, params);
+        JSONObject json = jsonParser.makeHttpRequest(ApiConfig.hostname(API.CREATE_QUESTION), ApiConfig.GET, params);
         try {
             int success = json.getInt(ApiConfig.TAG_SUCCESS);
             if(success == 1){
                 return json.getInt("questionId");   //questionID
             }else{
                 String msg = json.getString("message");
-                Log.e("[Save Question]", msg);
+                Log.e("[Save Question:API]", msg);
                 return 0;
             }
         } catch (Exception e)
         {
-            Log.e("[Save Question]", e.getMessage());
+            Log.e("[Save Question:JSON]", e.getMessage());
             return 0;
         }
     }
@@ -80,12 +80,12 @@ public class Quiz {
             if(success == 1){
                 return true;
             }else{
-                Log.e("[Save Choices]", json.getString("message"));
+                Log.e("[Save Choices:API]", json.getString("message"));
                 return false;
             }
 
         }catch (Exception e){
-            Log.e("[Save Choices]", e.getMessage());
+            Log.e("[Save Choices:JSON]", e.getMessage());
             return false;
         }
     }

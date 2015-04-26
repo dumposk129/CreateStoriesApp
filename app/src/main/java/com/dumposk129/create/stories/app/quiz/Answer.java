@@ -1,4 +1,3 @@
-/*
 package com.dumposk129.create.stories.app.quiz;
 
 import android.content.Intent;
@@ -12,12 +11,11 @@ import android.widget.TextView;
 
 import com.dumposk129.create.stories.app.R;
 
-*/
+
 /**
  * Created by DumpOSK129.
- *//*
-
-public class AnswerNext extends ActionBarActivity {
+ */
+public class Answer extends ActionBarActivity {
     private TextView answerNext_question, answerNext_answer1, answerNext_answer2,
             answerNext_answer3, answerNext_answer4, answerNext_isCorrect;
 
@@ -27,7 +25,7 @@ public class AnswerNext extends ActionBarActivity {
     @Override
     public void onCreate(Bundle savedInstanceState, PersistableBundle persistentState) {
         super.onCreate(savedInstanceState, persistentState);
-        setContentView(R.layout.answer_next_form);
+        setContentView(R.layout.answer_form);
 
         // Casting
         answerNext_question = (TextView) findViewById(R.id.tvAnswerNext_question);
@@ -42,11 +40,11 @@ public class AnswerNext extends ActionBarActivity {
 
 
         // Answer
-        for (int i = 0; i < */
-/*question_id*//*
+        for (int i = 0; i <
+question_id
 ; i++) {
-            if (*/
-/*question_id != i*//*
+            if (
+question_id != i
 ) {
                 answerNext_btnNext.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -57,29 +55,29 @@ public class AnswerNext extends ActionBarActivity {
                         // Switch case compared by Radio Button Id
                         switch (selectedId) {
                             case R.id.rbQuestionNext_answer1:
-                                if (*/
-/*is_correct*//*
+                                if (
+is_correct
 )
                                     answerNext_isCorrect.setVisibility(View.VISIBLE);
                                 else // Show is Correct Answer
                                     break;
                             case R.id.rbQuestionNext_answer2:
-                                if (*/
-/*is_correct*//*
+                                if (
+is_correct
 )
                                     answerNext_isCorrect.setVisibility(View.VISIBLE);
                                 else // Show is Correct Answer
                                     break;
                             case R.id.rbQuestionNext_answer3:
-                                if (*/
-/*is_correct*//*
+                                if (
+is_correct
 )
                                     answerNext_isCorrect.setVisibility(View.VISIBLE);
                                 else // Show is Correct Answer
                                     break;
                             case R.id.rbQuestionNext_answer4:
-                                if (*/
-/*is_correct*//*
+                                if (
+is_correct
 )
                                     answerNext_isCorrect.setVisibility(View.VISIBLE);
                                 else // Show is Correct Answer
@@ -93,4 +91,3 @@ public class AnswerNext extends ActionBarActivity {
         }
     }
 }
-*/

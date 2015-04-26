@@ -5,7 +5,7 @@ package com.dumposk129.create.stories.app.api;
  */
 public class ApiConfig {
     public static final String hostname(String api_name) {
-      return  "http://localhost/api/"+api_name+".php";
+      return  "http://dump.geozigzag.com/api/"+api_name+".php";
 
         //dump.geozigzag.com/api/
     }

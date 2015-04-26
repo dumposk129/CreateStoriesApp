@@ -87,9 +87,9 @@ public class Quizzes extends ActionBarActivity {
                                 Intent intent;
                                 switch (position){
                                     case 0:
-                                        Toast.makeText(getApplicationContext(), "CLick", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(getApplicationContext(), "Click", Toast.LENGTH_SHORT).show();
                                         intent = new Intent(Quizzes.this, NumberOfQuestion.class);
-                                        intent.putExtra("quizID", 1);
+                                        intent.putExtra("quizID", "1");
                                         startActivity(intent);
                                         break;
                                   /*  case 1:

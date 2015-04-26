@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import com.dumposk129.create.stories.app.R;
 import com.dumposk129.create.stories.app.api.ApiConfig;
@@ -35,11 +36,12 @@ public class QuestionNext extends ActionBarActivity {
     private String quizId;
     private int currentIndex;
     private int noOfQuestion;
+    private int correctAnswer = 0;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.question_next_form);
+        setContentView(R.layout.question_form);
 
         //casting
         mToolbar = (Toolbar) findViewById(R.id.app_bar);
@@ -49,10 +51,10 @@ public class QuestionNext extends ActionBarActivity {
         txtQuestionNext_answer3 = (EditText) findViewById(R.id.txtQuestionNext_answer3);
         txtQuestionNext_answer4 = (EditText) findViewById(R.id.txtQuestionNext_answer4);
         rgQuestionNext = (RadioGroup) findViewById(R.id.rgQuestionNextForm);
-     /*   rbQuestionNext_answer1 = (RadioButton) rgQuestionNext.findViewById(rgQuestionNext.getCheckedRadioButtonId());
-        rbQuestionNext_answer2 = (RadioButton) rgQuestionNext.findViewById(rgQuestionNext.getCheckedRadioButtonId());
-        rbQuestionNext_answer3 = (RadioButton) rgQuestionNext.findViewById(rgQuestionNext.getCheckedRadioButtonId());
-        rbQuestionNext_answer4 = (RadioButton) rgQuestionNext.findViewById(rgQuestionNext.getCheckedRadioButtonId());*/
+        rbQuestionNext_answer1 = (RadioButton) findViewById(R.id.rbQuestionNext_answer1);
+        rbQuestionNext_answer2 = (RadioButton) findViewById(R.id.rbQuestionNext_answer2);
+        rbQuestionNext_answer3 = (RadioButton) findViewById(R.id.rbQuestionNext_answer3);
+        rbQuestionNext_answer4 = (RadioButton) findViewById(R.id.rbQuestionNext_answer4);
         btnQuestionNext_next = (Button) findViewById(R.id.btnQuestionNext);
 
         // Navigation Drawer
@@ -67,7 +69,7 @@ public class QuestionNext extends ActionBarActivity {
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
         noOfQuestion = bundle.getInt("NumOfQuestion");
-        quizId = bundle.getString("quizId");
+        quizId = bundle.getString("QuizID");
         currentIndex = bundle.getInt("index") + 1;
 
         if (noOfQuestion == currentIndex) {
@@ -77,12 +79,27 @@ public class QuestionNext extends ActionBarActivity {
         btnQuestionNext_next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // SET Correct Answer
+                int selectedID = rgQuestionNext.getCheckedRadioButtonId();
+
+                if(selectedID == rbQuestionNext_answer1.getId()){
+                    correctAnswer = 1;
+                }else if(selectedID == rbQuestionNext_answer2.getId()){
+                    correctAnswer = 2;
+                }else if(selectedID == rbQuestionNext_answer3.getId()){
+                    correctAnswer = 3;
+                }else if(selectedID == rbQuestionNext_answer4.getId()){
+                    correctAnswer = 4;
+                }
+
                 // Call AsyncTask
                 new SaveQuestionTask().execute();
                 //Toast.makeText(getApplicationContext(),"Click",Toast.LENGTH_SHORT).show();
             }
         });
+
     }
+
 
     private void onQuestionNextClickListener() {
         //Fill Question amd Answer
@@ -96,41 +113,12 @@ public class QuestionNext extends ActionBarActivity {
         // Save Question to DB
         int questionID = Quiz.saveQuestion(quesNext_question, quizId); //get question from db
 
-        final int[] correctAnswer = {0};
-
-        rgQuestionNext.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                // Compared by Radio Button Id using checkedId
-
-                int pos = rgQuestionNext.indexOfChild(findViewById(checkedId));
-
-                switch (pos) {
-                    case 0: //is Correct
-                        correctAnswer[0] = 1;
-                        break;
-
-                    case 1: //is Correct
-                        correctAnswer[1] = 2;
-                        break;
-
-                    case 2: //is Correct
-                        correctAnswer[2] = 3;
-                        break;
-
-                    case 3: //is Correct
-                        correctAnswer[3] = 4;
-                        break;
-                }
-            }
-        });
-
         // Set up choices data, it should be ready for saving to db.
         List<Choice> choices = new ArrayList<>(4);
         for (int s = 1; s <= 4; s++) {
             Choice choice = new Choice();
             choice.setChoiceName(quesNext_answer[s - 1]);
-            if (correctAnswer[0] == s) {
+            if (correctAnswer == s) {
                 choice.setIsCorrect(ApiConfig._TRUE);
             } else {
                 choice.setIsCorrect(ApiConfig._FALSE);
@@ -145,9 +133,8 @@ public class QuestionNext extends ActionBarActivity {
         if (isSuccess) {
             if (currentIndex == noOfQuestion) {
                 // Go to Final Question
-                /*Intent intent = new Intent(getApplicationContext(), Quizzes.class);
-                startActivity(intent);*/
-                btnQuestionNext_next.setText("Dene");
+                Intent intent = new Intent(QuestionNext.this, Quizzes.class);
+                startActivity(intent);
             } else {
                 // Create Next Question
                 Intent intent = new Intent(QuestionNext.this, QuestionNext.class);
@@ -175,7 +162,13 @@ public class QuestionNext extends ActionBarActivity {
 
         @Override
         protected void onPostExecute(Void s) {
+            Toast.makeText(getApplicationContext(), "Save Question Already", Toast.LENGTH_LONG).show();
+        }
 
+        @Override
+        protected void onProgressUpdate(Void... values) {
+
+            Toast.makeText(getApplicationContext(), "Saving Question", Toast.LENGTH_LONG).show();
         }
     }
 }

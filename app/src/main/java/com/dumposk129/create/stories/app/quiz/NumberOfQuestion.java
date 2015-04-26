@@ -47,7 +47,7 @@ public class NumberOfQuestion extends ActionBarActivity{
                 String number = numOfQues.getText().toString();
 
                 Intent intent = new Intent(NumberOfQuestion.this, QuestionNext.class);
-                intent.putExtra("NumOfQuestion", number);
+                intent.putExtra("NumOfQuestion", Integer.parseInt(number));
                 intent.putExtra("QuizID", quizID);
                 intent.putExtra("index", 0);
                 startActivity(intent);
