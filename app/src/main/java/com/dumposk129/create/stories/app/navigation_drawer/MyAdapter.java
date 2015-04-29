@@ -21,11 +21,13 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     List<Information> data = Collections.emptyList();
     private ClickListener mClickListener;
 
+    // Constructor
     public MyAdapter(Context context, List<Information> data){
         inflater = LayoutInflater.from(context);
         this.data = data;
     }
 
+    // Show Layout Navigation Drawer List Item
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = inflater.inflate(R.layout.nav_drawer_list_item, parent, false);
@@ -33,21 +35,25 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         return holder;
     }
 
+    // Add Data follow position
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
         Information current = data.get(position);
         holder.title.setText(current.title);
     }
 
+    // SetClickListener
     public void setClickListener(ClickListener clickListener){
         this.mClickListener = clickListener;
     }
 
+    // Get Data From Value
     @Override
     public int getItemCount() {
         return data.size();
     }
 
+    // Click Item and go to page
     class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView title;
         public MyViewHolder(View itemView) {

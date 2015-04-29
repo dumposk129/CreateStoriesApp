@@ -27,12 +27,11 @@ import java.util.List;
  * Created by DumpOSK129.
  */
 public class NavigationDrawerFragment extends Fragment implements MyAdapter.ClickListener {
-    // TODO: Rename parameter arguments, choose names that match
+
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     public static final String PRE_FILE_NAME = "testpre";
     public static final String KEY_USER_LEARNED_DRAWER = "user_learned_drawer";
 
-    // TODO: Rename and change types of parameters
     private RecyclerView recyclerView;
     private ActionBarDrawerToggle mDrawerToggle;
     private DrawerLayout mDrawerLayout;
@@ -69,6 +68,7 @@ public class NavigationDrawerFragment extends Fragment implements MyAdapter.Clic
         return layout;
     }
 
+    // Add Data to Navigation Drawer
     public List<Information> getData() {
         List<Information> data = new ArrayList<>();
         String[] titles = getResources().getStringArray(R.array.drawer_item_array);

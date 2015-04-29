@@ -68,7 +68,7 @@ public class Quizzes extends ActionBarActivity {
         // Send listItem to ListView.
         listView.setAdapter(adapter);
 
-      // new LoadAllQuiz().execute();
+        // new LoadAllQuiz().execute();
 
         // Set Item Click Listener.
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -76,28 +76,28 @@ public class Quizzes extends ActionBarActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                Toast.makeText(getApplication(), "Click", Toast.LENGTH_LONG).show();
-
                 // Show Dialog and users choose it.
                 final AlertDialog.Builder builder = new AlertDialog.Builder(Quizzes.this);
                 builder.setTitle(R.string.choose_item).setItems(R.array.create_answer, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int position) {
-                                Intent intent;
-                                switch (position){
-                                    case 0:
-                                        intent = new Intent(Quizzes.this, NumberOfQuestion.class);
-                                        intent.putExtra("quizID", "1");
-                                        startActivity(intent);
-                                        break;
-                                  /*  case 1:
-                                        in
-                                        startActivity(intent);
-                                        break;*/
-                                    case 1: dialog.dismiss();
+                    @Override
+                    public void onClick(DialogInterface dialog, int position) {
+                        Intent intent;
+                        switch (position) {
+                            case 0:
+                                if (question_id >= 1) {
+                                    /*intent = new Intent(Quizzes.this, Answer.class);
+                                    startActivity(intent);*/
+                                } else {
+                                    intent = new Intent(Quizzes.this, NumberOfQuestion.class);
+                                    intent.putExtra("quizID", "1");
+                                    startActivity(intent);
                                 }
-                            }
-                        });
+                                break;
+                            case 1:
+                                dialog.dismiss();
+                        }
+                    }
+                });
                 builder.show();
             }
         });
