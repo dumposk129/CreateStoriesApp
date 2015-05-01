@@ -23,11 +23,12 @@ import org.json.JSONArray;
 
 public class Answer extends ActionBarActivity {
     private TextView tvQuestion, tvAnswer1, tvAnswer2, tvAnswer3, tvAnswer4, tvIsCorrect;
-    private int index;
-    private Button answerNext_btnNext;
+    private Button btnAnswerNext;
     private RadioGroup radGrp;
     private RadioButton rbAnswer1, rbAnswer2, rbAnswer3, rbAnswer4;
     private Toolbar mToolbar;
+    private int noOfQuestion;
+    private int currentIndex;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -41,8 +42,13 @@ public class Answer extends ActionBarActivity {
         tvAnswer2 = (TextView) findViewById(R.id.tvAnswer_2);
         tvAnswer3 = (TextView) findViewById(R.id.tvAnswer_3);
         tvAnswer4 = (TextView) findViewById(R.id.tvAnswer_4);
-        answerNext_btnNext = (Button) findViewById(R.id.btnNextAnswer);
+        btnAnswerNext = (Button) findViewById(R.id.btnNextAnswer);
+        tvIsCorrect = (TextView) findViewById(R.id.tvIsCorrect);
         radGrp = (RadioGroup) findViewById(R.id.rgAnswerForm);
+        rbAnswer1 = (RadioButton) findViewById(R.id.rbAnswer_1);
+        rbAnswer2 = (RadioButton) findViewById(R.id.rbAnswer_2);
+        rbAnswer3 = (RadioButton) findViewById(R.id.rbAnswer_3);
+        rbAnswer4 = (RadioButton) findViewById(R.id.rbAnswer_4);
 
         // Toolbar and Navigation Drawer.
         setSupportActionBar(mToolbar);
@@ -51,36 +57,74 @@ public class Answer extends ActionBarActivity {
                 getSupportFragmentManager().findFragmentById(R.id.fragment_navigation_drawer);
         drawerFragment.setUp(R.id.fragment_navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout), mToolbar);
 
-
-        // Show question and answer from database
-        answerNext_btnNext.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-            }
-        });
-
-        //get index from bundle
+        // Get index from bundle
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
+        noOfQuestion = bundle.getInt("NumOfQuestion");
+        currentIndex = bundle.getInt("index");
 
-        int currentIndex = bundle.getInt("index");
-        if(currentIndex == 0){
+        // Get Question from currentIndex
+        if (currentIndex == 0) {
             new ShowQuestionTask().execute();
         }
 
-        if(currentIndex < Globals.questions.size()) {
+        // Change textView from Next to Finished when NumberOfQuestion equal currentIndex.
+        if (currentIndex == noOfQuestion) {
+            btnAnswerNext.setText("Finished");
+        }
+
+        if (currentIndex < Globals.questions.size()) {
             Question currentQuestion = Globals.questions.get(currentIndex);
 
             // set value to UI from currentQuestion
+            tvQuestion.getText().toString();
+            tvAnswer1.getText().toString();
+            tvAnswer2.getText().toString();
+            tvAnswer3.getText().toString();
+            tvAnswer4.getText().toString();
 
             // bind Next Action
             // - Check corrected the selected choices
-            // - If correct, show correct message and appears the next button.
+            btnAnswerNext.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int selectedId = radGrp.getCheckedRadioButtonId();
+
+                    // If correct, show correct message and appears the next button.
+                    if (selectedId == rbAnswer1.getId() && selectedId == Quiz.getQuestions()) {
+                        ShowMessageAndNextBtn();
+                    } else if (selectedId == rbAnswer2.getId() && selectedId == Quiz.getQuestions()) {
+                        ShowMessageAndNextBtn();
+                    } else if (selectedId == rbAnswer3.getId() && selectedId == Quiz.getQuestions()) {
+                        ShowMessageAndNextBtn();
+                    } else if (selectedId == rbAnswer4.getId() && selectedId == Quiz.getQuestions()) {
+                        ShowMessageAndNextBtn();
+                    }
+                }
+            });
             // - If incorrect, show incorrect and do not show the next button
         }
     }
 
-    private class ShowQuestionTask extends AsyncTask<String, Void, JSONArray>{
+    // Show Message And Next Button
+    private void ShowMessageAndNextBtn() {
+        tvIsCorrect.setVisibility(View.VISIBLE);
+        btnAnswerNext.setVisibility(View.VISIBLE);
+    }
+
+    // Next Button ClickListener
+    private void onAnswerNextClickListener() {
+        if (currentIndex == noOfQuestion) {
+            // Go to Quizzes Page
+            Intent intent = new Intent(Answer.this, Quizzes.class);
+            startActivity(intent);
+        } else {
+            // Answer Next
+
+        }
+    }
+
+    private class ShowQuestionTask extends AsyncTask<String, Void, JSONArray> {
 
         @Override
         protected void onPostExecute(JSONArray result) {
@@ -89,8 +133,7 @@ public class Answer extends ActionBarActivity {
 
         @Override
         protected JSONArray doInBackground(String... params) {
-            return  Quiz.getShowQuestion("1");
+            return Quiz.getShowQuestion("1");
         }
-
     }
 }

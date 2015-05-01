@@ -41,7 +41,8 @@
                 android:text="Next"
                 android:id="@+id/btnNextQuestion"
                 android:layout_gravity="right|bottom"
-                android:onClick="onQuestionNextClickListener" />
+                android:onClick="onQuestionNextClickListener"
+                android:layout_margin="20dp"/>
 
             <!-- Radio Group for Answer -->
             <RadioGroup

@@ -108,7 +108,6 @@ public class Questions extends ActionBarActivity {
 
     // Method Next Click Listener.
     private void onNextClickListener() {
-
         // Fill Question amd Answer.
         String question = txtQuestion.getText().toString();
         String[] answer = new String[4];
@@ -140,12 +139,10 @@ public class Questions extends ActionBarActivity {
         boolean isSuccess = Quiz.saveChoices(choices, questionID);
         if (isSuccess) {
             if (currentIndex == noOfQuestion) {
-
-                // Go to Final Question.
+                // Go to Quizzes Page.
                 Intent intent = new Intent(Questions.this, Quizzes.class);
                 startActivity(intent);
             } else {
-
                 // Create Next Question.
                 Intent intent = new Intent(Questions.this, Questions.class);
                 intent.putExtra("NumOfQuestion", noOfQuestion);
@@ -171,13 +168,12 @@ public class Questions extends ActionBarActivity {
         // When save data has finished.
         @Override
         protected void onPostExecute(Void s) {
-            Toast.makeText(getApplicationContext(), "Save Question Already", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), "Save Question Already", Toast.LENGTH_SHORT).show();
         }
 
         // Saving Question.
         @Override
         protected void onProgressUpdate(Void... values) {
-            Toast.makeText(getApplicationContext(), "Saving Question", Toast.LENGTH_LONG).show();
         }
     }
 }

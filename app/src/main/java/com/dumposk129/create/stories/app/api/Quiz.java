@@ -101,7 +101,6 @@ public class Quiz {
 
         JSONObject json = jsonParser.makeHttpRequest(ApiConfig.hostname(API.SHOW_QUESTION), ApiConfig.GET, params);
 
-
         try {
             int success = json.getInt(ApiConfig.TAG_SUCCESS);
             if (success == 1) {

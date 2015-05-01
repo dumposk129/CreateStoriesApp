@@ -28,13 +28,6 @@ import java.util.List;
  */
 
 
-/**
- * HOW TO USE THIS PAGE.
- 1. Select stories.
- 2. Show Dialog box.
- 3. if don't have question, it show Question and Cancel. and if have question less 1 question, which show Answer and Cancel.
- 4. select from No.3.
- */
 public class Quizzes extends ActionBarActivity {
 
     private Toolbar mToolbar;
