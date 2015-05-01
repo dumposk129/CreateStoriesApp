@@ -15,12 +15,11 @@
     </compatible-screens>
 
     <supports-screens
-        android:anyDensity="true"
         android:largeScreens="true"
         android:normalScreens="false"
-        android:resizeable="true"
+        android:requiresSmallestWidthDp="600"
         android:smallScreens="false"
-        android:xlargeScreens="true"></supports-screens>
+        android:xlargeScreens="true"/>
 
     <application
         android:allowBackup="true"
@@ -28,6 +27,8 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
 
+
+        <!-- Main Menu -->
         <activity
             android:name=".navigation_drawer.MainActivity"
             android:label="@string/app_name">
@@ -37,6 +38,18 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>-->
         </activity>
+
+
+        <!-- Read Menu -->
+        <activity
+            android:name=".reads.Reads"
+            android:label="@string/title_activity_reads" />
+
+
+        <!-- Create Menu -->
+        <activity
+            android:name=".create.Creates"
+            android:label="@string/title_activity_creates" />
         <!-- <activity
              android:name=".create.Write"
              android:label="@string/app_name" />-->
@@ -48,51 +61,36 @@
             android:name=".create.Character_Show"
             android:label="@string/app_name" />
         -->
-        <activity
-            android:name=".reads.Reads"
-            android:label="@string/title_activity_reads" />
-        <activity
-            android:name=".create.Creates"
-            android:label="@string/title_activity_creates_fragment" />
-        <activity
-            android:name=".quiz.Quizzes"
-            android:label="@string/title_activity_quizzes">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name=".quiz.Questions"
-            android:label="@string/title_activity_question_next">
-
-<!--
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
--->
-
-
-        </activity>
-        <activity
-            android:name=".settings.Settings"
-            android:label="@string/title_activity_settings" />
         <!-- <activity
              android:name=".create.SelectBackground"
              android:label="@string/title_activity_select_background"
              android:screenOrientation="landscape">
          </activity>-->
 
+        <!-- Quizzes Menu-->
+        <activity
+            android:name=".quiz.Quizzes"
+            android:label="@string/title_activity_quizzes">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".quiz.Questions"
+            android:label="@string/title_activity_question_next" />
         <activity
             android:name=".quiz.NumberOfQuestion"
             android:label="@string/title_activity_num_of_questions" />
-
         <activity
             android:name=".quiz.Answer"
             android:label="@string/title_activity_answer" />
+
+
+        <!-- Settings -->
+        <activity
+            android:name=".settings.Settings"
+            android:label="@string/title_activity_settings" />
 
     </application>
 

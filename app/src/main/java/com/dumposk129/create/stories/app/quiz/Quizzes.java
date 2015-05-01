@@ -15,7 +15,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.dumposk129.create.stories.app.R;
-import com.dumposk129.create.stories.app.api.Quiz;
 import com.dumposk129.create.stories.app.navigation_drawer.NavigationDrawerFragment;
 
 import org.json.JSONArray;
@@ -79,7 +78,7 @@ public class Quizzes extends ActionBarActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                 // Do you have question?
-                if (Quiz.getAllQuestion() >= 1) {
+               /* if (Quiz.getAllQuestion() >= 1) {
                     // Show Dialog and users choose it.
                     final AlertDialog.Builder builder = new AlertDialog.Builder(Quizzes.this);
                     builder.setTitle(R.string.choose_item).setItems(R.array.answer, new DialogInterface.OnClickListener() {
@@ -116,7 +115,7 @@ public class Quizzes extends ActionBarActivity {
                             }
                         }
                     });
-                }
+                }*/
 
                 // Show Dialog and users choose it.
                 final AlertDialog.Builder builder = new AlertDialog.Builder(Quizzes.this);
