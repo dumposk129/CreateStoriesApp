@@ -15,6 +15,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.dumposk129.create.stories.app.R;
+import com.dumposk129.create.stories.app.api.Quiz;
 import com.dumposk129.create.stories.app.navigation_drawer.NavigationDrawerFragment;
 
 import org.json.JSONArray;
@@ -77,9 +78,49 @@ public class Quizzes extends ActionBarActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
+                // Do you have question?
+                if (Quiz.getAllQuestion() >= 1) {
+                    // Show Dialog and users choose it.
+                    final AlertDialog.Builder builder = new AlertDialog.Builder(Quizzes.this);
+                    builder.setTitle(R.string.choose_item).setItems(R.array.answer, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int position) {
+                            Intent intent;
+                            switch (position) {
+                                case 0:
+                                    intent = new Intent(Quizzes.this, Answer.class);
+                                    intent.putExtra("index", 0);
+                                    startActivity(intent);
+                                    break;
+
+                                case 1:
+                                    dialog.dismiss();
+                            }
+                        }
+                    });
+                } else {
+                    final AlertDialog.Builder builder = new AlertDialog.Builder(Quizzes.this);
+                    builder.setTitle(R.string.choose_item).setItems(R.array.create_question, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int position) {
+                            Intent intent;
+                            switch (position) {
+                                case 0:
+                                    intent = new Intent(Quizzes.this, NumberOfQuestion.class);
+                                    intent.putExtra("index", 0);
+                                    startActivity(intent);
+                                    break;
+
+                                case 1:
+                                    dialog.dismiss();
+                            }
+                        }
+                    });
+                }
+
                 // Show Dialog and users choose it.
                 final AlertDialog.Builder builder = new AlertDialog.Builder(Quizzes.this);
-                builder.setTitle(R.string.choose_item).setItems(R.array.create_answer, new DialogInterface.OnClickListener() {
+                builder.setTitle(R.string.choose_item).setItems(R.array.create_question, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int position) {
                         Intent intent;
@@ -89,9 +130,10 @@ public class Quizzes extends ActionBarActivity {
                                     *//*intent = new Intent(Quizzes.this, Answer.class);
                                     startActivity(intent);*//*
                                 } else {
-                               */     intent = new Intent(Quizzes.this, NumberOfQuestion.class);
-                                    intent.putExtra("quizID", "1");
-                                    startActivity(intent);
+                               */
+                                intent = new Intent(Quizzes.this, NumberOfQuestion.class);
+                                intent.putExtra("quizID", "1");
+                                startActivity(intent);
                                 //}
                                 break;
                             case 1:
