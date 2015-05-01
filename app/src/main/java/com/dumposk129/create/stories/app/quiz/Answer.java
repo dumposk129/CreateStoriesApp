@@ -1,97 +1,96 @@
-/*
 package com.dumposk129.create.stories.app.quiz;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.PersistableBundle;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.dumposk129.create.stories.app.R;
+import com.dumposk129.create.stories.app.api.Globals;
+import com.dumposk129.create.stories.app.api.Quiz;
+import com.dumposk129.create.stories.app.model.Question;
+import com.dumposk129.create.stories.app.navigation_drawer.NavigationDrawerFragment;
 
+import org.json.JSONArray;
 
-*/
-/**
- * Created by DumpOSK129.
- *//*
 
 public class Answer extends ActionBarActivity {
-    private TextView answerNext_question, answerNext_answer1, answerNext_answer2,
-            answerNext_answer3, answerNext_answer4, answerNext_isCorrect;
-
+    private TextView tvQuestion, tvAnswer1, tvAnswer2, tvAnswer3, tvAnswer4, tvIsCorrect;
+    private int index;
     private Button answerNext_btnNext;
-    private RadioGroup answerNext_rg;
+    private RadioGroup radGrp;
+    private RadioButton rbAnswer1, rbAnswer2, rbAnswer3, rbAnswer4;
+    private Toolbar mToolbar;
 
     @Override
-    public void onCreate(Bundle savedInstanceState, PersistableBundle persistentState) {
-        super.onCreate(savedInstanceState, persistentState);
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.answer_form);
 
         // Casting
-        answerNext_question = (TextView) findViewById(R.id.tvAnswerNext_question);
-        answerNext_answer1 = (TextView) findViewById(R.id.tvAnswerNext_answer1);
-        answerNext_answer2 = (TextView) findViewById(R.id.tvAnswerNext_answer2);
-        answerNext_answer3 = (TextView) findViewById(R.id.tvAnswerNext_answer3);
-        answerNext_answer4 = (TextView) findViewById(R.id.tvAnswerNext_answer4);
-        answerNext_btnNext = (Button) findViewById(R.id.btnAnswerNext);
-        answerNext_isCorrect = (TextView) findViewById(R.id.tvAnswerNext_isCorrect);
+        mToolbar = (Toolbar) findViewById(R.id.app_bar);
+        tvQuestion = (TextView) findViewById(R.id.tvQuestionName);
+        tvAnswer1 = (TextView) findViewById(R.id.tvAnswer_1);
+        tvAnswer2 = (TextView) findViewById(R.id.tvAnswer_2);
+        tvAnswer3 = (TextView) findViewById(R.id.tvAnswer_3);
+        tvAnswer4 = (TextView) findViewById(R.id.tvAnswer_4);
+        answerNext_btnNext = (Button) findViewById(R.id.btnNextAnswer);
+        radGrp = (RadioGroup) findViewById(R.id.rgAnswerForm);
+
+        // Toolbar and Navigation Drawer.
+        setSupportActionBar(mToolbar);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        NavigationDrawerFragment drawerFragment = (NavigationDrawerFragment)
+                getSupportFragmentManager().findFragmentById(R.id.fragment_navigation_drawer);
+        drawerFragment.setUp(R.id.fragment_navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout), mToolbar);
+
 
         // Show question and answer from database
-
-
-        // Answer
-        for (int i = 0; i <
-question_id
-; i++) {
-            if (
-question_id != i
-) {
-                answerNext_btnNext.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        //Selected Radio Button
-                        int selectedId = answerNext_rg.getCheckedRadioButtonId();
-
-                        // Switch case compared by Radio Button Id
-                        switch (selectedId) {
-                            case R.id.rbQuestionNext_answer1:
-                                if (
-is_correct
-)
-                                    answerNext_isCorrect.setVisibility(View.VISIBLE);
-                                else // Show is Correct Answer
-                                    break;
-                            case R.id.rbQuestionNext_answer2:
-                                if (
-is_correct
-)
-                                    answerNext_isCorrect.setVisibility(View.VISIBLE);
-                                else // Show is Correct Answer
-                                    break;
-                            case R.id.rbQuestionNext_answer3:
-                                if (
-is_correct
-)
-                                    answerNext_isCorrect.setVisibility(View.VISIBLE);
-                                else // Show is Correct Answer
-                                    break;
-                            case R.id.rbQuestionNext_answer4:
-                                if (
-is_correct
-)
-                                    answerNext_isCorrect.setVisibility(View.VISIBLE);
-                                else // Show is Correct Answer
-                                    break;
-                        }
-                    }
-                });
-            }else {
-                Intent lastQuestion = new Intent(getApplicationContext(), AnswerFinish.class);
+        answerNext_btnNext.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
             }
+        });
+
+        //get index from bundle
+        Intent intent = getIntent();
+        Bundle bundle = intent.getExtras();
+
+        int currentIndex = bundle.getInt("index");
+        if(currentIndex == 0){
+            new ShowQuestionTask().execute();
+        }
+
+        if(currentIndex < Globals.questions.size()) {
+            Question currentQuestion = Globals.questions.get(currentIndex);
+
+            // set value to UI from currentQuestion
+
+            // bind Next Action
+            // - Check corrected the selected choices
+            // - If correct, show correct message and appears the next button.
+            // - If incorrect, show incorrect and do not show the next button
         }
     }
+
+    private class ShowQuestionTask extends AsyncTask<String, Void, JSONArray>{
+
+        @Override
+        protected void onPostExecute(JSONArray result) {
+            Globals.questions = Quiz.getQuestions(result);
+        }
+
+        @Override
+        protected JSONArray doInBackground(String... params) {
+            return  Quiz.getShowQuestion("1");
+        }
+
+    }
 }
-*/

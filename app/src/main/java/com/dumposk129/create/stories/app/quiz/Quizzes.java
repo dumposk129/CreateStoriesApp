@@ -13,7 +13,6 @@ import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.dumposk129.create.stories.app.R;
 import com.dumposk129.create.stories.app.navigation_drawer.NavigationDrawerFragment;
@@ -26,6 +25,15 @@ import java.util.List;
 
 /**
  * Created by DumpOSK129.
+ */
+
+
+/**
+ * HOW TO USE THIS PAGE.
+ 1. Select stories.
+ 2. Show Dialog box.
+ 3. if don't have question, it show Question and Cancel. and if have question less 1 question, which show Answer and Cancel.
+ 4. select from No.3.
  */
 public class Quizzes extends ActionBarActivity {
 
@@ -84,16 +92,21 @@ public class Quizzes extends ActionBarActivity {
                         Intent intent;
                         switch (position) {
                             case 0:
-                                if (question_id >= 1) {
-                                    /*intent = new Intent(Quizzes.this, Answer.class);
-                                    startActivity(intent);*/
+                               /* if (question_id >= 1) {
+                                    *//*intent = new Intent(Quizzes.this, Answer.class);
+                                    startActivity(intent);*//*
                                 } else {
-                                    intent = new Intent(Quizzes.this, NumberOfQuestion.class);
+                               */     intent = new Intent(Quizzes.this, NumberOfQuestion.class);
                                     intent.putExtra("quizID", "1");
                                     startActivity(intent);
-                                }
+                                //}
                                 break;
                             case 1:
+                                intent = new Intent(Quizzes.this, Answer.class);
+                                intent.putExtra("index", 0);
+                                startActivity(intent);
+                                break;
+                            case 2:
                                 dialog.dismiss();
                         }
                     }

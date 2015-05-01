@@ -37,7 +37,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Next"
-                android:id="@+id/btnNext"
+                android:id="@+id/btnNextQuestion"
                 android:layout_gravity="right|bottom"
                 android:onClick="onQuestionNextClickListener" />
 

@@ -25,6 +25,13 @@ import java.util.List;
 /**
  * Created by DumpOSK129.
  */
+
+/**
+ * HOW TO USE THIS PAGE
+ 1. Fill Question, Answer and correct answer
+ 2. Click Next
+ 3. If Number of question equal currentIndex,  change text in Next Button from Next to Finished.
+*/
 public class Questions extends ActionBarActivity {
 
     private Toolbar mToolbar;
@@ -54,7 +61,7 @@ public class Questions extends ActionBarActivity {
         rbAnswer2 = (RadioButton) findViewById(R.id.rbAnswer_2);
         rbAnswer3 = (RadioButton) findViewById(R.id.rbAnswer_3);
         rbAnswer4 = (RadioButton) findViewById(R.id.rbAnswer_4);
-        btnNext = (Button) findViewById(R.id.btnNext);
+        btnNext = (Button) findViewById(R.id.btnNextQuestion);
 
         // Toolbar and Navigation Drawer.
         setSupportActionBar(mToolbar);

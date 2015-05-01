@@ -90,6 +90,10 @@
             android:name=".quiz.NumberOfQuestion"
             android:label="@string/title_activity_num_of_questions" />
 
+        <activity
+            android:name=".quiz.Answer"
+            android:label="@string/title_activity_answer" />
+
     </application>
 
 </manifest>

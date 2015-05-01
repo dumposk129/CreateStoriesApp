@@ -27,7 +27,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         this.data = data;
     }
 
-    // Show Layout Navigation Drawer List Item
+    // Show Layout ListItem from Navigation Drawer.
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = inflater.inflate(R.layout.nav_drawer_list_item, parent, false);
@@ -35,7 +35,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         return holder;
     }
 
-    // Add Data follow position
+    // Set Data from position.
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
         Information current = data.get(position);
@@ -53,7 +53,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         return data.size();
     }
 
-    // Click Item and go to page
+    // Set Click Listener
     class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView title;
         public MyViewHolder(View itemView) {

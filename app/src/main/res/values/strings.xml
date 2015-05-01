@@ -33,12 +33,13 @@
     <string name="title_activity_settings">Settings</string>
     <string name="title_activity_edit_story">EditStory</string>
     <string name="title_activity_question_next">Question</string>
+    <string name="title_activity_answer">Answer</string>
 
     <!-- Quiz -->
     <string name="choose_item">Choose Item</string>
     <array name="create_answer">
-        <item>Create Question</item>
-        <item>Answer</item>
+        <item>Questions</item>
+        <item>Answers</item>
         <item>Cancel</item>
     </array>
 

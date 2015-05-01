@@ -26,6 +26,12 @@ import java.util.List;
 /**
  * Created by DumpOSK129.
  */
+
+/**
+ *HOW TO USE THIS PAGE
+ 1. select menu from left navigation drawer.
+ 2. after that go to page from user select No.1.
+ * */
 public class NavigationDrawerFragment extends Fragment implements MyAdapter.ClickListener {
 
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -51,10 +57,10 @@ public class NavigationDrawerFragment extends Fragment implements MyAdapter.Clic
         mUserLearnedDrawer = Boolean.valueOf(readFromPreferences(getActivity(), KEY_USER_LEARNED_DRAWER, "false"));
         if (savedInstanceState != null) {
             mFromSavedInstanceState = true;
-
         }
     }
 
+    // ListView with recyclerView and set click listener
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -80,6 +86,7 @@ public class NavigationDrawerFragment extends Fragment implements MyAdapter.Clic
         return data;
     }
 
+    // Do Drawer open and Close when users click arrow
     public void setUp(int fragmentId, DrawerLayout drawerLayout, final Toolbar toolbar) {
         containerView = getActivity().findViewById(fragmentId);
         mDrawerLayout = drawerLayout;
@@ -124,6 +131,7 @@ public class NavigationDrawerFragment extends Fragment implements MyAdapter.Clic
         return sharedPreferences.getString(preferenceName, defaultValue);
     }
 
+    // Click go to page
     @Override
     public void itemClicked(View view, int position) {
         switch (position){
