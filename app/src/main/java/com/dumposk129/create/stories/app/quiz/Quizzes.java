@@ -3,6 +3,7 @@ package com.dumposk129.create.stories.app.quiz;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
@@ -15,9 +16,13 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.dumposk129.create.stories.app.R;
+import com.dumposk129.create.stories.app.api.Globals;
+import com.dumposk129.create.stories.app.api.Quiz;
+import com.dumposk129.create.stories.app.model.Story;
 import com.dumposk129.create.stories.app.navigation_drawer.NavigationDrawerFragment;
 
 import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -54,69 +59,20 @@ public class Quizzes extends ActionBarActivity {
         quizList = new ArrayList<>();
         data = new ArrayList<>();
 
-
-        // Assign data.
-        final String[] data = new String[]{"Test1", "Test2", "Test3", "T4", "T5"};
-
-        // Create ArrayAdapter.
-        ListAdapter adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, android.R.id.text1, data);
+        new LoadQuizTask().execute();
 
         // Casting.
         listView = (ListView) findViewById(R.id.listViewStoriesName);
         tvQuizID = (TextView) findViewById(R.id.quizzId);
         tvQuizName = (TextView) findViewById(R.id.quizzesName);
 
-        // Send listItem to ListView.
-        listView.setAdapter(adapter);
-
-        // new LoadAllQuiz().execute();
 
         // Set Item Click Listener.
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-                // Do you have question?
-                /*if (Quiz.getAllQuestion()) {
-                    // Show Dialog and users choose it.
-                    final AlertDialog.Builder builder = new AlertDialog.Builder(Quizzes.this);
-                    builder.setTitle(R.string.choose_item).setItems(R.array.answer, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int position) {
-                            Intent intent;
-                            switch (position) {
-                                case 0:
-                                    intent = new Intent(Quizzes.this, Answer.class);
-                                    intent.putExtra("index", 0);
-                                    startActivity(intent);
-                                    break;
-
-                                case 1:
-                                    dialog.dismiss();
-                            }
-                        }
-                    });
-                } else {
-                    final AlertDialog.Builder builder = new AlertDialog.Builder(Quizzes.this);
-                    builder.setTitle(R.string.choose_item).setItems(R.array.create_question, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int position) {
-                            Intent intent;
-                            switch (position) {
-                                case 0:
-                                    intent = new Intent(Quizzes.this, NumberOfQuestion.class);
-                                    intent.putExtra("index", 0);
-                                    startActivity(intent);
-                                    break;
-
-                                case 1:
-                                    dialog.dismiss();
-                            }
-                        }
-                    });
-                }*/
-
+                final int selectedStory = position;
                 // Show Dialog and users choose it.
                 final AlertDialog.Builder builder = new AlertDialog.Builder(Quizzes.this);
                 builder.setTitle(R.string.choose_item).setItems(R.array.create_question, new DialogInterface.OnClickListener() {
@@ -126,11 +82,12 @@ public class Quizzes extends ActionBarActivity {
                         switch (position) {
                             case 0:
                                 intent = new Intent(Quizzes.this, NumberOfQuestion.class);
-                                intent.putExtra("quizID", "1");
+                                intent.putExtra("quizID", Globals.stories.get(selectedStory).getQuestionId());
                                 startActivity(intent);
                                 break;
                             case 1:
                                 intent = new Intent(Quizzes.this, Answer.class);
+                                intent.putExtra("quizID", Globals.stories.get(selectedStory).getQuestionId());
                                 intent.putExtra("index", 0);
                                 startActivity(intent);
                                 break;
@@ -142,63 +99,38 @@ public class Quizzes extends ActionBarActivity {
                 builder.show();
             }
         });
+
+
+
     }
 
+    private  void setListData(List<Story> stories){
+        // Assign data.
+        String[] data = new String[stories.size()];
+        for(int i = 0; i < stories.size(); i++)
+        {
+            data[i] = stories.get(i).getQuestionName();
+        }
 
-   /* class LoadAllQuiz extends AsyncTask<String, String, String> {
+        // Create ArrayAdapter.
+        ListAdapter adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, android.R.id.text1, data);
+
+        // Send listItem to ListView.
+        listView.setAdapter(adapter);
+    }
+
+    private class LoadQuizTask extends AsyncTask<String, Void, JSONObject>{
 
         @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
+        protected JSONObject doInBackground(String... params) {
+            return Quiz.getAllQuiz();
         }
 
         @Override
-        protected String doInBackground(String... params) {
-            // Get Data from api
-            JSONObject json = Quiz.getAllQuiz();
-
-            Log.d("All Quiz", json.toString());
-            try {
-                int success = json.getInt(ApiConfig.TAG_SUCCESS);
-                if (success == 1){
-                    quizzes = json.getJSONArray(ApiConfig.TAG_QUIZ);
-
-                    for (int i = 0; i < quizzes.length(); i++){
-                        JSONObject c = quizzes.getJSONObject(i);
-
-                        String id = c.getString(ApiConfig.TAG_QUIZID);
-                        String title_name = c.getString(ApiConfig.TAG_STORYTITLE);
-
-                        HashMap<String, String> map = new HashMap<>();
-                        map.put("qid", id);
-                        map.put("name", title_name);
-
-                        data.add(title_name);
-                        quizList.add(map);
-                    }
-                }
-            }catch (JSONException e){
-                e.printStackTrace();
-            }
-
-            return null;
+        protected void onPostExecute(JSONObject jsonObject) {
+           Globals.stories = Quiz.getQuizList(jsonObject);
+            setListData(Globals.stories);
         }
+    }
 
-        @Override
-        protected void onPostExecute(String s) {
-
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    ListAdapter adapter = new SimpleAdapter(
-                            Quizzes.this, quizList, R.layout.quizzes_id_name,
-                            new String[]{ApiConfig.TAG_QUIZ_ID, ApiConfig.TAG_STORY_TITLE},
-                            new int[]{R.id.quizzId, R.id.quizzesName});
-                    //{R.id.qid, R.id.name});
-                   // ListAdapter adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, android.R.id.text1, quizList);
-                    listView.setAdapter(adapter);
-                    }
-                });
-        }
-    }*/
 }

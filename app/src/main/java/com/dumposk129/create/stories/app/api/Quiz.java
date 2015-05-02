@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.dumposk129.create.stories.app.model.Choice;
 import com.dumposk129.create.stories.app.model.Question;
+import com.dumposk129.create.stories.app.model.Story;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
@@ -46,10 +47,10 @@ public class Quiz {
      * @param quizId
      * @return questionId from API
      */
-    public static int saveQuestion(String questionName, String quizId) {
+    public static int saveQuestion(String questionName, int quizId) {
         JSONParser jsonParser = new JSONParser();
         List<NameValuePair> params = new ArrayList<>();
-        params.add(new BasicNameValuePair("qId", quizId));
+        params.add(new BasicNameValuePair("qId", Integer.toString(quizId)));
         params.add(new BasicNameValuePair("qName", questionName));
 
 
@@ -94,10 +95,10 @@ public class Quiz {
         }
     }
 
-    public static JSONArray getShowQuestion(String quizID) {
+    public static JSONArray getShowQuestion(int quizID) {
         JSONParser jsonParser = new JSONParser();
         List<NameValuePair> params = new ArrayList<>();
-        params.add(new BasicNameValuePair("qz_id", quizID));
+        params.add(new BasicNameValuePair("qz_id", Integer.toString(quizID)));
 
         JSONObject json = jsonParser.makeHttpRequest(ApiConfig.hostname(API.SHOW_QUESTION), ApiConfig.GET, params);
 
@@ -158,5 +159,31 @@ public class Quiz {
             Log.e("[Show Question:JSON]", e.getMessage());
         }
         return questions;
+    }
+
+    public static List<Story> getQuizList(JSONObject json){
+        List<Story> stroryList = new ArrayList<>();
+
+        try {
+            int success = json.getInt(ApiConfig.TAG_SUCCESS);
+            if (success == 1){
+                JSONArray jQuizList = json.getJSONArray("quiz");
+                if (jQuizList != null && jQuizList.length() != 0){
+                    for (int i = 0; i < jQuizList.length(); i++){
+                        JSONObject jQuiz = jQuizList.getJSONObject(i);
+                        int quizId = jQuiz.getInt("quiz_id");
+                        String quizName = jQuiz.getString("title_name");
+                        Story story = new Story();
+                        story.setQuestionId(quizId);
+                        story.setQuestionName(quizName);
+                        stroryList.add(story);
+                    }
+                }
+            }
+        }catch (Exception e){
+            Log.e("[All Quiz:JSON]", e.getMessage());
+        }
+
+        return stroryList;
     }
 }

@@ -34,6 +34,7 @@ public class Answer extends ActionBarActivity {
     private int currentIndex;
     private int correctIndexAnswer;
     private int selectAnswer;
+    private int quizId;
 
 
     @Override
@@ -67,6 +68,7 @@ public class Answer extends ActionBarActivity {
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
         currentIndex = bundle.getInt("index");
+        quizId = bundle.getInt("quizID");
 
         // Get Question from currentIndex
         if (currentIndex == 0) {
@@ -176,7 +178,7 @@ public class Answer extends ActionBarActivity {
 
         @Override
         protected JSONArray doInBackground(String... params) {
-            return Quiz.getShowQuestion("1");
+            return Quiz.getShowQuestion(quizId);
         }
     }
 }

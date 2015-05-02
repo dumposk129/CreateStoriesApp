@@ -39,7 +39,7 @@ public class Questions extends ActionBarActivity {
     private Button btnNext;
     private RadioGroup radGrp;
     private RadioButton rbAnswer1, rbAnswer2, rbAnswer3, rbAnswer4;
-    private String quizId;
+    private int quizId;
     private int currentIndex;
     private int noOfQuestion;
     private int correctAnswer = 0;
@@ -74,7 +74,7 @@ public class Questions extends ActionBarActivity {
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
         noOfQuestion = bundle.getInt("NumOfQuestion");
-        quizId = bundle.getString("QuizID");
+        quizId = bundle.getInt("QuizID");
         currentIndex = bundle.getInt("index") + 1;
 
         // Change textView from Next to Finished when NumberOfQuestion equal currentIndex.

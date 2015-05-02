@@ -25,7 +25,7 @@ public class NumberOfQuestion extends ActionBarActivity{
     private Toolbar mToolbar;
     private EditText numOfQues, qId;
     private Button btnOK;
-    private String quizID;
+    private int quizID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,10 +45,10 @@ public class NumberOfQuestion extends ActionBarActivity{
         // Get quizID.
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
-        quizID = bundle.getString("quizID"); // quizID is auto increase.
+        quizID = bundle.getInt("quizID"); // quizID is auto increase.
 
         // Set quizID but not show because users not required.
-        qId.setText(quizID);
+        qId.setText(Integer.toString(quizID));
 
         // Button ClickListener.
         btnOK.setOnClickListener(new View.OnClickListener() {
