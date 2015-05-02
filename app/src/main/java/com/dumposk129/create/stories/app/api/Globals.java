@@ -10,4 +10,5 @@ import java.util.List;
  */
 public class Globals {
     public static List<Question> questions = new ArrayList<>();
+    public static int noOfQuestions = 0;
 }

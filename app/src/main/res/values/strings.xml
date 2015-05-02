@@ -39,6 +39,7 @@
     <string name="choose_item">Choose Item</string>
     <array name="create_question">
         <item>Questions</item>
+        <item>Answer</item>
         <item>Cancel</item>
     </array>
     <array name="answer">

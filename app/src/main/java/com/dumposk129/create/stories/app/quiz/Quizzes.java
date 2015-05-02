@@ -78,7 +78,7 @@ public class Quizzes extends ActionBarActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                 // Do you have question?
-               /* if (Quiz.getAllQuestion() >= 1) {
+                /*if (Quiz.getAllQuestion()) {
                     // Show Dialog and users choose it.
                     final AlertDialog.Builder builder = new AlertDialog.Builder(Quizzes.this);
                     builder.setTitle(R.string.choose_item).setItems(R.array.answer, new DialogInterface.OnClickListener() {
@@ -125,15 +125,9 @@ public class Quizzes extends ActionBarActivity {
                         Intent intent;
                         switch (position) {
                             case 0:
-                               /* if (question_id >= 1) {
-                                    *//*intent = new Intent(Quizzes.this, Answer.class);
-                                    startActivity(intent);*//*
-                                } else {
-                               */
                                 intent = new Intent(Quizzes.this, NumberOfQuestion.class);
                                 intent.putExtra("quizID", "1");
                                 startActivity(intent);
-                                //}
                                 break;
                             case 1:
                                 intent = new Intent(Quizzes.this, Answer.class);

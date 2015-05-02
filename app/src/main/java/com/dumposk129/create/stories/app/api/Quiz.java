@@ -133,7 +133,7 @@ public class Quiz {
                     List<Choice> choices = new ArrayList<>();
                     if (jChoices != null && jChoices.length() != 0) {
                         for (int j = 0; j < jChoices.length(); j++) {
-                            JSONObject jChoice = result.getJSONObject(j);
+                            JSONObject jChoice = jChoices.getJSONObject(j);
                             int answerID = jChoice.getInt("answer_id");
                             int order = jChoice.getInt("order_id");
                             String answerName = jChoice.getString("answer_name");

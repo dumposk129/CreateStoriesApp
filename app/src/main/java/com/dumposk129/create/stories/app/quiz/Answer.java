@@ -15,10 +15,13 @@ import android.widget.TextView;
 import com.dumposk129.create.stories.app.R;
 import com.dumposk129.create.stories.app.api.Globals;
 import com.dumposk129.create.stories.app.api.Quiz;
+import com.dumposk129.create.stories.app.model.Choice;
 import com.dumposk129.create.stories.app.model.Question;
 import com.dumposk129.create.stories.app.navigation_drawer.NavigationDrawerFragment;
 
 import org.json.JSONArray;
+
+import java.util.List;
 
 
 public class Answer extends ActionBarActivity {
@@ -29,6 +32,9 @@ public class Answer extends ActionBarActivity {
     private Toolbar mToolbar;
     private int noOfQuestion;
     private int currentIndex;
+    private int correctIndexAnswer;
+    private int selectAnswer;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -60,49 +66,51 @@ public class Answer extends ActionBarActivity {
         // Get index from bundle
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
-        noOfQuestion = bundle.getInt("NumOfQuestion");
         currentIndex = bundle.getInt("index");
 
         // Get Question from currentIndex
         if (currentIndex == 0) {
             new ShowQuestionTask().execute();
+        }else {
+            setUIText();
         }
 
         // Change textView from Next to Finished when NumberOfQuestion equal currentIndex.
-        if (currentIndex == noOfQuestion) {
-            btnAnswerNext.setText("Finished");
-        }
 
-        if (currentIndex < Globals.questions.size()) {
-            Question currentQuestion = Globals.questions.get(currentIndex);
 
-            // set value to UI from currentQuestion
-            tvQuestion.getText().toString();
-            tvAnswer1.getText().toString();
-            tvAnswer2.getText().toString();
-            tvAnswer3.getText().toString();
-            tvAnswer4.getText().toString();
-
-            // bind Next Action
-            // - Check corrected the selected choices
-            btnAnswerNext.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    int selectedId = radGrp.getCheckedRadioButtonId();
-
-                    // If correct, show correct message and appears the next button.
-                    if (selectedId == rbAnswer1.getId() /*&& selectedId == Quiz.getQuestions()*/) {
-                        ShowMessageAndNextBtn();
-                    } else if (selectedId == rbAnswer2.getId() /*&& selectedId == Quiz.getQuestions()*/) {
-                        ShowMessageAndNextBtn();
-                    } else if (selectedId == rbAnswer3.getId() /*&& selectedId == Quiz.getQuestions()*/) {
-                        ShowMessageAndNextBtn();
-                    } else if (selectedId == rbAnswer4.getId() /*&& selectedId == Quiz.getQuestions()*/) {
-                        ShowMessageAndNextBtn();
-                    }
+        // RadioGroup CheckChangeListener
+        radGrp.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                if (checkedId == rbAnswer1.getId()){
+                    selectAnswer = 0;
+                }else if (checkedId == rbAnswer2.getId()){
+                    selectAnswer = 1;
+                }else if (checkedId == rbAnswer3.getId()){
+                    selectAnswer = 2;
+                }else {
+                    selectAnswer = 3;
                 }
-            });
+                checkCorrectAnswer();
+            }
+        });
+
+        btnAnswerNext.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onAnswerNextClickListener();
+            }
+        });
+        // bind Next Action
+        // - Check corrected the selected choices
+
             // - If incorrect, show incorrect and do not show the next button
+
+    }
+
+    private void checkCorrectAnswer(){
+        if (selectAnswer == correctIndexAnswer){
+            ShowMessageAndNextBtn();
         }
     }
 
@@ -120,20 +128,54 @@ public class Answer extends ActionBarActivity {
             startActivity(intent);
         } else {
             // Answer Next
-
+            Intent intent = new Intent(Answer.this, Answer.class);
+            intent.putExtra("index", currentIndex + 1);
+            startActivity(intent);
         }
     }
 
+    // Set Question and Answer
+    private  void setUIText(){
+        if (currentIndex < Globals.questions.size()) {
+            Question currentQuestion = Globals.questions.get(currentIndex);
+            // set value to UI from currentQuestion
+            tvQuestion.setText(currentQuestion.getQuestionName());
+            if(currentQuestion.getChoices() != null){
+                tvAnswer1.setText(currentQuestion.getChoices().get(0).getChoiceName());
+                tvAnswer2.setText(currentQuestion.getChoices().get(1).getChoiceName());
+                tvAnswer3.setText(currentQuestion.getChoices().get(2).getChoiceName());
+                tvAnswer4.setText(currentQuestion.getChoices().get(3).getChoiceName());
+            }
+            if (currentIndex == noOfQuestion) {
+                btnAnswerNext.setText("Finished");
+            }
+            correctIndexAnswer = getCorrectAnswer(currentQuestion.getChoices());
+        }
+    }
+
+    // Set Correct Answer
+    private int getCorrectAnswer(List<Choice> choices){
+        int correctIndex = -1;
+        for(int i=0; i < choices.size(); i++){
+            if(choices.get(i).isCorrect() == 1){
+                correctIndex = i;
+            }
+        }
+        return correctIndex;
+    }
+
+    // doInBackground
     private class ShowQuestionTask extends AsyncTask<String, Void, JSONArray> {
 
         @Override
         protected void onPostExecute(JSONArray result) {
             Globals.questions = Quiz.getQuestions(result);
+            noOfQuestion = Globals.questions.size();
+            setUIText();
         }
 
         @Override
         protected JSONArray doInBackground(String... params) {
-            onAnswerNextClickListener();
             return Quiz.getShowQuestion("1");
         }
     }
