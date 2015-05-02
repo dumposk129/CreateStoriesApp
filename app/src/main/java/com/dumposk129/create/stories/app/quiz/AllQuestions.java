@@ -86,5 +86,4 @@ public class AllQuestions extends ActionBarActivity{
             setQuestionList(Globals.questions);
         }
     }
-
 }

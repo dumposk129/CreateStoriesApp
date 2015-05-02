@@ -86,7 +86,7 @@ public class Quizzes extends ActionBarActivity {
                                 startActivity(intent);
                                 break;
                             case 1:
-                                intent = new Intent(Quizzes.this, Answer.class);
+                                intent = new Intent(Quizzes.this, Answers.class);
                                 intent.putExtra("quizID", Globals.stories.get(selectedStory).getQuestionId());
                                 intent.putExtra("index", 0);
                                 startActivity(intent);

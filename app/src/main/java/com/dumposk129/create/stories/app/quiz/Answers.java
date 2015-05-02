@@ -24,7 +24,7 @@ import org.json.JSONArray;
 import java.util.List;
 
 
-public class Answer extends ActionBarActivity {
+public class Answers extends ActionBarActivity {
     private TextView tvQuestion, tvAnswer1, tvAnswer2, tvAnswer3, tvAnswer4, tvIsCorrect;
     private Button btnAnswerNext;
     private RadioGroup radGrp;
@@ -107,7 +107,7 @@ public class Answer extends ActionBarActivity {
             ShowMessageAndNextBtn();
         }else {
             btnAnswerNext.setVisibility(View.INVISIBLE);
-            btnAnswerNext.setVisibility(View.INVISIBLE);
+            tvIsCorrect.setVisibility(View.INVISIBLE);
         }
     }
 
@@ -121,11 +121,11 @@ public class Answer extends ActionBarActivity {
     private void onAnswerNextClickListener() {
         if (currentIndex == noOfQuestion) {
             // Go to Quizzes Page
-            Intent intent = new Intent(Answer.this, Quizzes.class);
+            Intent intent = new Intent(Answers.this, Quizzes.class);
             startActivity(intent);
         } else {
             // Answer Next
-            Intent intent = new Intent(Answer.this, Answer.class);
+            Intent intent = new Intent(Answers.this, Answers.class);
             intent.putExtra("index", currentIndex + 1);
             startActivity(intent);
         }

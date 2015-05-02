@@ -127,6 +127,7 @@
                 android:layout_gravity="left|bottom"
                 android:layout_margin="20dp"
                 android:text="Correct"
+                android:textColor="@color/green"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:visibility="invisible" />
 

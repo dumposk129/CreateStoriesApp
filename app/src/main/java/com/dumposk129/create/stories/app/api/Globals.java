@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by DumpOSK129 on 5/1/2015.
+ * Created by DumpOSK129
  */
 public class Globals {
     public static List<Question> questions = new ArrayList<>();
