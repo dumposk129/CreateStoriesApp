@@ -101,14 +101,12 @@ public class Quizzes extends ActionBarActivity {
         });
 
 
-
     }
 
-    private  void setListData(List<Story> stories){
+    private void setListData(List<Story> stories) {
         // Assign data.
         String[] data = new String[stories.size()];
-        for(int i = 0; i < stories.size(); i++)
-        {
+        for (int i = 0; i < stories.size(); i++) {
             data[i] = stories.get(i).getQuestionName();
         }
 
@@ -119,16 +117,18 @@ public class Quizzes extends ActionBarActivity {
         listView.setAdapter(adapter);
     }
 
-    private class LoadQuizTask extends AsyncTask<String, Void, JSONObject>{
+    private class LoadQuizTask extends AsyncTask<String, Void, JSONObject> {
 
+        // Load All Quiz
         @Override
         protected JSONObject doInBackground(String... params) {
             return Quiz.getAllQuiz();
         }
 
+        // Set
         @Override
         protected void onPostExecute(JSONObject jsonObject) {
-           Globals.stories = Quiz.getQuizList(jsonObject);
+            Globals.stories = Quiz.getQuizList(jsonObject);
             setListData(Globals.stories);
         }
     }

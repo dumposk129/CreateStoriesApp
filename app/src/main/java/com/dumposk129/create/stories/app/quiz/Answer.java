@@ -73,24 +73,21 @@ public class Answer extends ActionBarActivity {
         // Get Question from currentIndex
         if (currentIndex == 0) {
             new ShowQuestionTask().execute();
-        }else {
+        } else {
             setUIText();
         }
-
-        // Change textView from Next to Finished when NumberOfQuestion equal currentIndex.
-
 
         // RadioGroup CheckChangeListener
         radGrp.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                if (checkedId == rbAnswer1.getId()){
+                if (checkedId == rbAnswer1.getId()) {
                     selectAnswer = 0;
-                }else if (checkedId == rbAnswer2.getId()){
+                } else if (checkedId == rbAnswer2.getId()) {
                     selectAnswer = 1;
-                }else if (checkedId == rbAnswer3.getId()){
+                } else if (checkedId == rbAnswer3.getId()) {
                     selectAnswer = 2;
-                }else {
+                } else {
                     selectAnswer = 3;
                 }
                 checkCorrectAnswer();
@@ -103,16 +100,14 @@ public class Answer extends ActionBarActivity {
                 onAnswerNextClickListener();
             }
         });
-        // bind Next Action
-        // - Check corrected the selected choices
-
-            // - If incorrect, show incorrect and do not show the next button
-
     }
 
-    private void checkCorrectAnswer(){
-        if (selectAnswer == correctIndexAnswer){
+    private void checkCorrectAnswer() {
+        if (selectAnswer == correctIndexAnswer) {
             ShowMessageAndNextBtn();
+        }else {
+            btnAnswerNext.setVisibility(View.INVISIBLE);
+            btnAnswerNext.setVisibility(View.INVISIBLE);
         }
     }
 
@@ -137,12 +132,12 @@ public class Answer extends ActionBarActivity {
     }
 
     // Set Question and Answer
-    private  void setUIText(){
+    private void setUIText() {
         if (currentIndex < Globals.questions.size()) {
             Question currentQuestion = Globals.questions.get(currentIndex);
             // set value to UI from currentQuestion
             tvQuestion.setText(currentQuestion.getQuestionName());
-            if(currentQuestion.getChoices() != null){
+            if (currentQuestion.getChoices() != null) {
                 tvAnswer1.setText(currentQuestion.getChoices().get(0).getChoiceName());
                 tvAnswer2.setText(currentQuestion.getChoices().get(1).getChoiceName());
                 tvAnswer3.setText(currentQuestion.getChoices().get(2).getChoiceName());
@@ -156,10 +151,10 @@ public class Answer extends ActionBarActivity {
     }
 
     // Set Correct Answer
-    private int getCorrectAnswer(List<Choice> choices){
+    private int getCorrectAnswer(List<Choice> choices) {
         int correctIndex = -1;
-        for(int i=0; i < choices.size(); i++){
-            if(choices.get(i).isCorrect() == 1){
+        for (int i = 0; i < choices.size(); i++) {
+            if (choices.get(i).isCorrect() == 1) {
                 correctIndex = i;
             }
         }

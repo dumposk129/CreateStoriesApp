@@ -162,7 +162,7 @@ public class Quiz {
     }
 
     public static List<Story> getQuizList(JSONObject json){
-        List<Story> stroryList = new ArrayList<>();
+        List<Story> storyList = new ArrayList<>();
 
         try {
             int success = json.getInt(ApiConfig.TAG_SUCCESS);
@@ -176,7 +176,7 @@ public class Quiz {
                         Story story = new Story();
                         story.setQuestionId(quizId);
                         story.setQuestionName(quizName);
-                        stroryList.add(story);
+                        storyList.add(story);
                     }
                 }
             }
@@ -184,6 +184,6 @@ public class Quiz {
             Log.e("[All Quiz:JSON]", e.getMessage());
         }
 
-        return stroryList;
+        return storyList;
     }
 }
