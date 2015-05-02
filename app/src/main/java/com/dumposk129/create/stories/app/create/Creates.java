@@ -16,7 +16,6 @@ public class Creates extends ActionBarActivity {
 
     private Toolbar mToolbar;
     public static LinearLayout.LayoutParams layoutParams;
-    private int RESULT_GALLERY = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

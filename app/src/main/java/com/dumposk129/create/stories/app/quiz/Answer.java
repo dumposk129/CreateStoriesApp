@@ -91,13 +91,13 @@ public class Answer extends ActionBarActivity {
                     int selectedId = radGrp.getCheckedRadioButtonId();
 
                     // If correct, show correct message and appears the next button.
-                    if (selectedId == rbAnswer1.getId() && selectedId == Quiz.getQuestions()) {
+                    if (selectedId == rbAnswer1.getId() /*&& selectedId == Quiz.getQuestions()*/) {
                         ShowMessageAndNextBtn();
-                    } else if (selectedId == rbAnswer2.getId() && selectedId == Quiz.getQuestions()) {
+                    } else if (selectedId == rbAnswer2.getId() /*&& selectedId == Quiz.getQuestions()*/) {
                         ShowMessageAndNextBtn();
-                    } else if (selectedId == rbAnswer3.getId() && selectedId == Quiz.getQuestions()) {
+                    } else if (selectedId == rbAnswer3.getId() /*&& selectedId == Quiz.getQuestions()*/) {
                         ShowMessageAndNextBtn();
-                    } else if (selectedId == rbAnswer4.getId() && selectedId == Quiz.getQuestions()) {
+                    } else if (selectedId == rbAnswer4.getId() /*&& selectedId == Quiz.getQuestions()*/) {
                         ShowMessageAndNextBtn();
                     }
                 }
@@ -133,6 +133,7 @@ public class Answer extends ActionBarActivity {
 
         @Override
         protected JSONArray doInBackground(String... params) {
+            onAnswerNextClickListener();
             return Quiz.getShowQuestion("1");
         }
     }
