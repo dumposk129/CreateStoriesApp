@@ -1,4 +1,4 @@
-package com.dumposk129.create.stories.app.quiz;
+package com.dumposk129.create.stories.app.quizzes;
 
 import android.content.Intent;
 import android.os.AsyncTask;

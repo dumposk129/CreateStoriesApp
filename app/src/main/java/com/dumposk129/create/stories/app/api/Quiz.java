@@ -79,7 +79,7 @@ public class Quiz {
         }
         params.add(new BasicNameValuePair("qId", Integer.toString(questionID)));
 
-        JSONObject json = jsonParser.makeHttpRequest(ApiConfig.hostname(API.CREATE_ANSWER), ApiConfig.POST, params);
+        JSONObject json = jsonParser.makeHttpRequest(ApiConfig.hostname(API.CREATE_ANSWER), ApiConfig.GET, params);
         try {
             int success = json.getInt(ApiConfig.TAG_SUCCESS);
             if (success == 1) {
@@ -181,7 +181,6 @@ public class Quiz {
         }catch (Exception e){
             Log.e("[All Quiz:JSON]", e.getMessage());
         }
-
         return storyList;
     }
 }

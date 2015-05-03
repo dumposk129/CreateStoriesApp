@@ -1,4 +1,4 @@
-package com.dumposk129.create.stories.app.quiz;
+package com.dumposk129.create.stories.app.quizzes;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -63,7 +63,7 @@ public class Quizzes extends ActionBarActivity {
 
         // Casting.
         listView = (ListView) findViewById(R.id.listViewStoriesName);
-        tvQuizID = (TextView) findViewById(R.id.quizzId);
+        tvQuizID = (TextView) findViewById(R.id.quizzesId);
         tvQuizName = (TextView) findViewById(R.id.quizzesName);
 
 
@@ -93,6 +93,11 @@ public class Quizzes extends ActionBarActivity {
                                 startActivity(intent);
                                 break;
                             case 2:
+                                intent = new Intent(Quizzes.this, AllQuestions.class);
+                                intent.putExtra("quizID", Globals.stories.get(selectedStory).getQuestionId());
+                                startActivity(intent);
+                                break;
+                            case 3:
                                 dialog.dismiss();
                         }
                     }

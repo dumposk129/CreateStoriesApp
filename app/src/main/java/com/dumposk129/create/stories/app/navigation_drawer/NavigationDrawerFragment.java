@@ -14,7 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.dumposk129.create.stories.app.quiz.Quizzes;
+import com.dumposk129.create.stories.app.quizzes.Quizzes;
 import com.dumposk129.create.stories.app.R;
 import com.dumposk129.create.stories.app.reads.Reads;
 import com.dumposk129.create.stories.app.settings.Settings;

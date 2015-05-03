@@ -63,22 +63,19 @@
 
         <!-- Quizzes Menu-->
         <activity
-            android:name=".quiz.Quizzes"
-            android:label="@string/title_activity_quizzes">
-           <!-- <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>-->
-        </activity>
+            android:name=".quizzes.Quizzes"
+            android:label="@string/title_activity_quizzes"/>
         <activity
-            android:name=".quiz.Questions"
+            android:name=".quizzes.Questions"
             android:label="@string/title_activity_question_next" />
         <activity
-            android:name=".quiz.NumberOfQuestion"
+            android:name=".quizzes.NumberOfQuestion"
             android:label="@string/title_activity_num_of_questions" />
         <activity
-            android:name=".quiz.Answers"
+            android:name=".quizzes.Answers"
             android:label="@string/title_activity_answer" />
+        <activity android:name=".quizzes.AllQuestions"
+            android:label="title_activity_show_questions"/>
 
 
         <!-- Settings -->

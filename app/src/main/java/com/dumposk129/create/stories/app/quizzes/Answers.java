@@ -1,4 +1,4 @@
-package com.dumposk129.create.stories.app.quiz;
+package com.dumposk129.create.stories.app.quizzes;
 
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -68,12 +68,13 @@ public class Answers extends ActionBarActivity {
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
         currentIndex = bundle.getInt("index");
+        noOfQuestion = bundle.getInt("noOfQuestion");
         quizId = bundle.getInt("quizID");
 
         // Get Question from currentIndex
         if (currentIndex == 0) {
             new ShowQuestionTask().execute();
-        } else if (currentIndex <= noOfQuestion){
+        } else {
             setUIText();
         }
 
@@ -97,12 +98,7 @@ public class Answers extends ActionBarActivity {
         btnAnswerNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (currentIndex == noOfQuestion) {
-                    btnAnswerNext.setText("Finished");
-                    onAnswerNextClickListener();
-                }else {
-                    onAnswerNextClickListener();
-                }
+                onAnswerNextClickListener();
             }
         });
     }
@@ -111,7 +107,7 @@ public class Answers extends ActionBarActivity {
     private void checkCorrectAnswer() {
         if (selectAnswer == correctIndexAnswer) {
             ShowMessageAndNextBtn();
-        }else {
+        } else {
             btnAnswerNext.setVisibility(View.INVISIBLE);
             tvIsCorrect.setVisibility(View.INVISIBLE);
         }
@@ -119,13 +115,13 @@ public class Answers extends ActionBarActivity {
 
     // Show Message And Next Button
     private void ShowMessageAndNextBtn() {
-            tvIsCorrect.setVisibility(View.VISIBLE);
-            btnAnswerNext.setVisibility(View.VISIBLE);
+        tvIsCorrect.setVisibility(View.VISIBLE);
+        btnAnswerNext.setVisibility(View.VISIBLE);
     }
 
     // Next Button ClickListener
     private void onAnswerNextClickListener() {
-        if (currentIndex == noOfQuestion) {
+        if (currentIndex == noOfQuestion) { // 1st=>no=6/curInd=0. 2nd => no=0/curInd=1.
             // Go to Quizzes Page
             Intent intent = new Intent(Answers.this, Quizzes.class);
             startActivity(intent);
@@ -133,6 +129,7 @@ public class Answers extends ActionBarActivity {
             // Answer Next
             Intent intent = new Intent(Answers.this, Answers.class);
             intent.putExtra("index", currentIndex + 1);
+            intent.putExtra("noOfQuestion", noOfQuestion);
             startActivity(intent);
         }
     }
@@ -167,7 +164,6 @@ public class Answers extends ActionBarActivity {
 
     // ShowQuestionTask
     private class ShowQuestionTask extends AsyncTask<String, Void, JSONArray> {
-
         // Load All Questions.
         @Override
         protected JSONArray doInBackground(String... params) {
