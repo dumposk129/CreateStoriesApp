@@ -13,14 +13,6 @@ import com.dumposk129.create.stories.app.R;
 /**
  * Created by DumpOSK129.
  */
-
-/**
- * HOW TO USE THIS PAGE.
- 1. If you select question from Quizzes page.
- 2. You fill Number of question.
- 3. Click OK.
- 4. Send Number of question, quizzID and index to Question.java
- */
 public class NumberOfQuestion extends ActionBarActivity{
     private Toolbar mToolbar;
     private EditText numOfQues, qId;
@@ -64,7 +56,5 @@ public class NumberOfQuestion extends ActionBarActivity{
                 startActivity(intent);
             }
         });
-
-
     }
 }

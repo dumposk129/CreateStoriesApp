@@ -23,7 +23,9 @@ import org.json.JSONArray;
 
 import java.util.List;
 
-
+/**
+ * Created by DumpOSK129.
+ */
 public class Answers extends ActionBarActivity {
     private TextView tvQuestion, tvAnswer1, tvAnswer2, tvAnswer3, tvAnswer4, tvIsCorrect;
     private Button btnAnswerNext;
@@ -95,6 +97,7 @@ public class Answers extends ActionBarActivity {
             }
         });
 
+        // Set Method onAnswerNextClickListener
         btnAnswerNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -115,6 +118,7 @@ public class Answers extends ActionBarActivity {
 
     // Show Message And Next Button
     private void ShowMessageAndNextBtn() {
+        // if noOfQuestion equal currentIndex change "Next" to "Finished" and set VISIBLE, else set VISIBLE ONLY.!
         if (noOfQuestion == currentIndex){
             btnAnswerNext.setText("Finished");
             tvIsCorrect.setVisibility(View.VISIBLE);
@@ -135,7 +139,7 @@ public class Answers extends ActionBarActivity {
             // Answer Next
             Intent intent = new Intent(Answers.this, Answers.class);
             intent.putExtra("index", currentIndex + 1);
-            intent.putExtra("noOfQuestion", noOfQuestion);
+            intent.putExtra("noOfQuestion", noOfQuestion); // Receive noOfQuestion because if next round that set by zero.
             startActivity(intent);
         }
     }
@@ -153,6 +157,7 @@ public class Answers extends ActionBarActivity {
                 tvAnswer3.setText(currentQuestion.getChoices().get(2).getChoiceName());
                 tvAnswer4.setText(currentQuestion.getChoices().get(3).getChoiceName());
             }
+            // Set Correct Answer with Index
             correctIndexAnswer = getCorrectAnswer(currentQuestion.getChoices());
         }
     }
@@ -160,6 +165,7 @@ public class Answers extends ActionBarActivity {
     // Set Correct Answer
     private int getCorrectAnswer(List<Choice> choices) {
         int correctIndex = -1;
+        // Iteration until found correct answer and return it.
         for (int i = 0; i < choices.size(); i++) {
             if (choices.get(i).isCorrect() == 1) {
                 correctIndex = i;
@@ -180,7 +186,7 @@ public class Answers extends ActionBarActivity {
         @Override
         protected void onPostExecute(JSONArray result) {
             Globals.questions = Quiz.getQuestions(result);
-            noOfQuestion = Globals.questions.size() - 1;
+            noOfQuestion = Globals.questions.size() - 1; // if not set size of question - 1, it will over index[start at 0] but question start at 1.
             setUIText();
         }
     }

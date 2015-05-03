@@ -31,16 +31,14 @@ public class AllQuestions extends ActionBarActivity{
     private ListView listView;
     private int quizId;
     ArrayList<HashMap<String, String>> questionList;
-
     List<String> questions;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.question_name_all_list_item);
 
-        // Casting
+        // Casting.
         mToolbar = (Toolbar) findViewById(R.id.app_bar);
 
         // Toolbar and Navigation Drawer.
@@ -53,19 +51,20 @@ public class AllQuestions extends ActionBarActivity{
         questionList = new ArrayList<>();
         questions = new ArrayList<>();
 
+        // Get quizID.
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
         quizId = bundle.getInt("quizID");
 
+        // LoadQuestionList method using AsyncTask.
         new LoadQuestionList().execute();
 
         // Casting.
         listView = (ListView) findViewById(R.id.question_name_all_list_item);
     }
 
-
     private void setListQuestions(List<Question> questions){
-        // Assign Questions
+        // Assign Questions.
         String[] data = new String[questions.size()];
         for (int i = 0; i < data.length; i++){
             data[i] = questions.get(i).getQuestionName();

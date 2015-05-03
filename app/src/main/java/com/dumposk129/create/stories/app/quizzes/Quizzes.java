@@ -31,8 +31,6 @@ import java.util.List;
 /**
  * Created by DumpOSK129.
  */
-
-
 public class Quizzes extends ActionBarActivity {
 
     private Toolbar mToolbar;
@@ -135,5 +133,4 @@ public class Quizzes extends ActionBarActivity {
             setListData(Globals.stories);
         }
     }
-
 }

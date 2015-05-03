@@ -25,13 +25,6 @@ import java.util.List;
 /**
  * Created by DumpOSK129.
  */
-
-/**
- * HOW TO USE THIS PAGE
- 1. Fill Question, Answer and correct answer
- 2. Click Next
- 3. If Number of question equal currentIndex,  change text in Next Button from Next to Finished.
-*/
 public class Questions extends ActionBarActivity {
 
     private Toolbar mToolbar;
@@ -70,7 +63,7 @@ public class Questions extends ActionBarActivity {
                 getSupportFragmentManager().findFragmentById(R.id.fragment_navigation_drawer);
         drawerFragment.setUp(R.id.fragment_navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout), mToolbar);
 
-        // Get Data.
+        // Get NumOfQuestion, QuizID, index from NumberOfQuestion.
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
         noOfQuestion = bundle.getInt("NumOfQuestion");
@@ -150,14 +143,11 @@ public class Questions extends ActionBarActivity {
                 intent.putExtra("index", currentIndex);
                 startActivity(intent);
             }
-        } else {
-            // Show Warning
         }
     }
 
     // Class SaveQuestionTask using AsyncTask.
     private class SaveQuestionTask extends AsyncTask<String, Void, Void> {
-
         // Do method onNextCLickListener in background.
         @Override
         protected Void doInBackground(String... params) {
@@ -169,11 +159,6 @@ public class Questions extends ActionBarActivity {
         @Override
         protected void onPostExecute(Void s) {
             Toast.makeText(getApplicationContext(), "Save Question Already", Toast.LENGTH_SHORT).show();
-        }
-
-        // Saving Question.
-        @Override
-        protected void onProgressUpdate(Void... values) {
         }
     }
 }
