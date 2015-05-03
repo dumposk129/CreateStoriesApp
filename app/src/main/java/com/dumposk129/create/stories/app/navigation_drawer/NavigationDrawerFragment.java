@@ -80,7 +80,7 @@ public class NavigationDrawerFragment extends Fragment implements MyAdapter.Clic
         String[] titles = getResources().getStringArray(R.array.drawer_item_array);
         for (int i = 0; i < titles.length; i++) {
             Information current = new Information();
-            current.title = titles[i % titles.length];
+            current.title = titles[i];
             data.add(current);
         }
         return data;
