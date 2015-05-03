@@ -49,6 +49,8 @@ public class Quizzes extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.use_list_all_stories_name);
+
+        // Casting
         mToolbar = (Toolbar) findViewById(R.id.app_bar);
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -60,12 +62,10 @@ public class Quizzes extends ActionBarActivity {
         data = new ArrayList<>();
 
         new LoadQuizTask().execute();
-
         // Casting.
         listView = (ListView) findViewById(R.id.listViewStoriesName);
         tvQuizID = (TextView) findViewById(R.id.quizzesId);
         tvQuizName = (TextView) findViewById(R.id.quizzesName);
-
 
         // Set Item Click Listener.
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -122,13 +122,13 @@ public class Quizzes extends ActionBarActivity {
     }
 
     private class LoadQuizTask extends AsyncTask<String, Void, JSONObject> {
-        // Load All Quiz
+        // Load All Quizzes.
         @Override
         protected JSONObject doInBackground(String... params) {
             return Quiz.getAllQuiz();
         }
 
-        // Set
+        // Show Stories Name.
         @Override
         protected void onPostExecute(JSONObject jsonObject) {
             Globals.stories = Quiz.getQuizList(jsonObject);

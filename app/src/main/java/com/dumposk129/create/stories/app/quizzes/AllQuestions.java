@@ -16,7 +16,7 @@ import com.dumposk129.create.stories.app.api.Quiz;
 import com.dumposk129.create.stories.app.model.Question;
 import com.dumposk129.create.stories.app.navigation_drawer.NavigationDrawerFragment;
 
-import org.json.JSONObject;
+import org.json.JSONArray;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -38,6 +38,7 @@ public class AllQuestions extends ActionBarActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.question_name_all_list_item);
 
         // Casting
         mToolbar = (Toolbar) findViewById(R.id.app_bar);
@@ -50,18 +51,21 @@ public class AllQuestions extends ActionBarActivity{
         drawerFragment.setUp(R.id.fragment_navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout), mToolbar);
 
         questionList = new ArrayList<>();
-        questionList = new ArrayList<>();
+        questions = new ArrayList<>();
 
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
         quizId = bundle.getInt("quizID");
 
         new LoadQuestionList().execute();
+
+        // Casting.
+        listView = (ListView) findViewById(R.id.question_name_all_list_item);
     }
 
 
-    private void setQuestionList(List<Question> questions){
-        // Assign Question
+    private void setListQuestions(List<Question> questions){
+        // Assign Questions
         String[] data = new String[questions.size()];
         for (int i = 0; i < data.length; i++){
             data[i] = questions.get(i).getQuestionName();
@@ -74,16 +78,18 @@ public class AllQuestions extends ActionBarActivity{
         listView.setAdapter(adapter);
     }
 
-    private class LoadQuestionList extends AsyncTask<String, Void, JSONObject>{
+    private class LoadQuestionList extends AsyncTask<String, Void, JSONArray>{
+        // Load all questions.
         @Override
-        protected JSONObject doInBackground(String... params) {
-            return Quiz.getAllQuestion();
+        protected JSONArray doInBackground(String... params) {
+            return Quiz.getShowQuestion(quizId);
         }
 
+        // Show all questions.
         @Override
-        protected void onPostExecute(JSONObject jsonObject) {
-            Globals.questions = (List<Question>) Quiz.getShowQuestion(quizId);
-            setQuestionList(Globals.questions);
+        protected void onPostExecute(JSONArray jsonObject) {
+            Globals.questions = Quiz.getQuestions(jsonObject);
+            setListQuestions(Globals.questions);
         }
     }
 }
