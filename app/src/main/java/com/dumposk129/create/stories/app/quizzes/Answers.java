@@ -115,13 +115,19 @@ public class Answers extends ActionBarActivity {
 
     // Show Message And Next Button
     private void ShowMessageAndNextBtn() {
-        tvIsCorrect.setVisibility(View.VISIBLE);
-        btnAnswerNext.setVisibility(View.VISIBLE);
+        if (noOfQuestion == currentIndex){
+            btnAnswerNext.setText("Finished");
+            tvIsCorrect.setVisibility(View.VISIBLE);
+            btnAnswerNext.setVisibility(View.VISIBLE);
+        }else {
+            tvIsCorrect.setVisibility(View.VISIBLE);
+            btnAnswerNext.setVisibility(View.VISIBLE);
+        }
     }
 
     // Next Button ClickListener
     private void onAnswerNextClickListener() {
-        if (currentIndex == noOfQuestion) { // 1st=>no=6/curInd=0. 2nd => no=0/curInd=1.
+        if (currentIndex == noOfQuestion) {
             // Go to Quizzes Page
             Intent intent = new Intent(Answers.this, Quizzes.class);
             startActivity(intent);
@@ -174,7 +180,7 @@ public class Answers extends ActionBarActivity {
         @Override
         protected void onPostExecute(JSONArray result) {
             Globals.questions = Quiz.getQuestions(result);
-            noOfQuestion = Globals.questions.size();
+            noOfQuestion = Globals.questions.size() - 1;
             setUIText();
         }
     }

@@ -30,6 +30,7 @@
     <string name="title_activity_creates">Creates</string>
     <string name="title_activity_quizzes">Quiz</string>
     <string name="title_activity_num_of_questions">Number of Questions</string>
+    <string name="title_activity_show_questions">Show Questions</string>
     <string name="title_activity_settings">Settings</string>
     <string name="title_activity_edit_story">EditStory</string>
     <string name="title_activity_question_next">Question</string>
@@ -38,12 +39,9 @@
     <!-- Quiz -->
     <string name="choose_item">Choose Item</string>
     <array name="create_question">
-        <item>Questions</item>
+        <item>Create Questions</item>
         <item>Answer</item>
-        <item>Cancel</item>
-    </array>
-    <array name="answer">
-        <item>Answers</item>
+        <item>Show Questions</item>
         <item>Cancel</item>
     </array>
 
