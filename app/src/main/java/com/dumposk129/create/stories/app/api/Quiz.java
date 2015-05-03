@@ -111,12 +111,10 @@ public class Quiz {
                 Log.e("[Show Question:API]", json.getString("message"));
                 return null;
             }
-
         } catch (Exception e) {
             Log.e("[Show Question:JSON]", e.getMessage());
             return null;
         }
-
     }
 
     public static List<Question> getQuestions(JSONArray result) {

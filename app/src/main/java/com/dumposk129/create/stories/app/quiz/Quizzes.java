@@ -73,7 +73,8 @@ public class Quizzes extends ActionBarActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 final int selectedStory = position;
-                // Show Dialog and users choose it.
+
+                // Show Dialog and user choose it.
                 final AlertDialog.Builder builder = new AlertDialog.Builder(Quizzes.this);
                 builder.setTitle(R.string.choose_item).setItems(R.array.create_question, new DialogInterface.OnClickListener() {
                     @Override
@@ -99,8 +100,6 @@ public class Quizzes extends ActionBarActivity {
                 builder.show();
             }
         });
-
-
     }
 
     private void setListData(List<Story> stories) {
@@ -118,7 +117,6 @@ public class Quizzes extends ActionBarActivity {
     }
 
     private class LoadQuizTask extends AsyncTask<String, Void, JSONObject> {
-
         // Load All Quiz
         @Override
         protected JSONObject doInBackground(String... params) {

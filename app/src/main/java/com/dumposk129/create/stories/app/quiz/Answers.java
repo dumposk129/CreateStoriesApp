@@ -64,7 +64,7 @@ public class Answers extends ActionBarActivity {
                 getSupportFragmentManager().findFragmentById(R.id.fragment_navigation_drawer);
         drawerFragment.setUp(R.id.fragment_navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout), mToolbar);
 
-        // Get index from bundle
+        // Get index and quizID from DB
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
         currentIndex = bundle.getInt("index");
@@ -73,11 +73,11 @@ public class Answers extends ActionBarActivity {
         // Get Question from currentIndex
         if (currentIndex == 0) {
             new ShowQuestionTask().execute();
-        } else {
+        } else if (currentIndex <= noOfQuestion){
             setUIText();
         }
 
-        // RadioGroup CheckChangeListener
+        // RadioGroup CheckChangeListener and send correct answer walk through the same name method.
         radGrp.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -97,11 +97,17 @@ public class Answers extends ActionBarActivity {
         btnAnswerNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onAnswerNextClickListener();
+                if (currentIndex == noOfQuestion) {
+                    btnAnswerNext.setText("Finished");
+                    onAnswerNextClickListener();
+                }else {
+                    onAnswerNextClickListener();
+                }
             }
         });
     }
 
+    // Check Correct Answer if that correct go to ShowMessageAndNextBtn Method, else set invisible.
     private void checkCorrectAnswer() {
         if (selectAnswer == correctIndexAnswer) {
             ShowMessageAndNextBtn();
@@ -113,8 +119,8 @@ public class Answers extends ActionBarActivity {
 
     // Show Message And Next Button
     private void ShowMessageAndNextBtn() {
-        tvIsCorrect.setVisibility(View.VISIBLE);
-        btnAnswerNext.setVisibility(View.VISIBLE);
+            tvIsCorrect.setVisibility(View.VISIBLE);
+            btnAnswerNext.setVisibility(View.VISIBLE);
     }
 
     // Next Button ClickListener
@@ -135,16 +141,14 @@ public class Answers extends ActionBarActivity {
     private void setUIText() {
         if (currentIndex < Globals.questions.size()) {
             Question currentQuestion = Globals.questions.get(currentIndex);
-            // set value to UI from currentQuestion
+
+            // Set value to UI from currentQuestion
             tvQuestion.setText(currentQuestion.getQuestionName());
             if (currentQuestion.getChoices() != null) {
                 tvAnswer1.setText(currentQuestion.getChoices().get(0).getChoiceName());
                 tvAnswer2.setText(currentQuestion.getChoices().get(1).getChoiceName());
                 tvAnswer3.setText(currentQuestion.getChoices().get(2).getChoiceName());
                 tvAnswer4.setText(currentQuestion.getChoices().get(3).getChoiceName());
-            }
-            if (currentIndex == noOfQuestion) {
-                btnAnswerNext.setText("Finished");
             }
             correctIndexAnswer = getCorrectAnswer(currentQuestion.getChoices());
         }
@@ -161,19 +165,21 @@ public class Answers extends ActionBarActivity {
         return correctIndex;
     }
 
-    // doInBackground
+    // ShowQuestionTask
     private class ShowQuestionTask extends AsyncTask<String, Void, JSONArray> {
 
+        // Load All Questions.
+        @Override
+        protected JSONArray doInBackground(String... params) {
+            return Quiz.getShowQuestion(quizId);
+        }
+
+        // Show Questions.
         @Override
         protected void onPostExecute(JSONArray result) {
             Globals.questions = Quiz.getQuestions(result);
             noOfQuestion = Globals.questions.size();
             setUIText();
-        }
-
-        @Override
-        protected JSONArray doInBackground(String... params) {
-            return Quiz.getShowQuestion(quizId);
         }
     }
 }
