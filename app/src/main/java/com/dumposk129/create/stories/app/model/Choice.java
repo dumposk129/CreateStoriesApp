@@ -9,10 +9,10 @@ public class Choice {
     private int choiceId;
     private int order;
 
+    // SET GETTER AND SETTER.
     public int getOrder() {
         return order;
     }
-
     public void setOrder(int order) {
         this.order = order;
     }
@@ -20,25 +20,20 @@ public class Choice {
     public int isCorrect() {
         return isCorrect;
     }
-
     public void setIsCorrect(int isCorrect) {
         this.isCorrect = isCorrect;
     }
 
-
     public String getChoiceName() {
         return choiceName;
     }
-
     public void setChoiceName(String choiceName) {
         this.choiceName = choiceName;
     }
 
-
     public int getChoiceId() {
         return choiceId;
     }
-
     public void setChoiceId(int choiceId) {
         this.choiceId = choiceId;
     }

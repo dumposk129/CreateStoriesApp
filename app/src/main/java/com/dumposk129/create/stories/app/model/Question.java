@@ -8,15 +8,14 @@ import java.util.List;
  * Created by DumpOSK129.
  */
 public class Question extends ActionBarActivity{
-
     private int questionId;
     private String questionName;
     private List<Choice> choices;
 
+    // SET GETTER AND SETTER.
     public String getQuestionName() {
         return questionName;
     }
-
     public void setQuestionName(String questionName) {
         this.questionName = questionName;
     }
@@ -24,7 +23,6 @@ public class Question extends ActionBarActivity{
     public int getQuestionId() {
         return questionId;
     }
-
     public void setQuestionId(int questionId) {
         this.questionId = questionId;
     }
@@ -32,9 +30,7 @@ public class Question extends ActionBarActivity{
     public List<Choice> getChoices() {
         return choices;
     }
-
     public void setChoices(List<Choice> choices) {
         this.choices = choices;
     }
-
 }
