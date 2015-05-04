@@ -26,12 +26,6 @@ import java.util.List;
 /**
  * Created by DumpOSK129.
  */
-
-/**
- *HOW TO USE THIS PAGE
- 1. select menu from left navigation drawer.
- 2. after that go to page from user select No.1.
- * */
 public class NavigationDrawerFragment extends Fragment implements MyAdapter.ClickListener {
 
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER

@@ -30,8 +30,8 @@ public class AllQuestions extends ActionBarActivity{
     private Toolbar mToolbar;
     private ListView listView;
     private int quizId;
-    ArrayList<HashMap<String, String>> questionList;
-    List<String> questions;
+    ArrayList<HashMap<String, String>> questionList = new ArrayList<>();
+    List<String> questions = new ArrayList<>();;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,16 +40,12 @@ public class AllQuestions extends ActionBarActivity{
 
         // Casting.
         mToolbar = (Toolbar) findViewById(R.id.app_bar);
-
-        // Toolbar and Navigation Drawer.
+        listView = (ListView) findViewById(R.id.question_name_all_list_item);
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         NavigationDrawerFragment drawerFragment = (NavigationDrawerFragment)
                 getSupportFragmentManager().findFragmentById(R.id.fragment_navigation_drawer);
         drawerFragment.setUp(R.id.fragment_navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout), mToolbar);
-
-        questionList = new ArrayList<>();
-        questions = new ArrayList<>();
 
         // Get quizID.
         Intent intent = getIntent();
@@ -58,9 +54,6 @@ public class AllQuestions extends ActionBarActivity{
 
         // LoadQuestionList method using AsyncTask.
         new LoadQuestionList().execute();
-
-        // Casting.
-        listView = (ListView) findViewById(R.id.question_name_all_list_item);
     }
 
     private void setListQuestions(List<Question> questions){
