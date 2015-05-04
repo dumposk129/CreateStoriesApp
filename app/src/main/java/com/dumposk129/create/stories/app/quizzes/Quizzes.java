@@ -39,9 +39,9 @@ public class Quizzes extends ActionBarActivity {
 
     JSONArray quizzes = null;
 
-    ArrayList<HashMap<String, String>> quizList;
+    ArrayList<HashMap<String, String>> quizList = new ArrayList<>();
 
-    List<String> data;
+    List<String> data = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,15 +55,11 @@ public class Quizzes extends ActionBarActivity {
         NavigationDrawerFragment drawerFragment = (NavigationDrawerFragment)
                 getSupportFragmentManager().findFragmentById(R.id.fragment_navigation_drawer);
         drawerFragment.setUp(R.id.fragment_navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout), mToolbar);
-
-        quizList = new ArrayList<>();
-        data = new ArrayList<>();
-
-        new LoadQuizTask().execute();
-        // Casting.
         listView = (ListView) findViewById(R.id.listViewStoriesName);
         tvQuizID = (TextView) findViewById(R.id.quizzesId);
         tvQuizName = (TextView) findViewById(R.id.quizzesName);
+
+        new LoadQuizTask().execute();
 
         // Set Item Click Listener.
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
