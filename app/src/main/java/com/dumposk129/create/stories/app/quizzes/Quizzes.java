@@ -70,7 +70,7 @@ public class Quizzes extends ActionBarActivity {
 
                 // Show Dialog and user choose it.
                 final AlertDialog.Builder builder = new AlertDialog.Builder(Quizzes.this);
-                builder.setTitle(R.string.choose_item).setItems(R.array.create_question, new DialogInterface.OnClickListener() {
+                builder.setTitle(R.string.choose_item).setItems(R.array.questions_answers, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int position) {
                         Intent intent;

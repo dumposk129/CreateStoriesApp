@@ -28,7 +28,7 @@
 
     <!-- Quiz -->
     <string name="choose_item">Choose Item</string>
-    <array name="create_question">
+    <array name="questions_answers">
         <item>Create Questions</item>
         <item>Answers</item>
         <item>Show Questions</item>

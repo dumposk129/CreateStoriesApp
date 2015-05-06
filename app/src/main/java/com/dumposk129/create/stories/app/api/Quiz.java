@@ -26,14 +26,14 @@ public class Quiz {
         return jParser.makeHttpRequest(ApiConfig.hostname(API.SHOW_QUIZ), ApiConfig.GET, params);
     }
 
-    // Show All Answer
+    // Show All Answers.
     public static JSONObject getAllAnswer() {
         JSONParser jParser = new JSONParser();
         List<NameValuePair> params = new ArrayList<>();
         return jParser.makeHttpRequest(ApiConfig.hostname(API.LIST_CHOICE), ApiConfig.GET, params);
     }
 
-    // Show All
+    // Show All Questions.
     public static JSONObject getAllQuestion() {
         JSONParser jParser = new JSONParser();
         List<NameValuePair> params = new ArrayList<>();
@@ -149,7 +149,8 @@ public class Quiz {
                     Question question = new Question();
                     question.setQuestionId(questionID);
                     question.setQuestionName(questionName);
-                    if (jChoices.length() > 0) question.setChoices(choices);
+                    if (jChoices.length() > 0)
+                        question.setChoices(choices);
                     questions.add(question);
                 }
             }
