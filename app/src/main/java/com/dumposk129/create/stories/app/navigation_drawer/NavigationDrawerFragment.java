@@ -14,11 +14,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.dumposk129.create.stories.app.quizzes.Quizzes;
 import com.dumposk129.create.stories.app.R;
-import com.dumposk129.create.stories.app.reads.Reads;
-import com.dumposk129.create.stories.app.settings.Settings;
 import com.dumposk129.create.stories.app.create.Creates;
+import com.dumposk129.create.stories.app.quizzes.Quizzes;
+import com.dumposk129.create.stories.app.settings.Settings;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -129,7 +128,7 @@ public class NavigationDrawerFragment extends Fragment implements MyAdapter.Clic
     @Override
     public void itemClicked(View view, int position) {
         switch (position){
-            case 0: startActivity(new Intent(getActivity(), Reads.class));
+            case 0: startActivity(new Intent(getActivity(), MainActivity.class));
                 break;
             case 1: startActivity(new Intent(getActivity(), Creates.class));
                 break;

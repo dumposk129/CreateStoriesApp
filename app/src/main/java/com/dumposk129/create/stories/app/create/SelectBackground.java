@@ -1,18 +1,14 @@
-/*
+
 package com.dumposk129.create.stories.app.create;
 
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.support.v7.app.ActionBarActivity;
 
 import com.dumposk129.create.stories.app.R;
 
-
-*/
 /**
  * Created by DumpOSK129.
- *//*
+ */
 
 public class SelectBackground extends ActionBarActivity {
 
@@ -22,5 +18,3 @@ public class SelectBackground extends ActionBarActivity {
         setContentView(R.layout.create_and_edit_select_background);
     }
 }
-
-*/

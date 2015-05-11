@@ -116,7 +116,7 @@ public class Quizzes extends ActionBarActivity {
     }
 
     private class LoadQuizTask extends AsyncTask<String, Void, JSONObject> {
-        // Load All Quizzes.
+        // Load All Story.
         @Override
         protected JSONObject doInBackground(String... params) {
             return Quiz.getAllQuiz();
