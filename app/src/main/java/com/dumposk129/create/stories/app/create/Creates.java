@@ -30,23 +30,5 @@ public class Creates extends ActionBarActivity {
         NavigationDrawerFragment drawerFragment = (NavigationDrawerFragment)
                 getSupportFragmentManager().findFragmentById(R.id.fragment_navigation_drawer);
         drawerFragment.setUp(R.id.fragment_navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout), mToolbar);
-
-        /*AlertDialog.Builder builder = new AlertDialog.Builder(getApplicationContext());
-        builder.setMessage("Do you want to Create or Edit Stories")
-                .setPositiveButton("Create", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        Intent intent = new Intent(getApplicationContext(), SelectBackground.class);
-                        startActivity(intent);
-                    }
-                })
-                .setNegativeButton("Edit", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        Intent intent = new Intent(getApplicationContext(), SelectStory.class);
-                        startActivity(intent);
-                    }
-                });
-        builder.show();*/
     }
 }
