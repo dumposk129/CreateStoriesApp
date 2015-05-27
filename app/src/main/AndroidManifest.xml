@@ -55,8 +55,12 @@
         <activity android:name=".audio_record.FileList" />
         <activity android:name=".audio_record.ListFilesActivity" />
         <activity android:name=".audio_record.VideoViewActivity" />
-
-
+        <activity android:name=".audio_record.AddData" />
+        <activity android:name=".audio_record.ChoosePicture" />
+        <activity android:name=".audio_record.GetPath" />
+        <activity android:name=".audio_record.Main2" />
+        <activity android:name=".audio_record.Save" />
+        <activity android:name=".audio_record.Web" />
     </application>
 
 </manifest>
