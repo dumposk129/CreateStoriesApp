@@ -23,21 +23,6 @@
         android:theme="@style/AppTheme">
 
 
-        <!-- Main Menu -->
-        <activity
-            android:name=".navigation_drawer.MainActivity"
-            android:label="@string/title_activity_reads">
-            <!-- <intent-filter>
-                 <action android:name="android.intent.action.MAIN" />
-                 <category android:name="android.intent.category.LAUNCHER" />
-             </intent-filter>-->
-        </activity>
-
-        <!-- Create Menu -->
-        <activity
-            android:name=".create.Creates"
-            android:label="@string/title_activity_creates" />
-
         <!-- Quizzes Menu-->
         <activity
             android:name=".quizzes.Quizzes"

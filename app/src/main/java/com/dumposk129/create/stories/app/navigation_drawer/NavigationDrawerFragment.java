@@ -15,7 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.dumposk129.create.stories.app.R;
-import com.dumposk129.create.stories.app.create.Creates;
+import com.dumposk129.create.stories.app.audio_record.AudioButton;
 import com.dumposk129.create.stories.app.quizzes.Quizzes;
 import com.dumposk129.create.stories.app.settings.Settings;
 
@@ -130,7 +130,7 @@ public class NavigationDrawerFragment extends Fragment implements MyAdapter.Clic
         switch (position){
             case 0: startActivity(new Intent(getActivity(), MainActivity.class));
                 break;
-            case 1: startActivity(new Intent(getActivity(), Creates.class));
+            case 1: startActivity(new Intent(getActivity(), AudioButton.class));
                 break;
             case 2: startActivity(new Intent(getActivity(), Quizzes.class));
                 break;
