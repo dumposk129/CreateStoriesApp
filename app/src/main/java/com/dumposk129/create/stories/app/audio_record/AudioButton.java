@@ -38,7 +38,7 @@ public class AudioButton extends Activity{
             @Override
             public void onClick(android.view.View view) {
                 // Launching All products Activity
-                Intent i = new Intent(getApplicationContext(), ListFilesActivity.class);
+                Intent i = new Intent(getApplicationContext(), GetPath.class);
                 startActivity(i);
             }
 
@@ -51,7 +51,7 @@ public class AudioButton extends Activity{
             @Override
             public void onClick(android.view.View view) {
                 // Launching All products Activity
-                Intent i = new Intent(getApplicationContext(), FileList.class);
+                Intent i = new Intent(getApplicationContext(), ChoosePicture.class);
                 startActivity(i);
             }
         });

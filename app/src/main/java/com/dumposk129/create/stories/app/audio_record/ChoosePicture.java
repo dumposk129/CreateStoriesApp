@@ -43,9 +43,9 @@ public class ChoosePicture extends Activity implements View.OnClickListener{
     Button choosePicture,btn_upload;
 
     protected String _path_pic=null;
-    Bitmap bmp=null;
+    Bitmap bmp = null;
     String up_name;
-    String lat=null,lon=null;
+    String lat = null,lon = null;
 
     final String PHP_URL = "http://www.myxcode.com/an202/upfile2.php"; // Change to Your Host.
 
@@ -56,9 +56,7 @@ public class ChoosePicture extends Activity implements View.OnClickListener{
 
         chosenImageView = (ImageView) this.findViewById(R.id.ChosenImageView);
         choosePicture = (Button) this.findViewById(R.id.ChoosePictureButton);
-
         choosePicture.setOnClickListener(this);
-
         btn_upload = ( Button ) findViewById( R.id.button2);
         btn_upload.setOnClickListener(this);
     }
