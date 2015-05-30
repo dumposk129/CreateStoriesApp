@@ -17,7 +17,6 @@ import android.view.ViewGroup;
 import com.dumposk129.create.stories.app.R;
 import com.dumposk129.create.stories.app.audio_record.AudioButton;
 import com.dumposk129.create.stories.app.quizzes.Quizzes;
-import com.dumposk129.create.stories.app.settings.Settings;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -133,8 +132,6 @@ public class NavigationDrawerFragment extends Fragment implements MyAdapter.Clic
             case 1: startActivity(new Intent(getActivity(), AudioButton.class));
                 break;
             case 2: startActivity(new Intent(getActivity(), Quizzes.class));
-                break;
-            case 3: startActivity(new Intent(getActivity(), Settings.class));
                 break;
         }
     }

@@ -24,7 +24,6 @@
     <string name="title_activity_quizzes">Quizzes</string>
     <string name="title_activity_num_of_questions">Number of Questions</string>
     <string name="title_activity_show_questions">Show Questions</string>
-    <string name="title_activity_settings">Settings</string>
     <string name="title_activity_edit_story">EditStory</string>
     <string name="title_activity_question_next">Questions</string>
     <string name="title_activity_answer">Answers</string>

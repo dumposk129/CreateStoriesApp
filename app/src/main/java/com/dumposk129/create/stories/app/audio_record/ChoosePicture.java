@@ -45,7 +45,7 @@ public class ChoosePicture extends Activity implements View.OnClickListener{
     protected String _path_pic=null;
     Bitmap bmp = null;
     String up_name;
-    String lat = null,lon = null;
+    String lat = null, lon = null;
 
     final String PHP_URL = "http://www.myxcode.com/an202/upfile2.php"; // Change to Your Host.
 
@@ -62,13 +62,13 @@ public class ChoosePicture extends Activity implements View.OnClickListener{
     }
 
     public void onClick(View v) {
-        if(v.getId()==R.id.ChoosePictureButton){
+        if(v.getId() == R.id.ChoosePictureButton){
             Intent choosePictureIntent = new Intent(Intent.ACTION_PICK,
                     android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
             startActivityForResult(choosePictureIntent, 0);
         }
 
-        if(v.getId()==R.id.button2){
+        if(v.getId() == R.id.button2){
             if(bmp!=null){
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
                 String picTime = sdf.format(new Date());

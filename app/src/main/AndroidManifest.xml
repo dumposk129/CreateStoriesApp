@@ -40,11 +40,6 @@
             android:name=".quizzes.AllQuestions"
             android:label="@string/title_activity_show_questions" />
 
-        <!-- Settings -->
-        <activity
-            android:name=".settings.Settings"
-            android:label="@string/title_activity_settings" />
-
         <activity android:name=".audio_record.AudioButton">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

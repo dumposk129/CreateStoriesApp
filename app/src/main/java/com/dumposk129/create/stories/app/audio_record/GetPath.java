@@ -36,15 +36,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by DumpOSK129 on 5/27/2015.
+ * Created by DumpOSK129.
  */
 public class GetPath extends Activity {
-
     private ListView lstView;
     private Handler handler = new Handler();
-
     List<String> ImageList;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,59 +53,49 @@ public class GetPath extends Activity {
         // ListView and imageAdapter
         lstView = (ListView) findViewById(R.id.listView1);
         lstView.setAdapter(new ImageAdapter(this));
-
     }
 
+    // Length of ListView
     private List <String> getSD() {
-        List <String> it = new ArrayList<String>();
+        List <String> list = new ArrayList<String>();
         File f = new File ("/mnt/sdcard/DCIM/Camera/aa/");
         File[] files = f.listFiles ();
 
-        for (int i = 0; i <files.length; i++)
-        {
+        for (int i = 0; i < files.length; i++) {
             File  file = files[i];
             Log.d("Count",file.getPath());
-            it.add (file.getPath());
+            list.add(file.getPath());
         }
-        return it;
+        return list;
     }
 
     public class ImageAdapter extends BaseAdapter {
         private Context context;
 
-        public ImageAdapter(Context c)
-        {
-            // TODO Auto-generated method stub
+        public ImageAdapter(Context c) {
             context = c;
         }
 
         public int getCount() {
-            // TODO Auto-generated method stub
             return ImageList.size();
         }
 
         public Object getItem(int position) {
-            // TODO Auto-generated method stub
             return position;
         }
 
         public long getItemId(int position) {
-            // TODO Auto-generated method stub
             return position;
         }
 
         public View getView(final int position, View convertView, ViewGroup parent) {
-            // TODO Auto-generated method stub
-
-            final LayoutInflater inflater = (LayoutInflater) context
-                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
+            final LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
             if (convertView == null) {
                 convertView = inflater.inflate(R.layout.activity_column, null);
             }
 
-            // ColImgName
+            // Column Image Name
             TextView txtName = (TextView) convertView.findViewById(R.id.ColImgName);
             String strPath = ImageList.get(position).toString();
 
@@ -128,18 +115,17 @@ public class GetPath extends Activity {
             Bitmap bm = BitmapFactory.decodeFile(strPath);
             imageView.setImageBitmap(bm);
 
-
             // ColStatus
             final TextView txtStatus = (TextView) convertView.findViewById(R.id.ColStatus);
             txtStatus.setPadding(3, 0, 0, 0);
             txtStatus.setText("...");
 
-            // progressBar
+            // ProgressBar
             final ProgressBar progress = (ProgressBar) convertView.findViewById(R.id.progressBar);
             progress.setVisibility(View.GONE);
             progress.setPadding(0, 0, 0, 0);
 
-            //btnUpload
+            // btnUpload
             final Button btnUpload = (Button) convertView.findViewById(R.id.btnUpload);
             btnUpload.setTextColor(Color.BLACK);
             btnUpload.setOnClickListener(new View.OnClickListener() {
@@ -151,6 +137,7 @@ public class GetPath extends Activity {
                     startUpload(position);
                 }
             });
+            // btnSubmit
             final Button submitBtn = (Button) convertView.findViewById(R.id.btnSubmit);
             submitBtn.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
@@ -162,29 +149,24 @@ public class GetPath extends Activity {
                 }
             });
             return convertView;
-
         }
     }
 
-    //Upload
+    // Upload
     public void startUpload(final int position) {
-
         Runnable runnable = new Runnable() {
-
             public void run() {
 
 				/*
 				try {
 					Thread.sleep(3000);
 				} catch (InterruptedException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 				*/
 
                 handler.post(new Runnable() {
                     public void run() {
-
                         View v = lstView.getChildAt(position - lstView.getFirstVisiblePosition());
 
                         // Show ProgressBar
@@ -198,16 +180,13 @@ public class GetPath extends Activity {
                         new UploadFileAsync().execute(String.valueOf(position));
                     }
                 });
-
             }
         };
         new Thread(runnable).start();
     }
 
-
     // Async Upload
     public class UploadFileAsync extends AsyncTask<String, Void, Void> {
-
         String resServer;
         int position;
 
@@ -217,7 +196,6 @@ public class GetPath extends Activity {
 
         @Override
         protected Void doInBackground(String... params) {
-            // TODO Auto-generated method stub
             position = Integer.parseInt(params[0]);
 
             int bytesRead, bytesAvailable, bufferSize;
@@ -322,10 +300,9 @@ public class GetPath extends Activity {
         protected void onPostExecute(Void unused) {
             statusWhenFinish(position,resServer);
         }
-
     }
 
-    // When UPload Finish
+    // When Upload Finish
     protected void statusWhenFinish(int position, String resServer) {
 
         View v = lstView.getChildAt(position - lstView.getFirstVisiblePosition());
@@ -351,7 +328,6 @@ public class GetPath extends Activity {
         String strError = "Unknown Status!";
 
         try {
-
             JSONObject c = new JSONObject(resServer);
             strStatusID = c.getString("StatusID");
             strError = c.getString("Error");
@@ -361,8 +337,7 @@ public class GetPath extends Activity {
         }
 
         // Prepare Status
-        if(strStatusID.equals("0"))
-        {
+        if(strStatusID.equals("0")) {
             // When update Failed
             status.setText("Upload Failed. ("+ strError +")");
             status.setTextColor(Color.RED);
@@ -373,8 +348,7 @@ public class GetPath extends Activity {
             btnUpload.setTextColor(Color.RED);
             btnUpload.setEnabled(true);
         }
-        else
-        {
+        else {
             status.setText("Upload Completed.");
             status.setTextColor(Color.GREEN);
         }

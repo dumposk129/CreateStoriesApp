@@ -23,15 +23,14 @@ import java.util.ArrayList;
  * Created by DumpOSK129
  */
 public class AddData extends Activity {
-    //context
+    // Context
     private Context context;
 
-    //View
+    // View
     private EditText fname;
     private EditText lname;
     private Button submit;
     private TextView result;
-
     private MyHttpPoster poster;
 
 
