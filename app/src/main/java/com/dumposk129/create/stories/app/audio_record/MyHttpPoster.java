@@ -21,6 +21,7 @@ import java.util.ArrayList;
  * Created by DumpOSK129.
  */
 public class MyHttpPoster {
+
     public static final int HTTP_POST_OK =1;
     public static final int HTTP_POST_ERROR =2;
     private HttpClient client;
@@ -28,10 +29,11 @@ public class MyHttpPoster {
     private HttpResponse response;
     private Thread thread;
 
-    //Constructor
-    public MyHttpPoster(String link){
+    // Constructor
+    public  MyHttpPoster(String link){
         client = new DefaultHttpClient();
         post = new HttpPost(link);
+
     }
 
     public void doPost(final ArrayList<NameValuePair> data, final Handler handler) {
@@ -45,9 +47,7 @@ public class MyHttpPoster {
                     // execute data �觢�����
                     response = client.execute(post);
                     message.what = HTTP_POST_OK;
-                    message.obj = (String) EntityUtils.toString(response.getEntity(), HTTP.UTF_8);
-
-
+                    message.obj = (String)EntityUtils.toString(response.getEntity(), HTTP.UTF_8);
 
                 } catch (UnsupportedEncodingException e){
                     e.printStackTrace();

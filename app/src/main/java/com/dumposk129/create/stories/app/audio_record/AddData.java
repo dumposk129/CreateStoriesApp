@@ -2,6 +2,7 @@ package com.dumposk129.create.stories.app.audio_record;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.MotionEvent;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.dumposk129.create.stories.app.R;
+import com.dumposk129.create.stories.app.navigation_drawer.MainActivity;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
@@ -23,49 +25,44 @@ import java.util.ArrayList;
  * Created by DumpOSK129
  */
 public class AddData extends Activity {
-    // Context
+    //context
     private Context context;
 
-    // View
-    private EditText fname;
-    private EditText lname;
-    private Button submit;
-    private TextView result;
+    //View
+    private EditText txtName;
+    private EditText txtDetail;
+    private Button submit2;
+    private TextView result2;
+
     private MyHttpPoster poster;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_data);
+        setContentView(R.layout.add_data);
         context = this;
 
-        // View matching
-        fname = (EditText) findViewById(R.id.main_first_name);
-        lname = (EditText) findViewById(R.id.main_last_name);
-        //dname = (EditText) findViewById(R.id.main_d_name);
-        submit = (Button) findViewById(R.id.main_submit);
-        result = (TextView) findViewById(R.id.main_result);
+        // view matching
+        txtName = (EditText) findViewById(R.id.name1);
+        txtDetail = (EditText) findViewById(R.id.name2);
+        submit2 = (Button) findViewById(R.id.main_submit2);
+        result2 = (TextView) findViewById(R.id.main_result2);
 
-        // Event for submit button
-        submit.setOnClickListener(new View.OnClickListener() {
+        // event for submit button
+        submit2.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                String first_name = fname.getText().toString().trim();
-                String last_name = lname.getText().toString().trim();
-                //String d_name = dname.getText().toString().trim();
-
-                if (first_name.length() == 0 || last_name.length() == 0) {
+                String new_name1 = txtName.getText().toString().trim();
+                String new_name2 = txtDetail.getText().toString().trim();
+                if (new_name1.length() == 0 || new_name2.length() == 0) {
                     Toast.makeText(context, "ssss", Toast.LENGTH_LONG);
                 } else {
                     //ready to sent
-                    //poster = new MyHttpPoster ("http://www.kusrcxcode.com/an70/addDataMember.php");
-                    poster = new MyHttpPoster("http://www.myxcode.com/an202/upfile3.php");
-
+                    poster = new MyHttpPoster("http://victorymonumentmap.com/an105/addtext.php");
                     //Data to sent
                     ArrayList<NameValuePair> data = new ArrayList<NameValuePair>();
-                    data.add(new BasicNameValuePair("fname", first_name));
-                    data.add(new BasicNameValuePair("lname", last_name));
-                    // data.add(new BasicNameValuePair("dname", d_name));
+                    data.add(new BasicNameValuePair("name", new_name1));
+                    data.add(new BasicNameValuePair("detail", new_name2));
 
                     poster.doPost(data, new Handler() {
                         public void handleMessage(android.os.Message msg) {
@@ -73,12 +70,8 @@ public class AddData extends Activity {
                                 case MyHttpPoster.HTTP_POST_OK:
                                     //ok
                                     String resultValue = (String) msg.obj;
-                                    result.setText(resultValue);
+                                    result2.setText(resultValue);
                                     Toast.makeText(context, "Completed", Toast.LENGTH_SHORT).show();
-
-                                    //Intent i = new Intent(getApplicationContext(), AllProductsActivity.class);
-                                    //startActivity(i);
-
                                     break;
                                 case MyHttpPoster.HTTP_POST_ERROR:
                                     //Error
@@ -86,13 +79,17 @@ public class AddData extends Activity {
                                     break;
                             }
                         }
+
+                        ;
                     });
                 }
-
+                Intent i = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(i);
             }
-        });
-    }
 
+        });
+
+    }
     @Override
     public boolean onTouchEvent(MotionEvent event) {
 

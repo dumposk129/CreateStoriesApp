@@ -41,6 +41,8 @@ import java.util.List;
 public class GetPath extends Activity {
     private ListView lstView;
     private Handler handler = new Handler();
+    ;
+
     List<String> ImageList;
 
     @Override
@@ -53,20 +55,21 @@ public class GetPath extends Activity {
         // ListView and imageAdapter
         lstView = (ListView) findViewById(R.id.listView1);
         lstView.setAdapter(new ImageAdapter(this));
+
     }
 
-    // Length of ListView
-    private List <String> getSD() {
-        List <String> list = new ArrayList<String>();
-        File f = new File ("/mnt/sdcard/DCIM/Camera/aa/");
-        File[] files = f.listFiles ();
+
+    private List<String> getSD() {
+        List<String> it = new ArrayList<String>();
+        File f = new File("/mnt/sdcard/DCIM/Camera/aa/");
+        File[] files = f.listFiles();
 
         for (int i = 0; i < files.length; i++) {
-            File  file = files[i];
-            Log.d("Count",file.getPath());
-            list.add(file.getPath());
+            File file = files[i];
+            Log.d("Count", file.getPath());
+            it.add(file.getPath());
         }
-        return list;
+        return it;
     }
 
     public class ImageAdapter extends BaseAdapter {
@@ -95,16 +98,16 @@ public class GetPath extends Activity {
                 convertView = inflater.inflate(R.layout.activity_column, null);
             }
 
-            // Column Image Name
+            // ColImgName
             TextView txtName = (TextView) convertView.findViewById(R.id.ColImgName);
             String strPath = ImageList.get(position).toString();
 
             // Get File Name
-            final String fileName = strPath.substring( strPath.lastIndexOf('/')+1, strPath.length() );
+            final String fileName = strPath.substring(strPath.lastIndexOf('/') + 1, strPath.length());
             File file = new File(strPath);
             long length = file.length();
             txtName.setPadding(3, 0, 0, 0);
-            txtName.setText(fileName + " ("+length/1024+" KB.)");
+            txtName.setText(fileName + " (" + length / 1024 + " KB.)");
 
             // Image Resource
             ImageView imageView = (ImageView) convertView.findViewById(R.id.ColImgPath);
@@ -120,12 +123,12 @@ public class GetPath extends Activity {
             txtStatus.setPadding(3, 0, 0, 0);
             txtStatus.setText("...");
 
-            // ProgressBar
+            // progressBar
             final ProgressBar progress = (ProgressBar) convertView.findViewById(R.id.progressBar);
             progress.setVisibility(View.GONE);
             progress.setPadding(0, 0, 0, 0);
 
-            // btnUpload
+            //btnUpload
             final Button btnUpload = (Button) convertView.findViewById(R.id.btnUpload);
             btnUpload.setTextColor(Color.BLACK);
             btnUpload.setOnClickListener(new View.OnClickListener() {
@@ -137,44 +140,36 @@ public class GetPath extends Activity {
                     startUpload(position);
                 }
             });
-            // btnSubmit
             final Button submitBtn = (Button) convertView.findViewById(R.id.btnSubmit);
             submitBtn.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
                     // Upload
-                    Intent intent = new Intent(inflater.getContext(), Save.class);
+                    Intent intent = new Intent(inflater.getContext(), Upload.class);
                     intent.putExtra("fname", fileName);
                     //intent.putExtra("lname", etLName.getText().toString());
                     startActivity(intent);
                 }
             });
             return convertView;
+
         }
     }
 
-    // Upload
+    //Upload
     public void startUpload(final int position) {
+
         Runnable runnable = new Runnable() {
             public void run() {
-
-				/*
-				try {
-					Thread.sleep(3000);
-				} catch (InterruptedException e1) {
-					e1.printStackTrace();
-				}
-				*/
-
                 handler.post(new Runnable() {
                     public void run() {
                         View v = lstView.getChildAt(position - lstView.getFirstVisiblePosition());
 
                         // Show ProgressBar
-                        ProgressBar progress = (ProgressBar)v.findViewById(R.id.progressBar);
+                        ProgressBar progress = (ProgressBar) v.findViewById(R.id.progressBar);
                         progress.setVisibility(View.VISIBLE);
 
                         // Status
-                        TextView status = (TextView)v.findViewById(R.id.ColStatus);
+                        TextView status = (TextView) v.findViewById(R.id.ColStatus);
                         status.setText("Uploading..");
 
                         new UploadFileAsync().execute(String.valueOf(position));
@@ -187,6 +182,7 @@ public class GetPath extends Activity {
 
     // Async Upload
     public class UploadFileAsync extends AsyncTask<String, Void, Void> {
+
         String resServer;
         int position;
 
@@ -206,7 +202,7 @@ public class GetPath extends Activity {
 
             String lineEnd = "\r\n";
             String twoHyphens = "--";
-            String boundary =  "*****";
+            String boundary = "*****";
 
             // File Path
             String strSDPath = ImageList.get(position).toString();
@@ -217,8 +213,7 @@ public class GetPath extends Activity {
             try {
                 /** Check file on SD Card ***/
                 File file = new File(strSDPath);
-                if(!file.exists())
-                {
+                if (!file.exists()) {
                     resServer = "{\"StatusID\":\"0\",\"Error\":\"Please check path on SD Card\"}";
                     return null;
                 }
@@ -263,8 +258,7 @@ public class GetPath extends Activity {
 
                 // Response Code and  Message
                 resCode = conn.getResponseCode();
-                if(resCode == HttpURLConnection.HTTP_OK)
-                {
+                if (resCode == HttpURLConnection.HTTP_OK) {
                     InputStream is = conn.getInputStream();
                     ByteArrayOutputStream bos = new ByteArrayOutputStream();
 
@@ -279,7 +273,7 @@ public class GetPath extends Activity {
 
                 }
 
-                Log.d("resCode=",Integer.toString(resCode));
+                Log.d("resCode=", Integer.toString(resCode));
                 Log.d("resMessage=", resMessage.toString());
 
                 fileInputStream.close();
@@ -298,22 +292,22 @@ public class GetPath extends Activity {
         }
 
         protected void onPostExecute(Void unused) {
-            statusWhenFinish(position,resServer);
+            statusWhenFinish(position, resServer);
         }
     }
 
-    // When Upload Finish
+    // When UPload Finish
     protected void statusWhenFinish(int position, String resServer) {
 
         View v = lstView.getChildAt(position - lstView.getFirstVisiblePosition());
 
         // Show ProgressBar
-        ProgressBar progress = (ProgressBar)v.findViewById(R.id.progressBar);
+        ProgressBar progress = (ProgressBar) v.findViewById(R.id.progressBar);
         progress.setVisibility(View.GONE);
 
 
         // Status
-        TextView status = (TextView)v.findViewById(R.id.ColStatus);
+        TextView status = (TextView) v.findViewById(R.id.ColStatus);
 
         /** Get result from Server (Return the JSON Code)
          * StatusID = ? [0=Failed,1=Complete]
@@ -325,21 +319,20 @@ public class GetPath extends Activity {
 
         /*** Default Value ***/
         String strStatusID = "0";
-        String strError = "Unknown Status!";
+        String strError = "Unknow Status!";
 
         try {
             JSONObject c = new JSONObject(resServer);
             strStatusID = c.getString("StatusID");
             strError = c.getString("Error");
         } catch (JSONException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
 
         // Prepare Status
-        if(strStatusID.equals("0")) {
+        if (strStatusID.equals("0")) {
             // When update Failed
-            status.setText("Upload Failed. ("+ strError +")");
+            status.setText("Upload Failed. (" + strError + ")");
             status.setTextColor(Color.RED);
 
             // Enabled Button again
@@ -347,11 +340,9 @@ public class GetPath extends Activity {
             btnUpload.setText("Re-try");
             btnUpload.setTextColor(Color.RED);
             btnUpload.setEnabled(true);
-        }
-        else {
+        } else {
             status.setText("Upload Completed.");
             status.setTextColor(Color.GREEN);
         }
-
     }
 }

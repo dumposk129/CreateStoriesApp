@@ -22,17 +22,20 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
 
-
         <!-- Quizzes Menu-->
         <activity
             android:name=".quizzes.Quizzes"
             android:label="@string/title_activity_quizzes" />
         <activity
-            android:name=".quizzes.Questions"
-            android:label="@string/title_activity_question_next" />
-        <activity
             android:name=".quizzes.NumberOfQuestion"
-            android:label="@string/title_activity_num_of_questions" />
+            android:label="@string/title_activity_num_of_questions" >
+
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+
+        </activity>
         <activity
             android:name=".quizzes.Answers"
             android:label="@string/title_activity_answer" />
@@ -41,21 +44,10 @@
             android:label="@string/title_activity_show_questions" />
 
         <activity android:name=".audio_record.AudioButton">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".audio_record.AudioRecording" />
-        <activity android:name=".audio_record.FileList" />
-        <activity android:name=".audio_record.ListFilesActivity" />
-        <activity android:name=".audio_record.VideoViewActivity" />
         <activity android:name=".audio_record.AddData" />
-        <activity android:name=".audio_record.ChoosePicture" />
         <activity android:name=".audio_record.GetPath" />
-        <activity android:name=".audio_record.Main2" />
-        <activity android:name=".audio_record.Save" />
-        <activity android:name=".audio_record.Web" />
     </application>
 
 </manifest>

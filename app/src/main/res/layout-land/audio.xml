@@ -2,24 +2,21 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:orientation="vertical">
-
-    <!-- App Bar -->
-    <include
-        android:id="@+id/app_bar"
-        layout="@layout/app_bar" />
+    android:background="@drawable/bg"
+    android:orientation="vertical"
+    android:padding="20dip">
 
     <ImageView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_gravity="center"
         android:scaleType="fitCenter"
-        android:src="@mipmap/audio_logo" />
+        android:src="@drawable/microphone" />
 
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="20dp">
+        android:orientation="horizontal">
 
         <Button
             android:id="@+id/btnStart"
@@ -43,5 +40,4 @@
             android:text="Format (mp4)" />
 
     </LinearLayout>
-
 </LinearLayout>
