@@ -20,7 +20,8 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.dumposk129.create.stories.app.navigation_drawer.MainActivity;
+import com.dumposk129.create.stories.app.R;
+import com.dumposk129.create.stories.app.watch.DetailData;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;

@@ -5,7 +5,7 @@
     <string name="drawer_open" translatable="false">Open</string>
     <string name="drawer_close" translatable="false">Close</string>
     <array name="drawer_item_array">
-        <item>Reads</item>
+        <item>Watches</item>
         <item>Creates</item>
         <item>Quiz</item>
         <item>Settings</item>
@@ -24,7 +24,6 @@
     <string name="title_activity_quizzes">Quizzes</string>
     <string name="title_activity_num_of_questions">Number of Questions</string>
     <string name="title_activity_show_questions">Show Questions</string>
-    <string name="title_activity_edit_story">EditStory</string>
     <string name="title_activity_question_next">Questions</string>
     <string name="title_activity_answer">Answers</string>
 
@@ -36,15 +35,6 @@
         <item>Show Questions</item>
         <item>Cancel</item>
     </array>
-
-    <!-- Create -->
-    <array name="create_edit">
-        <item>Create Stories</item>
-        <item>Edit Stories</item>
-        <item>Cancel</item>
-    </array>
-
-
 
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_number_of_item">NumberOfItem</string>

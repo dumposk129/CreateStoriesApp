@@ -1,4 +1,4 @@
-package com.dumposk129.create.stories.app.audio_record;
+package com.dumposk129.create.stories.app.watch;
 
 import android.app.Activity;
 import android.content.Intent;

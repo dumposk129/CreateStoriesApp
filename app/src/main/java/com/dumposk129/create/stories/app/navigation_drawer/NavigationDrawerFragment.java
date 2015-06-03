@@ -17,6 +17,7 @@ import android.view.ViewGroup;
 import com.dumposk129.create.stories.app.R;
 import com.dumposk129.create.stories.app.audio_record.AudioButton;
 import com.dumposk129.create.stories.app.quizzes.Quizzes;
+import com.dumposk129.create.stories.app.watch.DetailData;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -127,7 +128,7 @@ public class NavigationDrawerFragment extends Fragment implements MyAdapter.Clic
     @Override
     public void itemClicked(View view, int position) {
         switch (position){
-            case 0: startActivity(new Intent(getActivity(), MainActivity.class));
+            case 0: startActivity(new Intent(getActivity(), DetailData.class));
                 break;
             case 1: startActivity(new Intent(getActivity(), AudioButton.class));
                 break;
