@@ -9,7 +9,6 @@ import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +16,6 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.dumposk129.create.stories.app.R;
@@ -39,7 +37,7 @@ import java.util.List;
  * Created by DumpOSK129.
  */
 public class SoundPath extends Activity {
-    private ListView lstView;
+    private ListView listView;
     private Handler handler = new Handler();
 
     List<String> ImageList;
@@ -51,22 +49,20 @@ public class SoundPath extends Activity {
         /*** Get Images from SDCard ***/
         ImageList = getSD();
 
-        // ListView and imageAdapter
-        lstView = (ListView) findViewById(R.id.listView1);
-        lstView.setAdapter(new ImageAdapter(this));
+        listView = (ListView) findViewById(R.id.listView1);
+        listView.setAdapter(new ImageAdapter(this));
     }
 
     private List<String> getSD() {
-        List<String> it = new ArrayList<String>();
+        List<String> list = new ArrayList<String>();
         File f = new File("/mnt/sdcard/DCIM/Camera/aa/");
         File[] files = f.listFiles();
 
         for (int i = 0; i < files.length; i++) {
             File file = files[i];
-            Log.d("Count", file.getPath());
-            it.add(file.getPath());
+            list.add(file.getPath());
         }
-        return it;
+        return list;
     }
 
     public class ImageAdapter extends BaseAdapter {
@@ -92,7 +88,7 @@ public class SoundPath extends Activity {
             final LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
             if (convertView == null) {
-                convertView = inflater.inflate(R.layout.activity_column, null);
+                convertView = inflater.inflate(R.layout.sound_item, null);
             }
 
             // ColImgName
@@ -118,27 +114,10 @@ public class SoundPath extends Activity {
             // ColStatus
             final TextView txtStatus = (TextView) convertView.findViewById(R.id.ColStatus);
             txtStatus.setPadding(3, 0, 0, 0);
-            txtStatus.setText("...");
+            // txtStatus.setText("...");
 
-            // progressBar
-            final ProgressBar progress = (ProgressBar) convertView.findViewById(R.id.progressBar);
-            progress.setVisibility(View.GONE);
-            progress.setPadding(0, 0, 0, 0);
-
-            //btnUpload
-            final Button btnUpload = (Button) convertView.findViewById(R.id.btnUpload);
-            btnUpload.setTextColor(Color.BLACK);
-            btnUpload.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View v) {
-                    // Upload
-                    btnUpload.setEnabled(false);
-                    btnUpload.setTextColor(Color.GRAY);
-
-                    startUpload(position);
-                }
-            });
-            final Button submitBtn = (Button) convertView.findViewById(R.id.btnSubmit);
-            submitBtn.setOnClickListener(new View.OnClickListener() {
+            final Button btnNext = (Button) convertView.findViewById(R.id.btnNextTo);
+            btnNext.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
                     // Upload
                     Intent intent = new Intent(inflater.getContext(), Upload.class);
@@ -157,11 +136,7 @@ public class SoundPath extends Activity {
             public void run() {
                 handler.post(new Runnable() {
                     public void run() {
-                        View v = lstView.getChildAt(position - lstView.getFirstVisiblePosition());
-
-                        // Show ProgressBar
-                        ProgressBar progress = (ProgressBar) v.findViewById(R.id.progressBar);
-                        progress.setVisibility(View.VISIBLE);
+                        View v = listView.getChildAt(position - listView.getFirstVisiblePosition());
 
                         // Status
                         TextView status = (TextView) v.findViewById(R.id.ColStatus);
@@ -203,7 +178,7 @@ public class SoundPath extends Activity {
             String strSDPath = ImageList.get(position).toString();
 
             // Upload to PHP Script
-            String strUrlServer = "http://dump.geozigzag.com/api/";
+            String strUrlServer = "http://dump.geozigzag.com/api/sound.php";
 
             try {
                 /** Check file on SD Card ***/
@@ -223,15 +198,11 @@ public class SoundPath extends Activity {
                 conn.setRequestMethod("POST");
 
                 conn.setRequestProperty("Connection", "Keep-Alive");
-                conn.setRequestProperty("Content-Type",
-                        "multipart/form-data;boundary=" + boundary);
+                conn.setRequestProperty("Content-Type", "multipart/form-data;boundary=" + boundary);
 
-                DataOutputStream outputStream = new DataOutputStream(conn
-                        .getOutputStream());
+                DataOutputStream outputStream = new DataOutputStream(conn.getOutputStream());
                 outputStream.writeBytes(twoHyphens + boundary + lineEnd);
-                outputStream
-                        .writeBytes("Content-Disposition: form-data; name=\"fileUpload\";filename=\""
-                                + strSDPath + "\"" + lineEnd);
+                outputStream.writeBytes("Content-Disposition: form-data; name=\"fileUpload\";filename=\"" + strSDPath + "\"" + lineEnd);
                 outputStream.writeBytes(lineEnd);
 
                 bytesAvailable = fileInputStream.available();
@@ -265,41 +236,27 @@ public class SoundPath extends Activity {
                     bos.close();
 
                     resMessage = new String(result);
-
                 }
-
-                Log.d("resCode=", Integer.toString(resCode));
-                Log.d("resMessage=", resMessage.toString());
-
                 fileInputStream.close();
                 outputStream.flush();
                 outputStream.close();
 
                 resServer = resMessage.toString();
 
-
             } catch (Exception ex) {
-                // Exception handling
                 return null;
             }
-
             return null;
         }
-
         protected void onPostExecute(Void unused) {
             statusWhenFinish(position, resServer);
         }
     }
 
-    // When UPload Finish
+    // When Upload Finish
     protected void statusWhenFinish(int position, String resServer) {
 
-        View v = lstView.getChildAt(position - lstView.getFirstVisiblePosition());
-
-        // Show ProgressBar
-        ProgressBar progress = (ProgressBar) v.findViewById(R.id.progressBar);
-        progress.setVisibility(View.GONE);
-
+        View v = listView.getChildAt(position - listView.getFirstVisiblePosition());
 
         // Status
         TextView status = (TextView) v.findViewById(R.id.ColStatus);

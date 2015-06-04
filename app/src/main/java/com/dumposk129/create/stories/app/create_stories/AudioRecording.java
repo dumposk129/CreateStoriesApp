@@ -26,14 +26,13 @@ public class AudioRecording extends Activity {
 
     private MediaRecorder recorder = null;
     private int currentFormat = 0;
-    private int output_formats[] = { MediaRecorder.OutputFormat.MPEG_4,
-            MediaRecorder.OutputFormat.THREE_GPP };
-    private String file_exts[] = { AUDIO_RECORDER_FILE_EXT_MP4,
-            AUDIO_RECORDER_FILE_EXT_3GP };
+    private int output_formats[] = {MediaRecorder.OutputFormat.MPEG_4, MediaRecorder.OutputFormat.THREE_GPP};
+    private String file_exts[] = {AUDIO_RECORDER_FILE_EXT_MP4, AUDIO_RECORDER_FILE_EXT_3GP};
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.audio);
         setContentView(R.layout.audio);
 
         setButtonHandlers();
@@ -107,20 +106,17 @@ public class AudioRecording extends Activity {
 
     private void displayFormatDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        String formats[] = { "MPEG 4", "3GPP" };
+        String formats[] = {"MPEG 4", "3GPP"};
 
-        builder.setTitle(getString(R.string.choose_format_title))
-                .setSingleChoiceItems(formats, currentFormat,
-                        new DialogInterface.OnClickListener() {
-
-                            public void onClick(DialogInterface dialog,
-                                                int which) {
-                                currentFormat = which;
-                                setFormatButtonCaption();
-
-                                dialog.dismiss();
-                            }
-                        }).show();
+        builder.setTitle(getString(R.string.choose_format_title)).setSingleChoiceItems(formats, currentFormat,
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        currentFormat = which;
+                        setFormatButtonCaption();
+                        dialog.dismiss();
+                    }
+                }
+        ).show();
     }
 
     private MediaRecorder.OnErrorListener errorListener = new MediaRecorder.OnErrorListener() {
@@ -150,12 +146,10 @@ public class AudioRecording extends Activity {
                     stopRecording();
                     Intent i = new Intent(getApplicationContext(), SoundPath.class);
                     startActivity(i);
-
                     break;
                 }
                 case R.id.btnFormat: {
                     displayFormatDialog();
-
                     break;
                 }
             }

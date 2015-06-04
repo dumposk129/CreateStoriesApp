@@ -23,7 +23,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.dumposk129.create.stories.app.R;
-import com.dumposk129.create.stories.app.create_stories.CreateStories;
 import com.dumposk129.create.stories.app.navigation_drawer.NavigationDrawerFragment;
 
 import org.apache.http.HttpEntity;
@@ -54,14 +53,14 @@ import java.util.HashMap;
  * Created by DumpOSK129.
  */
 public class MainActivity extends ActionBarActivity {
-    private Button mBtnHome;
+/*    private Button mBtnHome;*/
     private ListView listView;
     private Toolbar mToolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.showdataimages);
+        setContentView(R.layout.show_stories);
 
         // Casting
         mToolbar = (Toolbar) findViewById(R.id.app_bar);
@@ -71,7 +70,7 @@ public class MainActivity extends ActionBarActivity {
                 getSupportFragmentManager().findFragmentById(R.id.fragment_navigation_drawer);
         drawerFragment.setUp(R.id.fragment_navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout), mToolbar);
 
-        mBtnHome = (Button) findViewById(R.id.mBtnHome);
+      /*  mBtnHome = (Button) findViewById(R.id.mBtnHome);
 
         // View products click event
         mBtnHome.setOnClickListener(new View.OnClickListener() {
@@ -81,7 +80,7 @@ public class MainActivity extends ActionBarActivity {
                 Intent i = new Intent(getApplicationContext(), CreateStories.class);
                 startActivity(i);
             }
-        });
+        });*/
 
         // Permission StrictMode
         if (android.os.Build.VERSION.SDK_INT > 9) {
@@ -175,7 +174,7 @@ public class MainActivity extends ActionBarActivity {
             final String imgPath;
 
             if (convertView == null) {
-                convertView = inflater.inflate(R.layout.image_column, null);
+                convertView = inflater.inflate(R.layout.stories_items, null);
             }
 
             // ColImage
@@ -195,22 +194,14 @@ public class MainActivity extends ActionBarActivity {
             TextView txtPosition = (TextView) convertView.findViewById(R.id.ColImgID);
             txtPosition.setPadding(10, 0, 0, 0);
             imgID = MyArr.get(position).get("ImageID");
-            txtPosition.setText("เรื่อง: " + imgID);
+            txtPosition.setText("Story: " + imgID);
 
-            // ColPicName
-            TextView txtPicName = (TextView) convertView.findViewById(R.id.ColImgDesc);
-            txtPicName.setPadding(50, 0, 0, 0);
-            imgDesc = MyArr.get(position).get("ImageDesc");
-            txtPicName.setText(": " + imgDesc);
-
-            // Next to DetailData.class
-            final Button submitBtn = (Button) convertView.findViewById(R.id.btnSubmit);
-            submitBtn.setOnClickListener(new View.OnClickListener() {
+            // Next to Watch.class
+            final Button mBtnWatch = (Button) convertView.findViewById(R.id.btnwatch);
+            mBtnWatch.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
-                    //Intent intent = new Intent(inflater.getContext(), Main.class);
                     Intent intent = new Intent(inflater.getContext(), Watch.class);
                     intent.putExtra("imgID", imgID);
-                    intent.putExtra("imgDesc", imgDesc);
                     intent.putExtra("imgPath", imgPath);
                     startActivity(intent);
                 }
@@ -248,7 +239,6 @@ public class MainActivity extends ActionBarActivity {
         }
         return str.toString();
     }
-
 
     /*****
      * Get Image Resource from URL (Start)
@@ -296,4 +286,5 @@ public class MainActivity extends ActionBarActivity {
         while ((read = in.read(b)) != -1) {
             out.write(b, 0, read);
         }
-    }}
+    }
+}

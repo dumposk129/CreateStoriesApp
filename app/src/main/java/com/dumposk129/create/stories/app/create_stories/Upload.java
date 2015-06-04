@@ -56,12 +56,12 @@ public class Upload extends Activity implements View.OnClickListener {
     private String lat = null, lon = null;
     private ProgressBar progressBar;
     private String FILE_UPLOAD_URL, filePath, fileName = null;
-    private TextView txtPercentage, tvView;
+    private TextView txtPercentage, tvAudioNme;
     private Button btnUpload;
     long totalSize = 0;
     String folder = "aa"; //
 
-    final String PHP_URL = "http://victorymonumentmap.com/an105/uppic.php"; // Change to Your Host.
+    final String PHP_URL = "http://dump.geozigzag.com/api/picture.php";
 
     @SuppressLint("SdCardPath")
     @Override
@@ -69,15 +69,13 @@ public class Upload extends Activity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.upload);
 
-        //tvView = (EditText) findViewById(R.id.tvView);
-        tvView = (TextView) findViewById(R.id.tvView);
+        tvAudioNme = (TextView) findViewById(R.id.tvAudioName);
         Intent intent = getIntent();
         String fName = intent.getStringExtra("fname");
-        tvView.setText(fName);
+        tvAudioNme.setText(fName);
         txtPercentage = (TextView) findViewById(R.id.txtPercentage);
         btnUpload = (Button) findViewById(R.id.btnUpload);
-        progressBar = (ProgressBar) findViewById(R.id.progressBar);
-        final TextView txtSDCard = (TextView) findViewById(R.id.tvView);
+        final TextView txtSDCard = (TextView) findViewById(R.id.tvAudioName);
 
 		/*Server*/
         FILE_UPLOAD_URL = "http://dump.geozigzag.com/api/sound.php";
@@ -92,7 +90,7 @@ public class Upload extends Activity implements View.OnClickListener {
         btnUpload.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 fileName = txtSDCard.getText().toString();
-                filePath = "/mnt/sdcard/DCIM/Camera/" + folder + "/" + fileName; // ¿…Æ◊∏ÙÆ|¶Ï∏m
+                filePath = "/mnt/sdcard/DCIM/Camera/" + folder + "/" + fileName;
                 new UploadFileToServer().execute();
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
                 String picTime = sdf.format(new Date());
@@ -184,7 +182,6 @@ public class Upload extends Activity implements View.OnClickListener {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage(message).setTitle("Response from Servers").setCancelable(false).setPositiveButton("OK", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
-                // Do nothing
             }
         });
         AlertDialog alert = builder.create();
@@ -223,14 +220,10 @@ public class Upload extends Activity implements View.OnClickListener {
                 // Load up the image's dimensions not the image itself
                 BitmapFactory.Options bmpFactoryOptions = new BitmapFactory.Options();
                 bmpFactoryOptions.inJustDecodeBounds = true;
-                bmp = BitmapFactory
-                        .decodeStream(getContentResolver().openInputStream(
-                                imageFileUri), null, bmpFactoryOptions);
+                bmp = BitmapFactory.decodeStream(getContentResolver().openInputStream(imageFileUri), null, bmpFactoryOptions);
 
-                int heightRatio = (int) Math.ceil(bmpFactoryOptions.outHeight
-                        / (float) dh);
-                int widthRatio = (int) Math.ceil(bmpFactoryOptions.outWidth
-                        / (float) dw);
+                int heightRatio = (int) Math.ceil(bmpFactoryOptions.outHeight / (float) dh);
+                int widthRatio = (int) Math.ceil(bmpFactoryOptions.outWidth / (float) dw);
 
                 if (heightRatio > 1 && widthRatio > 1) {
                     if (heightRatio > widthRatio) {
@@ -241,9 +234,7 @@ public class Upload extends Activity implements View.OnClickListener {
                 }
 
                 bmpFactoryOptions.inJustDecodeBounds = false;
-                bmp = BitmapFactory
-                        .decodeStream(getContentResolver().openInputStream(
-                                imageFileUri), null, bmpFactoryOptions);
+                bmp = BitmapFactory.decodeStream(getContentResolver().openInputStream(imageFileUri), null, bmpFactoryOptions);
 
                 chosenImageView.setImageBitmap(bmp);
 
@@ -251,7 +242,7 @@ public class Upload extends Activity implements View.OnClickListener {
                 Log.v("ERROR", e.toString());
             }
         }
-    }//end method onActivityResult
+    }
 
     ///  AsyncTask  Upload Image
     class ImageUploadTask extends AsyncTask<Bitmap, Integer, String> {

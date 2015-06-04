@@ -54,7 +54,7 @@ public class ChooseImage extends Activity implements View.OnClickListener{
     long totalSize = 0;
     String folder = "aa";
 
-    final String PHP_URL = "http://dump.geozigzag.com/api/"; // Change to Your Host.
+    final String PHP_URL = "http://dump.geozigzag.com/api/picture.php";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -66,15 +66,12 @@ public class ChooseImage extends Activity implements View.OnClickListener{
 
         choosePicture.setOnClickListener(this);
 
-        final TextView txtSDCard = (TextView) findViewById(R.id.tvView);
+        final TextView txtSDCard = (TextView) findViewById(R.id.tvAudioName);
 
         btn_upload = ( Button ) findViewById( R.id.button2);
         btn_upload.setOnClickListener(this);
         btn_upload.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                /*fileName = txtSDCard.getText().toString();
-                filePath = "/mnt/sdcard/DCIM/Camera/" + folder + "/" + fileName;
-                new ImageUploadTask().execute();*/
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
                 String picTime = sdf.format(new Date());
                 _path_pic = Environment.getExternalStorageDirectory() + "/myfile/" + picTime + ".jpg";
@@ -137,7 +134,7 @@ public class ChooseImage extends Activity implements View.OnClickListener{
                 Log.v("ERROR", e.toString());
             }
         }
-    }//end method onActivityResult
+    }
 
     ///  AsyncTask  Upload Image
     class ImageUploadTask extends AsyncTask<Bitmap, Integer, String> {
@@ -201,5 +198,5 @@ public class ChooseImage extends Activity implements View.OnClickListener{
             }
             alertBox.show();
         }
-    }//// end task///
-}//end class ChoosePicture
+    }
+}

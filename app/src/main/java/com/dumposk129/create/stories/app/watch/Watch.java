@@ -48,7 +48,7 @@ public class Watch extends ActionBarActivity implements View.OnClickListener, Vi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.watches);
-        tvView = ( TextView) findViewById(R.id.tvView);
+        tvView = ( TextView) findViewById(R.id.tvAudioName);
         imageView = (ImageView)findViewById(R.id.ColImgPath2);
         imageView.getLayoutParams().height = 100;
         imageView.getLayoutParams().width = 100;

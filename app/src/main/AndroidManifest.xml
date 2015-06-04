@@ -42,6 +42,7 @@
         <activity android:name=".create_stories.SaveTitle" />
         <activity android:name=".create_stories.SoundPath" />
         <activity android:name=".create_stories.ChooseImage"/>
+        <activity android:name=".create_stories.Upload"/>
 
         <!-- Watches -->
         <activity android:name=".watch.Watch"/>
