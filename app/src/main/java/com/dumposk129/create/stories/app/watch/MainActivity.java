@@ -2,7 +2,6 @@ package com.dumposk129.create.stories.app.watch;
 
 import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -115,29 +114,6 @@ public class MainActivity extends ActionBarActivity {
             // OnClick
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
-
-                    View layout = inflater.inflate(R.layout.custom_fullimage_dialog, (ViewGroup) findViewById(R.id.layout_root));
-                    ImageView image = (ImageView) layout.findViewById(R.id.fullimage);
-
-                    try {
-                        image.setImageBitmap(loadBitmap(MyArrList.get(position).get("ImagePath")));
-                    } catch (Exception e) {
-                        // When Error
-                        image.setImageResource(android.R.drawable.ic_menu_report_image);
-                    }
-
-                    imageDialog.setIcon(android.R.drawable.btn_star_big_on);
-                    imageDialog.setTitle("View : " + MyArrList.get(position).get("ImageDesc"));
-                    imageDialog.setView(layout);
-
-                    imageDialog.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();
-                        }
-                    });
-                    imageDialog.create();
-                    imageDialog.show();
                 }
             });
         } catch (JSONException e) {

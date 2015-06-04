@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@drawable/bg"
+    android:background="@drawable/custom_bg"
     android:orientation="vertical">
 
     <!-- App Bar -->
@@ -31,7 +31,7 @@
                     android:layout_width="180dp"
                     android:layout_height="180dp"
                     android:layout_gravity="center_horizontal"
-                    android:src="@drawable/abc" />
+                    android:src="@drawable/custom_bg" />
 
                 <ImageButton
                     android:id="@+id/ButtonTestPlayPause"
