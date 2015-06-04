@@ -36,18 +36,20 @@
             android:name=".quizzes.AllQuestions"
             android:label="@string/title_activity_show_questions" />
 
-
         <!-- Create Stories -->
-        <activity android:name=".create_stories.CreateStories">
+        <activity android:name=".create_stories.CreateStories"/>
+        <activity android:name=".create_stories.AudioRecording" />
+        <activity android:name=".create_stories.SaveTitle" />
+        <activity android:name=".create_stories.GetPath" />
+        <activity android:name=".create_stories.ChooseImage"/>
+
+        <!-- Watches -->
+        <activity android:name=".watch.Watch"/>
+        <activity android:name=".watch.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".create_stories.AudioRecording" />
-        <activity android:name=".create_stories.AddData" />
-        <activity android:name=".create_stories.GetPath" />
-        <activity android:name=".create_stories.ChooseImage"/>
     </application>
-
 </manifest>

@@ -100,7 +100,7 @@ public class Upload extends Activity implements View.OnClickListener {
                 up_name = picTime + ".jpg";
                 new ImageUploadTask().execute(bmp);
 
-                Intent i = new Intent(getApplicationContext(), AddData.class);
+                Intent i = new Intent(getApplicationContext(), SaveTitle.class);
                 startActivity(i);
             }
         });

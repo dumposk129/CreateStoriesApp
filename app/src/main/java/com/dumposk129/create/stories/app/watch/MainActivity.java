@@ -195,7 +195,7 @@ public class MainActivity extends ActionBarActivity {
             submitBtn.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
                     //Intent intent = new Intent(inflater.getContext(), Main.class);
-                    Intent intent = new Intent(inflater.getContext(), DetailData.class);
+                    Intent intent = new Intent(inflater.getContext(), Watch.class);
                     intent.putExtra("imgID", imgID);
                     intent.putExtra("imgDesc", imgDesc);
                     intent.putExtra("imgPath", imgPath);
