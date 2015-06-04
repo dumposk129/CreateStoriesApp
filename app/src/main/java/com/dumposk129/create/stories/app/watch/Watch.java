@@ -1,12 +1,14 @@
 package com.dumposk129.create.stories.app.watch;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -17,6 +19,7 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.dumposk129.create.stories.app.R;
+import com.dumposk129.create.stories.app.navigation_drawer.NavigationDrawerFragment;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -30,7 +33,7 @@ import java.net.URL;
 /**
  * Created by DumpOSK129.
  */
-public class Watch extends Activity implements View.OnClickListener, View.OnTouchListener, MediaPlayer.OnCompletionListener, MediaPlayer.OnBufferingUpdateListener {
+public class Watch extends ActionBarActivity implements View.OnClickListener, View.OnTouchListener, MediaPlayer.OnCompletionListener, MediaPlayer.OnBufferingUpdateListener {
     private TextView tvView, tvView3;
     private ImageView imageView;
     private ImageButton buttonPlayPause;
@@ -38,6 +41,7 @@ public class Watch extends Activity implements View.OnClickListener, View.OnTouc
     public EditText editTextSongURL, txtView;
     private MediaPlayer mediaPlayer;
     private int mediaFileLengthInMilliseconds;
+    private Toolbar mToolbar;
     private final Handler handler = new Handler();
 
     @Override
@@ -51,6 +55,14 @@ public class Watch extends Activity implements View.OnClickListener, View.OnTouc
         imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
 
         Intent intent = getIntent();
+
+        // Casting
+        mToolbar = (Toolbar) findViewById(R.id.app_bar);
+        setSupportActionBar(mToolbar);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        NavigationDrawerFragment drawerFragment = (NavigationDrawerFragment)
+                getSupportFragmentManager().findFragmentById(R.id.fragment_navigation_drawer);
+        drawerFragment.setUp(R.id.fragment_navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout), mToolbar);
 
         String fName = intent.getStringExtra("imgID");
         String imgDesc = intent.getStringExtra("imgDesc");

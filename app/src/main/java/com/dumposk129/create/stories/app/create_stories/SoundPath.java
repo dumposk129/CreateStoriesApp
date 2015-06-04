@@ -143,12 +143,10 @@ public class SoundPath extends Activity {
                     // Upload
                     Intent intent = new Intent(inflater.getContext(), Upload.class);
                     intent.putExtra("fname", fileName);
-                    //intent.putExtra("lname", etLName.getText().toString());
                     startActivity(intent);
                 }
             });
             return convertView;
-
         }
     }
 

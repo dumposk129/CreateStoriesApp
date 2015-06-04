@@ -16,6 +16,8 @@ import android.view.Display;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.dumposk129.create.stories.app.R;
 
@@ -42,9 +44,15 @@ public class ChooseImage extends Activity implements View.OnClickListener{
     private ImageView chosenImageView;
     private Button choosePicture, btn_upload;
     protected String _path_pic = null;
-    private Bitmap bmp=null;
+    private Bitmap bmp = null;
     private String up_name;
-    private String lat=null,lon=null;
+    private String lat = null, lon = null;
+    private ProgressBar progressBar;
+    private String FILE_UPLOAD_URL, filePath, fileName = null;
+    private TextView txtPercentage, tvView;
+    private Button btnUpload;
+    long totalSize = 0;
+    String folder = "aa";
 
     final String PHP_URL = "http://dump.geozigzag.com/api/"; // Change to Your Host.
 
@@ -58,8 +66,25 @@ public class ChooseImage extends Activity implements View.OnClickListener{
 
         choosePicture.setOnClickListener(this);
 
+        final TextView txtSDCard = (TextView) findViewById(R.id.tvView);
+
         btn_upload = ( Button ) findViewById( R.id.button2);
         btn_upload.setOnClickListener(this);
+        btn_upload.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                /*fileName = txtSDCard.getText().toString();
+                filePath = "/mnt/sdcard/DCIM/Camera/" + folder + "/" + fileName;
+                new ImageUploadTask().execute();*/
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+                String picTime = sdf.format(new Date());
+                _path_pic = Environment.getExternalStorageDirectory() + "/myfile/" + picTime + ".jpg";
+                up_name = picTime + ".jpg";
+                new ImageUploadTask().execute(bmp);
+
+                Intent i = new Intent(getApplicationContext(), SaveTitle.class);
+                startActivity(i);
+            }
+        });
     }
 
     public void onClick(View v) {

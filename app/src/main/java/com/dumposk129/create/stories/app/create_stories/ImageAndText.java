@@ -61,7 +61,7 @@ public class ImageAndText extends Activity implements View.OnClickListener {
     private String up_name;
     private String lat = null, lon = null;
 
-    final String PHP_URL = "http://victorymonumentmap.com/an105/upimage.php"; // Change to Your Host.
+    final String PHP_URL = "http://dump.geozigzag.com/api"; // Change to Your Host.
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -144,7 +144,7 @@ public class ImageAndText extends Activity implements View.OnClickListener {
             poster = new MyHttpPoster("http://dump.geozigzag.com/api/");
             //Data to sent
             ArrayList<NameValuePair> data = new ArrayList<NameValuePair>();
-            data.add(new BasicNameValuePair("senda", new_name1));
+            data.add(new BasicNameValuePair("title", new_name1));
 
             poster.doPost(data, new Handler() {
                 public void handleMessage(android.os.Message msg) {

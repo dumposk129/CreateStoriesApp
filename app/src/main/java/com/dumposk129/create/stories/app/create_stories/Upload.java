@@ -80,7 +80,7 @@ public class Upload extends Activity implements View.OnClickListener {
         final TextView txtSDCard = (TextView) findViewById(R.id.tvView);
 
 		/*Server*/
-        FILE_UPLOAD_URL = "http://victorymonumentmap.com/an105/upmp4.php";
+        FILE_UPLOAD_URL = "http://dump.geozigzag.com/api/sound.php";
 
         chosenImageView = (ImageView) this.findViewById(R.id.ChosenImageView);
         choosePicture = (Button) this.findViewById(R.id.ChoosePictureButton);

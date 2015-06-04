@@ -142,14 +142,12 @@ public class AudioRecording extends Activity {
                     Toast.makeText(AudioRecording.this, "Start Recording", Toast.LENGTH_SHORT).show();
                     enableButtons(true);
                     startRecording();
-
                     break;
                 }
                 case R.id.btnStop: {
                     Toast.makeText(AudioRecording.this, "Stop Recording", Toast.LENGTH_SHORT).show();
                     enableButtons(false);
                     stopRecording();
-
                     Intent i = new Intent(getApplicationContext(), SoundPath.class);
                     startActivity(i);
 
