@@ -28,14 +28,7 @@
             android:label="@string/title_activity_quizzes" />
         <activity
             android:name=".quizzes.NumberOfQuestion"
-            android:label="@string/title_activity_num_of_questions" >
-
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
-
-        </activity>
+            android:label="@string/title_activity_num_of_questions" />
         <activity
             android:name=".quizzes.Answers"
             android:label="@string/title_activity_answer" />
@@ -43,11 +36,19 @@
             android:name=".quizzes.AllQuestions"
             android:label="@string/title_activity_show_questions" />
 
+
+        <!-- Create Stories -->
         <activity android:name=".audio_record.AudioButton">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity android:name=".audio_record.AudioRecording" />
         <activity android:name=".audio_record.AddData" />
         <activity android:name=".audio_record.GetPath" />
+        <activity android:name=".audio_record.ShowDataImages"/>
+        <activity android:name=".audio_record.ChooseImage"/>
     </application>
 
 </manifest>

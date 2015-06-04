@@ -1,6 +1,7 @@
 package com.dumposk129.create.stories.app.audio_record;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
@@ -18,6 +19,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+
+import com.dumposk129.create.stories.app.R;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -42,9 +45,9 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
- * Created by DumpOSK129 on 6/2/2015.
+ * Created by DumpOSK129
  */
-public class Upload {
+public class Upload extends Activity implements View.OnClickListener {
     private ImageView chosenImageView;
     private Button choosePicture, btn_upload;
     protected String _path_pic = null;
@@ -56,7 +59,7 @@ public class Upload {
     private TextView txtPercentage, tvView;
     private Button btnUpload;
     long totalSize = 0;
-    String folder = "aa"; //��Ƨ��W��
+    String folder = "aa"; //
 
     final String PHP_URL = "http://victorymonumentmap.com/an105/uppic.php"; // Change to Your Host.
 
@@ -105,10 +108,9 @@ public class Upload {
 
     /* Waiting for upload to server */
     private class UploadFileToServer extends AsyncTask<Void, Integer, String> {
-        /* �I������e����ܰʧ@ */
         @Override
         protected void onPreExecute() {
-            // �]�w�i�ױ���l��0
+            // ProgressBar
             progressBar.setProgress(0);
             super.onPreExecute();
         }
@@ -135,7 +137,7 @@ public class Upload {
             HttpPost httppost = new HttpPost(FILE_UPLOAD_URL);
 
             try {
-                AndroidMultiPartEntity entity = new AndroidMultiPartEntity(new ProgressListener() {
+                AndroidMultiPartEntity entity = new AndroidMultiPartEntity(new AndroidMultiPartEntity.ProgressListener() {
                     public void transferred(long num) {
                         publishProgress((int) ((num / (float) totalSize) * 100));
                     }
@@ -168,7 +170,7 @@ public class Upload {
             return responseString;
         }
 
-        /* �I�����槹���᪺��ܰʧ@ */
+        /* Show Message*/
         @Override
         protected void onPostExecute(String result) {
             Log.e("END", "Response from server: " + result);
@@ -305,15 +307,15 @@ public class Upload {
         @Override
         protected void onPostExecute(String res) {
             if (progressDialog.isShowing()) progressDialog.dismiss();
-            AlertDialog.Builder alertbox = new AlertDialog.Builder(Upload.this);
-            alertbox.setTitle("Information");
-            alertbox.setNeutralButton("Ok", null);
+            AlertDialog.Builder alertBox = new AlertDialog.Builder(Upload.this);
+            alertBox.setTitle("Information");
+            alertBox.setNeutralButton("Ok", null);
             if (err != null) {
-                alertbox.setMessage("�Դ��ͼԴ��Ҵ!!!\n" + res);
+                alertBox.setMessage("Success \n" + res);
             } else {
-                alertbox.setMessage(res);
+                alertBox.setMessage(res);
             }
-            alertbox.show();
+            alertBox.show();
         }
     }
 }

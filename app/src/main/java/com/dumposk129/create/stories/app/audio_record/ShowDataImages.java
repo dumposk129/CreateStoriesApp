@@ -52,6 +52,7 @@ import java.util.HashMap;
  */
 public class ShowDataImages extends Activity {
     private Button mBtnHome;
+    private ListView listView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,9 +77,8 @@ public class ShowDataImages extends Activity {
         }
 
         // listView
-        final ListView lstView1 = (ListView) findViewById(R.id.listView1);
+        listView = (ListView) findViewById(R.id.listView1);
 
-        //String url = "http://victorymonumentmap.com/an105/getImageJSON.php";
         String url = "http://victorymonumentmap.com/an105/getjson.php";
         try {
             JSONArray data = new JSONArray(getJSONUrl(url));
@@ -90,18 +90,18 @@ public class ShowDataImages extends Activity {
                 JSONObject c = data.getJSONObject(i);
                 map = new HashMap<String, String>();
                 map.put("ImageID", c.getString("Name1"));
-                map.put("ImageDesc", c.getString("FilesName2"));
-                map.put("ImagePath", c.getString("FilesName"));//image
+                map.put("ImageDesc", c.getString("audio_name"));
+                map.put("ImagePath", c.getString("image_name"));
                 MyArrList.add(map);
             }
 
-            lstView1.setAdapter(new ImageAdapter(this, MyArrList));
+            listView.setAdapter(new ImageAdapter(this, MyArrList));
 
             final AlertDialog.Builder imageDialog = new AlertDialog.Builder(this);
             final LayoutInflater inflater = (LayoutInflater) this.getSystemService(LAYOUT_INFLATER_SERVICE);
 
             // OnClick
-            lstView1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
 
                     View layout = inflater.inflate(R.layout.custom_fullimage_dialog, (ViewGroup) findViewById(R.id.layout_root));
@@ -199,7 +199,6 @@ public class ShowDataImages extends Activity {
                     intent.putExtra("imgID", imgID);
                     intent.putExtra("imgDesc", imgDesc);
                     intent.putExtra("imgPath", imgPath);
-                    //intent.putExtra("lname", etLName.getText().toString());
                     startActivity(intent);
                 }
             });

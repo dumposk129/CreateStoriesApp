@@ -3,6 +3,11 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent">
 
+    <!-- App Bar -->
+    <include
+        android:id="@+id/app_bar"
+        layout="@layout/app_bar" />
+
     <TableRow
         android:id="@+id/tableRow1"
         android:layout_width="wrap_content"
