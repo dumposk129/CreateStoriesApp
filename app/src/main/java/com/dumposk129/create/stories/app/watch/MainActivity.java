@@ -1,6 +1,5 @@
-package com.dumposk129.create.stories.app.create_stories;
+package com.dumposk129.create.stories.app.watch;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -9,6 +8,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,7 +21,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.dumposk129.create.stories.app.R;
-import com.dumposk129.create.stories.app.watch.DetailData;
+import com.dumposk129.create.stories.app.create_stories.CreateStories;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -50,7 +50,7 @@ import java.util.HashMap;
 /**
  * Created by DumpOSK129.
  */
-public class ShowDataImages extends Activity {
+public class MainActivity extends ActionBarActivity {
     private Button mBtnHome;
     private ListView listView;
 
@@ -65,7 +65,7 @@ public class ShowDataImages extends Activity {
 
             public void onClick(View view) {
                 // Launching All products Activity
-                Intent i = new Intent(getApplicationContext(), AudioButton.class);
+                Intent i = new Intent(getApplicationContext(), CreateStories.class);
                 startActivity(i);
             }
         });
@@ -283,5 +283,4 @@ public class ShowDataImages extends Activity {
         while ((read = in.read(b)) != -1) {
             out.write(b, 0, read);
         }
-    }
-}
+    }}

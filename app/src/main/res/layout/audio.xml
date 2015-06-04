@@ -4,6 +4,7 @@
     android:layout_height="fill_parent"
     android:background="@drawable/bg"
     android:orientation="vertical">
+
     <!-- App Bar -->
     <include
         android:id="@+id/app_bar"

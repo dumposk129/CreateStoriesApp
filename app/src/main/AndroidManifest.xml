@@ -38,7 +38,7 @@
 
 
         <!-- Create Stories -->
-        <activity android:name=".create_stories.AudioButton">
+        <activity android:name=".create_stories.CreateStories">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -47,7 +47,6 @@
         <activity android:name=".create_stories.AudioRecording" />
         <activity android:name=".create_stories.AddData" />
         <activity android:name=".create_stories.GetPath" />
-        <activity android:name=".create_stories.ShowDataImages"/>
         <activity android:name=".create_stories.ChooseImage"/>
     </application>
 

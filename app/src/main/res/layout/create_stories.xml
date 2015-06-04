@@ -1,9 +1,12 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/LinearLayout1"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context="com.dumposk129.create.stories.app.create_stories.CreateStories">
 
+    <!-- App Bar -->
     <include
         android:id="@+id/app_bar"
         layout="@layout/app_bar" />
@@ -17,21 +20,16 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <TextView
-                android:id="@+id/quizzesId"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:visibility="gone"/>
-
-            <TextView
-                android:id="@+id/quizzesName"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content" />
-
+            <Button
+                android:id="@+id/mBtnCreateStories"
+                android:layout_width="150dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center_horizontal|center"
+                android:text="Create" />
         </FrameLayout>
 
-    <!--Navigation Drawer -->
-    <fragment
+        <!--Navigation Drawer -->
+        <fragment
             android:id="@+id/fragment_navigation_drawer"
             android:name="com.dumposk129.create.stories.app.navigation_drawer.NavigationDrawerFragment"
             android:layout_width="@dimen/nav_drawer_width"

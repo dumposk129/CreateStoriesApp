@@ -14,7 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.dumposk129.create.stories.app.R;
-import com.dumposk129.create.stories.app.navigation_drawer.MainActivity;
+import com.dumposk129.create.stories.app.watch.MainActivity;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
@@ -55,7 +55,7 @@ public class AddData extends Activity {
                 String new_name1 = txtName.getText().toString().trim();
                 String new_name2 = txtDetail.getText().toString().trim();
                 if (new_name1.length() == 0 || new_name2.length() == 0) {
-                    Toast.makeText(context, "ssss", Toast.LENGTH_LONG);
+                    Toast.makeText(context, "Please Enter", Toast.LENGTH_LONG);
                 } else {
                     //ready to sent
                     poster = new MyHttpPoster("http://dump.geozigzag.com/api/");
@@ -79,11 +79,10 @@ public class AddData extends Activity {
                                     break;
                             }
                         }
-
-                        ;
                     });
                 }
                 Intent i = new Intent(getApplicationContext(), MainActivity.class);
+                i.putExtra("title", new_name1);
                 startActivity(i);
             }
 

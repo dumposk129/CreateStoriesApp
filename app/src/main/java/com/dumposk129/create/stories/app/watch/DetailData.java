@@ -43,7 +43,7 @@ public class DetailData extends Activity implements View.OnClickListener, View.O
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.detaildata);
+        setContentView(R.layout.watches);
         tvView = ( TextView) findViewById(R.id.tvView);
         txtView = (EditText)findViewById(R.id.tvView2);
         tvView3 = (TextView) findViewById(R.id.tvView3);
