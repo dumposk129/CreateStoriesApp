@@ -85,7 +85,7 @@ public class Upload extends Activity implements View.OnClickListener {
 
         choosePicture.setOnClickListener(this);
 
-        btn_upload = (Button) findViewById(R.id.button2);
+        btn_upload = (Button) findViewById(R.id.btnUpload);
         btn_upload.setOnClickListener(this);
         btnUpload.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -195,7 +195,7 @@ public class Upload extends Activity implements View.OnClickListener {
             startActivityForResult(choosePictureIntent, 0);
         }
 
-        if (v.getId() == R.id.button2) {
+        if (v.getId() == R.id.btnUpload) {
             if (bmp != null) {
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
                 String picTime = sdf.format(new Date());

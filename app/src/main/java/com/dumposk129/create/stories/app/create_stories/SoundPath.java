@@ -129,7 +129,7 @@ public class SoundPath extends Activity {
         }
     }
 
-    //Upload
+    // Upload
     public void startUpload(final int position) {
 
         Runnable runnable = new Runnable() {
@@ -196,7 +196,6 @@ public class SoundPath extends Activity {
                 conn.setDoOutput(true);
                 conn.setUseCaches(false);
                 conn.setRequestMethod("POST");
-
                 conn.setRequestProperty("Connection", "Keep-Alive");
                 conn.setRequestProperty("Content-Type", "multipart/form-data;boundary=" + boundary);
 

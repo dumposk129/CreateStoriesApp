@@ -50,8 +50,8 @@ public class SaveTitle extends Activity {
                     poster = new MyHttpPoster("http://dump.geozigzag.com/api/text.php");
                     // Data to sent
                     ArrayList<NameValuePair> data = new ArrayList<NameValuePair>();
-                    data.add(new BasicNameValuePair("name", name));
-                    data.add(new BasicNameValuePair("detail", detail));
+                    data.add(new BasicNameValuePair("title_name", name));
+                    data.add(new BasicNameValuePair("description", detail));
 
                     poster.doPost(data, new Handler() {
                         public void handleMessage(android.os.Message msg) {

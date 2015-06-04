@@ -23,7 +23,6 @@ public class AudioRecording extends Activity {
     private static final String AUDIO_RECORDER_FILE_EXT_3GP = ".3gp";
     private static final String AUDIO_RECORDER_FILE_EXT_MP4 = ".mp4";
     private static final String AUDIO_RECORDER_FOLDER = "DCIM/Camera/Audio Record/";
-
     private MediaRecorder recorder = null;
     private int currentFormat = 0;
     private int output_formats[] = {MediaRecorder.OutputFormat.MPEG_4, MediaRecorder.OutputFormat.THREE_GPP};
@@ -57,30 +56,24 @@ public class AudioRecording extends Activity {
     }
 
     private void setFormatButtonCaption() {
-        ((Button) findViewById(R.id.btnFormat))
-                .setText(getString(R.string.audio_format) + " ("
-                        + file_exts[currentFormat] + ")");
+        ((Button) findViewById(R.id.btnFormat)).setText(getString(R.string.audio_format) + " (" + file_exts[currentFormat] + ")");
     }
 
     private String getFilename() {
         String filepath = Environment.getExternalStorageDirectory().getPath();
         File file = new File(filepath, AUDIO_RECORDER_FOLDER);
-
         if (!file.exists()) {
             file.mkdirs();
         }
-
         return (file.getAbsolutePath() + "/" + System.currentTimeMillis() + file_exts[currentFormat]);
     }
 
     private void startRecording() {
         recorder = new MediaRecorder();
-
         recorder.setAudioSource(MediaRecorder.AudioSource.MIC);
         recorder.setOutputFormat(output_formats[currentFormat]);
         recorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
         recorder.setOutputFile(getFilename());
-
         recorder.setOnErrorListener(errorListener);
         recorder.setOnInfoListener(infoListener);
 
@@ -99,7 +92,6 @@ public class AudioRecording extends Activity {
             recorder.stop();
             recorder.reset();
             recorder.release();
-
             recorder = null;
         }
     }
@@ -107,9 +99,7 @@ public class AudioRecording extends Activity {
     private void displayFormatDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         String formats[] = {"MPEG 4", "3GPP"};
-
-        builder.setTitle(getString(R.string.choose_format_title)).setSingleChoiceItems(formats, currentFormat,
-                new DialogInterface.OnClickListener() {
+        builder.setTitle(getString(R.string.choose_format_title)).setSingleChoiceItems(formats, currentFormat, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         currentFormat = which;
                         setFormatButtonCaption();

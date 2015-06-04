@@ -16,7 +16,6 @@ import android.view.Display;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.dumposk129.create.stories.app.R;
@@ -47,13 +46,6 @@ public class ChooseImage extends Activity implements View.OnClickListener{
     private Bitmap bmp = null;
     private String up_name;
     private String lat = null, lon = null;
-    private ProgressBar progressBar;
-    private String FILE_UPLOAD_URL, filePath, fileName = null;
-    private TextView txtPercentage, tvView;
-    private Button btnUpload;
-    long totalSize = 0;
-    String folder = "aa";
-
     final String PHP_URL = "http://dump.geozigzag.com/api/picture.php";
 
     @Override
@@ -63,12 +55,10 @@ public class ChooseImage extends Activity implements View.OnClickListener{
 
         chosenImageView = (ImageView) this.findViewById(R.id.ChosenImageView);
         choosePicture = (Button) this.findViewById(R.id.ChoosePictureButton);
-
+        final TextView txtSDCard = (TextView) findViewById(R.id.tvAudioName);
         choosePicture.setOnClickListener(this);
 
-        final TextView txtSDCard = (TextView) findViewById(R.id.tvAudioName);
-
-        btn_upload = ( Button ) findViewById( R.id.button2);
+        btn_upload = ( Button ) findViewById( R.id.btnUpload);
         btn_upload.setOnClickListener(this);
         btn_upload.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -86,12 +76,11 @@ public class ChooseImage extends Activity implements View.OnClickListener{
 
     public void onClick(View v) {
         if(v.getId()==R.id.ChoosePictureButton){
-            Intent choosePictureIntent = new Intent(Intent.ACTION_PICK,
-                    android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+            Intent choosePictureIntent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
             startActivityForResult(choosePictureIntent, 0);
         }
 
-        if(v.getId()==R.id.button2){
+        if(v.getId()==R.id.btnUpload){
             if(bmp!=null){
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
                 String picTime = sdf.format(new Date());
