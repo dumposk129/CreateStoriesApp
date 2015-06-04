@@ -38,26 +38,23 @@ import java.util.List;
 /**
  * Created by DumpOSK129.
  */
-public class GetPath extends Activity {
+public class SoundPath extends Activity {
     private ListView lstView;
     private Handler handler = new Handler();
-    ;
 
     List<String> ImageList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.getpath);
+        setContentView(R.layout.soundpath);
         /*** Get Images from SDCard ***/
         ImageList = getSD();
 
         // ListView and imageAdapter
         lstView = (ListView) findViewById(R.id.listView1);
         lstView.setAdapter(new ImageAdapter(this));
-
     }
-
 
     private List<String> getSD() {
         List<String> it = new ArrayList<String>();

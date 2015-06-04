@@ -150,7 +150,7 @@ public class AudioRecording extends Activity {
                     enableButtons(false);
                     stopRecording();
 
-                    Intent i = new Intent(getApplicationContext(), GetPath.class);
+                    Intent i = new Intent(getApplicationContext(), SoundPath.class);
                     startActivity(i);
 
                     break;
