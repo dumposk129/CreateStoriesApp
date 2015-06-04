@@ -1,4 +1,4 @@
-package com.dumposk129.create.stories.app.audio_record;
+package com.dumposk129.create.stories.app.create_stories;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -46,7 +46,7 @@ public class ChooseImage extends Activity implements View.OnClickListener{
     private String up_name;
     private String lat=null,lon=null;
 
-    final String PHP_URL = "http://victorymonumentmap.com/an105/uppic.php"; // Change to Your Host.
+    final String PHP_URL = "http://dump.geozigzag.com/api/"; // Change to Your Host.
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

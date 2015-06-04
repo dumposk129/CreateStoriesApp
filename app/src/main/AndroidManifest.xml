@@ -38,17 +38,17 @@
 
 
         <!-- Create Stories -->
-        <activity android:name=".audio_record.AudioButton">
+        <activity android:name=".create_stories.AudioButton">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".audio_record.AudioRecording" />
-        <activity android:name=".audio_record.AddData" />
-        <activity android:name=".audio_record.GetPath" />
-        <activity android:name=".audio_record.ShowDataImages"/>
-        <activity android:name=".audio_record.ChooseImage"/>
+        <activity android:name=".create_stories.AudioRecording" />
+        <activity android:name=".create_stories.AddData" />
+        <activity android:name=".create_stories.GetPath" />
+        <activity android:name=".create_stories.ShowDataImages"/>
+        <activity android:name=".create_stories.ChooseImage"/>
     </application>
 
 </manifest>

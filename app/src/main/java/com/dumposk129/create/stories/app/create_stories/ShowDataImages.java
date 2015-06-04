@@ -1,4 +1,4 @@
-package com.dumposk129.create.stories.app.audio_record;
+package com.dumposk129.create.stories.app.create_stories;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -79,7 +79,7 @@ public class ShowDataImages extends Activity {
         // listView
         listView = (ListView) findViewById(R.id.listView1);
 
-        String url = "http://victorymonumentmap.com/an105/getjson.php";
+        String url = "http://dump.geozigzag.com/api/";
         try {
             JSONArray data = new JSONArray(getJSONUrl(url));
 
@@ -203,7 +203,6 @@ public class ShowDataImages extends Activity {
                 }
             });
             return convertView;
-
         }
     }
 

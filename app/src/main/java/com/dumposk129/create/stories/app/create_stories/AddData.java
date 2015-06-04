@@ -1,4 +1,4 @@
-package com.dumposk129.create.stories.app.audio_record;
+package com.dumposk129.create.stories.app.create_stories;
 
 import android.app.Activity;
 import android.content.Context;
@@ -58,7 +58,7 @@ public class AddData extends Activity {
                     Toast.makeText(context, "ssss", Toast.LENGTH_LONG);
                 } else {
                     //ready to sent
-                    poster = new MyHttpPoster("http://victorymonumentmap.com/an105/addtext.php");
+                    poster = new MyHttpPoster("http://dump.geozigzag.com/api/");
                     //Data to sent
                     ArrayList<NameValuePair> data = new ArrayList<NameValuePair>();
                     data.add(new BasicNameValuePair("name", new_name1));

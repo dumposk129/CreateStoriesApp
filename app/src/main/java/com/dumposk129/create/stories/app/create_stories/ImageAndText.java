@@ -1,4 +1,4 @@
-package com.dumposk129.create.stories.app.audio_record;
+package com.dumposk129.create.stories.app.create_stories;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -138,10 +138,10 @@ public class ImageAndText extends Activity implements View.OnClickListener {
         String new_name1 = senda.getText().toString().trim();
 
         if (new_name1.length() == 0) {
-            Toast.makeText(context, "ssss", Toast.LENGTH_LONG);
+            Toast.makeText(context, "aaa", Toast.LENGTH_LONG);
         } else {
             //ready to sent
-            poster = new MyHttpPoster("http://victorymonumentmap.com/an105/upimage.php");
+            poster = new MyHttpPoster("http://dump.geozigzag.com/api/");
             //Data to sent
             ArrayList<NameValuePair> data = new ArrayList<NameValuePair>();
             data.add(new BasicNameValuePair("senda", new_name1));
@@ -273,7 +273,7 @@ public class ImageAndText extends Activity implements View.OnClickListener {
             alertBox.setTitle("Information");
             alertBox.setNeutralButton("Ok", null);
             if (err != null) {
-                alertBox.setMessage("�Դ��ͼԴ��Ҵ!!!\n" + res);
+                alertBox.setMessage("Error!! \n" + res);
             } else {
                 alertBox.setMessage(res);
             }

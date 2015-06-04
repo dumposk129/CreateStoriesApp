@@ -1,4 +1,4 @@
-package com.dumposk129.create.stories.app.audio_record;
+package com.dumposk129.create.stories.app.create_stories;
 
 import android.app.Activity;
 import android.content.Context;
@@ -208,7 +208,7 @@ public class GetPath extends Activity {
             String strSDPath = ImageList.get(position).toString();
 
             // Upload to PHP Script
-            String strUrlServer = "http://myxcode.com/an202/upfile3.php";
+            String strUrlServer = "http://dump.geozigzag.com/api/";
 
             try {
                 /** Check file on SD Card ***/

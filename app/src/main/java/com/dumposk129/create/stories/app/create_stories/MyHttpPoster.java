@@ -1,4 +1,4 @@
-package com.dumposk129.create.stories.app.audio_record;
+package com.dumposk129.create.stories.app.create_stories;
 
 import android.os.Handler;
 import android.os.Message;
@@ -42,9 +42,9 @@ public class MyHttpPoster {
             public void run(){
                 Message message = new Message();
                 try{
-                    //data preparation �����������
+                    // Data preparation
                     post.setEntity(new UrlEncodedFormEntity(data, HTTP.UTF_8));
-                    // execute data �觢�����
+                    // Execute data
                     response = client.execute(post);
                     message.what = HTTP_POST_OK;
                     message.obj = (String)EntityUtils.toString(response.getEntity(), HTTP.UTF_8);

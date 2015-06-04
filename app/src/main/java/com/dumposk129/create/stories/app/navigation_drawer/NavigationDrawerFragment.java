@@ -15,7 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.dumposk129.create.stories.app.R;
-import com.dumposk129.create.stories.app.audio_record.AudioButton;
+import com.dumposk129.create.stories.app.create_stories.AudioButton;
 import com.dumposk129.create.stories.app.quizzes.Quizzes;
 import com.dumposk129.create.stories.app.watch.DetailData;
 

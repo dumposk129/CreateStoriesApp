@@ -1,4 +1,4 @@
-package com.dumposk129.create.stories.app.audio_record;
+package com.dumposk129.create.stories.app.create_stories;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -22,7 +22,7 @@ import java.io.IOException;
 public class AudioRecording extends Activity {
     private static final String AUDIO_RECORDER_FILE_EXT_3GP = ".3gp";
     private static final String AUDIO_RECORDER_FILE_EXT_MP4 = ".mp4";
-    private static final String AUDIO_RECORDER_FOLDER = "DCIM/Camera/aa/";
+    private static final String AUDIO_RECORDER_FOLDER = "DCIM/Camera/Audio Record/";
 
     private MediaRecorder recorder = null;
     private int currentFormat = 0;
