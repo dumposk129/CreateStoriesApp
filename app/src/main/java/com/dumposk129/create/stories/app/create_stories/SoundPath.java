@@ -55,7 +55,7 @@ public class SoundPath extends Activity {
 
     private List<String> getSD() {
         List<String> list = new ArrayList<String>();
-        File f = new File("/mnt/sdcard/DCIM/Camera/aa/");
+        File f = new File("/mnt/sdcard/DCIM/Camera/Audio Record/");
         File[] files = f.listFiles();
 
         for (int i = 0; i < files.length; i++) {

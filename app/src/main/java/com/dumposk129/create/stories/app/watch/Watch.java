@@ -38,7 +38,7 @@ public class Watch extends ActionBarActivity implements View.OnClickListener, Vi
     private ImageView imageView;
     private ImageButton buttonPlayPause;
     private SeekBar seekBarProgress;
-    public EditText editTextSongURL, txtView;
+    private EditText editTextSongURL, txtView;
     private MediaPlayer mediaPlayer;
     private int mediaFileLengthInMilliseconds;
     private Toolbar mToolbar;

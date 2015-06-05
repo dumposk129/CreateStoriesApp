@@ -69,18 +69,6 @@ public class MainActivity extends ActionBarActivity {
                 getSupportFragmentManager().findFragmentById(R.id.fragment_navigation_drawer);
         drawerFragment.setUp(R.id.fragment_navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout), mToolbar);
 
-      /*  mBtnHome = (Button) findViewById(R.id.mBtnHome);
-
-        // View products click event
-        mBtnHome.setOnClickListener(new View.OnClickListener() {
-
-            public void onClick(View view) {
-                // Launching All products Activity
-                Intent i = new Intent(getApplicationContext(), CreateStories.class);
-                startActivity(i);
-            }
-        });*/
-
         // Permission StrictMode
         if (android.os.Build.VERSION.SDK_INT > 9) {
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
