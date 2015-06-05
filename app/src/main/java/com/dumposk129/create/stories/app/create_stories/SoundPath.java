@@ -3,9 +3,8 @@ package com.dumposk129.create.stories.app.create_stories;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.media.MediaPlayer;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -14,7 +13,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -27,6 +25,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -67,6 +66,7 @@ public class SoundPath extends Activity {
 
     public class ImageAdapter extends BaseAdapter {
         private Context context;
+        private MediaPlayer mediaPlayer;
 
         public ImageAdapter(Context c) {
             context = c;
@@ -102,19 +102,10 @@ public class SoundPath extends Activity {
             txtName.setPadding(3, 0, 0, 0);
             txtName.setText(fileName + " (" + length / 1024 + " KB.)");
 
-            // Image Resource
-            ImageView imageView = (ImageView) convertView.findViewById(R.id.ColImgPath);
-            imageView.getLayoutParams().height = 110;
-            imageView.getLayoutParams().width = 110;
-            imageView.setPadding(10, 10, 2, 10);
-            imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-            Bitmap bm = BitmapFactory.decodeFile(strPath);
-            imageView.setImageBitmap(bm);
-
             // ColStatus
             final TextView txtStatus = (TextView) convertView.findViewById(R.id.ColStatus);
             txtStatus.setPadding(3, 0, 0, 0);
-            // txtStatus.setText("...");
+            txtStatus.setText("...");
 
             final Button btnNext = (Button) convertView.findViewById(R.id.btnNextTo);
             btnNext.setOnClickListener(new View.OnClickListener() {
@@ -125,6 +116,26 @@ public class SoundPath extends Activity {
                     startActivity(intent);
                 }
             });
+
+            final Button btnPlay = (Button) convertView.findViewById(R.id.btnPlayAudio);
+            btnPlay.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mediaPlayer = new MediaPlayer();
+                    try {
+                        mediaPlayer.setDataSource("/mnt/sdcard/DCIM/Camera/Audio Record/");
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    try {
+                        mediaPlayer.prepare();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    mediaPlayer.start();
+                }
+            });
+
             return convertView;
         }
     }
