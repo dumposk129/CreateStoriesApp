@@ -51,6 +51,10 @@ public class CreateStories extends ActionBarActivity{
                                 startActivity(intent);
                                 break;
                             case 2:
+                                intent = new Intent(CreateStories.this, SoundPath.class);
+                                startActivity(intent);
+                                break;
+                            case 3:
                                 dialog.dismiss();
                         }
                     }

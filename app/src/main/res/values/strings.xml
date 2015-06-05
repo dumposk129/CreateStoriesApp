@@ -39,6 +39,7 @@
     <array name="audio_record_choose_image">
         <item>Audio Record</item>
         <item>Choose Image</item>
+        <item>Sound</item>
         <item>Cancel</item>
     </array>
 

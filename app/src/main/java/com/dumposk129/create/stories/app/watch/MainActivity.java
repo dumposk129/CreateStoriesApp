@@ -16,7 +16,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -52,9 +51,11 @@ import java.util.HashMap;
  * Created by DumpOSK129.
  */
 public class MainActivity extends ActionBarActivity {
-/*    private Button mBtnHome;*/
     private ListView listView;
     private Toolbar mToolbar;
+    private String imgID;
+    private String imgDesc;
+    private String imgPath;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,6 +103,10 @@ public class MainActivity extends ActionBarActivity {
             // OnClick
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
+                    Intent intent = new Intent(inflater.getContext(), Watch.class);
+                    intent.putExtra("imgID", imgID);
+                    intent.putExtra("imgPath", imgPath);
+                    startActivity(intent);
                 }
             });
         } catch (JSONException e) {
@@ -132,11 +137,11 @@ public class MainActivity extends ActionBarActivity {
         }
 
         public View getView(int position, View convertView, ViewGroup parent) {
-            final LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            final String imgID;
+           final LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+           /* final String imgID;
             final String imgDesc;
             final String imgPath;
-
+*/
             if (convertView == null) {
                 convertView = inflater.inflate(R.layout.stories_items, null);
             }
@@ -161,15 +166,12 @@ public class MainActivity extends ActionBarActivity {
             txtPosition.setText("Story: " + imgID);
 
             // Next to Watch.class
-            final Button mBtnWatch = (Button) convertView.findViewById(R.id.btnwatch);
+           /* final Button mBtnWatch = (Button) convertView.findViewById(R.id.btnwatch);
             mBtnWatch.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
-                    Intent intent = new Intent(inflater.getContext(), Watch.class);
-                    intent.putExtra("imgID", imgID);
-                    intent.putExtra("imgPath", imgPath);
-                    startActivity(intent);
+
                 }
-            });
+            });*/
             return convertView;
         }
     }

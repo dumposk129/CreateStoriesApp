@@ -244,7 +244,7 @@ public class Upload extends Activity implements View.OnClickListener {
         }
     }
 
-    ///  AsyncTask  Upload Image
+    //  AsyncTask  Upload Image
     class ImageUploadTask extends AsyncTask<Bitmap, Integer, String> {
         private ProgressDialog progressDialog = new ProgressDialog(Upload.this);
         String err = null;

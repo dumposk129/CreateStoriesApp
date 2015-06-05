@@ -25,7 +25,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -108,6 +107,9 @@ public class SoundPath extends Activity {
             txtStatus.setText("...");
 
             final Button btnNext = (Button) convertView.findViewById(R.id.btnNextTo);
+            final Button btnPlay = (Button) convertView.findViewById(R.id.btnPlayAudio);
+            final Button btnStop = (Button) convertView.findViewById(R.id.btnPlayAudio);
+
             btnNext.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
                     // Upload
@@ -116,26 +118,6 @@ public class SoundPath extends Activity {
                     startActivity(intent);
                 }
             });
-
-            final Button btnPlay = (Button) convertView.findViewById(R.id.btnPlayAudio);
-            btnPlay.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    mediaPlayer = new MediaPlayer();
-                    try {
-                        mediaPlayer.setDataSource("/mnt/sdcard/DCIM/Camera/Audio Record/");
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    try {
-                        mediaPlayer.prepare();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    mediaPlayer.start();
-                }
-            });
-
             return convertView;
         }
     }

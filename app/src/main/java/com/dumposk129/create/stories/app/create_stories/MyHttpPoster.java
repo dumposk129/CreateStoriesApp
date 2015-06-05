@@ -33,9 +33,9 @@ public class MyHttpPoster {
     public  MyHttpPoster(String link){
         client = new DefaultHttpClient();
         post = new HttpPost(link);
-
     }
 
+    // Upload helper
     public void doPost(final ArrayList<NameValuePair> data, final Handler handler) {
         thread = new Thread() {
             @Override

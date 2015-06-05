@@ -26,7 +26,6 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.mime.HttpMultipartMode;
 import org.apache.http.entity.mime.MultipartEntity;
 import org.apache.http.entity.mime.content.ByteArrayBody;
-import org.apache.http.entity.mime.content.StringBody;
 import org.apache.http.impl.client.DefaultHttpClient;
 
 import java.io.BufferedReader;
@@ -64,6 +63,7 @@ public class ChooseImage extends Activity implements View.OnClickListener{
             public void onClick(View v) {
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
                 String picTime = sdf.format(new Date());
+                //Path Picture
                 _path_pic = Environment.getExternalStorageDirectory() + "/myfile/" + picTime + ".jpg";
                 up_name = picTime + ".jpg";
                 new ImageUploadTask().execute(bmp);
@@ -152,11 +152,11 @@ public class ChooseImage extends Activity implements View.OnClickListener{
                 MultipartEntity reqEntity = new MultipartEntity(HttpMultipartMode.BROWSER_COMPATIBLE);
                 reqEntity.addPart("uploadedfile", bab);
 
-                if(lat!=null && lon!=null){
+                /*if(lat!=null && lon!=null){
                     reqEntity.addPart("lat", new StringBody(lat));
                     reqEntity.addPart("lon", new StringBody(lon));
                 }
-
+*/
                 postRequest.setEntity(reqEntity);
                 HttpResponse response = httpClient.execute(postRequest);
                 BufferedReader reader = new BufferedReader(new InputStreamReader(response.getEntity().getContent(),"UTF-8"));
