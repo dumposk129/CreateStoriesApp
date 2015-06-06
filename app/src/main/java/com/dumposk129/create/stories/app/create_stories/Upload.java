@@ -31,7 +31,6 @@ import org.apache.http.entity.mime.HttpMultipartMode;
 import org.apache.http.entity.mime.MultipartEntity;
 import org.apache.http.entity.mime.content.ByteArrayBody;
 import org.apache.http.entity.mime.content.FileBody;
-import org.apache.http.entity.mime.content.StringBody;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
 
@@ -53,13 +52,12 @@ public class Upload extends Activity implements View.OnClickListener {
     protected String _path_pic = null;
     private Bitmap bmp = null;
     private String up_name;
-    private String lat = null, lon = null;
     private ProgressBar progressBar;
     private String FILE_UPLOAD_URL, filePath, fileName = null;
     private TextView txtPercentage, tvAudioNme;
     private Button btnUpload;
     long totalSize = 0;
-    String folder = "aa"; //
+    String folder = "Audio Record"; //
 
     final String PHP_URL = "http://dump.geozigzag.com/api/picture.php";
 
@@ -272,10 +270,6 @@ public class Upload extends Activity implements View.OnClickListener {
                 MultipartEntity reqEntity = new MultipartEntity(HttpMultipartMode.BROWSER_COMPATIBLE);
                 reqEntity.addPart("uploadedfile", bab);
 
-                if (lat != null && lon != null) {
-                    reqEntity.addPart("lat", new StringBody(lat));
-                    reqEntity.addPart("lon", new StringBody(lon));
-                }
                 postRequest.setEntity(reqEntity);
                 HttpResponse response = httpClient.execute(postRequest);
                 BufferedReader reader = new BufferedReader(new InputStreamReader(response.getEntity().getContent(), "UTF-8"));

@@ -44,7 +44,6 @@ public class ChooseImage extends Activity implements View.OnClickListener{
     protected String _path_pic = null;
     private Bitmap bmp = null;
     private String up_name;
-    private String lat = null, lon = null;
     final String PHP_URL = "http://dump.geozigzag.com/api/picture.php";
 
     @Override
@@ -125,7 +124,7 @@ public class ChooseImage extends Activity implements View.OnClickListener{
         }
     }
 
-    ///  AsyncTask  Upload Image
+    //  AsyncTask  Upload Image
     class ImageUploadTask extends AsyncTask<Bitmap, Integer, String> {
         private ProgressDialog progressDialog = new ProgressDialog(ChooseImage.this);
         String err=null;
@@ -152,11 +151,6 @@ public class ChooseImage extends Activity implements View.OnClickListener{
                 MultipartEntity reqEntity = new MultipartEntity(HttpMultipartMode.BROWSER_COMPATIBLE);
                 reqEntity.addPart("uploadedfile", bab);
 
-                /*if(lat!=null && lon!=null){
-                    reqEntity.addPart("lat", new StringBody(lat));
-                    reqEntity.addPart("lon", new StringBody(lon));
-                }
-*/
                 postRequest.setEntity(reqEntity);
                 HttpResponse response = httpClient.execute(postRequest);
                 BufferedReader reader = new BufferedReader(new InputStreamReader(response.getEntity().getContent(),"UTF-8"));

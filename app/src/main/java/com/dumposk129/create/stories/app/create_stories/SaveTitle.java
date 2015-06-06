@@ -23,7 +23,7 @@ import java.util.ArrayList;
  */
 public class SaveTitle extends Activity {
     private Context context;
-    private EditText txtName, txtDetail;
+    private EditText txtName/*, txtDetail*/;
     private Button submit;
     private MyHttpPoster poster;
 
@@ -35,15 +35,15 @@ public class SaveTitle extends Activity {
 
         // View matching
         txtName = (EditText) findViewById(R.id.name);
-        txtDetail = (EditText) findViewById(R.id.des);
+        //txtDetail = (EditText) findViewById(R.id.des);
         submit = (Button) findViewById(R.id.btnsubmit);
 
         // Event for submit button
         submit.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 String name = txtName.getText().toString().trim();
-                String detail = txtDetail.getText().toString().trim();
-                if (name.length() == 0 || detail.length() == 0) {
+             //   String detail = txtDetail.getText().toString().trim();
+                if (name.length() == 0) {
                     Toast.makeText(context, "Please Enter", Toast.LENGTH_LONG);
                 } else {
                     // Ready to sent
@@ -51,7 +51,7 @@ public class SaveTitle extends Activity {
                     // Data to sent
                     ArrayList<NameValuePair> data = new ArrayList<NameValuePair>();
                     data.add(new BasicNameValuePair("title_name", name));
-                    data.add(new BasicNameValuePair("description", detail));
+                 //   data.add(new BasicNameValuePair("description", detail));
 
                     poster.doPost(data, new Handler() {
                         public void handleMessage(android.os.Message msg) {
