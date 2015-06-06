@@ -34,11 +34,11 @@ import java.net.URL;
  * Created by DumpOSK129.
  */
 public class Watch extends ActionBarActivity implements View.OnClickListener, View.OnTouchListener, MediaPlayer.OnCompletionListener, MediaPlayer.OnBufferingUpdateListener {
-    private TextView tvView, tvView3;
-    private ImageView imageView;
+    private TextView tvAudioName, tvImgPath;
+    private ImageView imgPath;
     private ImageButton buttonPlayPause;
     private SeekBar seekBarProgress;
-    private EditText editTextSongURL, txtView;
+    private EditText editTextSongURL, imgDes;
     private MediaPlayer mediaPlayer;
     private int mediaFileLengthInMilliseconds;
     private Toolbar mToolbar;
@@ -48,11 +48,11 @@ public class Watch extends ActionBarActivity implements View.OnClickListener, Vi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.watches);
-        tvView = ( TextView) findViewById(R.id.tvAudioName);
-        imageView = (ImageView)findViewById(R.id.ColImgPath2);
-        imageView.getLayoutParams().height = 100;
-        imageView.getLayoutParams().width = 100;
-        imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+        tvAudioName = ( TextView) findViewById(R.id.tvAudioName);
+        imgPath = (ImageView)findViewById(R.id.ColImgPath2);
+        imgPath.getLayoutParams().height = 100;
+        imgPath.getLayoutParams().width = 100;
+        imgPath.setScaleType(ImageView.ScaleType.CENTER_CROP);
 
         Intent intent = getIntent();
 
@@ -67,10 +67,10 @@ public class Watch extends ActionBarActivity implements View.OnClickListener, Vi
         String fName = intent.getStringExtra("imgID");
         String imgDesc = intent.getStringExtra("imgDesc");
         String imgPath = intent.getStringExtra("imgPath");
-        tvView.setText(fName);
-        txtView.setText(imgDesc);
-        tvView3.setText(imgPath);
-        imageView.setImageBitmap(loadBitmap(imgPath));
+        tvAudioName.setText(fName);
+        imgDes.setText(imgDesc);
+        tvImgPath.setText(imgPath);
+        this.imgPath.setImageBitmap(loadBitmap(imgPath));
         initView();
     }
 
