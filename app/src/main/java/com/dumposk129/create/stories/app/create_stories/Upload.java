@@ -75,7 +75,7 @@ public class Upload extends Activity implements View.OnClickListener {
         btnUpload = (Button) findViewById(R.id.btnUpload);
         final TextView txtSDCard = (TextView) findViewById(R.id.tvAudioName);
 
-		/*Server*/
+		/*Upload Sound to Server*/
         FILE_UPLOAD_URL = "http://dump.geozigzag.com/api/sound.php";
 
         chosenImageView = (ImageView) this.findViewById(R.id.ChosenImageView);
