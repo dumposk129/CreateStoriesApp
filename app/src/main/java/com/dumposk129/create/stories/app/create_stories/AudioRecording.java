@@ -32,14 +32,9 @@ public class AudioRecording extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.audio);
-        setContentView(R.layout.audio);
 
-        setButtonHandlers();
         enableButtons(false);
-        setFormatButtonCaption();
-    }
 
-    private void setButtonHandlers() {
         ((Button) findViewById(R.id.btnStart)).setOnClickListener(btnClick);
         ((Button) findViewById(R.id.btnStop)).setOnClickListener(btnClick);
         ((Button) findViewById(R.id.btnFormat)).setOnClickListener(btnClick);

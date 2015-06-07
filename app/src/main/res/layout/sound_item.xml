@@ -50,7 +50,7 @@
                     android:layout_gravity="center_horizontal"
                     android:text="Choose Image" />
 
-                <Button
+               <!-- <Button
                     android:id="@+id/btnPlayAudio"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -62,7 +62,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:text="Stop Audio" />
+                    android:text="Stop Audio" />-->
 
             </TableRow>
         </TableLayout>

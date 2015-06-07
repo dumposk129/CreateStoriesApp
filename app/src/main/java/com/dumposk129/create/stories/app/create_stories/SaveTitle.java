@@ -43,9 +43,9 @@ public class SaveTitle extends Activity {
             public void onClick(View view) {
                 String name = txtName.getText().toString().trim();
              //   String detail = txtDetail.getText().toString().trim();
-                if (name.length() == 0) {
+               /* if (name.length() == 0) {
                     Toast.makeText(context, "Please Enter", Toast.LENGTH_LONG);
-                } else {
+                } else {*/
                     // Ready to sent
                     poster = new MyHttpPoster("http://dump.geozigzag.com/api/text.php");
                     // Data to sent
@@ -67,7 +67,7 @@ public class SaveTitle extends Activity {
                             }
                         }
                     });
-                }
+                //}
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(intent);
             }

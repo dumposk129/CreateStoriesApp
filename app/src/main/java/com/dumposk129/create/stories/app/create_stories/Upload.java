@@ -57,9 +57,10 @@ public class Upload extends Activity implements View.OnClickListener {
     private TextView txtPercentage, tvAudioNme;
     private Button btnUpload;
     long totalSize = 0;
-    String folder = "Audio Record"; //
+    String folder = "aa";
 
-    final String PHP_URL = "http://dump.geozigzag.com/api/picture.php";
+    //final String PHP_URL = "http://dump.geozigzag.com/api/picture.php";
+    final String PHP_URL="http://victorymonumentmap.com/an105/uppic.php";
 
     @SuppressLint("SdCardPath")
     @Override
@@ -76,7 +77,8 @@ public class Upload extends Activity implements View.OnClickListener {
         final TextView txtSDCard = (TextView) findViewById(R.id.tvAudioName);
 
 		/*Upload Sound to Server*/
-        FILE_UPLOAD_URL = "http://dump.geozigzag.com/api/sound.php";
+      //  FILE_UPLOAD_URL = "http://dump.geozigzag.com/api/sound.php";
+        FILE_UPLOAD_URL= "http://victorymonumentmap.com/an105/upmp4.php";
 
         chosenImageView = (ImageView) this.findViewById(R.id.ChosenImageView);
         choosePicture = (Button) this.findViewById(R.id.ChoosePictureButton);

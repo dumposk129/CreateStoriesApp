@@ -60,7 +60,6 @@ public class MyHttpPoster {
                     message.what = HTTP_POST_ERROR;
                 } finally {
                     handler.sendMessage(message);
-
                 }
             }
         };

@@ -107,8 +107,6 @@ public class SoundPath extends Activity {
             txtStatus.setText("...");
 
             final Button btnNext = (Button) convertView.findViewById(R.id.btnNextTo);
-            final Button btnPlay = (Button) convertView.findViewById(R.id.btnPlayAudio);
-            final Button btnStop = (Button) convertView.findViewById(R.id.btnPlayAudio);
 
             btnNext.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
@@ -263,7 +261,7 @@ public class SoundPath extends Activity {
 
         /*** Default Value ***/
         String strStatusID = "0";
-        String strError = "Unknow Status!";
+        String strError = "Unknown Status!";
 
         try {
             JSONObject c = new JSONObject(resServer);

@@ -44,7 +44,8 @@ public class ChooseImage extends Activity implements View.OnClickListener{
     protected String _path_pic = null;
     private Bitmap bmp = null;
     private String up_name;
-    final String PHP_URL = "http://dump.geozigzag.com/api/picture.php";
+    //final String PHP_URL = "http://dump.geozigzag.com/api/picture.php";
+    final String PHP_URL="http://victorymonumentmap.com/an105/uppic.php";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -127,7 +128,7 @@ public class ChooseImage extends Activity implements View.OnClickListener{
     //  AsyncTask  Upload Image
     class ImageUploadTask extends AsyncTask<Bitmap, Integer, String> {
         private ProgressDialog progressDialog = new ProgressDialog(ChooseImage.this);
-        String err=null;
+        String err = null;
         @Override
         protected void onPreExecute() {
             progressDialog.setMessage("Uploading...");

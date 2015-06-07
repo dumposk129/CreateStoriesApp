@@ -79,7 +79,7 @@ public class MainActivity extends ActionBarActivity {
         // listView
         listView = (ListView) findViewById(R.id.listView1);
 
-        String url = "http://dump.geozigzag.com/api/";
+        String url = "http://dump.geozigzag.com/api/getjson.php";
         try {
             JSONArray data = new JSONArray(getJSONUrl(url));
 
