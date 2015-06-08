@@ -6,9 +6,7 @@ import android.graphics.BitmapFactory;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -19,7 +17,6 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.dumposk129.create.stories.app.R;
-import com.dumposk129.create.stories.app.navigation_drawer.NavigationDrawerFragment;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -33,46 +30,45 @@ import java.net.URL;
 /**
  * Created by DumpOSK129.
  */
-public class Watch extends ActionBarActivity implements View.OnClickListener,
-        View.OnTouchListener, MediaPlayer.OnCompletionListener,
-        MediaPlayer.OnBufferingUpdateListener {
-    private TextView tvAudioName, tvImgPath;
-    private ImageView imgPath;
+public class Watch extends ActionBarActivity implements View.OnClickListener, View.OnTouchListener,
+        MediaPlayer.OnCompletionListener, MediaPlayer.OnBufferingUpdateListener {
+
+    private TextView tvImageId, tvImgPath;
+    private ImageView imageView;
+    private EditText txtImageDes;
     private ImageButton buttonPlayPause;
     private SeekBar seekBarProgress;
-    private EditText editTextSongURL, imgDes;
+    public EditText editTextSongURL;
+
     private MediaPlayer mediaPlayer;
-    private int mediaFileLengthInMilliseconds;
-    private Toolbar mToolbar;
+    private int mediaFileLengthInMilliseconds; // this value contains the song duration in milliseconds. Look at getDuration() method in MediaPlayer class
+
     private final Handler handler = new Handler();
 
+    /** Called when the activity is first created. */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.watches);
-        tvAudioName = ( TextView) findViewById(R.id.tvAudioName);
-        imgPath = (ImageView)findViewById(R.id.ColImgPath2);
-        imgPath.getLayoutParams().height = 100;
-        imgPath.getLayoutParams().width = 100;
-        imgPath.setScaleType(ImageView.ScaleType.CENTER_CROP);
 
+        tvImageId = ( TextView) findViewById(R.id.tvImgId);
+        txtImageDes = (EditText)findViewById(R.id.txtImgDes);
+        tvImgPath = (TextView) findViewById(R.id.tvImgPath);
+
+        imageView = (ImageView)findViewById(R.id.showImg);
+        imageView.getLayoutParams().height = 100;
+        imageView.getLayoutParams().width = 100;
+        imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
         Intent intent = getIntent();
-
-        // Casting
-        mToolbar = (Toolbar) findViewById(R.id.app_bar);
-        setSupportActionBar(mToolbar);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-        NavigationDrawerFragment drawerFragment = (NavigationDrawerFragment)
-                getSupportFragmentManager().findFragmentById(R.id.fragment_navigation_drawer);
-        drawerFragment.setUp(R.id.fragment_navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout), mToolbar);
 
         String fName = intent.getStringExtra("imgID");
         String imgDesc = intent.getStringExtra("imgDesc");
         String imgPath = intent.getStringExtra("imgPath");
-        tvAudioName.setText(fName);
-        imgDes.setText(imgDesc);
+        tvImageId.setText(fName);
+        txtImageDes.setText(imgDesc);
         tvImgPath.setText(imgPath);
-        this.imgPath.setImageBitmap(loadBitmap(imgPath));
+        imageView.setImageBitmap(loadBitmap(imgPath));
+
         initView();
     }
 
@@ -84,11 +80,12 @@ public class Watch extends ActionBarActivity implements View.OnClickListener,
         seekBarProgress = (SeekBar)findViewById(R.id.SeekBarTestPlay);
         seekBarProgress.setMax(99); // It means 100% .0-99
         seekBarProgress.setOnTouchListener(this);
+        editTextSongURL = (EditText)findViewById(R.id.txtSound);
+
         mediaPlayer = new MediaPlayer();
         mediaPlayer.setOnBufferingUpdateListener(this);
         mediaPlayer.setOnCompletionListener(this);
     }
-
     /** Method which updates the SeekBar primary progress by current song playing position*/
     private void primarySeekBarProgressUpdater() {
         seekBarProgress.setProgress((int)(((float)mediaPlayer.getCurrentPosition()/mediaFileLengthInMilliseconds)*100)); // This math construction give a percentage of "was playing"/"song length"
@@ -104,7 +101,7 @@ public class Watch extends ActionBarActivity implements View.OnClickListener,
 
     public void onClick(View v) {
         if(v.getId() == R.id.ButtonTestPlayPause){
-            /** ImageButton onClick event handler. Method which start/pause mediaplayer playing */
+            /** ImageButton onClick event handler. Method which start/pause media player playing */
             try {
                 mediaPlayer.setDataSource(editTextSongURL.getText().toString());
                 mediaPlayer.prepare();
@@ -121,6 +118,7 @@ public class Watch extends ActionBarActivity implements View.OnClickListener,
                 mediaPlayer.pause();
                 buttonPlayPause.setImageResource(R.drawable.button_play);
             }
+
             primarySeekBarProgressUpdater();
         }
     }
@@ -130,8 +128,8 @@ public class Watch extends ActionBarActivity implements View.OnClickListener,
             /** Seekbar onTouch event handler. Method which seeks MediaPlayer to seekBar primary progress position*/
             if(mediaPlayer.isPlaying()){
                 SeekBar sb = (SeekBar)v;
-                int playPositionInMilliseconds = (mediaFileLengthInMilliseconds / 100) * sb.getProgress();
-                mediaPlayer.seekTo(playPositionInMilliseconds);
+                int playPositionInMillisecconds = (mediaFileLengthInMilliseconds / 100) * sb.getProgress();
+                mediaPlayer.seekTo(playPositionInMillisecconds);
             }
         }
         return false;
@@ -147,6 +145,7 @@ public class Watch extends ActionBarActivity implements View.OnClickListener,
         seekBarProgress.setSecondaryProgress(percent);
     }
 
+
     /***** Get Image Resource from URL (Start) *****/
     private static final String TAG = "ERROR";
     private static final int IO_BUFFER_SIZE = 4 * 1024;
@@ -154,6 +153,7 @@ public class Watch extends ActionBarActivity implements View.OnClickListener,
         Bitmap bitmap = null;
         InputStream in = null;
         BufferedOutputStream out = null;
+
         try {
             in = new BufferedInputStream(new URL(url).openStream(), IO_BUFFER_SIZE);
 
@@ -164,6 +164,7 @@ public class Watch extends ActionBarActivity implements View.OnClickListener,
 
             final byte[] data = dataStream.toByteArray();
             BitmapFactory.Options options = new BitmapFactory.Options();
+
             bitmap = BitmapFactory.decodeByteArray(data, 0, data.length,options);
         } catch (IOException e) {
             Log.e(TAG, "Could not load Bitmap from: " + url);

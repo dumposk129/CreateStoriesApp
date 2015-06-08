@@ -3,23 +3,22 @@
     android:layout_height="fill_parent"
     android:orientation="horizontal">
 
-        <ImageView
-            android:id="@+id/ColImgPath"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+    <ImageView
+        android:id="@+id/imgViewShowImg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
-        <TextView
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            android:id="@+id/ColImgID"
-            android:text="Name"
-            android:layout_margin="10dp"/>
+    <TextView
+        android:id="@+id/tvShowName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Name: " />
 
-        <!--<Button
-            android:id="@+id/btnwatch"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:text="Watch"/>-->
-
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvShowDes"
+        android:text="Column 2"
+        android:padding="10dp"
+        android:visibility="gone" />
 </LinearLayout>

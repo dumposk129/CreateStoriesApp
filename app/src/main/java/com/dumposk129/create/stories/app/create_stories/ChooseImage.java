@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Bitmap.CompressFormat;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -16,7 +17,6 @@ import android.view.Display;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.dumposk129.create.stories.app.R;
 
@@ -26,6 +26,7 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.mime.HttpMultipartMode;
 import org.apache.http.entity.mime.MultipartEntity;
 import org.apache.http.entity.mime.content.ByteArrayBody;
+import org.apache.http.entity.mime.content.StringBody;
 import org.apache.http.impl.client.DefaultHttpClient;
 
 import java.io.BufferedReader;
@@ -38,14 +39,14 @@ import java.util.Date;
 /**
  * Created by DumpOSK129.
  */
-public class ChooseImage extends Activity implements View.OnClickListener{
+public class ChooseImage extends Activity implements View.OnClickListener {
     private ImageView chosenImageView;
     private Button choosePicture, btn_upload;
     protected String _path_pic = null;
     private Bitmap bmp = null;
+    String lat = null, lon = null;
     private String up_name;
-    //final String PHP_URL = "http://dump.geozigzag.com/api/picture.php";
-    final String PHP_URL="http://victorymonumentmap.com/an105/uppic.php";
+    final String PHP_URL = "http://dump.geozigzag.com/api/picture.php";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -54,38 +55,26 @@ public class ChooseImage extends Activity implements View.OnClickListener{
 
         chosenImageView = (ImageView) this.findViewById(R.id.ChosenImageView);
         choosePicture = (Button) this.findViewById(R.id.ChoosePictureButton);
-        final TextView txtSDCard = (TextView) findViewById(R.id.tvAudioName);
+
         choosePicture.setOnClickListener(this);
 
-        btn_upload = ( Button ) findViewById( R.id.btnUpload);
+        btn_upload = (Button) findViewById(R.id.btnUpload);
         btn_upload.setOnClickListener(this);
-        btn_upload.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
-                String picTime = sdf.format(new Date());
-                //Path Picture
-                _path_pic = Environment.getExternalStorageDirectory() + "/myfile/" + picTime + ".jpg";
-                up_name = picTime + ".jpg";
-                new ImageUploadTask().execute(bmp);
-
-                Intent i = new Intent(getApplicationContext(), SaveTitle.class);
-                startActivity(i);
-            }
-        });
     }
 
     public void onClick(View v) {
-        if(v.getId()==R.id.ChoosePictureButton){
-            Intent choosePictureIntent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        if (v.getId() == R.id.ChoosePictureButton) {
+            Intent choosePictureIntent = new Intent(Intent.ACTION_PICK,
+                    android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
             startActivityForResult(choosePictureIntent, 0);
         }
 
-        if(v.getId()==R.id.btnUpload){
-            if(bmp!=null){
+        if (v.getId() == R.id.btnUpload) {
+            if (bmp != null) {
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
                 String picTime = sdf.format(new Date());
-                _path_pic = Environment.getExternalStorageDirectory() + "/myfile/"+picTime+".jpg";
-                up_name = picTime+".jpg";
+                _path_pic = Environment.getExternalStorageDirectory() + "/myfile/" + picTime + ".jpg";
+                up_name = picTime + ".jpg";
                 new ImageUploadTask().execute(bmp);
             }
         }
@@ -93,13 +82,12 @@ public class ChooseImage extends Activity implements View.OnClickListener{
 
     protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
         super.onActivityResult(requestCode, resultCode, intent);
+
         if (resultCode == RESULT_OK) {
             Uri imageFileUri = intent.getData();
-
             Display currentDisplay = getWindowManager().getDefaultDisplay();
             int dw = currentDisplay.getWidth();
             int dh = currentDisplay.getHeight() / 2 - 100;
-
             try {
                 // Load up the image's dimensions not the image itself
                 BitmapFactory.Options bmpFactoryOptions = new BitmapFactory.Options();
@@ -116,6 +104,7 @@ public class ChooseImage extends Activity implements View.OnClickListener{
                         bmpFactoryOptions.inSampleSize = widthRatio;
                     }
                 }
+
                 bmpFactoryOptions.inJustDecodeBounds = false;
                 bmp = BitmapFactory.decodeStream(getContentResolver().openInputStream(imageFileUri), null, bmpFactoryOptions);
                 chosenImageView.setImageBitmap(bmp);
@@ -129,6 +118,7 @@ public class ChooseImage extends Activity implements View.OnClickListener{
     class ImageUploadTask extends AsyncTask<Bitmap, Integer, String> {
         private ProgressDialog progressDialog = new ProgressDialog(ChooseImage.this);
         String err = null;
+
         @Override
         protected void onPreExecute() {
             progressDialog.setMessage("Uploading...");
@@ -144,43 +134,50 @@ public class ChooseImage extends Activity implements View.OnClickListener{
         protected String doInBackground(Bitmap... arg) {
             try {
                 ByteArrayOutputStream bos = new ByteArrayOutputStream();
-                arg[0].compress(Bitmap.CompressFormat.JPEG, 75, bos);
+                arg[0].compress(CompressFormat.JPEG, 75, bos);
                 byte[] data = bos.toByteArray();
                 HttpClient httpClient = new DefaultHttpClient();
                 HttpPost postRequest = new HttpPost(PHP_URL);
-                ByteArrayBody bab = new ByteArrayBody(data,up_name);
+                ByteArrayBody bab = new ByteArrayBody(data, up_name);
                 MultipartEntity reqEntity = new MultipartEntity(HttpMultipartMode.BROWSER_COMPATIBLE);
                 reqEntity.addPart("uploadedfile", bab);
 
+                if (lat != null && lon != null) {
+                    reqEntity.addPart("lat", new StringBody(lat));
+                    reqEntity.addPart("lon", new StringBody(lon));
+                }
+
                 postRequest.setEntity(reqEntity);
                 HttpResponse response = httpClient.execute(postRequest);
-                BufferedReader reader = new BufferedReader(new InputStreamReader(response.getEntity().getContent(),"UTF-8"));
+                BufferedReader reader = new BufferedReader(new InputStreamReader(response.getEntity().getContent(), "UTF-8"));
                 String sResponse;
                 StringBuilder s = new StringBuilder();
                 while ((sResponse = reader.readLine()) != null) {
                     s = s.append(sResponse);
                 }
                 return s.toString().trim();
-
             } catch (Exception e) {
-                err="error"+e.getMessage();
+                err = "error" + e.getMessage();
                 Log.e(e.getClass().getName(), e.getMessage());
+
                 return e.getMessage();
             }
         }
 
         @Override
         protected void onPostExecute(String res) {
-            if (progressDialog.isShowing())progressDialog.dismiss();
+            if (progressDialog.isShowing()) progressDialog.dismiss();
             AlertDialog.Builder alertBox = new AlertDialog.Builder(ChooseImage.this);
             alertBox.setTitle("Information");
             alertBox.setNeutralButton("Ok", null);
-            if(err != null){
-                alertBox.setMessage("Error \n" + res);
-            }else{
+            if (err != null) {
+                alertBox.setMessage("Error!!!\n" + res);
+            } else {
                 alertBox.setMessage(res);
             }
             alertBox.show();
+            Intent i = new Intent(getApplicationContext(), SaveTitle.class);
+            startActivity(i);
         }
     }
 }

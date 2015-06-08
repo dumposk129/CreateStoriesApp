@@ -7,6 +7,7 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Bitmap.CompressFormat;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -31,6 +32,7 @@ import org.apache.http.entity.mime.HttpMultipartMode;
 import org.apache.http.entity.mime.MultipartEntity;
 import org.apache.http.entity.mime.content.ByteArrayBody;
 import org.apache.http.entity.mime.content.FileBody;
+import org.apache.http.entity.mime.content.StringBody;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
 
@@ -47,20 +49,22 @@ import java.util.Date;
  * Created by DumpOSK129
  */
 public class Upload extends Activity implements View.OnClickListener {
-    private ImageView chosenImageView;
-    private Button choosePicture, btn_upload;
+    ImageView chosenImageView;
+    Button choosePicture, btn_upload;
+
     protected String _path_pic = null;
-    private Bitmap bmp = null;
-    private String up_name;
+    Bitmap bmp = null;
+    String up_name;
+    String lat = null, lon = null;
+
+    final String PHP_URL = "http://dump.geozigzag.com/api/picture.php";
+
     private ProgressBar progressBar;
     private String FILE_UPLOAD_URL, filePath, fileName = null;
-    private TextView txtPercentage, tvAudioNme;
+    private TextView txtPercentage, tvAudNme;
     private Button btnUpload;
     long totalSize = 0;
-    String folder = "aa";
-
-    //final String PHP_URL = "http://dump.geozigzag.com/api/picture.php";
-    final String PHP_URL="http://victorymonumentmap.com/an105/uppic.php";
+    String folder = "Audio Record"; // Folder
 
     @SuppressLint("SdCardPath")
     @Override
@@ -68,17 +72,19 @@ public class Upload extends Activity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.upload);
 
-        tvAudioNme = (TextView) findViewById(R.id.tvAudioName);
+        tvAudNme = (TextView) findViewById(R.id.tvAudioName);
         Intent intent = getIntent();
         String fName = intent.getStringExtra("fname");
-        tvAudioNme.setText(fName);
+        tvAudNme.setText(fName);
         txtPercentage = (TextView) findViewById(R.id.txtPercentage);
         btnUpload = (Button) findViewById(R.id.btnUpload);
+        progressBar = (ProgressBar) findViewById(R.id.progressBar);
+
+        // txtSDCard
         final TextView txtSDCard = (TextView) findViewById(R.id.tvAudioName);
 
-		/*Upload Sound to Server*/
-      //  FILE_UPLOAD_URL = "http://dump.geozigzag.com/api/sound.php";
-        FILE_UPLOAD_URL= "http://victorymonumentmap.com/an105/upmp4.php";
+        /* Server */
+        FILE_UPLOAD_URL = "http://dump.geozigzag.com/api/sound.php";
 
         chosenImageView = (ImageView) this.findViewById(R.id.ChosenImageView);
         choosePicture = (Button) this.findViewById(R.id.ChoosePictureButton);
@@ -90,11 +96,12 @@ public class Upload extends Activity implements View.OnClickListener {
         btnUpload.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 fileName = txtSDCard.getText().toString();
-                filePath = "/mnt/sdcard/DCIM/Camera/" + folder + "/" + fileName;
+                filePath = "/mnt/sdcard/DCIM/Camera/" + folder + "/" + fileName; // Audio Path
                 new UploadFileToServer().execute();
+
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
                 String picTime = sdf.format(new Date());
-                _path_pic = Environment.getExternalStorageDirectory() + "/myfile/" + picTime + ".jpg";
+                _path_pic = Environment.getExternalStorageDirectory() + "/myfile/" + picTime + ".jpg"; // Image Path
                 up_name = picTime + ".jpg";
                 new ImageUploadTask().execute(bmp);
 
@@ -104,16 +111,14 @@ public class Upload extends Activity implements View.OnClickListener {
         });
     }
 
-    /* Waiting for upload to server */
+    /* Upload To Server */
     private class UploadFileToServer extends AsyncTask<Void, Integer, String> {
         @Override
         protected void onPreExecute() {
-            // ProgressBar
             progressBar.setProgress(0);
             super.onPreExecute();
         }
 
-        /* Uploading */
         @Override
         protected void onProgressUpdate(Integer... progress) {
             progressBar.setVisibility(View.VISIBLE);
@@ -121,7 +126,7 @@ public class Upload extends Activity implements View.OnClickListener {
             txtPercentage.setText(String.valueOf(progress[0]) + "%");
         }
 
-        /* Done */
+        /* Upload in background */
         @Override
         protected String doInBackground(Void... params) {
             return uploadFile();
@@ -133,7 +138,6 @@ public class Upload extends Activity implements View.OnClickListener {
 
             HttpClient httpclient = new DefaultHttpClient();
             HttpPost httppost = new HttpPost(FILE_UPLOAD_URL);
-
             try {
                 AndroidMultiPartEntity entity = new AndroidMultiPartEntity(new AndroidMultiPartEntity.ProgressListener() {
                     public void transferred(long num) {
@@ -157,8 +161,7 @@ public class Upload extends Activity implements View.OnClickListener {
                     // Server response
                     responseString = EntityUtils.toString(r_entity);
                 } else {
-                    responseString = "Error occurred! Http Status Code: "
-                            + statusCode;
+                    responseString = "Error occurred! Http Status Code: " + statusCode;
                 }
             } catch (ClientProtocolException e) {
                 responseString = e.toString();
@@ -168,7 +171,7 @@ public class Upload extends Activity implements View.OnClickListener {
             return responseString;
         }
 
-        /* Show Message*/
+        /* Upload Finished */
         @Override
         protected void onPostExecute(String result) {
             Log.e("END", "Response from server: " + result);
@@ -177,11 +180,12 @@ public class Upload extends Activity implements View.OnClickListener {
         }
     }
 
-    /* Show Alert */
+    /* ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½alertï¿½ï¿½Ü°Tï¿½ï¿½ */
     private void showAlert(String message) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage(message).setTitle("Response from Servers").setCancelable(false).setPositiveButton("OK", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
+                // Do nothing
             }
         });
         AlertDialog alert = builder.create();
@@ -237,7 +241,6 @@ public class Upload extends Activity implements View.OnClickListener {
                 bmp = BitmapFactory.decodeStream(getContentResolver().openInputStream(imageFileUri), null, bmpFactoryOptions);
 
                 chosenImageView.setImageBitmap(bmp);
-
             } catch (FileNotFoundException e) {
                 Log.v("ERROR", e.toString());
             }
@@ -264,7 +267,7 @@ public class Upload extends Activity implements View.OnClickListener {
         protected String doInBackground(Bitmap... arg) {
             try {
                 ByteArrayOutputStream bos = new ByteArrayOutputStream();
-                arg[0].compress(Bitmap.CompressFormat.JPEG, 75, bos);
+                arg[0].compress(CompressFormat.JPEG, 75, bos);
                 byte[] data = bos.toByteArray();
                 HttpClient httpClient = new DefaultHttpClient();
                 HttpPost postRequest = new HttpPost(PHP_URL);
@@ -272,16 +275,21 @@ public class Upload extends Activity implements View.OnClickListener {
                 MultipartEntity reqEntity = new MultipartEntity(HttpMultipartMode.BROWSER_COMPATIBLE);
                 reqEntity.addPart("uploadedfile", bab);
 
+                if (lat != null && lon != null) {
+                    reqEntity.addPart("lat", new StringBody(lat));
+                    reqEntity.addPart("lon", new StringBody(lon));
+                }
+
                 postRequest.setEntity(reqEntity);
                 HttpResponse response = httpClient.execute(postRequest);
                 BufferedReader reader = new BufferedReader(new InputStreamReader(response.getEntity().getContent(), "UTF-8"));
                 String sResponse;
                 StringBuilder s = new StringBuilder();
+
                 while ((sResponse = reader.readLine()) != null) {
                     s = s.append(sResponse);
                 }
                 return s.toString().trim();
-
             } catch (Exception e) {
 
                 err = "error" + e.getMessage();
@@ -298,7 +306,7 @@ public class Upload extends Activity implements View.OnClickListener {
             alertBox.setTitle("Information");
             alertBox.setNeutralButton("Ok", null);
             if (err != null) {
-                alertBox.setMessage("Success \n" + res);
+                alertBox.setMessage("Error!!!\n" + res);
             } else {
                 alertBox.setMessage(res);
             }

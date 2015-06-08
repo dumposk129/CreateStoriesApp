@@ -21,34 +21,30 @@ import java.util.ArrayList;
  * Created by DumpOSK129.
  */
 public class MyHttpPoster {
-
-    public static final int HTTP_POST_OK =1;
-    public static final int HTTP_POST_ERROR =2;
+    public static final int HTTP_POST_OK = 1;
+    public static final int HTTP_POST_ERROR = 2;
     private HttpClient client;
     private HttpPost post;
     private HttpResponse response;
     private Thread thread;
 
-    // Constructor
+    //Constructor
     public  MyHttpPoster(String link){
         client = new DefaultHttpClient();
         post = new HttpPost(link);
+
     }
 
-    // Upload helper
     public void doPost(final ArrayList<NameValuePair> data, final Handler handler) {
         thread = new Thread() {
             @Override
             public void run(){
                 Message message = new Message();
                 try{
-                    // Data preparation
                     post.setEntity(new UrlEncodedFormEntity(data, HTTP.UTF_8));
-                    // Execute data
                     response = client.execute(post);
                     message.what = HTTP_POST_OK;
                     message.obj = (String)EntityUtils.toString(response.getEntity(), HTTP.UTF_8);
-
                 } catch (UnsupportedEncodingException e){
                     e.printStackTrace();
                     message.what = HTTP_POST_ERROR;

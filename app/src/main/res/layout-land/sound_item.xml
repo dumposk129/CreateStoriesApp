@@ -15,6 +15,11 @@
         android:orientation="horizontal"
         android:padding="20dp">
 
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
         <TableLayout
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"

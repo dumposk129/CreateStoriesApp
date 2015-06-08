@@ -22,14 +22,14 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/btnStart"
+            android:id="@+id/btnStartRecord"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1.0"
             android:text="@string/start_recording" />
 
         <Button
-            android:id="@+id/btnStop"
+            android:id="@+id/btnStopRecord"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1.0"
@@ -43,4 +43,5 @@
             android:text="Format (mp4)" />
 
     </LinearLayout>
+
 </LinearLayout>

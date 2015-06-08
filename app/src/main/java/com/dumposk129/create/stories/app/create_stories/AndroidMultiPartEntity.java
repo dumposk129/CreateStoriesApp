@@ -25,7 +25,8 @@ public class AndroidMultiPartEntity extends MultipartEntity {
         this.listener = listener;
     }
 
-    public AndroidMultiPartEntity(HttpMultipartMode mode, final String boundary, final Charset charset, final ProgressListener listener) {
+    public AndroidMultiPartEntity(HttpMultipartMode mode, final String boundary, final Charset charset,
+                                  final ProgressListener listener) {
         super(mode, boundary, charset);
         this.listener = listener;
     }

@@ -11,7 +11,7 @@
         layout="@layout/app_bar" />
 
     <EditText
-        android:id="@+id/name"
+        android:id="@+id/txtName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"

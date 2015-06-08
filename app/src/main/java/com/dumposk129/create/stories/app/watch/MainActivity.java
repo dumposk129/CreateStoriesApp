@@ -2,6 +2,7 @@ package com.dumposk129.create.stories.app.watch;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -51,11 +52,12 @@ import java.util.HashMap;
  * Created by DumpOSK129.
  */
 public class MainActivity extends ActionBarActivity {
-    private ListView listView;
     private Toolbar mToolbar;
     private String imgID;
     private String imgDesc;
     private String imgPath;
+    private ListView listView;
+    private ArrayList<HashMap<String, String>> MyArrList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,16 +72,18 @@ public class MainActivity extends ActionBarActivity {
                 getSupportFragmentManager().findFragmentById(R.id.fragment_navigation_drawer);
         drawerFragment.setUp(R.id.fragment_navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout), mToolbar);
 
+
         // Permission StrictMode
         if (android.os.Build.VERSION.SDK_INT > 9) {
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(policy);
         }
 
-        // listView
-        listView = (ListView) findViewById(R.id.listView1);
+        // listView1
+        final ListView lstView1 = (ListView) findViewById(R.id.listView1);
 
         String url = "http://dump.geozigzag.com/api/getjson.php";
+
         try {
             JSONArray data = new JSONArray(getJSONUrl(url));
 
@@ -89,26 +93,55 @@ public class MainActivity extends ActionBarActivity {
             for (int i = 0; i < data.length(); i++) {
                 JSONObject c = data.getJSONObject(i);
                 map = new HashMap<String, String>();
-                map.put("ImageID", c.getString("Name1"));
+                map.put("ImageID", c.getString("title_name"));
                 map.put("ImageDesc", c.getString("audio_name"));
-                map.put("ImagePath", c.getString("image_name"));
+                map.put("ImagePath", c.getString("image_name"));//image
                 MyArrList.add(map);
             }
 
-            listView.setAdapter(new ImageAdapter(this, MyArrList));
+            lstView1.setAdapter(new ImageAdapter(this, MyArrList));
 
             final AlertDialog.Builder imageDialog = new AlertDialog.Builder(this);
             final LayoutInflater inflater = (LayoutInflater) this.getSystemService(LAYOUT_INFLATER_SERVICE);
 
             // OnClick
-            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            lstView1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
+
                     Intent intent = new Intent(inflater.getContext(), Watch.class);
                     intent.putExtra("imgID", imgID);
+                    intent.putExtra("imgDesc", imgDesc);
                     intent.putExtra("imgPath", imgPath);
+                    //intent.putExtra("lname", etLName.getText().toString());
                     startActivity(intent);
+
+                    View layout = inflater.inflate(R.layout.custom_fullimage_dialog, (ViewGroup) findViewById(R.id.layout_root));
+                    ImageView image = (ImageView) layout.findViewById(R.id.fullimage);
+
+                    try {
+                        image.setImageBitmap(loadBitmap(MyArrList.get(position).get("ImagePath")));
+                    } catch (Exception e) {
+                        // When Error
+                        image.setImageResource(android.R.drawable.ic_menu_report_image);
+                    }
+
+                    imageDialog.setIcon(android.R.drawable.btn_star_big_on);
+                    imageDialog.setTitle("View : " + MyArrList.get(position).get("ImageDesc"));
+                    imageDialog.setView(layout);
+
+                    imageDialog.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    });
+
+                    imageDialog.create();
+                    imageDialog.show();
                 }
             });
+
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -137,17 +170,18 @@ public class MainActivity extends ActionBarActivity {
         }
 
         public View getView(int position, View convertView, ViewGroup parent) {
-           final LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-           /* final String imgID;
+
+            final LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            final String imgID;
             final String imgDesc;
             final String imgPath;
-*/
+
             if (convertView == null) {
                 convertView = inflater.inflate(R.layout.stories_items, null);
             }
 
             // ColImage
-            ImageView imageView = (ImageView) convertView.findViewById(R.id.ColImgPath);
+            ImageView imageView = (ImageView) convertView.findViewById(R.id.imgViewShowImg);
             imageView.getLayoutParams().height = 100;
             imageView.getLayoutParams().width = 100;
             imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
@@ -160,16 +194,30 @@ public class MainActivity extends ActionBarActivity {
             }
 
             // ColPosition
-            TextView txtPosition = (TextView) convertView.findViewById(R.id.ColImgID);
+            TextView txtPosition = (TextView) convertView.findViewById(R.id.tvShowName);
             txtPosition.setPadding(10, 0, 0, 0);
             imgID = MyArr.get(position).get("ImageID");
             txtPosition.setText("Story: " + imgID);
 
-            // Next to Watch.class
-           /* final Button mBtnWatch = (Button) convertView.findViewById(R.id.btnwatch);
-            mBtnWatch.setOnClickListener(new View.OnClickListener() {
+            // ColPicname
+            TextView txtPicName = (TextView) convertView.findViewById(R.id.tvShowDes);
+            txtPicName.setPadding(50, 0, 0, 0);
+            imgDesc = MyArr.get(position).get("ImageDesc");
+            txtPicName.setText(": " + imgDesc);
+
+/*
+            final Button submitBtn = (Button) convertView.findViewById(R.id.btnSubmit);
+            submitBtn.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
 
+
+                    //Intent intent = new Intent(inflater.getContext(), Main.class);
+                    *//*Intent intent = new Intent(inflater.getContext(), Watch.class);
+                    intent.putExtra("imgID", imgID);
+                    intent.putExtra("imgDesc", imgDesc);
+                    intent.putExtra("imgPath", imgPath);
+                    //intent.putExtra("lname", etLName.getText().toString());
+                    startActivity(intent);*//*
                 }
             });*/
             return convertView;
@@ -206,6 +254,7 @@ public class MainActivity extends ActionBarActivity {
         return str.toString();
     }
 
+
     /*****
      * Get Image Resource from URL (Start)
      *****/
@@ -216,6 +265,7 @@ public class MainActivity extends ActionBarActivity {
         Bitmap bitmap = null;
         InputStream in = null;
         BufferedOutputStream out = null;
+
         try {
             in = new BufferedInputStream(new URL(url).openStream(), IO_BUFFER_SIZE);
 
@@ -226,6 +276,8 @@ public class MainActivity extends ActionBarActivity {
 
             final byte[] data = dataStream.toByteArray();
             BitmapFactory.Options options = new BitmapFactory.Options();
+            //options.inSampleSize = 1;
+
             bitmap = BitmapFactory.decodeByteArray(data, 0, data.length, options);
         } catch (IOException e) {
             Log.e(TAG, "Could not load Bitmap from: " + url);
@@ -233,6 +285,7 @@ public class MainActivity extends ActionBarActivity {
             closeStream(in);
             closeStream(out);
         }
+
         return bitmap;
     }
 

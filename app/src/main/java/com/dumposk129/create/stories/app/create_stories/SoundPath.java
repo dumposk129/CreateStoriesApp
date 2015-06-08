@@ -7,13 +7,16 @@ import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.dumposk129.create.stories.app.R;
@@ -35,10 +38,12 @@ import java.util.List;
  * Created by DumpOSK129.
  */
 public class SoundPath extends Activity {
-    private ListView listView;
+    private ListView lstView;
     private Handler handler = new Handler();
-
-    List<String> ImageList;
+    private Button btnPlay, btnStop;
+    private List <String> ImageList;
+    private MediaPlayer myPlayer;
+    private String outputFile = Environment.getExternalStorageDirectory().getAbsolutePath() + "DCIM/Camera/Audio Record/";;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,25 +52,26 @@ public class SoundPath extends Activity {
         /*** Get Images from SDCard ***/
         ImageList = getSD();
 
-        listView = (ListView) findViewById(R.id.listView1);
-        listView.setAdapter(new ImageAdapter(this));
+        // ListView and imageAdapter
+        lstView = (ListView) findViewById(R.id.listView1);
+        lstView.setAdapter(new ImageAdapter(this));
     }
 
-    private List<String> getSD() {
-        List<String> list = new ArrayList<String>();
-        File f = new File("/mnt/sdcard/DCIM/Camera/Audio Record/");
-        File[] files = f.listFiles();
+    private List <String> getSD() {
+        List <String> it = new ArrayList <String>();
+        File f = new File ("/mnt/sdcard/DCIM/Camera/Audio Record/");
+        File[] files = f.listFiles ();
 
-        for (int i = 0; i < files.length; i++) {
-            File file = files[i];
-            list.add(file.getPath());
+        for (int i = 0; i <files.length; i++) {
+            File  file = files[i];
+            Log.d("Count", file.getPath());
+            it.add (file.getPath());
         }
-        return list;
+        return it;
     }
 
     public class ImageAdapter extends BaseAdapter {
         private Context context;
-        private MediaPlayer mediaPlayer;
 
         public ImageAdapter(Context c) {
             context = c;
@@ -84,7 +90,8 @@ public class SoundPath extends Activity {
         }
 
         public View getView(final int position, View convertView, ViewGroup parent) {
-            final LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            final LayoutInflater inflater = (LayoutInflater) context
+                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
             if (convertView == null) {
                 convertView = inflater.inflate(R.layout.sound_item, null);
@@ -95,20 +102,24 @@ public class SoundPath extends Activity {
             String strPath = ImageList.get(position).toString();
 
             // Get File Name
-            final String fileName = strPath.substring(strPath.lastIndexOf('/') + 1, strPath.length());
+            final String fileName = strPath.substring( strPath.lastIndexOf('/')+1, strPath.length() );
             File file = new File(strPath);
             long length = file.length();
             txtName.setPadding(3, 0, 0, 0);
-            txtName.setText(fileName + " (" + length / 1024 + " KB.)");
+            txtName.setText(fileName + " ("+length/1024+" KB.)");
 
             // ColStatus
             final TextView txtStatus = (TextView) convertView.findViewById(R.id.ColStatus);
             txtStatus.setPadding(3, 0, 0, 0);
             txtStatus.setText("...");
 
-            final Button btnNext = (Button) convertView.findViewById(R.id.btnNextTo);
+            // ProgressBar
+            final ProgressBar progress = (ProgressBar) convertView.findViewById(R.id.progressBar);
+            progress.setVisibility(View.GONE);
+            progress.setPadding(0, 0, 0, 0);
 
-            btnNext.setOnClickListener(new View.OnClickListener() {
+            final Button btnSubmit = (Button) convertView.findViewById(R.id.btnNextTo);
+            btnSubmit.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
                     // Upload
                     Intent intent = new Intent(inflater.getContext(), Upload.class);
@@ -122,15 +133,17 @@ public class SoundPath extends Activity {
 
     // Upload
     public void startUpload(final int position) {
-
         Runnable runnable = new Runnable() {
             public void run() {
                 handler.post(new Runnable() {
                     public void run() {
-                        View v = listView.getChildAt(position - listView.getFirstVisiblePosition());
+                        View v = lstView.getChildAt(position - lstView.getFirstVisiblePosition());
 
+                        // Show ProgressBar
+                        ProgressBar progress = (ProgressBar)v.findViewById(R.id.progressBar);
+                        progress.setVisibility(View.VISIBLE);
                         // Status
-                        TextView status = (TextView) v.findViewById(R.id.ColStatus);
+                        TextView status = (TextView)v.findViewById(R.id.ColStatus);
                         status.setText("Uploading..");
 
                         new UploadFileAsync().execute(String.valueOf(position));
@@ -163,7 +176,7 @@ public class SoundPath extends Activity {
 
             String lineEnd = "\r\n";
             String twoHyphens = "--";
-            String boundary = "*****";
+            String boundary =  "*****";
 
             // File Path
             String strSDPath = ImageList.get(position).toString();
@@ -174,7 +187,7 @@ public class SoundPath extends Activity {
             try {
                 /** Check file on SD Card ***/
                 File file = new File(strSDPath);
-                if (!file.exists()) {
+                if(!file.exists()) {
                     resServer = "{\"StatusID\":\"0\",\"Error\":\"Please check path on SD Card\"}";
                     return null;
                 }
@@ -187,12 +200,14 @@ public class SoundPath extends Activity {
                 conn.setDoOutput(true);
                 conn.setUseCaches(false);
                 conn.setRequestMethod("POST");
+
                 conn.setRequestProperty("Connection", "Keep-Alive");
                 conn.setRequestProperty("Content-Type", "multipart/form-data;boundary=" + boundary);
 
                 DataOutputStream outputStream = new DataOutputStream(conn.getOutputStream());
                 outputStream.writeBytes(twoHyphens + boundary + lineEnd);
-                outputStream.writeBytes("Content-Disposition: form-data; name=\"fileUpload\";filename=\"" + strSDPath + "\"" + lineEnd);
+                outputStream.writeBytes("Content-Disposition: form-data; name=\"fileUpload\";filename=\""
+                        + strSDPath + "\"" + lineEnd);
                 outputStream.writeBytes(lineEnd);
 
                 bytesAvailable = fileInputStream.available();
@@ -214,7 +229,7 @@ public class SoundPath extends Activity {
 
                 // Response Code and  Message
                 resCode = conn.getResponseCode();
-                if (resCode == HttpURLConnection.HTTP_OK) {
+                if(resCode == HttpURLConnection.HTTP_OK) {
                     InputStream is = conn.getInputStream();
                     ByteArrayOutputStream bos = new ByteArrayOutputStream();
 
@@ -227,29 +242,38 @@ public class SoundPath extends Activity {
 
                     resMessage = new String(result);
                 }
+
+                Log.d("resCode=",Integer.toString(resCode));
+                Log.d("resMessage=",resMessage.toString());
+
                 fileInputStream.close();
                 outputStream.flush();
                 outputStream.close();
 
                 resServer = resMessage.toString();
-
             } catch (Exception ex) {
+                // Exception handling
                 return null;
             }
             return null;
         }
+
         protected void onPostExecute(Void unused) {
-            statusWhenFinish(position, resServer);
+            statusWhenFinish(position,resServer);
         }
     }
 
-    // When Upload Finish
+    // When UPload Finish
     protected void statusWhenFinish(int position, String resServer) {
 
-        View v = listView.getChildAt(position - listView.getFirstVisiblePosition());
+        View v = lstView.getChildAt(position - lstView.getFirstVisiblePosition());
+
+        // Show ProgressBar
+        ProgressBar progress = (ProgressBar)v.findViewById(R.id.progressBar);
+        progress.setVisibility(View.GONE);
 
         // Status
-        TextView status = (TextView) v.findViewById(R.id.ColStatus);
+        TextView status = (TextView)v.findViewById(R.id.ColStatus);
 
         /** Get result from Server (Return the JSON Code)
          * StatusID = ? [0=Failed,1=Complete]
@@ -272,9 +296,9 @@ public class SoundPath extends Activity {
         }
 
         // Prepare Status
-        if (strStatusID.equals("0")) {
+        if(strStatusID.equals("0")) {
             // When update Failed
-            status.setText("Upload Failed. (" + strError + ")");
+            status.setText("Upload Failed. ("+ strError +")");
             status.setTextColor(Color.RED);
 
             // Enabled Button again
@@ -282,7 +306,8 @@ public class SoundPath extends Activity {
             btnUpload.setText("Re-try");
             btnUpload.setTextColor(Color.RED);
             btnUpload.setEnabled(true);
-        } else {
+        }
+        else {
             status.setText("Upload Completed.");
             status.setTextColor(Color.GREEN);
         }

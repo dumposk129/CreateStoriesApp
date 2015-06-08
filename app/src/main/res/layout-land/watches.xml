@@ -27,11 +27,51 @@
                 android:orientation="vertical">
 
                 <ImageView
-                    android:id="@+id/ColImgPath2"
-                    android:layout_width="180dp"
-                    android:layout_height="180dp"
+                    android:id="@+id/showImg"
+                    android:layout_width="600dp"
+                    android:layout_height="350dp"
                     android:layout_gravity="center_horizontal"
-                    android:src="@drawable/custom_bg" />
+                    android:src="@drawable/abc_btn_radio_material" />
+
+                <TextView
+                    android:id="@+id/tvImgId"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="20dp"
+                    android:text="1"
+                    android:textSize="20sp"
+                    android:visibility="gone"/>
+
+                <EditText
+                    android:id="@+id/txtImgDes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="20dp"
+                    android:text="2"
+                    android:textSize="20sp"
+                    android:visibility="gone"/>
+
+                <TextView
+                    android:id="@+id/tvImgPath"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="20dp"
+                    android:text="3"
+                    android:textSize="20sp"
+                    android:visibility="gone"/>
+
+                <EditText
+                    android:id="@+id/txtSound"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="20dp"
+                    android:text="textSound"
+                    android:textSize="20sp"
+                    android:visibility="gone" />
 
                 <ImageButton
                     android:id="@+id/ButtonTestPlayPause"
