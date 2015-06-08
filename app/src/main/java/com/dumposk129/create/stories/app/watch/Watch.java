@@ -128,8 +128,8 @@ public class Watch extends ActionBarActivity implements View.OnClickListener, Vi
             /** Seekbar onTouch event handler. Method which seeks MediaPlayer to seekBar primary progress position*/
             if(mediaPlayer.isPlaying()){
                 SeekBar sb = (SeekBar)v;
-                int playPositionInMillisecconds = (mediaFileLengthInMilliseconds / 100) * sb.getProgress();
-                mediaPlayer.seekTo(playPositionInMillisecconds);
+                int playPositionInMilliseconds = (mediaFileLengthInMilliseconds / 100) * sb.getProgress();
+                mediaPlayer.seekTo(playPositionInMilliseconds);
             }
         }
         return false;

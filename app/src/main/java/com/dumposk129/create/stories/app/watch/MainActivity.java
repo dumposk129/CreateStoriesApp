@@ -112,7 +112,6 @@ public class MainActivity extends ActionBarActivity {
                     intent.putExtra("imgID", imgID);
                     intent.putExtra("imgDesc", imgDesc);
                     intent.putExtra("imgPath", imgPath);
-                    //intent.putExtra("lname", etLName.getText().toString());
                     startActivity(intent);
 
                     View layout = inflater.inflate(R.layout.custom_fullimage_dialog, (ViewGroup) findViewById(R.id.layout_root));
@@ -199,34 +198,16 @@ public class MainActivity extends ActionBarActivity {
             imgID = MyArr.get(position).get("ImageID");
             txtPosition.setText("Story: " + imgID);
 
-            // ColPicname
+            // ColPicName
             TextView txtPicName = (TextView) convertView.findViewById(R.id.tvShowDes);
             txtPicName.setPadding(50, 0, 0, 0);
             imgDesc = MyArr.get(position).get("ImageDesc");
             txtPicName.setText(": " + imgDesc);
-
-/*
-            final Button submitBtn = (Button) convertView.findViewById(R.id.btnSubmit);
-            submitBtn.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View v) {
-
-
-                    //Intent intent = new Intent(inflater.getContext(), Main.class);
-                    *//*Intent intent = new Intent(inflater.getContext(), Watch.class);
-                    intent.putExtra("imgID", imgID);
-                    intent.putExtra("imgDesc", imgDesc);
-                    intent.putExtra("imgPath", imgPath);
-                    //intent.putExtra("lname", etLName.getText().toString());
-                    startActivity(intent);*//*
-                }
-            });*/
             return convertView;
         }
     }
 
-    /***
-     * Get JSON Code from URL
-     ***/
+    /*** Get JSON Code from URL ***/
     public String getJSONUrl(String url) {
         StringBuilder str = new StringBuilder();
         HttpClient client = new DefaultHttpClient();
@@ -254,10 +235,7 @@ public class MainActivity extends ActionBarActivity {
         return str.toString();
     }
 
-
-    /*****
-     * Get Image Resource from URL (Start)
-     *****/
+    /*** Get Image Resource from URL (Start) ***/
     private static final String TAG = "ERROR";
     private static final int IO_BUFFER_SIZE = 4 * 1024;
 
@@ -276,7 +254,6 @@ public class MainActivity extends ActionBarActivity {
 
             final byte[] data = dataStream.toByteArray();
             BitmapFactory.Options options = new BitmapFactory.Options();
-            //options.inSampleSize = 1;
 
             bitmap = BitmapFactory.decodeByteArray(data, 0, data.length, options);
         } catch (IOException e) {
@@ -285,7 +262,6 @@ public class MainActivity extends ActionBarActivity {
             closeStream(in);
             closeStream(out);
         }
-
         return bitmap;
     }
 
