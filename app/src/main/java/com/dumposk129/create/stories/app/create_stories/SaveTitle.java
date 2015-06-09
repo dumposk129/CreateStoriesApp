@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -24,16 +26,16 @@ import java.util.ArrayList;
 /**
  * Created by DumpOSK129
  */
-public class SaveTitle extends Activity {
+public class SaveTitle extends ActionBarActivity {
     // Context
     private Context context;
 
     // View
-    private EditText title_name;
-    private EditText description;
+    private EditText title_name, description;
     private Button submit;
     private TextView result;
     private MyHttpPoster poster;
+    private Toolbar mToolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,17 +44,21 @@ public class SaveTitle extends Activity {
 
         context = this;
         title_name = (EditText) findViewById(R.id.txtName);
-     //   description = (EditText) findViewById(R.id.txtDes);
+        description = (EditText) findViewById(R.id.txtDes);
         submit = (Button) findViewById(R.id.btnSubmit);
         result = (TextView) findViewById(R.id.tvResult);
+
+        mToolbar = (Toolbar) findViewById(R.id.app_bar);
+        setSupportActionBar(mToolbar);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         // event for submit button
         submit.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                String new_name1 = title_name.getText().toString().trim();
-             //   String new_name2 = description.getText().toString().trim();
+                String titleName = title_name.getText().toString().trim();
+                String descrpt = description.getText().toString().trim();
 
-                if (new_name1.length() == 0/* || new_name2.length() == 0*/) {
+                if (titleName.length() == 0 || descrpt.length() == 0) {
                     Toast.makeText(context, "Please Enter", Toast.LENGTH_LONG);
                 } else {
                     // Ready to sent
@@ -60,8 +66,8 @@ public class SaveTitle extends Activity {
 
                     //Data to sent
                     ArrayList<NameValuePair> data = new ArrayList<NameValuePair>();
-                    data.add(new BasicNameValuePair("title_name", new_name1));
-                //    data.add(new BasicNameValuePair("description", new_name2));
+                    data.add(new BasicNameValuePair("title_name", titleName));
+                    data.add(new BasicNameValuePair("description", descrpt));
 
                     poster.doPost(data, new Handler() {
                         public void handleMessage(android.os.Message msg) {

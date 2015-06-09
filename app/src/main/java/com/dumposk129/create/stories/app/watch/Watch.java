@@ -7,6 +7,7 @@ import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -38,8 +39,8 @@ public class Watch extends ActionBarActivity implements View.OnClickListener, Vi
     private EditText txtImageDes;
     private ImageButton buttonPlayPause;
     private SeekBar seekBarProgress;
-    public EditText editTextSongURL;
-
+    private EditText editTextSongURL;
+    private Toolbar mToolbar;
     private MediaPlayer mediaPlayer;
     private int mediaFileLengthInMilliseconds; // this value contains the song duration in milliseconds. Look at getDuration() method in MediaPlayer class
 
@@ -50,6 +51,10 @@ public class Watch extends ActionBarActivity implements View.OnClickListener, Vi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.watches);
+
+        mToolbar = (Toolbar) findViewById(R.id.app_bar);
+        setSupportActionBar(mToolbar);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         tvImageId = ( TextView) findViewById(R.id.tvImgId);
         txtImageDes = (EditText)findViewById(R.id.txtImgDes);

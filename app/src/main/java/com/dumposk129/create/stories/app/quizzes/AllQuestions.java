@@ -39,8 +39,8 @@ public class AllQuestions extends ActionBarActivity{
         setContentView(R.layout.question_name_all_list_item);
 
         // Casting.
-        mToolbar = (Toolbar) findViewById(R.id.app_bar);
         listView = (ListView) findViewById(R.id.question_name_all_list_item);
+        mToolbar = (Toolbar) findViewById(R.id.app_bar);
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         NavigationDrawerFragment drawerFragment = (NavigationDrawerFragment)

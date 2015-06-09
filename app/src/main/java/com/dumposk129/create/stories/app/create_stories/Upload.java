@@ -1,7 +1,6 @@
 package com.dumposk129.create.stories.app.create_stories;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
@@ -13,6 +12,8 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
+import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Display;
 import android.view.View;
@@ -48,7 +49,7 @@ import java.util.Date;
 /**
  * Created by DumpOSK129
  */
-public class Upload extends Activity implements View.OnClickListener {
+public class Upload extends ActionBarActivity implements View.OnClickListener {
     ImageView chosenImageView;
     Button choosePicture, btn_upload;
 
@@ -59,6 +60,7 @@ public class Upload extends Activity implements View.OnClickListener {
 
     final String PHP_URL = "http://dump.geozigzag.com/api/picture.php";
 
+    private Toolbar mToolbar;
     private ProgressBar progressBar;
     private String FILE_UPLOAD_URL, filePath, fileName = null;
     private TextView txtPercentage, tvAudNme;
@@ -79,6 +81,10 @@ public class Upload extends Activity implements View.OnClickListener {
         txtPercentage = (TextView) findViewById(R.id.txtPercentage);
         btnUpload = (Button) findViewById(R.id.btnUpload);
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
+
+        mToolbar = (Toolbar) findViewById(R.id.app_bar);
+        setSupportActionBar(mToolbar);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         // txtSDCard
         final TextView txtSDCard = (TextView) findViewById(R.id.tvAudioName);

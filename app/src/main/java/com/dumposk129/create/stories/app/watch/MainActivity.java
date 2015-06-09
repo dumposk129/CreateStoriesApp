@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -58,6 +59,7 @@ public class MainActivity extends ActionBarActivity {
     private String imgPath;
     private ListView listView;
     private ArrayList<HashMap<String, String>> MyArrList;
+    private Button btnWatch;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,13 +109,6 @@ public class MainActivity extends ActionBarActivity {
             // OnClick
             lstView1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
-
-                    Intent intent = new Intent(inflater.getContext(), Watch.class);
-                    intent.putExtra("imgID", imgID);
-                    intent.putExtra("imgDesc", imgDesc);
-                    intent.putExtra("imgPath", imgPath);
-                    startActivity(intent);
-
                     View layout = inflater.inflate(R.layout.custom_fullimage_dialog, (ViewGroup) findViewById(R.id.layout_root));
                     ImageView image = (ImageView) layout.findViewById(R.id.fullimage);
 
@@ -203,6 +198,18 @@ public class MainActivity extends ActionBarActivity {
             txtPicName.setPadding(50, 0, 0, 0);
             imgDesc = MyArr.get(position).get("ImageDesc");
             txtPicName.setText(": " + imgDesc);
+
+            btnWatch = (Button) convertView.findViewById(R.id.btnWatch);
+            btnWatch.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+
+                    Intent intent = new Intent(inflater.getContext(), Watch.class);
+                    intent.putExtra("imgID", imgID);
+                    intent.putExtra("imgDesc", imgDesc);
+                    intent.putExtra("imgPath", imgPath);
+                    startActivity(intent);
+                }
+            });
             return convertView;
         }
     }

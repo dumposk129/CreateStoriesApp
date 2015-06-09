@@ -1,6 +1,5 @@
 package com.dumposk129.create.stories.app.create_stories;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -9,6 +8,8 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
+import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -37,13 +38,14 @@ import java.util.List;
 /**
  * Created by DumpOSK129.
  */
-public class SoundPath extends Activity {
+public class SoundPath extends ActionBarActivity {
     private ListView lstView;
     private Handler handler = new Handler();
     private Button btnPlay, btnStop;
     private List <String> ImageList;
     private MediaPlayer myPlayer;
-    private String outputFile = Environment.getExternalStorageDirectory().getAbsolutePath() + "DCIM/Camera/Audio Record/";;
+    private String outputFile = Environment.getExternalStorageDirectory().getAbsolutePath() + "DCIM/Camera/Audio Record/";
+    private Toolbar mToolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +53,9 @@ public class SoundPath extends Activity {
         setContentView(R.layout.soundpath);
         /*** Get Images from SDCard ***/
         ImageList = getSD();
+        mToolbar = (Toolbar) findViewById(R.id.app_bar);
+        setSupportActionBar(mToolbar);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         // ListView and imageAdapter
         lstView = (ListView) findViewById(R.id.listView1);
@@ -257,13 +262,12 @@ public class SoundPath extends Activity {
             }
             return null;
         }
-
         protected void onPostExecute(Void unused) {
             statusWhenFinish(position,resServer);
         }
     }
 
-    // When UPload Finish
+    // When Upload Finish
     protected void statusWhenFinish(int position, String resServer) {
 
         View v = lstView.getChildAt(position - lstView.getFirstVisiblePosition());
@@ -274,14 +278,6 @@ public class SoundPath extends Activity {
 
         // Status
         TextView status = (TextView)v.findViewById(R.id.ColStatus);
-
-        /** Get result from Server (Return the JSON Code)
-         * StatusID = ? [0=Failed,1=Complete]
-         * Error	= ?	[On case error return custom error message]
-         *
-         * Eg Upload Failed = {"StatusID":"0","Error":"Cannot Upload file!"}
-         * Eg Upload Complete = {"StatusID":"1","Error":""}
-         */
 
         /*** Default Value ***/
         String strStatusID = "0";

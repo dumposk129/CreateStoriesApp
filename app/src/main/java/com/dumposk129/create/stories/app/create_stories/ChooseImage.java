@@ -1,17 +1,18 @@
 package com.dumposk129.create.stories.app.create_stories;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Bitmap.CompressFormat;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
+import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Display;
 import android.view.View;
@@ -39,20 +40,24 @@ import java.util.Date;
 /**
  * Created by DumpOSK129.
  */
-public class ChooseImage extends Activity implements View.OnClickListener {
+public class ChooseImage extends ActionBarActivity implements View.OnClickListener {
     private ImageView chosenImageView;
     private Button choosePicture, btn_upload;
     protected String _path_pic = null;
     private Bitmap bmp = null;
     String lat = null, lon = null;
     private String up_name;
-    final String PHP_URL = "http://dump.geozigzag.com/api/picture.php";
+    final String PHP_URL = "http://dump.geozigzag.com/api/image_only.php";
+    private Toolbar mToolbar;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.choose_image);
 
+        mToolbar = (Toolbar) findViewById(R.id.app_bar);
+        setSupportActionBar(mToolbar);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
         chosenImageView = (ImageView) this.findViewById(R.id.ChosenImageView);
         choosePicture = (Button) this.findViewById(R.id.ChoosePictureButton);
 

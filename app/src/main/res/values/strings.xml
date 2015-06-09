@@ -21,8 +21,13 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
-    <string name="title_activity_reads">Watches</string>
+    <string name="title_activity_watches">Watches</string>
     <string name="title_activity_creates">Creates</string>
+    <string name="title_activity_audio_record">Audio Record</string>
+    <string name="title_activity_save_title">Save Title</string>
+    <string name="title_activity_sound_path">Sound Path</string>
+    <string name="title_activity_chooseimg_only">Choose Image Only</string>
+    <string name="title_activity_upload">Upload Files</string>
     <string name="title_activity_quizzes">Quizzes</string>
     <string name="title_activity_num_of_questions">Number of Questions</string>
     <string name="title_activity_show_questions">Show Questions</string>

@@ -1,6 +1,5 @@
 package com.dumposk129.create.stories.app.create_stories;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -8,6 +7,8 @@ import android.media.MediaPlayer;
 import android.media.MediaRecorder;
 import android.os.Bundle;
 import android.os.Environment;
+import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -20,12 +21,12 @@ import java.io.IOException;
 /**
  * Created by DumpOSK129.
  */
-public class AudioRecording extends Activity {
+public class AudioRecording extends ActionBarActivity {
     private static final String AUDIO_RECORDER_FILE_EXT_3GP = ".3gp";
     private static final String AUDIO_RECORDER_FILE_EXT_MP4 = ".mp4";
     private static final String AUDIO_RECORDER_FOLDER = "DCIM/Camera/Audio Record/";
     private Button btnStartRec, btnStopRec, btnPlay, btnStopAudio, btnFormat;
-
+    private Toolbar mToolbar;
     private MediaRecorder recorder = null;
     private MediaPlayer myPlayer;
     private int currentFormat = 0;
@@ -36,6 +37,10 @@ public class AudioRecording extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.audio);
+
+        mToolbar = (Toolbar) findViewById(R.id.app_bar);
+        setSupportActionBar(mToolbar);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         setButtonHandlers();
         setFormatButtonCaption();

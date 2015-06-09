@@ -10,7 +10,7 @@
 
     <supports-screens
         android:largeScreens="true"
-        android:normalScreens="true"
+        android:normalScreens="false"
         android:requiresSmallestWidthDp="600"
         android:resizeable="true"
         android:smallScreens="false"
@@ -37,25 +37,33 @@
             android:label="@string/title_activity_show_questions" />
 
         <!-- Create Stories -->
-        <activity android:name=".create_stories.CreateStories">
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
+        <activity
+            android:name=".create_stories.CreateStories"
+            android:label="@string/title_activity_creates">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
-        <activity android:name=".create_stories.AudioRecording" />
-        <activity android:name=".create_stories.SaveTitle" />
-        <activity android:name=".create_stories.SoundPath" />
-        <activity android:name=".create_stories.ChooseImage" />
-        <activity android:name=".create_stories.Upload" />
+        <activity
+            android:name=".create_stories.AudioRecording"
+            android:label="@string/title_activity_audio_record" />
+        <activity
+            android:name=".create_stories.SaveTitle"
+            android:label="@string/title_activity_save_title" />
+        <activity
+            android:name=".create_stories.SoundPath"
+            android:label="@string/title_activity_sound_path" />
+        <activity
+            android:name=".create_stories.ChooseImage"
+            android:label="@string/title_activity_chooseimg_only" />
+        <activity
+            android:name=".create_stories.Upload"
+            android:label="@string/title_activity_upload" />
 
         <!-- Watches -->
-        <activity android:name=".watch.Watch" />
-        <activity android:name=".watch.MainActivity">
-            <!-- <intent-filter>
-                 <action android:name="android.intent.action.MAIN" />
-                 <category android:name="android.intent.category.LAUNCHER" />
-             </intent-filter>-->
-        </activity>
+        <activity
+            android:name=".watch.Watch"
+            android:label="title_activity_watches" />
     </application>
 </manifest>
