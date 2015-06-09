@@ -6,6 +6,7 @@ import android.graphics.BitmapFactory;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -18,6 +19,7 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.dumposk129.create.stories.app.R;
+import com.dumposk129.create.stories.app.navigation_drawer.NavigationDrawerFragment;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -42,11 +44,10 @@ public class Watch extends ActionBarActivity implements View.OnClickListener, Vi
     private EditText editTextSongURL;
     private Toolbar mToolbar;
     private MediaPlayer mediaPlayer;
-    private int mediaFileLengthInMilliseconds; // this value contains the song duration in milliseconds. Look at getDuration() method in MediaPlayer class
+    private int mediaFileLengthInMilliseconds;
 
     private final Handler handler = new Handler();
 
-    /** Called when the activity is first created. */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,6 +56,9 @@ public class Watch extends ActionBarActivity implements View.OnClickListener, Vi
         mToolbar = (Toolbar) findViewById(R.id.app_bar);
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+        NavigationDrawerFragment drawerFragment = (NavigationDrawerFragment)
+                getSupportFragmentManager().findFragmentById(R.id.fragment_navigation_drawer);
+        drawerFragment.setUp(R.id.fragment_navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout), mToolbar);
 
         tvImageId = ( TextView) findViewById(R.id.tvImgId);
         txtImageDes = (EditText)findViewById(R.id.txtImgDes);
@@ -93,7 +97,7 @@ public class Watch extends ActionBarActivity implements View.OnClickListener, Vi
     }
     /** Method which updates the SeekBar primary progress by current song playing position*/
     private void primarySeekBarProgressUpdater() {
-        seekBarProgress.setProgress((int)(((float)mediaPlayer.getCurrentPosition()/mediaFileLengthInMilliseconds)*100)); // This math construction give a percentage of "was playing"/"song length"
+        seekBarProgress.setProgress((int)(((float)mediaPlayer.getCurrentPosition()/mediaFileLengthInMilliseconds)*100));
         if (mediaPlayer.isPlaying()) {
             Runnable notification = new Runnable() {
                 public void run() {
@@ -150,7 +154,6 @@ public class Watch extends ActionBarActivity implements View.OnClickListener, Vi
         seekBarProgress.setSecondaryProgress(percent);
     }
 
-
     /***** Get Image Resource from URL (Start) *****/
     private static final String TAG = "ERROR";
     private static final int IO_BUFFER_SIZE = 4 * 1024;
@@ -158,7 +161,6 @@ public class Watch extends ActionBarActivity implements View.OnClickListener, Vi
         Bitmap bitmap = null;
         InputStream in = null;
         BufferedOutputStream out = null;
-
         try {
             in = new BufferedInputStream(new URL(url).openStream(), IO_BUFFER_SIZE);
 

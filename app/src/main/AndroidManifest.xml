@@ -28,7 +28,7 @@
             android:label="@string/title_activity_quizzes" />
         <activity
             android:name=".quizzes.NumberOfQuestion"
-            android:label="@string/title_activity_num_of_questions" />
+            android:label="@string/title_activity_num_of_questions"/>
         <activity
             android:name=".quizzes.Answers"
             android:label="@string/title_activity_answer" />
@@ -39,7 +39,7 @@
         <!-- Create Stories -->
         <activity
             android:name=".create_stories.CreateStories"
-            android:label="@string/title_activity_creates"/>
+            android:label="@string/title_activity_creates" />
         <activity
             android:name=".create_stories.AudioRecording"
             android:label="@string/title_activity_audio_record" />

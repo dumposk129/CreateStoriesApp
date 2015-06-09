@@ -54,11 +54,6 @@ import java.util.HashMap;
  */
 public class MainActivity extends ActionBarActivity {
     private Toolbar mToolbar;
-    private String imgID;
-    private String imgDesc;
-    private String imgPath;
-    private ListView listView;
-    private ArrayList<HashMap<String, String>> MyArrList;
     private Button btnWatch;
 
     @Override
@@ -124,7 +119,6 @@ public class MainActivity extends ActionBarActivity {
                     imageDialog.setView(layout);
 
                     imageDialog.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-
                         public void onClick(DialogInterface dialog, int which) {
                             dialog.dismiss();
                         }
@@ -134,8 +128,6 @@ public class MainActivity extends ActionBarActivity {
                     imageDialog.show();
                 }
             });
-
-
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -197,12 +189,11 @@ public class MainActivity extends ActionBarActivity {
             TextView txtPicName = (TextView) convertView.findViewById(R.id.tvShowDes);
             txtPicName.setPadding(50, 0, 0, 0);
             imgDesc = MyArr.get(position).get("ImageDesc");
-            txtPicName.setText(": " + imgDesc);
+            txtPicName.setText("Description: " + imgDesc);
 
             btnWatch = (Button) convertView.findViewById(R.id.btnWatch);
             btnWatch.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
-
                     Intent intent = new Intent(inflater.getContext(), Watch.class);
                     intent.putExtra("imgID", imgID);
                     intent.putExtra("imgDesc", imgDesc);
@@ -250,7 +241,6 @@ public class MainActivity extends ActionBarActivity {
         Bitmap bitmap = null;
         InputStream in = null;
         BufferedOutputStream out = null;
-
         try {
             in = new BufferedInputStream(new URL(url).openStream(), IO_BUFFER_SIZE);
 
