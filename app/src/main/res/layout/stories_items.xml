@@ -36,6 +36,19 @@
                     android:padding="10dp"
                     android:text="Name" />
 
+                <TextView
+                    android:id="@+id/tvShowDesc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:text="" />
+                <Button
+                    android:id="@+id/btnWatch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="Watch" />
+
             </TableRow>
 
             <TableRow
@@ -43,24 +56,12 @@
                 android:layout_height="wrap_content">
 
                 <TextView
-                    android:id="@+id/tvShowDes"
+                    android:id="@+id/tvShowAudioPath"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="10dp"
-                    android:text="Description" />
-
-            </TableRow>
-
-            <TableRow
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-
-                <Button
-                    android:id="@+id/btnWatch"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:text="Watch" />
+                    android:text="audio path"
+                    android:visibility="gone"/>
 
             </TableRow>
         </TableLayout>

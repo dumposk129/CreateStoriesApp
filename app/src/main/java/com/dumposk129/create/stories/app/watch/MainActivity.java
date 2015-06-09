@@ -90,8 +90,9 @@ public class MainActivity extends ActionBarActivity {
             for (int i = 0; i < data.length(); i++) {
                 JSONObject c = data.getJSONObject(i);
                 map = new HashMap<String, String>();
-                map.put("ImageID", c.getString("title_name"));
-                map.put("ImageDesc", c.getString("audio_name"));
+                map.put("Name", c.getString("title_name"));
+                map.put("Des", c.getString("description"));
+                map.put("AudioPath", c.getString("audio_name"));
                 map.put("ImagePath", c.getString("image_name"));//image
                 MyArrList.add(map);
             }
@@ -115,7 +116,7 @@ public class MainActivity extends ActionBarActivity {
                     }
 
                     imageDialog.setIcon(android.R.drawable.btn_star_big_on);
-                    imageDialog.setTitle("View : " + MyArrList.get(position).get("ImageDesc"));
+                    imageDialog.setTitle("View : " + MyArrList.get(position).get("ImagePath"));
                     imageDialog.setView(layout);
 
                     imageDialog.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
@@ -158,8 +159,9 @@ public class MainActivity extends ActionBarActivity {
         public View getView(int position, View convertView, ViewGroup parent) {
 
             final LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            final String imgID;
-            final String imgDesc;
+            final String imgName;
+            final String imgDescrpt;
+            final String imgAudioPath;
             final String imgPath;
 
             if (convertView == null) {
@@ -182,22 +184,23 @@ public class MainActivity extends ActionBarActivity {
             // ColPosition
             TextView txtPosition = (TextView) convertView.findViewById(R.id.tvShowName);
             txtPosition.setPadding(10, 0, 0, 0);
-            imgID = MyArr.get(position).get("ImageID");
-            txtPosition.setText("Story: " + imgID);
+            imgName = MyArr.get(position).get("Name");
+            imgDescrpt = MyArr.get(position).get("Des");
+            txtPosition.setText("Story: " + imgName + " " + imgDescrpt);
 
             // ColPicName
-            TextView txtPicName = (TextView) convertView.findViewById(R.id.tvShowDes);
+            TextView txtPicName = (TextView) convertView.findViewById(R.id.tvShowAudioPath);
             txtPicName.setPadding(50, 0, 0, 0);
-            imgDesc = MyArr.get(position).get("ImageDesc");
-            txtPicName.setText("Description: " + imgDesc);
+            imgAudioPath = MyArr.get(position).get("AudioPath");
+            txtPicName.setText(": " + imgAudioPath);
 
             btnWatch = (Button) convertView.findViewById(R.id.btnWatch);
             btnWatch.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
                     Intent intent = new Intent(inflater.getContext(), Watch.class);
-                    intent.putExtra("imgID", imgID);
-                    intent.putExtra("imgDesc", imgDesc);
-                    intent.putExtra("imgPath", imgPath);
+                    intent.putExtra("Name", imgName);
+                    intent.putExtra("AudioPath", imgAudioPath);
+                    intent.putExtra("ImagePath", imgPath);
                     startActivity(intent);
                 }
             });

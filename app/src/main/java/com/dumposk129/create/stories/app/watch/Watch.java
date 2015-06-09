@@ -70,9 +70,9 @@ public class Watch extends ActionBarActivity implements View.OnClickListener, Vi
         imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
         Intent intent = getIntent();
 
-        String fName = intent.getStringExtra("imgID");
-        String imgDesc = intent.getStringExtra("imgDesc");
-        String imgPath = intent.getStringExtra("imgPath");
+        String fName = intent.getStringExtra("Name");
+        String imgDesc = intent.getStringExtra("AudioPath");
+        String imgPath = intent.getStringExtra("ImagePath");
         tvImageId.setText(fName);
         txtImageDes.setText(imgDesc);
         tvImgPath.setText(imgPath);
@@ -127,7 +127,6 @@ public class Watch extends ActionBarActivity implements View.OnClickListener, Vi
                 mediaPlayer.pause();
                 buttonPlayPause.setImageResource(R.drawable.button_play);
             }
-
             primarySeekBarProgressUpdater();
         }
     }
