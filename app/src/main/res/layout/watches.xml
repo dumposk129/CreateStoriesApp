@@ -28,8 +28,8 @@
 
                 <ImageView
                     android:id="@+id/showImg"
-                    android:layout_width="600dp"
-                    android:layout_height="700dp"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
                     android:layout_gravity="center_horizontal"
                     android:src="@drawable/abc_btn_radio_material" />
 
@@ -39,9 +39,9 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="20dp"
-                    android:text="1"
+                    android:text="Title Name"
                     android:textSize="20sp"
-                    android:visibility="gone"/>
+                    android:visible="gone" />
 
                 <TextView
                     android:id="@+id/tvAudPath"
@@ -51,7 +51,7 @@
                     android:layout_marginTop="20dp"
                     android:text="AudioPath"
                     android:textSize="20sp"
-                    android:visibility="gone"/>
+                    android:visible="gone"/>
 
                 <TextView
                     android:id="@+id/tvImgPath"
@@ -59,19 +59,9 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="20dp"
-                    android:text="AudioPath"
+                    android:text="ImagePath"
                     android:textSize="20sp"
-                    android:visibility="gone"/>
-
-                <EditText
-                    android:id="@+id/txtSound"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="20dp"
-                    android:text="textSound"
-                    android:textSize="20sp"
-                    android:visibility="gone" />
+                    android:visible="gone"/>
 
                 <ImageButton
                     android:id="@+id/ButtonTestPlayPause"

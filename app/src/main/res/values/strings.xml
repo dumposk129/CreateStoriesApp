@@ -31,7 +31,7 @@
     <string name="title_activity_quizzes">Quizzes</string>
     <string name="title_activity_num_of_questions">Number of Questions</string>
     <string name="title_activity_show_questions">Show Questions</string>
-    <string name="title_activity_question_next">Questions</string>
+    <string name="title_activity_question">Questions</string>
     <string name="title_activity_answer">Answers</string>
 
     <string name="choose_item">Choose Item</string>

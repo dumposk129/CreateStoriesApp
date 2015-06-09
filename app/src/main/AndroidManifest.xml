@@ -30,6 +30,9 @@
             android:name=".quizzes.NumberOfQuestion"
             android:label="@string/title_activity_num_of_questions"/>
         <activity
+            android:name=".quizzes.Questions"
+            android:label="@string/title_activity_question"/>
+        <activity
             android:name=".quizzes.Answers"
             android:label="@string/title_activity_answer" />
         <activity

@@ -40,7 +40,6 @@ public class Watch extends ActionBarActivity implements View.OnClickListener, Vi
     private ImageView imageView;
     private ImageButton buttonPlayPause;
     private SeekBar seekBarProgress;
-    private EditText editTextSongURL;
     private Toolbar mToolbar;
     private MediaPlayer mediaPlayer;
     private int mediaFileLengthInMilliseconds;
@@ -88,7 +87,6 @@ public class Watch extends ActionBarActivity implements View.OnClickListener, Vi
         seekBarProgress = (SeekBar)findViewById(R.id.SeekBarTestPlay);
         seekBarProgress.setMax(99); // It means 100% .0-99
         seekBarProgress.setOnTouchListener(this);
-        editTextSongURL = (EditText)findViewById(R.id.txtSound);
 
         mediaPlayer = new MediaPlayer();
         mediaPlayer.setOnBufferingUpdateListener(this);
@@ -112,7 +110,7 @@ public class Watch extends ActionBarActivity implements View.OnClickListener, Vi
         if(v.getId() == R.id.ButtonTestPlayPause){
             /** ImageButton onClick event handler. Method which start/pause media player playing */
             try {
-                mediaPlayer.setDataSource(editTextSongURL.getText().toString());
+                mediaPlayer.setDataSource(tvAudPath.getText().toString());
                 mediaPlayer.prepare();
             } catch (Exception e) {
                 e.printStackTrace();
