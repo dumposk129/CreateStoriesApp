@@ -16,7 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.dumposk129.create.stories.app.R;
-import com.dumposk129.create.stories.app.watch.MainActivity;
+import com.dumposk129.create.stories.app.quizzes.Quizzes;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
@@ -86,7 +86,7 @@ public class SaveTitle extends ActionBarActivity {
                         }
                     });
                 }
-                Intent i = new Intent(getApplicationContext(), MainActivity.class);
+                Intent i = new Intent(getApplicationContext(), Quizzes.class);
                 startActivity(i);
             }
         });

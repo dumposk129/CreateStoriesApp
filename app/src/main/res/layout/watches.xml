@@ -21,8 +21,8 @@
             android:layout_height="match_parent">
 
             <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
                 android:layout_gravity="center_horizontal"
                 android:orientation="vertical">
 
@@ -43,13 +43,13 @@
                     android:textSize="20sp"
                     android:visibility="gone"/>
 
-                <EditText
-                    android:id="@+id/txtImgDes"
+                <TextView
+                    android:id="@+id/tvAudPath"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="20dp"
-                    android:text="2"
+                    android:text="AudioPath"
                     android:textSize="20sp"
                     android:visibility="gone"/>
 
@@ -59,7 +59,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="20dp"
-                    android:text="3"
+                    android:text="AudioPath"
                     android:textSize="20sp"
                     android:visibility="gone"/>
 

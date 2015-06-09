@@ -116,7 +116,7 @@ public class MainActivity extends ActionBarActivity {
                     }
 
                     imageDialog.setIcon(android.R.drawable.btn_star_big_on);
-                    imageDialog.setTitle("View : " + MyArrList.get(position).get("ImagePath"));
+                    imageDialog.setTitle("View : " + MyArrList.get(position).get("AudioPath"));
                     imageDialog.setView(layout);
 
                     imageDialog.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {

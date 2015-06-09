@@ -36,9 +36,8 @@ import java.net.URL;
 public class Watch extends ActionBarActivity implements View.OnClickListener, View.OnTouchListener,
         MediaPlayer.OnCompletionListener, MediaPlayer.OnBufferingUpdateListener {
 
-    private TextView tvImageId, tvImgPath;
+    private TextView tvImageId, tvAudPath, tvImgPath;
     private ImageView imageView;
-    private EditText txtImageDes;
     private ImageButton buttonPlayPause;
     private SeekBar seekBarProgress;
     private EditText editTextSongURL;
@@ -60,8 +59,8 @@ public class Watch extends ActionBarActivity implements View.OnClickListener, Vi
                 getSupportFragmentManager().findFragmentById(R.id.fragment_navigation_drawer);
         drawerFragment.setUp(R.id.fragment_navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout), mToolbar);
 
-        tvImageId = ( TextView) findViewById(R.id.tvImgId);
-        txtImageDes = (EditText)findViewById(R.id.txtImgDes);
+        tvImageId = (TextView) findViewById(R.id.tvImgId);
+        tvAudPath = (TextView)findViewById(R.id.tvAudPath);
         tvImgPath = (TextView) findViewById(R.id.tvImgPath);
 
         imageView = (ImageView)findViewById(R.id.showImg);
@@ -74,7 +73,7 @@ public class Watch extends ActionBarActivity implements View.OnClickListener, Vi
         String imgDesc = intent.getStringExtra("AudioPath");
         String imgPath = intent.getStringExtra("ImagePath");
         tvImageId.setText(fName);
-        txtImageDes.setText(imgDesc);
+        tvAudPath.setText(imgDesc);
         tvImgPath.setText(imgPath);
         imageView.setImageBitmap(loadBitmap(imgPath));
 
@@ -95,6 +94,7 @@ public class Watch extends ActionBarActivity implements View.OnClickListener, Vi
         mediaPlayer.setOnBufferingUpdateListener(this);
         mediaPlayer.setOnCompletionListener(this);
     }
+
     /** Method which updates the SeekBar primary progress by current song playing position*/
     private void primarySeekBarProgressUpdater() {
         seekBarProgress.setProgress((int)(((float)mediaPlayer.getCurrentPosition()/mediaFileLengthInMilliseconds)*100));
