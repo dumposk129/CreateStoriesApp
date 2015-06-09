@@ -183,14 +183,14 @@ public class MainActivity extends ActionBarActivity {
 
             // ColPosition
             TextView txtPosition = (TextView) convertView.findViewById(R.id.tvShowName);
-            txtPosition.setPadding(10, 0, 0, 0);
+            //txtPosition.setPadding(10, 0, 0, 0);
             imgName = MyArr.get(position).get("Name");
             imgDescrpt = MyArr.get(position).get("Des");
             txtPosition.setText("Story: " + imgName + " " + imgDescrpt);
 
             // ColPicName
             TextView txtPicName = (TextView) convertView.findViewById(R.id.tvShowAudioPath);
-            txtPicName.setPadding(50, 0, 0, 0);
+            //txtPicName.setPadding(50, 0, 0, 0);
             imgAudioPath = MyArr.get(position).get("AudioPath");
             txtPicName.setText(": " + imgAudioPath);
 

@@ -28,8 +28,8 @@
 
                 <ImageView
                     android:id="@+id/showImg"
-                    android:layout_width="150dp"
-                    android:layout_height="150dp"
+                    android:layout_width="500dp"
+                    android:layout_height="500dp"
                     android:layout_gravity="center_horizontal"
                     android:src="@drawable/abc_btn_radio_material" />
 

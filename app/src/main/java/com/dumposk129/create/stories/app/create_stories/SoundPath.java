@@ -103,7 +103,7 @@ public class SoundPath extends ActionBarActivity {
             }
 
             // ColImgName
-            TextView txtName = (TextView) convertView.findViewById(R.id.ColImgName);
+            TextView txtName = (TextView) convertView.findViewById(R.id.audioPath);
             String strPath = ImageList.get(position).toString();
 
             // Get File Name
