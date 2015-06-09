@@ -64,6 +64,9 @@
         <!-- Watches -->
         <activity
             android:name=".watch.Watch"
-            android:label="title_activity_watches" />
+            android:label="@string/title_activity_watches" />
+        <activity
+            android:name=".watch.MainActivity"
+            android:label="@string/title_activity_show_stories"/>
     </application>
 </manifest>
