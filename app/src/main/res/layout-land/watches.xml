@@ -41,7 +41,7 @@
                     android:layout_marginTop="20dp"
                     android:text="Title Name"
                     android:textSize="20sp"
-                    android:visible="gone" />
+                    android:visibility="gone" />
 
                 <TextView
                     android:id="@+id/tvAudPath"
@@ -51,7 +51,7 @@
                     android:layout_marginTop="20dp"
                     android:text="AudioPath"
                     android:textSize="20sp"
-                    android:visible="gone"/>
+                    android:visibility="gone"/>
 
                 <TextView
                     android:id="@+id/tvImgPath"
@@ -61,7 +61,7 @@
                     android:layout_marginTop="20dp"
                     android:text="ImagePath"
                     android:textSize="20sp"
-                    android:visible="gone"/>
+                    android:visibility="gone"/>
 
                 <ImageButton
                     android:id="@+id/ButtonTestPlayPause"
