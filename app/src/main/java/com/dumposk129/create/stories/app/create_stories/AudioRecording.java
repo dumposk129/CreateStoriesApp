@@ -62,9 +62,6 @@ public class AudioRecording extends ActionBarActivity {
         enableButton(R.id.btnStartRecord, !isRecording);
         enableButton(R.id.btnFormat, !isRecording);
         enableButton(R.id.btnStopRecord, isRecording);
-        enableButton(R.id.btnPlayRecord, !isRecording);
-        enableButton(R.id.btnFinish, !isRecording);
-        enableButton(R.id.btnOK, !isRecording);
     }
 
     private void setFormatButtonCaption() {
