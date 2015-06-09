@@ -186,7 +186,7 @@ public class Upload extends ActionBarActivity implements View.OnClickListener {
         }
     }
 
-    /* ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½alertï¿½ï¿½Ü°Tï¿½ï¿½ */
+    /* Show Alert */
     private void showAlert(String message) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage(message).setTitle("Response from Servers").setCancelable(false).setPositiveButton("OK", new DialogInterface.OnClickListener() {
