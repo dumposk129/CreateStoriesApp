@@ -39,12 +39,7 @@
         <!-- Create Stories -->
         <activity
             android:name=".create_stories.CreateStories"
-            android:label="@string/title_activity_creates">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:label="@string/title_activity_creates"/>
         <activity
             android:name=".create_stories.AudioRecording"
             android:label="@string/title_activity_audio_record" />
@@ -67,6 +62,11 @@
             android:label="@string/title_activity_watches" />
         <activity
             android:name=".watch.MainActivity"
-            android:label="@string/title_activity_show_stories"/>
+            android:label="@string/app_name">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 </manifest>

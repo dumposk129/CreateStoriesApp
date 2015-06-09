@@ -8,7 +8,6 @@
         <item>Watches</item>
         <item>Creates</item>
         <item>Quiz</item>
-        <item>Settings</item>
     </array>
 
     <string name="choose_format_title">Choose Audio Format</string>
@@ -50,8 +49,6 @@
         <item>Sound</item>
         <item>Cancel</item>
     </array>
-
-
 
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_number_of_item">NumberOfItem</string>
