@@ -10,6 +10,12 @@
         android:id="@+id/app_bar"
         layout="@layout/app_bar" />
 
+    <TextView
+        android:id="@+id/tvResult"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Complete" />
+
     <EditText
         android:id="@+id/txtName"
         android:layout_width="wrap_content"
@@ -17,19 +23,18 @@
         android:layout_gravity="center"
         android:ems="10"
         android:hint="Name"
-        android:layout_margin="25dp"/>
+        android:layout_marginTop="30dp"/>
 
     <EditText
-        android:id="@+id/des"
+        android:id="@+id/txtDes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:ems="10"
-        android:hint="Detail"
-        android:layout_margin="25dp"/>
+        android:hint="Description" />
 
     <Button
-        android:id="@+id/btnsubmit"
+        android:id="@+id/btnSubmit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"

@@ -25,13 +25,13 @@ public class AudioRecording extends ActionBarActivity {
     private static final String AUDIO_RECORDER_FILE_EXT_3GP = ".3gp";
     private static final String AUDIO_RECORDER_FILE_EXT_MP4 = ".mp4";
     private static final String AUDIO_RECORDER_FOLDER = "DCIM/Camera/Audio Record/";
-    private Button btnStartRec, btnStopRec, btnPlay, btnStopAudio, btnFormat;
     private Toolbar mToolbar;
     private MediaRecorder recorder = null;
     private MediaPlayer myPlayer;
     private int currentFormat = 0;
     private int output_formats[] = { MediaRecorder.OutputFormat.MPEG_4, MediaRecorder.OutputFormat.THREE_GPP };
     private String file_exts[] = { AUDIO_RECORDER_FILE_EXT_MP4, AUDIO_RECORDER_FILE_EXT_3GP };
+    File audioFile;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -43,8 +43,10 @@ public class AudioRecording extends ActionBarActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         setButtonHandlers();
+        enableButtons(false);
         setFormatButtonCaption();
     }
+
 
     private void setButtonHandlers(){
         ((Button) findViewById(R.id.btnStartRecord)).setOnClickListener(btnClick);
@@ -54,6 +56,15 @@ public class AudioRecording extends ActionBarActivity {
 
     private void enableButton(int id, boolean isEnable) {
         ((Button) findViewById(id)).setEnabled(isEnable);
+    }
+
+    private void enableButtons(boolean isRecording) {
+        enableButton(R.id.btnStartRecord, !isRecording);
+        enableButton(R.id.btnFormat, !isRecording);
+        enableButton(R.id.btnStopRecord, isRecording);
+        enableButton(R.id.btnPlayRecord, !isRecording);
+        enableButton(R.id.btnFinish, !isRecording);
+        enableButton(R.id.btnOK, !isRecording);
     }
 
     private void setFormatButtonCaption() {
@@ -95,9 +106,11 @@ public class AudioRecording extends ActionBarActivity {
             recorder.stop();
             recorder.reset();
             recorder.release();
+
             recorder = null;
         }
     }
+
 
     private void displayFormatDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -126,18 +139,20 @@ public class AudioRecording extends ActionBarActivity {
         }
     };
 
+
     private View.OnClickListener btnClick = new View.OnClickListener() {
         public void onClick(View v) {
             switch (v.getId()) {
                 case R.id.btnStartRecord:
                     Toast.makeText(AudioRecording.this, "Start Recording", Toast.LENGTH_SHORT).show();
-                    //enableButtons(true);
+                    enableButtons(true);
                     startRecording();
                     break;
 
                 case R.id.btnStopRecord:
                     Toast.makeText(AudioRecording.this, "Stop Recording", Toast.LENGTH_SHORT).show();
                     stopRecording();
+                    enableButtons(false);
                     Intent i = new Intent(AudioRecording.this, SoundPath.class);
                     startActivity(i);
                     break;

@@ -1,5 +1,8 @@
 package com.dumposk129.create.stories.app.quizzes;
 
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -178,6 +181,20 @@ public class Answers extends ActionBarActivity {
     // ShowQuestionTask
     private class ShowQuestionTask extends AsyncTask<String, Void, JSONArray> {
         // Load All Questions.
+        private ProgressDialog progressDialog = new ProgressDialog(Answers.this);
+        String err = null;
+
+        @Override
+        protected void onPreExecute() {
+            progressDialog.setMessage("Loading...");
+            progressDialog.show();
+            progressDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+                public void onCancel(DialogInterface arg0) {
+                    ShowQuestionTask.this.cancel(true);
+                }
+            });
+        }
+
         @Override
         protected JSONArray doInBackground(String... params) {
             return Quiz.getShowQuestion(quizId);
@@ -191,6 +208,16 @@ public class Answers extends ActionBarActivity {
         // Show Questions.
         @Override
         protected void onPostExecute(JSONArray result) {
+            if (progressDialog.isShowing()) progressDialog.dismiss();
+            AlertDialog.Builder alertBox = new AlertDialog.Builder(Answers.this);
+            alertBox.setTitle("Information");
+            alertBox.setNeutralButton("Ok", null);
+            if (err != null) {
+                alertBox.setMessage("Error!!!");
+            } else {
+                alertBox.setMessage("Done!");
+            }
+            alertBox.show();
             Globals.questions = Quiz.getQuestions(result);
             noOfQuestion = Globals.questions.size() - 1; // if not set size of question - 1, it will over index[start at 0] but question start at 1.
             setUIText();
