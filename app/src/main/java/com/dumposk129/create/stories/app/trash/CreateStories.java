@@ -1,4 +1,4 @@
-package com.dumposk129.create.stories.app.create_stories;
+package com.dumposk129.create.stories.app.trash;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;

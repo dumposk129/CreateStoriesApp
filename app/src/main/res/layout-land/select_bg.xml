@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <!-- App Bar -->
+    <include
+        android:id="@+id/app_bar"
+        layout="@layout/app_bar" />
+
+    <FrameLayout
+        android:layout_width="fill_parent"
+        android:layout_height="400dp">
+
+        <ImageView
+            android:id="@+id/showImg"
+            android:layout_width="fill_parent"
+            android:layout_height="400dp"
+            android:layout_gravity="center_horizontal" />
+    </FrameLayout>
+
+    <TableLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal|bottom">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <Button
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Photo"
+                android:id="@+id/btnImage" />
+
+            <Button
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Gallery"
+                android:id="@+id/btnGallery" />
+
+            <Button
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Next"
+                android:id="@+id/btnNext" />
+        </TableRow>
+    </TableLayout>
+
+</LinearLayout>

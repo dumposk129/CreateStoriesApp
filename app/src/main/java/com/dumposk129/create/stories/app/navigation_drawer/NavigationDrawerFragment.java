@@ -15,9 +15,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.dumposk129.create.stories.app.R;
-import com.dumposk129.create.stories.app.create_stories.CreateStories;
+import com.dumposk129.create.stories.app.trash.CreateStories;
 import com.dumposk129.create.stories.app.quizzes.Quizzes;
-import com.dumposk129.create.stories.app.watch.MainActivity;
+import com.dumposk129.create.stories.app.MainActivity;
 
 import java.util.ArrayList;
 import java.util.List;

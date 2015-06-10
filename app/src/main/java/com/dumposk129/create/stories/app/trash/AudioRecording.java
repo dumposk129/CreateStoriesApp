@@ -1,4 +1,4 @@
-package com.dumposk129.create.stories.app.create_stories;
+package com.dumposk129.create.stories.app.trash;
 
 import android.content.Intent;
 import android.media.MediaPlayer;

@@ -1,6 +1,5 @@
-package com.dumposk129.create.stories.app.create_stories;
+package com.dumposk129.create.stories.app.trash;
 
-import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
@@ -19,79 +18,46 @@ import android.view.Display;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
-import android.widget.TextView;
 
 import com.dumposk129.create.stories.app.R;
 
-import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
-import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.mime.HttpMultipartMode;
 import org.apache.http.entity.mime.MultipartEntity;
 import org.apache.http.entity.mime.content.ByteArrayBody;
-import org.apache.http.entity.mime.content.FileBody;
 import org.apache.http.entity.mime.content.StringBody;
 import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.util.EntityUtils;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
- * Created by DumpOSK129
+ * Created by DumpOSK129.
  */
-public class Upload extends ActionBarActivity implements View.OnClickListener {
-    ImageView chosenImageView;
-    Button choosePicture, btn_upload;
-
+public class ChooseImage extends ActionBarActivity implements View.OnClickListener {
+    private ImageView chosenImageView;
+    private Button choosePicture, btn_upload;
     protected String _path_pic = null;
-    Bitmap bmp = null;
-    String up_name;
+    private Bitmap bmp = null;
     String lat = null, lon = null;
-
-    final String PHP_URL = "http://dump.geozigzag.com/api/picture.php";
-
+    private String up_name;
+    final String PHP_URL = "http://dump.geozigzag.com/api/image_only.php";
     private Toolbar mToolbar;
-    private ProgressBar progressBar;
-    private String FILE_UPLOAD_URL, filePath, fileName = null;
-    private TextView txtPercentage, tvAudNme;
-    private Button btnUpload;
-    long totalSize = 0;
-    String folder = "Audio Record"; // Folder
 
-    @SuppressLint("SdCardPath")
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.upload);
-
-        tvAudNme = (TextView) findViewById(R.id.tvAudioName);
-        Intent intent = getIntent();
-        String fName = intent.getStringExtra("fname");
-        tvAudNme.setText(fName);
-        txtPercentage = (TextView) findViewById(R.id.txtPercentage);
-        btnUpload = (Button) findViewById(R.id.btnUpload);
-        progressBar = (ProgressBar) findViewById(R.id.progressBar);
+        setContentView(R.layout.choose_image);
 
         mToolbar = (Toolbar) findViewById(R.id.app_bar);
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-
-        // txtSDCard
-        final TextView txtSDCard = (TextView) findViewById(R.id.tvAudioName);
-
-        /* Server */
-        FILE_UPLOAD_URL = "http://dump.geozigzag.com/api/sound.php";
-
         chosenImageView = (ImageView) this.findViewById(R.id.ChosenImageView);
         choosePicture = (Button) this.findViewById(R.id.ChoosePictureButton);
 
@@ -99,103 +65,6 @@ public class Upload extends ActionBarActivity implements View.OnClickListener {
 
         btn_upload = (Button) findViewById(R.id.btnUpload);
         btn_upload.setOnClickListener(this);
-        btnUpload.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                fileName = txtSDCard.getText().toString();
-                filePath = "/mnt/sdcard/DCIM/Camera/" + folder + "/" + fileName; // Audio Path
-                new UploadFileToServer().execute();
-
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
-                String picTime = sdf.format(new Date());
-                _path_pic = Environment.getExternalStorageDirectory() + "/myfile/" + picTime + ".jpg"; // Image Path
-                up_name = picTime + ".jpg";
-                new ImageUploadTask().execute(bmp);
-
-                Intent i = new Intent(getApplicationContext(), SaveTitle.class);
-                startActivity(i);
-            }
-        });
-    }
-
-    /* Upload To Server */
-    private class UploadFileToServer extends AsyncTask<Void, Integer, String> {
-        @Override
-        protected void onPreExecute() {
-            progressBar.setProgress(0);
-            super.onPreExecute();
-        }
-
-        @Override
-        protected void onProgressUpdate(Integer... progress) {
-            progressBar.setVisibility(View.VISIBLE);
-            progressBar.setProgress(progress[0]);
-            txtPercentage.setText(String.valueOf(progress[0]) + "%");
-        }
-
-        /* Upload in background */
-        @Override
-        protected String doInBackground(Void... params) {
-            return uploadFile();
-        }
-
-        @SuppressWarnings("deprecation")
-        private String uploadFile() {
-            String responseString = null;
-
-            HttpClient httpclient = new DefaultHttpClient();
-            HttpPost httppost = new HttpPost(FILE_UPLOAD_URL);
-            try {
-                AndroidMultiPartEntity entity = new AndroidMultiPartEntity(new AndroidMultiPartEntity.ProgressListener() {
-                    public void transferred(long num) {
-                        publishProgress((int) ((num / (float) totalSize) * 100));
-                    }
-                });
-
-                File sourceFile = new File(filePath);
-
-                // Adding file data to http body
-                entity.addPart("image", new FileBody(sourceFile));
-                totalSize = entity.getContentLength();
-                httppost.setEntity(entity);
-
-                // Making server call
-                HttpResponse response = httpclient.execute(httppost);
-                HttpEntity r_entity = response.getEntity();
-
-                int statusCode = response.getStatusLine().getStatusCode();
-                if (statusCode == 200) {
-                    // Server response
-                    responseString = EntityUtils.toString(r_entity);
-                } else {
-                    responseString = "Error occurred! Http Status Code: " + statusCode;
-                }
-            } catch (ClientProtocolException e) {
-                responseString = e.toString();
-            } catch (IOException e) {
-                responseString = e.toString();
-            }
-            return responseString;
-        }
-
-        /* Upload Finished */
-        @Override
-        protected void onPostExecute(String result) {
-            Log.e("END", "Response from server: " + result);
-            showAlert(result);
-            super.onPostExecute(result);
-        }
-    }
-
-    /* Show Alert */
-    private void showAlert(String message) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage(message).setTitle("Response from Servers").setCancelable(false).setPositiveButton("OK", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-                // Do nothing
-            }
-        });
-        AlertDialog alert = builder.create();
-        alert.show();
     }
 
     public void onClick(View v) {
@@ -221,11 +90,9 @@ public class Upload extends ActionBarActivity implements View.OnClickListener {
 
         if (resultCode == RESULT_OK) {
             Uri imageFileUri = intent.getData();
-
             Display currentDisplay = getWindowManager().getDefaultDisplay();
             int dw = currentDisplay.getWidth();
             int dh = currentDisplay.getHeight() / 2 - 100;
-
             try {
                 // Load up the image's dimensions not the image itself
                 BitmapFactory.Options bmpFactoryOptions = new BitmapFactory.Options();
@@ -245,7 +112,6 @@ public class Upload extends ActionBarActivity implements View.OnClickListener {
 
                 bmpFactoryOptions.inJustDecodeBounds = false;
                 bmp = BitmapFactory.decodeStream(getContentResolver().openInputStream(imageFileUri), null, bmpFactoryOptions);
-
                 chosenImageView.setImageBitmap(bmp);
             } catch (FileNotFoundException e) {
                 Log.v("ERROR", e.toString());
@@ -255,7 +121,7 @@ public class Upload extends ActionBarActivity implements View.OnClickListener {
 
     //  AsyncTask  Upload Image
     class ImageUploadTask extends AsyncTask<Bitmap, Integer, String> {
-        private ProgressDialog progressDialog = new ProgressDialog(Upload.this);
+        private ProgressDialog progressDialog = new ProgressDialog(ChooseImage.this);
         String err = null;
 
         @Override
@@ -291,13 +157,11 @@ public class Upload extends ActionBarActivity implements View.OnClickListener {
                 BufferedReader reader = new BufferedReader(new InputStreamReader(response.getEntity().getContent(), "UTF-8"));
                 String sResponse;
                 StringBuilder s = new StringBuilder();
-
                 while ((sResponse = reader.readLine()) != null) {
                     s = s.append(sResponse);
                 }
                 return s.toString().trim();
             } catch (Exception e) {
-
                 err = "error" + e.getMessage();
                 Log.e(e.getClass().getName(), e.getMessage());
 
@@ -308,7 +172,7 @@ public class Upload extends ActionBarActivity implements View.OnClickListener {
         @Override
         protected void onPostExecute(String res) {
             if (progressDialog.isShowing()) progressDialog.dismiss();
-            AlertDialog.Builder alertBox = new AlertDialog.Builder(Upload.this);
+            AlertDialog.Builder alertBox = new AlertDialog.Builder(ChooseImage.this);
             alertBox.setTitle("Information");
             alertBox.setNeutralButton("Ok", null);
             if (err != null) {
@@ -317,6 +181,8 @@ public class Upload extends ActionBarActivity implements View.OnClickListener {
                 alertBox.setMessage(res);
             }
             alertBox.show();
+            Intent i = new Intent(getApplicationContext(), SaveTitle.class);
+            startActivity(i);
         }
     }
 }

@@ -1,4 +1,4 @@
-package com.dumposk129.create.stories.app.watch;
+package com.dumposk129.create.stories.app.trash;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
