@@ -45,14 +45,14 @@ public class AudioRecording extends ActionBarActivity implements MediaPlayer.OnC
         btnStopRecording = (Button) findViewById(R.id.btnStopRecord);
         btnPlayRecording = (Button) findViewById(R.id.btnPlay);
         btnFinishButton = (Button) findViewById(R.id.btnFinish);
-        btnFormat = (Button) findViewById(R.id.btnFormat);
+        //btnFormat = (Button) findViewById(R.id.btnFormat);
         btnOk = (Button) findViewById(R.id.btnOk);
 
         btnStartRecording.setOnClickListener(this);
         btnStopRecording.setOnClickListener(this);
         btnPlayRecording.setOnClickListener(this);
         btnFinishButton.setOnClickListener(this);
-        btnFormat.setOnClickListener(this);
+       // btnFormat.setOnClickListener(this);
         btnOk.setOnClickListener(this);
 
         btnPlayRecording.setEnabled(false);
@@ -83,7 +83,7 @@ public class AudioRecording extends ActionBarActivity implements MediaPlayer.OnC
         ((Button) findViewById(R.id.btnFormat)).setText(getString(R.string.audio_format) + " (" + file_exts[currentFormat] + ")");
     }*/
 
-    private MediaRecorder.OnErrorListener errorListener = new MediaRecorder.OnErrorListener() {
+   /* private MediaRecorder.OnErrorListener errorListener = new MediaRecorder.OnErrorListener() {
         public void onError(MediaRecorder mr, int what, int extra) {
             Toast.makeText(AudioRecording.this, "Error: " + what + ", " + extra, Toast.LENGTH_SHORT).show();
         }
@@ -93,7 +93,7 @@ public class AudioRecording extends ActionBarActivity implements MediaPlayer.OnC
         public void onInfo(MediaRecorder mr, int what, int extra) {
             Toast.makeText(AudioRecording.this, "Warning: " + what + ", " + extra, Toast.LENGTH_SHORT).show();
         }
-    };
+    };*/
 
     public void onCompletion(MediaPlayer mp) {
         btnStartRecording.setEnabled(true);
