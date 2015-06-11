@@ -9,9 +9,11 @@ import android.widget.ImageView;
 
 import com.dumposk129.create.stories.app.R;
 
-/**
+/***
  * Created by DumpOSK129.
- */
+***/
+
+
 public class ImageAdapter extends BaseAdapter {
     private Context mContext;
 

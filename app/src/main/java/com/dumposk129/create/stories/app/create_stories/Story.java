@@ -6,20 +6,20 @@ package com.dumposk129.create.stories.app.create_stories;
 public class Story {
     private int _id;
     private String title_name;
-    private boolean isComplete;
+    private boolean is_complete;
 
     //Default Constructor
     public Story(){ }
 
-    public Story(int id, String title_name, boolean isComplete){
+    public Story(int id, String title_name, boolean is_complete){
         this._id = id;
         this.title_name = title_name;
-        this.isComplete = isComplete;
+        this.is_complete = is_complete;
     }
 
-    public Story(String title_name, boolean isComplete){
+    public Story(String title_name, boolean is_complete){
         this.title_name = title_name;
-        this.isComplete = isComplete;
+        this.is_complete = is_complete;
     }
 
     // Setter
@@ -32,7 +32,7 @@ public class Story {
     }
 
     public void setIsComplete(boolean isComplete){
-        this.isComplete = isComplete;
+        this.is_complete = isComplete;
     }
 
     // Getter
@@ -45,6 +45,8 @@ public class Story {
     }
 
     public boolean getIsComplete(){
-        return this.isComplete;
+        return this.is_complete;
     }
+
+    public int getIsCompleteInt() { return this.is_complete ? 1 : 0; }
 }

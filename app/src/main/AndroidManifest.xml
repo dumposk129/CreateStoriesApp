@@ -28,10 +28,10 @@
             android:label="@string/title_activity_quizzes" />
         <activity
             android:name=".quizzes.NumberOfQuestion"
-            android:label="@string/title_activity_num_of_questions"/>
+            android:label="@string/title_activity_num_of_questions" />
         <activity
             android:name=".quizzes.Questions"
-            android:label="@string/title_activity_question"/>
+            android:label="@string/title_activity_question" />
         <activity
             android:name=".quizzes.Answers"
             android:label="@string/title_activity_answer" />
@@ -79,8 +79,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".create_stories.FullImageActivity"/>
-        <activity android:name=".create_stories.GridLayout">
-        </activity>
+        <activity android:name=".create_stories.FullImageActivity" />
+        <activity android:name=".create_stories.GridPhoto" />
     </application>
 </manifest>

@@ -12,7 +12,7 @@ import com.dumposk129.create.stories.app.R;
 /**
  * Created by DumpOSK129.
  */
-public class GridLayout extends ActionBarActivity {
+public class GridPhoto extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

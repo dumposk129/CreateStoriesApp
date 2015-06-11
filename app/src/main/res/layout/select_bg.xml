@@ -51,5 +51,4 @@
                 android:id="@+id/btnNext" />
         </TableRow>
     </TableLayout>
-
 </LinearLayout>
