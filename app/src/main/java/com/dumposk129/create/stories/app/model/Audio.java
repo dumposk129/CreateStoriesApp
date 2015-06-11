@@ -1,23 +1,23 @@
-package com.dumposk129.create.stories.app.create_stories;
+package com.dumposk129.create.stories.app.model;
 
 /**
  * Created by DumpOSK129.
  */
 public class Audio {
-    private int _id;
+    private int id;
     private String path_audio, duration;
 
     public Audio(){ }
 
     public Audio(int id, String path_audio, String duration){
-        this._id = id;
+        this.id = id;
         this.path_audio = path_audio;
         this.duration = duration;
     }
 
     // Setter
     public void setID(int id){
-        this._id = id;
+        this.id = id;
     }
 
     public void setPathAudio(String path_audio){
@@ -30,15 +30,15 @@ public class Audio {
 
     // Getter
     public int getID(){
-        return this._id;
+        return id;
     }
 
     public String getPathAudio(){
-        return this.path_audio;
+        return path_audio;
     }
 
     public String getDuration(String duration){
-        return this.duration;
+        return duration;
     }
 
 }

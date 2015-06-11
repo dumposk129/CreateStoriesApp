@@ -1,4 +1,4 @@
-package com.dumposk129.create.stories.app.create_stories;
+package com.dumposk129.create.stories.app.model;
 
 import android.graphics.Bitmap;
 
@@ -13,11 +13,11 @@ public class ImageItem {
         this.image = image;
     }
 
-    public Bitmap getImage(){
-        return image;
-    }
-
     public void setImage(Bitmap image){
         this.image = image;
+    }
+
+    public Bitmap getImage(){
+        return image;
     }
 }
