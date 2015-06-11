@@ -35,12 +35,16 @@ public class SelectBackground extends ActionBarActivity implements View.OnClickL
         btnImage.setOnClickListener(this);
         btnGallery.setOnClickListener(this);
         btnNext.setOnClickListener(this);
+
+        imgView = (ImageView) findViewById(R.id.showImg);
     }
 
     @Override
     public void onClick(View v) {
         if (v == btnImage) {
             Toast.makeText(getApplicationContext(), "Image clicked", Toast.LENGTH_SHORT).show();
+            Intent imgIntent = new Intent(getApplicationContext(),ImageAdapter.class);
+            startActivityForResult(imgIntent, RESULT_LOAD_IMG);
         } else if (v == btnGallery) {
             Toast.makeText(getApplicationContext(), "Gallery clicked", Toast.LENGTH_SHORT).show();
             Intent galleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
@@ -64,11 +68,9 @@ public class SelectBackground extends ActionBarActivity implements View.OnClickL
                 int colIndex = cursor.getColumnIndex(filePathCol[0]);
                 imgDecodableString = cursor.getString(colIndex);
                 cursor.close();
-
-                imgView = (ImageView) findViewById(R.id.showImg);
                 imgView.setImageBitmap(BitmapFactory.decodeFile(imgDecodableString));
             } else {
-                Toast.makeText(this, "You have't picked Image", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "You haven't picked Image", Toast.LENGTH_SHORT).show();
             }
         } catch (Exception e) {
             Toast.makeText(this, "Something wrong", Toast.LENGTH_SHORT).show();

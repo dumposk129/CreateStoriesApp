@@ -4,22 +4,20 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <!-- App Bar -->
     <include
         android:id="@+id/app_bar"
         layout="@layout/app_bar" />
 
-    <GridView
-        android:id="@+id/gridView"
+    <GridView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/grid_view"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:columnWidth="100dp"
-        android:drawSelectorOnTop="true"
-        android:gravity="center"
+        android:layout_height="fill_parent"
         android:numColumns="auto_fit"
-        android:stretchMode="columnWidth"
-        android:verticalSpacing="5dp"
-        android:focusable="true"
-        android:clickable="true"/>
-
+        android:columnWidth="90dp"
+        android:horizontalSpacing="10dp"
+        android:verticalSpacing="10dp"
+        android:gravity="center"
+        android:stretchMode="columnWidth" >
+    </GridView>
 </LinearLayout>

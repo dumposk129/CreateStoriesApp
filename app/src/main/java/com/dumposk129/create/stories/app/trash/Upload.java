@@ -227,7 +227,6 @@ public class Upload extends ActionBarActivity implements View.OnClickListener {
             int dh = currentDisplay.getHeight() / 2 - 100;
 
             try {
-                // Load up the image's dimensions not the image itself
                 BitmapFactory.Options bmpFactoryOptions = new BitmapFactory.Options();
                 bmpFactoryOptions.inJustDecodeBounds = true;
                 bmp = BitmapFactory.decodeStream(getContentResolver().openInputStream(imageFileUri), null, bmpFactoryOptions);

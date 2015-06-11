@@ -11,12 +11,12 @@
 
     <FrameLayout
         android:layout_width="fill_parent"
-        android:layout_height="750dp">
+        android:layout_height="600dp">
 
         <ImageView
             android:id="@+id/showImg"
             android:layout_width="fill_parent"
-            android:layout_height="750dp"
+            android:layout_height="600dp"
             android:layout_gravity="center_horizontal" />
     </FrameLayout>
 
