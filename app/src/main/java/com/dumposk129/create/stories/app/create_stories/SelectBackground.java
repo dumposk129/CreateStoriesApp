@@ -54,9 +54,11 @@ public class SelectBackground extends ActionBarActivity implements View.OnClickL
 
         // Selected image id
         if (i.getExtras() != null){
-            bitmap = getIntent().getParcelableExtra("id");
+            byte[] byteArr = i.getByteArrayExtra("id");
+            bitmap = BitmapFactory.decodeByteArray(byteArr, 0, byteArr.length);
             imgView.setImageBitmap(bitmap);
-            //Toast.makeText(getApplicationContext(), "path in app : ", Toast.LENGTH_SHORT).show();
+
+            Toast.makeText(getApplicationContext(), "path in app : "+bitmap, Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -73,9 +75,10 @@ public class SelectBackground extends ActionBarActivity implements View.OnClickL
         } else {
           //  Toast.makeText(getApplicationContext(), "Next clicked", Toast.LENGTH_SHORT).show();
             createDirectory();
-            final String path = findPath(imagePath);
-            writeFile(path,bitmap);
-            Toast.makeText(getApplicationContext(), "Path " + path , Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "Path " + bitmap , Toast.LENGTH_SHORT).show();
+            //findPath(bitmap);
+            writeFile(bitmap);
+
         }
     }
 
@@ -84,7 +87,7 @@ public class SelectBackground extends ActionBarActivity implements View.OnClickL
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         try {
-            if (requestCode == RESULT_LOAD_IMG && resultCode == RESULT_OK) {
+            if (requestCode == RESULT_LOAD_IMG && resultCode == RESULT_OK && null != data) {
                 Uri selectImage = data.getData();
                 String[] filePathCol = {MediaStore.Images.Media.DATA};
 
@@ -94,9 +97,10 @@ public class SelectBackground extends ActionBarActivity implements View.OnClickL
                 int colIndex = cursor.getColumnIndex(filePathCol[0]);
                 imgDecodableString = cursor.getString(colIndex);
                 cursor.close();
-                imgView = (ImageView) findViewById(R.id.showImg);
+                imgView = (ImageView) findViewById(R.id.full_image_view);
                 imgView.setImageBitmap(BitmapFactory.decodeFile(imgDecodableString));
-                //Toast.makeText(getApplicationContext(), "path in gallery : " +imgDecodableString, Toast.LENGTH_LONG).show();
+
+                Toast.makeText(getApplicationContext(), "path in gallery : " +imgDecodableString, Toast.LENGTH_LONG).show();
 
             } else {
                 Toast.makeText(this, "You haven't picked Image", Toast.LENGTH_SHORT).show();
@@ -137,8 +141,8 @@ public class SelectBackground extends ActionBarActivity implements View.OnClickL
     }
 
     /* Copy Path to Directory*/
-    private void writeFile(String data, Bitmap bitmap){
-        File file = new File(dir, "" + data);
+    private void writeFile(/*String data,*/ Bitmap bitmap){
+        File file = new File(dir, "" + bitmap);
         try {
             FileOutputStream fos = new FileOutputStream(file);
             bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos);

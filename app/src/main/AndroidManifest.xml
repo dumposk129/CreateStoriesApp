@@ -83,7 +83,6 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".create_stories.FullImageActivity" />
         <activity android:name=".create_stories.Photo" />
     </application>
 </manifest>
