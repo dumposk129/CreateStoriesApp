@@ -23,6 +23,7 @@ public class MainActivity extends ActionBarActivity{
 
         // Mock DATA
         this.story = new Story("TEST",false);
+        this.frame = new Frame(1, 0, "aaaaa");
 
         DatabaseHelper dbHelper = new DatabaseHelper(this);
         long story_id = dbHelper.createNewStory(this.story);
@@ -32,9 +33,14 @@ public class MainActivity extends ActionBarActivity{
         Toast.makeText(getApplicationContext(),"Story_Name : "+sr.getTitle(),Toast.LENGTH_SHORT).show();
 
 
-        long frame_id = dbHelper.createNewFrame(this.frame);
-        Toast.makeText(getApplicationContext(), "Frame_ID : "+frame_id, Toast.LENGTH_SHORT).show();
-        Frame fr = dbHelper.updatePath((int)frame_id);
-        Toast.makeText(getApplicationContext(), "Path : "+fr.getPathPic(), Toast.LENGTH_SHORT).show();
+        long frame_order = dbHelper.createNewFrame(this.frame);
+        Toast.makeText(getApplicationContext(), "Frame_Order : "+frame_order, Toast.LENGTH_SHORT).show();
+
+        int a = dbHelper.updatePath(1,1,"aaa");
+        Toast.makeText(getApplicationContext(), "Path : "+a, Toast.LENGTH_SHORT).show();
+       /* Frame fr = dbHelper.updatePath((int) frame_order, "aaaa");
+        Toast.makeText(getApplicationContext(), "Path : "+fr.getPathPic(), Toast.LENGTH_SHORT).show();*/
+
+        dbHelper.close();
     }
 }

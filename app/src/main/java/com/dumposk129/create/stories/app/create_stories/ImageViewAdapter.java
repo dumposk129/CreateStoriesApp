@@ -16,12 +16,12 @@ import java.util.ArrayList;
 /***
  * Created by DumpOSK129.
  ***/
-public class GridViewAdapter extends ArrayAdapter {
+public class ImageViewAdapter extends ArrayAdapter {
     private Context mContext;
     private int layoutResourceId;
     private ArrayList img = new ArrayList();
 
-    public GridViewAdapter(Context context, int layoutResourceId, ArrayList<ImageItem> data) {
+    public ImageViewAdapter(Context context, int layoutResourceId, ArrayList<ImageItem> data) {
         super(context, layoutResourceId, data);
 
         this.layoutResourceId = layoutResourceId;

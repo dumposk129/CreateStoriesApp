@@ -9,16 +9,17 @@
         android:id="@+id/app_bar"
         layout="@layout/app_bar" />
 
-    <FrameLayout
-        android:layout_width="fill_parent"
-        android:layout_height="600dp">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center">
 
         <ImageView
-            android:id="@+id/showImg"
-            android:layout_width="fill_parent"
-            android:layout_height="600dp"
-            android:layout_gravity="center_horizontal" />
-    </FrameLayout>
+            android:id="@+id/full_image_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
 
     <TableLayout
         android:layout_width="wrap_content"
@@ -30,25 +31,25 @@
             android:layout_height="match_parent">
 
             <Button
+                android:id="@+id/btnImage"
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Photo"
-                android:id="@+id/btnImage" />
+                android:text="Background" />
 
             <Button
+                android:id="@+id/btnGallery"
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Gallery"
-                android:id="@+id/btnGallery" />
+                android:text="Gallery" />
 
             <Button
+                android:id="@+id/btnNext"
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Next"
-                android:id="@+id/btnNext" />
+                android:text="Next" />
         </TableRow>
     </TableLayout>
 </LinearLayout>

@@ -32,7 +32,8 @@ public class Frame {
         this.story_id = story_id;
     }
 
-    public Frame(int step, String path_pic){
+    public Frame(int id, int step, String path_pic){
+        this.id = id;
         this.step = step;
         this.path_pic = path_pic;
     }
