@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.dumposk129.create.stories.app.R;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -60,11 +61,11 @@ public class SelectBackground extends ActionBarActivity implements View.OnClickL
         }
     }
 
-
+/*
     @Override
     protected void onStart() {
         super.onStart();
-    }
+    }*/
 
     @Override
     public void onClick(View v) {
@@ -106,14 +107,14 @@ public class SelectBackground extends ActionBarActivity implements View.OnClickL
                 cursor.close();
                 imgView = (ImageView) findViewById(R.id.full_image_view);
                 imgView.setImageBitmap(BitmapFactory.decodeFile(imgDecodableString));
+                bitmap = BitmapFactory.decodeFile(imgDecodableString);
+                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+                byte[] bitmapData = baos.toByteArray();
+                bitmap = BitmapFactory.decodeByteArray(bitmapData, 0, bitmapData.length);
                 Toast.makeText(getApplicationContext(), "path in gallery : " +imgDecodableString, Toast.LENGTH_LONG).show();
-
-                //StringToBitmap(imgDecodableString);
-                /*byte[] encodeByte = Base64.decode(imgDecodableString, Base64.DEFAULT);
-                bitmap = BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);*/
-
-                Toast.makeText(getApplicationContext(), "path in gallery : " +imgDecodableString, Toast.LENGTH_LONG).show();
-
+                Toast.makeText(getApplicationContext(), "bitmapData : " +bitmapData, Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "bitmap : " +bitmap, Toast.LENGTH_LONG).show();
             } /*else if(requestCode == RESULT_LOAD_FROM_BG && resultCode == RESULT_OK && data != null) {
                 byte[] byteArr = data.getByteArrayExtra("bg");
                 bitmap = BitmapFactory.decodeByteArray(byteArr, 0, byteArr.length);

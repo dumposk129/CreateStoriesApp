@@ -13,7 +13,7 @@ import com.dumposk129.create.stories.app.model.Story;
 /**
  * Created by DumpOSK129.
  */
-public class DatabaseHelper extends SQLiteOpenHelper{
+public class DatabaseHelper extends SQLiteOpenHelper {
     SQLiteDatabase db;
 
     // LOG
@@ -33,15 +33,15 @@ public class DatabaseHelper extends SQLiteOpenHelper{
     public void onCreate(SQLiteDatabase db) {
         // Create story
         db.execSQL(Schema.CREATE_TABLE_STORY);
-        Log.d("CREATE TABLE: "+ Schema.TABLE_STORY, "Create Table Successfully.");
+        Log.d("CREATE TABLE: " + Schema.TABLE_STORY, "Create Table Successfully.");
 
         // Create Frame
         db.execSQL(Schema.CREATE_TABLE_FRAME);
-        Log.d("CREATE TABLE: "+ Schema.TABLE_FRAME, "Create Table Successfully.");
+        Log.d("CREATE TABLE: " + Schema.TABLE_FRAME, "Create Table Successfully.");
 
         // Create audio
         db.execSQL(Schema.CREATE_TABLE_AUDIO);
-        Log.d("CREATE TABLE: "+ Schema.TABLE_AUDIO, "Create Table Successfully.");
+        Log.d("CREATE TABLE: " + Schema.TABLE_AUDIO, "Create Table Successfully.");
     }
 
     @Override
@@ -53,7 +53,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         onCreate(db);
     }
 
-    public long createNewStory(Story story){
+    public long createNewStory(Story story) {
         db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(Schema.KEY_TITLE_NAME, story.getTitle());
@@ -64,7 +64,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         return story_id;
     }
 
-    public Story getStory(int id){
+    public Story getStory(int id) {
         db = this.getReadableDatabase();
         String query = "SELECT * FROM " + Schema.TABLE_STORY + " WHERE " + Schema.KEY_ID + " = " + id;
 
@@ -72,7 +72,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
 
         Cursor c = db.rawQuery(query, null);
 
-        if (c != null){
+        if (c != null) {
             c.moveToFirst();
         }
 
@@ -83,7 +83,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         return story;
     }
 
-    public long createNewFrame(Frame frame){
+    public long createNewFrame(Frame frame) {
         db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(Schema.KEY_FRAME_ORDER, frame.getFrameOrder());
@@ -95,26 +95,19 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         return frame_id;
     }
 
-    public int updatePath(int id, int step, String path_pic){
+    public Frame updatePath(int id, int step, String path_pic) {
         db = this.getWritableDatabase();
 
-        ContentValues values = new ContentValues();
-        values.put(Schema.KEY_STEP , step);
-        values.put(Schema.KEY_PATH_PIC, path_pic);
+        String query = "UPDATE " + Schema.TABLE_FRAME + " SET " + Schema.KEY_PATH_PIC + " = " + path_pic + ", step" + Schema.KEY_STEP + " = " + step
+                + " WHERE " + Schema.KEY_FRAME_ID + " = " + id;
 
-        // Update
-        return db.update(Schema.TABLE_FRAME, values, Schema.KEY_FRAME_ID + " = " + id, new String[]{String.valueOf(id)});
-      //  String query = "UPDATE " + Schema.TABLE_FRAME + " SET " + Schema.KEY_PATH_PIC + " = " + path_pic + " WHERE " + Schema.KEY_FRAME_ID + " = " + id;
-//
-      //  Log.e(LOG, query);
+        Log.e(LOG, query);
 
-      /*  Cursor c = db.rawQuery(query, null);
+        Cursor c = db.rawQuery(query, null);
 
-        if (c != null){
-            c.moveToFirst();
-        }
-        Frame frame = new Frame(c.getInt(c.getColumnIndex(Schema.KEY_STEP)), c.getString(c.getColumnIndex(Schema.KEY_PATH_PIC)));
+        Frame frame = new Frame(c.getInt(c.getColumnIndex(Schema.KEY_FRAME_ID)), c.getInt(c.getColumnIndex(Schema.KEY_STEP)),
+                c.getString(c.getColumnIndex(Schema.KEY_PATH_PIC)));
 
-        return frame;*/
+        return frame;
     }
 }

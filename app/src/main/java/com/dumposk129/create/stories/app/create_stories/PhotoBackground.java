@@ -67,6 +67,7 @@ public class PhotoBackground extends ActionBarActivity {
                     imgOldSelected = imgSelected;
                 }
             });
+
             //final int selected = selectedResourcePosition;
             gallery.addView(img);
             btnOk.setOnClickListener(new View.OnClickListener() {
@@ -87,7 +88,5 @@ public class PhotoBackground extends ActionBarActivity {
                 }
             });
         }
-
-
     }
 }
