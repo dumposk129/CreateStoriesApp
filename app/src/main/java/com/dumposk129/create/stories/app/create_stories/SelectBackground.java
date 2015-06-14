@@ -17,7 +17,6 @@ import android.widget.Toast;
 import com.dumposk129.create.stories.app.R;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
@@ -30,15 +29,14 @@ public class SelectBackground extends ActionBarActivity implements View.OnClickL
     private String imgDecodableString;
     private ImageView imgView;
     private Bitmap bitmap;
-    private int position;
     Intent intent;
-    private Uri imagePath;
-    File dir = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "StoryApp/Test/Frame/");
-
+    private final String PATH = "StoryApp/Test/Frame";
+    private String NAME = "Background";
+    File dir = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + PATH + "/" + NAME);
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.select_bg);
+        setContentView(R.layout.select_bg_char);
 
         btnImage = (Button) findViewById(R.id.btnImage);
         btnGallery = (Button) findViewById(R.id.btnGallery);
@@ -57,8 +55,7 @@ public class SelectBackground extends ActionBarActivity implements View.OnClickL
             byte[] byteArr = i.getByteArrayExtra("id");
             bitmap = BitmapFactory.decodeByteArray(byteArr, 0, byteArr.length);
             imgView.setImageBitmap(bitmap);
-
-            Toast.makeText(getApplicationContext(), "path in app : "+bitmap, Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "path in app : " + bitmap, Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -66,7 +63,7 @@ public class SelectBackground extends ActionBarActivity implements View.OnClickL
     public void onClick(View v) {
         if (v == btnImage) {
           //  Toast.makeText(getApplicationContext(), "Image clicked", Toast.LENGTH_SHORT).show();
-            intent = new Intent(SelectBackground.this, Photo.class);
+            intent = new Intent(SelectBackground.this, PhotoBackground.class);
             startActivity(intent);
         } else if (v == btnGallery) {
            // Toast.makeText(getApplicationContext(), "Gallery clicked", Toast.LENGTH_SHORT).show();
@@ -75,10 +72,12 @@ public class SelectBackground extends ActionBarActivity implements View.OnClickL
         } else {
           //  Toast.makeText(getApplicationContext(), "Next clicked", Toast.LENGTH_SHORT).show();
             createDirectory();
-            Toast.makeText(getApplicationContext(), "Path " + bitmap , Toast.LENGTH_SHORT).show();
-            //findPath(bitmap);
-            writeFile(bitmap);
-
+          //  Toast.makeText(getApplicationContext(), "Path " + bitmap , Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getApplicationContext(), "Path Gallery: " + imgDecodableString , Toast.LENGTH_SHORT).show();
+            writeImageFromApp(bitmap);
+           // writeImageFromGallery(imgDecodableString);
+           /* intent = new Intent(SelectBackground.this, SelectCharacter.class);
+            startActivity(intent);*/
         }
     }
 
@@ -99,8 +98,13 @@ public class SelectBackground extends ActionBarActivity implements View.OnClickL
                 cursor.close();
                 imgView = (ImageView) findViewById(R.id.full_image_view);
                 imgView.setImageBitmap(BitmapFactory.decodeFile(imgDecodableString));
-
                 Toast.makeText(getApplicationContext(), "path in gallery : " +imgDecodableString, Toast.LENGTH_LONG).show();
+
+                //StringToBitmap(imgDecodableString);
+                /*byte[] encodeByte = Base64.decode(imgDecodableString, Base64.DEFAULT);
+                bitmap = BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);*/
+
+//                Toast.makeText(getApplicationContext(), "path in gallery : " +imgDecodableString, Toast.LENGTH_LONG).show();
 
             } else {
                 Toast.makeText(this, "You haven't picked Image", Toast.LENGTH_SHORT).show();
@@ -110,48 +114,79 @@ public class SelectBackground extends ActionBarActivity implements View.OnClickL
         }
     }
 
-    private String findPath(Uri uri){
-        String imgPath;
-
-        String[] column = {MediaStore.Images.Media.DATA};
-        Cursor cursor = getContentResolver().query(uri, column, null, null, null);
-
-        if (cursor != null){
-            cursor.moveToFirst();
-            int columnIndex = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
-            imgPath = cursor.getString(columnIndex);
-        }else {
-            imgPath = uri.getPath();
-        }
-        return imgPath;
-    }
-
     /* Create Path */
     private void createDirectory() {
-        //File dir = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "StoryApp/Test/Frame/");
-        try {
-            if (dir.mkdirs()){
-                System.out.println("Directory created");
-            }else {
-                    System.out.println("Directory is not created");
-            }
-        }catch (Exception e){
-            e.printStackTrace();
-        }
+        dir.mkdirs();
     }
 
-    /* Copy Path to Directory*/
-    private void writeFile(/*String data,*/ Bitmap bitmap){
+    /* Write image path from exist in app*/
+    private void writeImageFromApp(Bitmap bitmap){
+        FileOutputStream fos;
+        boolean success = false;
         File file = new File(dir, "" + bitmap);
         try {
-            FileOutputStream fos = new FileOutputStream(file);
+            fos = new FileOutputStream(file);
             bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos);
             fos.flush();
             fos.close();
+            success = true;
+        } catch (IOException e) {
+            e.printStackTrace();
+            Toast.makeText(getApplicationContext(), ""+e,Toast.LENGTH_SHORT).show();
+        }
+
+        if (success == true){
+            Toast.makeText(getApplicationContext(), "Save path success", Toast.LENGTH_SHORT).show();
+        }else {
+            Toast.makeText(getApplicationContext(), "Error during path image", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    /*private Bitmap StringToBitmap(String imgDecodableString){
+        try{
+            byte[] encodeByte = Base64.decode(imgDecodableString, Base64.DEFAULT);
+            bitmap = BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
+            Toast.makeText(getApplicationContext(),"bmp "+bitmap, Toast.LENGTH_SHORT).show();
+            return bitmap;
+        }catch (Exception e){
+            e.getMessage();
+            Toast.makeText(getApplicationContext(), "err "+e, Toast.LENGTH_SHORT).show();
+            return null;
+        }
+    }*/
+
+    /* Write image path from gallery */
+     /*  private void writeImageFromGallery(String imgDecodableString) {
+     FileOutputStream fos = null;
+        File file = new File(dir, "" + imgDecodableString);
+        try {
+            fos = openFileOutput(imgDecodableString, Context.MODE_PRIVATE);
+            byte[] decodeString
+            osw.write(imgDecodableString);
+            osw.close();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
+        FileOutputStream fos;
+        boolean success = false;
+        File file = new File(dir, "" + imgDecodableString);
+        try {
+            fos = new FileOutputStream(file);
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos);
+            fos.flush();
+            fos.close();
+            success = true;
+        } catch (IOException e) {
+            e.printStackTrace();
+            Toast.makeText(getApplicationContext(), ""+e,Toast.LENGTH_SHORT).show();
+        }
+
+        if (success == true){
+            Toast.makeText(getApplicationContext(), "Save image success", Toast.LENGTH_SHORT).show();
+        }else {
+            Toast.makeText(getApplicationContext(), "Error during save image", Toast.LENGTH_SHORT).show();
+        }
+    }*/
 }

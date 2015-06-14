@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.dumposk129.create.stories.app.R;
 
@@ -19,12 +20,13 @@ import java.io.ByteArrayOutputStream;
 /**
  * Created by DumpOSK129.
  */
-public class Photo extends ActionBarActivity {
+public class PhotoBackground extends ActionBarActivity {
     private ImageView imgOldSelected, imgFullSize, img, imgSelected;
     private int[] imgsId = {R.drawable.bg1, R.drawable.bg2, R.drawable.bg3, R.drawable.bg4 ,R.drawable.bg5 ,R.drawable.bg6,
             R.drawable.bg7, R.drawable.bg8 ,R.drawable.bg9, R.drawable.bg10,};
     private Button btnOk;
-    private int position;
+    private Bitmap bitmap;
+    private int position = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,13 +43,15 @@ public class Photo extends ActionBarActivity {
             img.setPadding(8, 8, 8, 8);
             img.setImageResource(id);
 
-            //When Click
+            // When Click
             img.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     imgSelected = (ImageView) v;
-                    Bitmap bitmap = ((BitmapDrawable) imgSelected.getDrawable()).getBitmap();
-                    imgFullSize.setImageBitmap(bitmap);
+                    Toast.makeText(getApplicationContext(), "select : "+imgSelected.getId(), Toast.LENGTH_SHORT).show();
+                    bitmap = ((BitmapDrawable) imgSelected.getDrawable()).getBitmap();
+                    Toast.makeText(getApplicationContext(),"bmp : "+bitmap, Toast.LENGTH_SHORT).show();
+                    imgFullSize.setImageBitmap(bitmap); // Show Image in full size;
 
                     if (imgOldSelected != null){
                         imgOldSelected.setBackgroundColor(Color.TRANSPARENT);
@@ -62,12 +66,12 @@ public class Photo extends ActionBarActivity {
             btnOk.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Bitmap  bitmap = BitmapFactory.decodeResource(getResources(), id);
+                    bitmap = BitmapFactory.decodeResource(getResources(), id);
                     ByteArrayOutputStream stream = new ByteArrayOutputStream();
                     bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
                     byte[] byteArr = stream.toByteArray();
 
-                    Intent intent = new Intent(Photo.this, SelectBackground.class);
+                    Intent intent = new Intent(PhotoBackground.this, SelectBackground.class);
                     intent.putExtra("id", byteArr);
                     startActivity(intent);
                 }

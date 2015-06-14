@@ -45,6 +45,14 @@
                 android:text="Gallery" />
 
             <Button
+                android:id="@+id/btnText"
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Text"
+                android:visibility="invisible"/>
+
+            <Button
                 android:id="@+id/btnNext"
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="wrap_content"
