@@ -12,7 +12,6 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.SeekBar;
@@ -120,10 +119,10 @@ public class Watch extends ActionBarActivity implements View.OnClickListener, Vi
 
             if(!mediaPlayer.isPlaying()){
                 mediaPlayer.start();
-                buttonPlayPause.setImageResource(R.drawable.button_pause);
+
             }else {
                 mediaPlayer.pause();
-                buttonPlayPause.setImageResource(R.drawable.button_play);
+
             }
             primarySeekBarProgressUpdater();
         }
@@ -143,7 +142,7 @@ public class Watch extends ActionBarActivity implements View.OnClickListener, Vi
 
     public void onCompletion(MediaPlayer mp) {
         /** MediaPlayer onCompletion event handler. Method which calls then song playing is complete*/
-        buttonPlayPause.setImageResource(R.drawable.button_play);
+
     }
 
     public void onBufferingUpdate(MediaPlayer mp, int percent) {

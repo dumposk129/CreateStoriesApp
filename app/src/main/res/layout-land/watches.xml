@@ -71,7 +71,7 @@
                     android:layout_centerHorizontal="true"
                     android:contentDescription="TestPlayPause"
                     android:onClick="onClick"
-                    android:src="@drawable/button_play" />
+                     />
 
                 <SeekBar
                     android:id="@+id/SeekBarTestPlay"
