@@ -40,7 +40,6 @@ public class PhotoBackground extends ActionBarActivity {
        // btnOk.setOnClickListener(this);
 
         for (final int id : imgsId) {
-
             img = new ImageView(this);  // Minimal Image
             img.setLayoutParams(new LinearLayout.LayoutParams(150, 150));
             img.setPadding(8, 8, 8, 8);
