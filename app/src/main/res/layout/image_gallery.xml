@@ -30,7 +30,8 @@
         <ImageView
             android:id="@+id/full_image_view"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:onClick="imgOnClicked"/>
     </LinearLayout>
 
     <Button
@@ -40,6 +41,7 @@
         android:layout_gravity="center_horizontal"
         android:gravity="center_horizontal"
         android:text="OK"
-        android:textSize="20sp" />
+        android:textSize="20sp"
+        android:onClick="onNextClick"/>
 
 </LinearLayout>

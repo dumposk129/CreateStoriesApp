@@ -26,7 +26,7 @@ public class PhotoBackground extends ActionBarActivity {
             R.drawable.bg7, R.drawable.bg8 ,R.drawable.bg9, R.drawable.bg10,};
     private Button btnOk;
     private Bitmap bitmap;
-    private int position = 0;
+
     int selectedResourcePosition = 0;
 
     @Override
@@ -35,6 +35,7 @@ public class PhotoBackground extends ActionBarActivity {
         setContentView(R.layout.image_gallery);
 
         final LinearLayout gallery = (LinearLayout) findViewById(R.id.images_gallery);
+        int position = 0;
         imgFullSize = (ImageView) findViewById(R.id.full_image_view);
         btnOk = (Button) findViewById(R.id.btnOk);
        // btnOk.setOnClickListener(this);
@@ -46,46 +47,39 @@ public class PhotoBackground extends ActionBarActivity {
             img.setImageResource(id);
             img.setTag(position);
             position++;
-            // When Click
-            img.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    int tmp = (Integer) v.getTag();
-                    selectedResourcePosition = imgsId[tmp];
-
-                    imgSelected = (ImageView) v;
-                    //Toast.makeText(getApplicationContext(), "select : "+position, Toast.LENGTH_SHORT).show();
-                    bitmap = ((BitmapDrawable) imgSelected.getDrawable()).getBitmap();
-                    imgFullSize.setImageBitmap(bitmap); // Show Image in full size;
-
-                    if (imgOldSelected != null) {
-                        imgOldSelected.setBackgroundColor(Color.TRANSPARENT);
-                    }
-
-                    imgSelected.setBackgroundColor(Color.YELLOW);
-                    imgOldSelected = imgSelected;
-                }
-            });
-
-            //final int selected = selectedResourcePosition;
             gallery.addView(img);
-            btnOk.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    try {
-                        bitmap = BitmapFactory.decodeResource(getResources(), id);
-                        ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
-                        byte[] byteArr = stream.toByteArray();
+        }
+    }
 
-                        Intent intent = new Intent(PhotoBackground.this,SelectBackground.class);
-                        intent.putExtra("bg", byteArr);
-                        startActivity(intent);
-                    } catch (Exception e) {
-                        Log.e("Photo Streaming Error:", e.getMessage());
-                    }
-                }
-            });
+    public void imgOnClicked(final View v){
+        int tmp = (Integer) v.getTag();
+        selectedResourcePosition = imgsId[tmp];
+
+        imgSelected = (ImageView) v;
+        //Toast.makeText(getApplicationContext(), "select : "+position, Toast.LENGTH_SHORT).show();
+        bitmap = ((BitmapDrawable) imgSelected.getDrawable()).getBitmap();
+        imgFullSize.setImageBitmap(bitmap); // Show Image in full size;
+
+        if (imgOldSelected != null) {
+            imgOldSelected.setBackgroundColor(Color.TRANSPARENT);
+        }
+
+        imgSelected.setBackgroundColor(Color.YELLOW);
+        imgOldSelected = imgSelected;
+    }
+
+    public void onNextClick(final View v){
+        try {
+            bitmap = BitmapFactory.decodeResource(getResources(), selectedResourcePosition);
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+            byte[] byteArr = stream.toByteArray();
+
+            Intent intent = new Intent(PhotoBackground.this,SelectBackground.class);
+            intent.putExtra("bg", byteArr);
+            startActivity(intent);
+        } catch (Exception e) {
+            Log.e("Photo Streaming Error:", e.getMessage());
         }
     }
 }
