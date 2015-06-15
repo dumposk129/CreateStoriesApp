@@ -95,19 +95,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return frame_id;
     }
 
-    public Frame updatePath(int id, int step, String path_pic) {
+    public void updatePath(int id, int step, String path_pic) {
         db = this.getWritableDatabase();
 
-        String query = "UPDATE " + Schema.TABLE_FRAME + " SET " + Schema.KEY_PATH_PIC + " = " + path_pic + ", step" + Schema.KEY_STEP + " = " + step
-                + " WHERE " + Schema.KEY_FRAME_ID + " = " + id;
+        String query = "UPDATE " + Schema.TABLE_FRAME + " SET " + Schema.KEY_PATH_PIC + " = '" + path_pic + "', " + Schema.KEY_STEP + " = " + step
+                + " WHERE " + Schema.KEY_ID + " = " + id;
 
         Log.e(LOG, query);
 
-        Cursor c = db.rawQuery(query, null);
-
-        Frame frame = new Frame(c.getInt(c.getColumnIndex(Schema.KEY_FRAME_ID)), c.getInt(c.getColumnIndex(Schema.KEY_STEP)),
-                c.getString(c.getColumnIndex(Schema.KEY_PATH_PIC)));
-
-        return frame;
+        db.rawQuery(query, null);
     }
 }

@@ -15,6 +15,8 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.dumposk129.create.stories.app.R;
+import com.dumposk129.create.stories.app.model.Frame;
+import com.dumposk129.create.stories.app.sql.DatabaseHelper;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -27,14 +29,16 @@ import java.io.IOException;
 public class SelectBackground extends ActionBarActivity implements View.OnClickListener {
     private Button btnImage, btnGallery, btnNext;
     private static int RESULT_LOAD_IMG = 1;
-    private static int RESULT_LOAD_FROM_BG = 2;
     private String imgDecodableString;
     private ImageView imgView;
     private Bitmap bitmap;
     Intent intent;
-    private final String PATH = "StoryApp/Test/Frame";
-    private String NAME = "Background";
-    File dir = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + PATH + "/" + NAME);
+    private boolean hasBg = false;
+    private String pathBg = "";
+    private long frameid = 0;
+    private int frame_order = 0;
+    private final String PATH = "StoryApp/Storyname/Frame";
+    File dir = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + PATH );
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,18 +58,13 @@ public class SelectBackground extends ActionBarActivity implements View.OnClickL
 
         // Selected image id
         if (i.getExtras() != null){
-            byte[] byteArr = i.getByteArrayExtra("bg");
+            byte[] byteArr = i.getExtras().getByteArray("bg");
             bitmap = BitmapFactory.decodeByteArray(byteArr, 0, byteArr.length);
             imgView.setImageBitmap(bitmap);
+            hasBg = true;
             Toast.makeText(getApplicationContext(), "path in app : " + bitmap, Toast.LENGTH_SHORT).show();
         }
     }
-
-/*
-    @Override
-    protected void onStart() {
-        super.onStart();
-    }*/
 
     @Override
     public void onClick(View v) {
@@ -78,15 +77,20 @@ public class SelectBackground extends ActionBarActivity implements View.OnClickL
             intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
             intent.setType("image/*");
             startActivityForResult(intent, RESULT_LOAD_IMG);
-        } else {
-          //  Toast.makeText(getApplicationContext(), "Next clicked", Toast.LENGTH_SHORT).show();
-            createDirectory();
-          //  Toast.makeText(getApplicationContext(), "Path " + bitmap , Toast.LENGTH_SHORT).show();
-            //Toast.makeText(getApplicationContext(), "Path Gallery: " + imgDecodableString , Toast.LENGTH_SHORT).show();
-            writeImageFromApp(bitmap);
-           // writeImageFromGallery(imgDecodableString);
-           /* intent = new Intent(SelectBackground.this, SelectCharacter.class);
-            startActivity(intent);*/
+        } else if (v == btnNext) {
+            if(hasBg){
+                createDirectory();
+                frameid = createFrame();
+                writeImagePath(bitmap);
+                // TODO: Update Path
+                UpdatePath();
+                intent = new Intent(SelectBackground.this, SelectCharacter.class);
+                startActivity(intent);
+            }
+
+        }
+        else {
+            Toast.makeText(getApplicationContext(),"Please select an action", Toast.LENGTH_LONG).show();
         }
     }
 
@@ -108,19 +112,13 @@ public class SelectBackground extends ActionBarActivity implements View.OnClickL
                 imgView = (ImageView) findViewById(R.id.full_image_view);
                 imgView.setImageBitmap(BitmapFactory.decodeFile(imgDecodableString));
                 bitmap = BitmapFactory.decodeFile(imgDecodableString);
+
+                /* Convert to bitmap */
                 ByteArrayOutputStream baos = new ByteArrayOutputStream();
                 bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
                 byte[] bitmapData = baos.toByteArray();
                 bitmap = BitmapFactory.decodeByteArray(bitmapData, 0, bitmapData.length);
-                Toast.makeText(getApplicationContext(), "path in gallery : " +imgDecodableString, Toast.LENGTH_LONG).show();
-                Toast.makeText(getApplicationContext(), "bitmapData : " +bitmapData, Toast.LENGTH_LONG).show();
-                Toast.makeText(getApplicationContext(), "bitmap : " +bitmap, Toast.LENGTH_LONG).show();
-            } /*else if(requestCode == RESULT_LOAD_FROM_BG && resultCode == RESULT_OK && data != null) {
-                byte[] byteArr = data.getByteArrayExtra("bg");
-                bitmap = BitmapFactory.decodeByteArray(byteArr, 0, byteArr.length);
-                imgView.setImageBitmap(bitmap);
-                Toast.makeText(getApplicationContext(), "path in app : " + bitmap, Toast.LENGTH_SHORT).show();
-            }*/
+            }
             else {
                 Toast.makeText(this, "You haven't picked Image", Toast.LENGTH_SHORT).show();
             }
@@ -134,11 +132,11 @@ public class SelectBackground extends ActionBarActivity implements View.OnClickL
         dir.mkdirs();
     }
 
-    /* Write image path from exist in app*/
-    private void writeImageFromApp(Bitmap bitmap){
+    /* Write image path */
+    private void writeImagePath(Bitmap bitmap){
         FileOutputStream fos;
         boolean success = false;
-        File file = new File(dir, "" + bitmap);
+        File file = new File(dir, "bg.jpg"); // TODO: change bg.jpg to framename.
         try {
             fos = new FileOutputStream(file);
             bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos);
@@ -151,9 +149,27 @@ public class SelectBackground extends ActionBarActivity implements View.OnClickL
         }
 
         if (success == true){
-            Toast.makeText(getApplicationContext(), "Save path success", Toast.LENGTH_SHORT).show();
+            pathBg = file.getPath();
+            Toast.makeText(getApplicationContext(), "Save path success : "+file.getPath(), Toast.LENGTH_LONG).show();
         }else {
-            Toast.makeText(getApplicationContext(), "Error during path image", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "Error during path image", Toast.LENGTH_LONG).show();
         }
     }
+    private long createFrame()
+    {
+        DatabaseHelper db = new DatabaseHelper(getApplicationContext());
+        Frame frame = new Frame();
+        frame.setFrameOrder(frame_order);
+        frame.setStepId(0);
+        frame.setStoryId(2);
+        return db.createNewFrame(frame);
+    }
+    private void UpdatePath()
+    {
+        if(pathBg != ""){
+            DatabaseHelper db = new DatabaseHelper(getApplicationContext());
+            db.updatePath((int)frameid,1,pathBg);
+        }
+    }
+
 }

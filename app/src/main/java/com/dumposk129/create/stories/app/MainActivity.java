@@ -36,8 +36,8 @@ public class MainActivity extends ActionBarActivity{
         long frame_order = dbHelper.createNewFrame(this.frame);
         Toast.makeText(getApplicationContext(), "Frame_Order : "+frame_order, Toast.LENGTH_SHORT).show();
 
-        Frame a = dbHelper.updatePath(1, 1, "aaa");
-        Toast.makeText(getApplicationContext(), "Path : "+a, Toast.LENGTH_SHORT).show();
+//        Frame a = dbHelper.updatePath(1, 1, "aaa");
+//        Toast.makeText(getApplicationContext(), "Path : "+a, Toast.LENGTH_SHORT).show();
 
         dbHelper.close();
     }

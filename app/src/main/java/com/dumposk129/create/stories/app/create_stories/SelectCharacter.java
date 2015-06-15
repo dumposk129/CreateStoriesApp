@@ -16,8 +16,8 @@ import android.widget.Toast;
 
 import com.dumposk129.create.stories.app.R;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
@@ -30,10 +30,12 @@ public class SelectCharacter  extends ActionBarActivity implements View.OnClickL
     private String imgDecodableString;
     private ImageView imgView;
     private Bitmap bitmap;
-    private int position;
     Intent intent;
-    private Uri imagePath;
-    File dir = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "StoryApp/Test/Frame/");
+    private final String PATH = "StoryApp/Test/Frame";
+    private final String BACKGROUND = "Background";
+    private final String CHARACTER = "Character";
+    File dir = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + PATH + "/" + BACKGROUND);
+    File dir1 = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + PATH + "/" + CHARACTER);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +56,10 @@ public class SelectCharacter  extends ActionBarActivity implements View.OnClickL
         btnText.setOnClickListener(this);
         btnNext.setOnClickListener(this);
 
-        // get intent data
+        // Show Image in folder
+        ShowImageInFolder();
+
+        /*// get intent data
         Intent i = getIntent();
 
         // Selected image id
@@ -62,9 +67,13 @@ public class SelectCharacter  extends ActionBarActivity implements View.OnClickL
             byte[] byteArr = i.getByteArrayExtra("id");
             bitmap = BitmapFactory.decodeByteArray(byteArr, 0, byteArr.length);
             imgView.setImageBitmap(bitmap);
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+            byte[] bitmapData = baos.toByteArray();
+            bitmap = BitmapFactory.decodeByteArray(bitmapData, 0, bitmapData.length);
+            //Toast.makeText(getApplicationContext(), "path in app : " + bitmap, Toast.LENGTH_SHORT).show();
+        }*/
 
-            Toast.makeText(getApplicationContext(), "path in app : " + bitmap, Toast.LENGTH_SHORT).show();
-        }
     }
 
     @Override
@@ -81,16 +90,21 @@ public class SelectCharacter  extends ActionBarActivity implements View.OnClickL
             Toast.makeText(getApplicationContext(), "Text clicked", Toast.LENGTH_SHORT).show();
         }
         else {
-            //  Toast.makeText(getApplicationContext(), "Next clicked", Toast.LENGTH_SHORT).show();
             createDirectory();
             Toast.makeText(getApplicationContext(), "Path " + bitmap , Toast.LENGTH_SHORT).show();
-            //findPath(bitmap);
-          //  writeFile(bitmap);
-
+            writeImagePath(bitmap);
+        }
+    }
+    /* Show image from directory */
+    private void ShowImageInFolder(){
+        File imgFile = dir;
+        if (imgFile.exists()){
+            bitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
+            imgView.setImageBitmap(bitmap);
         }
     }
 
-    /* Show Image from Gallery */
+    /* Show image from Gallery */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -108,8 +122,13 @@ public class SelectCharacter  extends ActionBarActivity implements View.OnClickL
                 imgView = (ImageView) findViewById(R.id.full_image_view);
                 imgView.setImageBitmap(BitmapFactory.decodeFile(imgDecodableString));
 
-                Toast.makeText(getApplicationContext(), "path in gallery : " +imgDecodableString, Toast.LENGTH_LONG).show();
+                 /* Convert to bitmap */
+                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+                byte[] bitmapData = baos.toByteArray();
+                bitmap = BitmapFactory.decodeByteArray(bitmapData, 0, bitmapData.length);
 
+                //Toast.makeText(getApplicationContext(), "path in gallery : " +imgDecodableString, Toast.LENGTH_LONG).show();
             } else {
                 Toast.makeText(this, "You haven't picked Image", Toast.LENGTH_SHORT).show();
             }
@@ -118,25 +137,8 @@ public class SelectCharacter  extends ActionBarActivity implements View.OnClickL
         }
     }
 
-    private String findPath(Uri uri){
-        String imgPath;
-
-        String[] column = {MediaStore.Images.Media.DATA};
-        Cursor cursor = getContentResolver().query(uri, column, null, null, null);
-
-        if (cursor != null){
-            cursor.moveToFirst();
-            int columnIndex = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
-            imgPath = cursor.getString(columnIndex);
-        }else {
-            imgPath = uri.getPath();
-        }
-        return imgPath;
-    }
-
     /* Create Path */
     private void createDirectory() {
-        //File dir = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "StoryApp/Test/Frame/");
         try {
             if (dir.mkdirs()){
                 System.out.println("Directory created");
@@ -148,18 +150,26 @@ public class SelectCharacter  extends ActionBarActivity implements View.OnClickL
         }
     }
 
-    /* Copy Path to Directory*/
-    private void writeFile(/*String data,*/ Bitmap bitmap){
+    /* Write image path */
+    private void writeImagePath(Bitmap bitmap){
+        FileOutputStream fos;
+        boolean success = false;
         File file = new File(dir, "" + bitmap);
         try {
-            FileOutputStream fos = new FileOutputStream(file);
+            fos = new FileOutputStream(file);
             bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos);
             fos.flush();
             fos.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            success = true;
         } catch (IOException e) {
             e.printStackTrace();
+            Toast.makeText(getApplicationContext(), ""+e,Toast.LENGTH_SHORT).show();
+        }
+
+        if (success == true){
+            Toast.makeText(getApplicationContext(), "Save path success", Toast.LENGTH_SHORT).show();
+        }else {
+            Toast.makeText(getApplicationContext(), "Error during path image", Toast.LENGTH_SHORT).show();
         }
     }
 }
