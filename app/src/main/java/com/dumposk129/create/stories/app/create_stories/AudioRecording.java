@@ -1,6 +1,5 @@
-package com.dumposk129.create.stories.app.trash;
+package com.dumposk129.create.stories.app.create_stories;
 
-import android.content.Intent;
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
 import android.os.Bundle;
@@ -191,11 +190,8 @@ public class AudioRecording extends ActionBarActivity implements MediaPlayer.OnC
             btnOk.setEnabled(true);
 
         } else if (v == btnOk){
-            Intent i = new Intent(getApplicationContext(), SoundPath.class);
-            startActivity(i);
-
-        } /*else if (v == btnFormat){
-            displayFormatDialog();
-        }*/
+            /*Intent i = new Intent(getApplicationContext(), SoundPath.class);
+            startActivity(i);*/
+        }
     }
 }

@@ -61,6 +61,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         long story_id = db.insert(Schema.TABLE_STORY, null, values);
 
+        db.close();
+
         return story_id;
     }
 
@@ -80,17 +82,23 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         Story story = new Story(c.getInt(c.getColumnIndex(Schema.KEY_ID)), c.getString(c.getColumnIndex(Schema.KEY_TITLE_NAME)), isComplete);
 
+        c.close();
+        db.close();
+        
         return story;
     }
 
     public long createNewFrame(Frame frame) {
         db = this.getWritableDatabase();
+
         ContentValues values = new ContentValues();
         values.put(Schema.KEY_FRAME_ORDER, frame.getFrameOrder());
         values.put(Schema.KEY_STEP, frame.getStep());
         values.put(Schema.KEY_STORY_ID, frame.getStoryId());
 
         long frame_id = db.insert(Schema.TABLE_FRAME, null, values);
+
+        db.close();
 
         return frame_id;
     }
@@ -103,6 +111,25 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         Log.e(LOG, query);
 
-        db.rawQuery(query, null);
+        db.close();
+    }
+
+    public byte[] getPath(int id, String path_pic){
+        db = this.getReadableDatabase();
+        String query = "SELECT "+Schema.KEY_PATH_PIC + " = '" + path_pic + "'" + " FROM "+Schema.TABLE_FRAME
+                + " WHERE " + Schema.KEY_ID + " = " + id;
+
+        Cursor c = db.rawQuery(query, null);
+        while (c.isAfterLast() == false) {
+            c.moveToNext();
+        }
+
+        c.moveToFirst();
+
+        byte[] bytes = c.getBlob(c.getColumnIndex(Schema.KEY_PATH_PIC));
+
+        c.close();
+        db.close();
+        return bytes;
     }
 }

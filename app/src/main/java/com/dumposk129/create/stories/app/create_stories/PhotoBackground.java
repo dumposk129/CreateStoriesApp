@@ -18,13 +18,12 @@ import java.io.ByteArrayOutputStream;
 /**
  * Created by DumpOSK129.
  */
-public class PhotoBackground extends ActionBarActivity {
+public class PhotoBackground extends ActionBarActivity implements View.OnClickListener{
     private ImageView imgOldSelected, imgFullSize, img, imgSelected;
     private int[] imgsId = {R.drawable.bg1, R.drawable.bg2, R.drawable.bg3, R.drawable.bg4 ,R.drawable.bg5 ,R.drawable.bg6,
-            R.drawable.bg7, R.drawable.bg8 ,R.drawable.bg9, R.drawable.bg10,};
+            R.drawable.bg7,R.drawable.bg8, R.drawable.bg9,};
     private Button btnOk;
     private Bitmap bitmap;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +35,9 @@ public class PhotoBackground extends ActionBarActivity {
 
         imgFullSize = (ImageView) findViewById(R.id.full_image_view);
         btnOk = (Button) findViewById(R.id.btnOk);
-       // btnOk.setOnClickListener(this);
+
+        btnOk.setOnClickListener(this);
+
 
         for (final int id : imgsId) {
             img = new ImageView(PhotoBackground.this);  // Minimal Image
@@ -65,25 +66,25 @@ public class PhotoBackground extends ActionBarActivity {
                 }
             });
         }
-        btnOk.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                bitmap = resizeBitmap(bitmap);
-                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
-                byte[] byteArr = stream.toByteArray();
-
-                Intent intent = new Intent(PhotoBackground.this.getApplicationContext(),SelectBackground.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                intent.putExtra("bg", byteArr);
-                v.getContext().startActivity(intent);
-            }
-        });
     }
 
+    /* Resize Image */
     private Bitmap resizeBitmap(Bitmap bitmap){
-        float resizedPercent = 0.8f;
+        float resizedPercent = 0.82f;
         return Bitmap.createScaledBitmap(bitmap, (int)(bitmap.getWidth()*resizedPercent), (int)(bitmap.getHeight()*resizedPercent), true);
     }
 
+    /* Button OK */
+    @Override
+    public void onClick(View v) {
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        bitmap = resizeBitmap(bitmap);
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+        byte[] byteArr = stream.toByteArray();
+
+        Intent intent = new Intent(PhotoBackground.this.getApplicationContext(),SelectBackground.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.putExtra("bg", byteArr);
+        v.getContext().startActivity(intent);
+    }
 }

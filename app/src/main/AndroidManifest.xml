@@ -41,28 +41,10 @@
 
         <!-- Create Stories -->
         <activity
-            android:name=".trash.CreateStories"
-            android:label="@string/title_activity_creates" />
-        <activity
-            android:name=".trash.AudioRecording"
+            android:name=".create_stories.AudioRecording"
             android:label="@string/title_activity_audio_record" />
-        <activity
-            android:name=".trash.SaveTitle"
-            android:label="@string/title_activity_save_title" />
-        <activity
-            android:name=".trash.SoundPath"
-            android:label="@string/title_activity_sound_path" />
-        <activity
-            android:name=".trash.ChooseImage"
-            android:label="@string/title_activity_chooseimg_only" />
-        <activity
-            android:name=".trash.Upload"
-            android:label="@string/title_activity_upload" />
 
         <!-- Watches -->
-        <activity
-            android:name=".trash.Watch"
-            android:label="@string/title_activity_watches" />
 
 
         <activity

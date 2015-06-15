@@ -1,7 +1,6 @@
 package com.dumposk129.create.stories.app.navigation_drawer;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -15,9 +14,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.dumposk129.create.stories.app.R;
-import com.dumposk129.create.stories.app.trash.CreateStories;
-import com.dumposk129.create.stories.app.quizzes.Quizzes;
-import com.dumposk129.create.stories.app.MainActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -128,12 +124,12 @@ public class NavigationDrawerFragment extends Fragment implements MyAdapter.Clic
     @Override
     public void itemClicked(View view, int position) {
         switch (position){
-            case 0: startActivity(new Intent(getActivity(), MainActivity.class));
+           /* case 0: startActivity(new Intent(getActivity(), MainActivity.class));
                 break;
             case 1: startActivity(new Intent(getActivity(), CreateStories.class));
                 break;
             case 2: startActivity(new Intent(getActivity(), Quizzes.class));
-                break;
+                break;*/
         }
     }
 }

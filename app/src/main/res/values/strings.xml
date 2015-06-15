@@ -61,9 +61,9 @@
         <item>@drawable/bg5</item>
         <item>@drawable/bg6</item>
         <item>@drawable/bg7</item>
+        <item>@drawable/bg7</item>
         <item>@drawable/bg8</item>
         <item>@drawable/bg9</item>
-        <item>@drawable/bg10</item>
     </integer-array>
 
     <string name="hello_world">Hello world!</string>

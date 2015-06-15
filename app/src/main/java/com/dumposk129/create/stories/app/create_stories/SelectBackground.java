@@ -35,9 +35,9 @@ public class SelectBackground extends ActionBarActivity implements View.OnClickL
     Intent intent;
     private boolean hasBg = false;
     private String pathBg = "";
-    private long frameid = 0;
+    private long frame_id = 0;
     private int frame_order = 0;
-    private final String PATH = "StoryApp/Storyname/Frame";
+    private final String PATH = "StoryApp/StoryName/Frame";
     File dir = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + PATH );
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,34 +62,32 @@ public class SelectBackground extends ActionBarActivity implements View.OnClickL
             bitmap = BitmapFactory.decodeByteArray(byteArr, 0, byteArr.length);
             imgView.setImageBitmap(bitmap);
             hasBg = true;
-            Toast.makeText(getApplicationContext(), "path in app : " + bitmap, Toast.LENGTH_SHORT).show();
         }
     }
 
     @Override
     public void onClick(View v) {
         if (v == btnImage) {
-          //  Toast.makeText(getApplicationContext(), "Image clicked", Toast.LENGTH_SHORT).show();
             intent = new Intent(SelectBackground.this, PhotoBackground.class);
             startActivity(intent);
         } else if (v == btnGallery) {
-           // Toast.makeText(getApplicationContext(), "Gallery clicked", Toast.LENGTH_SHORT).show();
             intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
             intent.setType("image/*");
             startActivityForResult(intent, RESULT_LOAD_IMG);
         } else if (v == btnNext) {
             if(hasBg){
-                createDirectory();
-                frameid = createFrame();
-                writeImagePath(bitmap);
+                createDirectory(); //Create Directory.
+                frame_id = createFrame(); // Insert frame_id.
+                writeImagePath(bitmap); // Write Path.
+
                 // TODO: Update Path
-                UpdatePath();
+                updatePath(); // Update Path in db.
+
+                /* Go to Next Page */
                 intent = new Intent(SelectBackground.this, SelectCharacter.class);
                 startActivity(intent);
             }
-
-        }
-        else {
+        } else {
             Toast.makeText(getApplicationContext(),"Please select an action", Toast.LENGTH_LONG).show();
         }
     }
@@ -155,8 +153,9 @@ public class SelectBackground extends ActionBarActivity implements View.OnClickL
             Toast.makeText(getApplicationContext(), "Error during path image", Toast.LENGTH_LONG).show();
         }
     }
-    private long createFrame()
-    {
+
+    /* Create Frame */
+    private long createFrame() {
         DatabaseHelper db = new DatabaseHelper(getApplicationContext());
         Frame frame = new Frame();
         frame.setFrameOrder(frame_order);
@@ -164,12 +163,12 @@ public class SelectBackground extends ActionBarActivity implements View.OnClickL
         frame.setStoryId(2);
         return db.createNewFrame(frame);
     }
-    private void UpdatePath()
-    {
+
+    /* Update Path*/
+    private void updatePath() {
         if(pathBg != ""){
             DatabaseHelper db = new DatabaseHelper(getApplicationContext());
-            db.updatePath((int)frameid,1,pathBg);
+            db.updatePath((int)frame_id, 1, pathBg);
         }
     }
-
 }
