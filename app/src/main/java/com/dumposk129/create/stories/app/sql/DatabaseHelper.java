@@ -103,19 +103,51 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return frame_id;
     }
 
-    public void updatePath(int id, int step, String path_pic) {
+    public void updatePath(long frame_order, int step, String path_pic) {
         db = this.getWritableDatabase();
 
-        String query = "UPDATE " + Schema.TABLE_FRAME + " SET " + Schema.KEY_PATH_PIC + " = '" + path_pic + "', " + Schema.KEY_STEP + " = " + step
-                + " WHERE " + Schema.KEY_ID + " = " + id;
+        ContentValues values = new ContentValues();
+        values.put(Schema.KEY_PATH_PIC, path_pic);
+        values.put(Schema.KEY_STEP, step);
+       /* String query = "UPDATE " + Schema.TABLE_FRAME + " SET " + Schema.KEY_PATH_PIC + " = " + path_pic + ", " + Schema.KEY_STEP + " = " + step
+                + " WHERE " + Schema.KEY_ID + " = " + id;*/
 
-        Log.e(LOG, query);
+        //Log.e(LOG, query);
+
+        db.update(Schema.TABLE_FRAME, values, Schema.KEY_FRAME_ORDER + " = " + frame_order, null);
 
         db.close();
     }
 
-    public byte[] getPath(int frame_order, String path_pic, int story_id){
-        db = this.getReadableDatabase();
+    public byte[] getPath(int frame_order, int story_id){
+        byte[] bytes;
+        db = SQLiteDatabase.openOrCreateDatabase(Schema.KEY_PATH_PIC, null);
+        Cursor c = db.query(Schema.TABLE_FRAME, new String[]{Schema.KEY_PATH_PIC}, Schema.KEY_FRAME_ORDER, new String[]{" = " + story_id},
+                null, null, Schema.KEY_FRAME_ORDER, null);
+
+        if (c != null){
+            c.moveToFirst();
+        }
+
+        while (c.isAfterLast() == false) {
+            c.moveToNext();
+        }
+
+        c.moveToFirst();
+
+        c.close();
+        db.close();
+
+        return  bytes = c.getBlob(c.getColumnIndex(Schema.KEY_PATH_PIC));
+
+
+
+       /* Frame frame = new Frame();
+        frame.setFrameOrder(c.getInt(1));
+        frame.setPathPic(c.getString(3));
+        frame.setStoryId((int) c.getInt(4));*/
+
+        /*db = this.getReadableDatabase();
         String query = "SELECT "+Schema.KEY_PATH_PIC + " = '" + path_pic + "'" + " FROM "+ Schema.TABLE_FRAME
                 + " WHERE " + Schema.KEY_FRAME_ORDER + " = " + frame_order + " INNER JOIN " + Schema.KEY_STORY_ID
                 + " = " + story_id + " ORDER BY " + Schema.KEY_FRAME_ORDER + " = " + frame_order;
@@ -131,6 +163,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         c.close();
         db.close();
-        return bytes;
+        return bytes;*/
     }
 }

@@ -2,6 +2,7 @@ package com.dumposk129.create.stories.app.create_stories;
 
 import android.content.Intent;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -17,6 +18,7 @@ import android.widget.Toast;
 import com.dumposk129.create.stories.app.R;
 import com.dumposk129.create.stories.app.model.Frame;
 import com.dumposk129.create.stories.app.sql.DatabaseHelper;
+import com.dumposk129.create.stories.app.sql.Schema;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -39,7 +41,11 @@ public class SelectCharacter  extends ActionBarActivity implements View.OnClickL
     private long story_id;
     private long frame_order;
     private final String PATH = "StoryApp/StoryName/Frame";
+
     File dir = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + PATH );
+
+    SQLiteDatabase db;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,22 +65,18 @@ public class SelectCharacter  extends ActionBarActivity implements View.OnClickL
 
     /* Show Image from database */
     private void showImage() {
-        DatabaseHelper db = new DatabaseHelper(getApplicationContext());
-        byte[] bytes = db.getPath((int) frame_order, pathBg, (int)story_id);
-       /* SQLiteDatabase db;
-        db = openOrCreateDatabase(Schema.TABLE_FRAME, Context.MODE_PRIVATE ,null);
-        Cursor c = db.query(Schema.TABLE_FRAME, new String[]{Schema.KEY_PATH_PIC}, Schema.KEY_ID + " = ? ", null, null, null, null, null);
-        c.moveToFirst();
-        while (c.isAfterLast() == false){
+        db = SQLiteDatabase.openOrCreateDatabase(Schema.KEY_PATH_PIC, null);
+        Cursor c = db.query(Schema.TABLE_FRAME, new String[]{Schema.KEY_PATH_PIC}, Schema.KEY_FRAME_ORDER, new String[]{" = " + story_id},
+                null, null, Schema.KEY_FRAME_ORDER, null);
+        while (c.isAfterLast() == false) {
             c.moveToNext();
         }
 
-        *//* Read Data from blob filed *//*
         c.moveToFirst();
-        bytes = c.getBlob(c.getColumnIndex(""+Schema.KEY_PATH_PIC));
-        setImage(bytes);
+        byte[] bytes = c.getBlob(c.getColumnIndex(Schema.KEY_PATH_PIC));
         c.close();
-        db.close();*/
+        db.close();
+
         setImage(bytes);
         Toast.makeText(getApplicationContext(), "Read Image form database successfully", Toast.LENGTH_SHORT).show();
     }
