@@ -23,7 +23,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION = 1;
 
     // Database Name
-    private static final String DATABASE_NAME = "Story";
+    public static final String DATABASE_NAME = "Story";
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -121,7 +121,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public byte[] getPath(int frame_order, int story_id){
         byte[] bytes;
-        db = SQLiteDatabase.openOrCreateDatabase(Schema.KEY_PATH_PIC, null);
+        db = SQLiteDatabase.openDatabase(DATABASE_NAME, null, Context.MODE_PRIVATE);
         Cursor c = db.query(Schema.TABLE_FRAME, new String[]{Schema.KEY_PATH_PIC}, Schema.KEY_FRAME_ORDER, new String[]{" = " + story_id},
                 null, null, Schema.KEY_FRAME_ORDER, null);
 

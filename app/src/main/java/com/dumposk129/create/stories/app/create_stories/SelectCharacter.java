@@ -1,5 +1,6 @@
 package com.dumposk129.create.stories.app.create_stories;
 
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -65,7 +66,8 @@ public class SelectCharacter  extends ActionBarActivity implements View.OnClickL
 
     /* Show Image from database */
     private void showImage() {
-        db = SQLiteDatabase.openOrCreateDatabase(Schema.KEY_PATH_PIC, null);
+        byte[] bytes = null;
+        db = SQLiteDatabase.openDatabase(DatabaseHelper.DATABASE_NAME, null, Context.MODE_PRIVATE);
         Cursor c = db.query(Schema.TABLE_FRAME, new String[]{Schema.KEY_PATH_PIC}, Schema.KEY_FRAME_ORDER, new String[]{" = " + story_id},
                 null, null, Schema.KEY_FRAME_ORDER, null);
         while (c.isAfterLast() == false) {
@@ -73,17 +75,14 @@ public class SelectCharacter  extends ActionBarActivity implements View.OnClickL
         }
 
         c.moveToFirst();
-        byte[] bytes = c.getBlob(c.getColumnIndex(Schema.KEY_PATH_PIC));
+        bytes = c.getBlob(c.getColumnIndex(Schema.KEY_PATH_PIC));
         c.close();
         db.close();
 
-        setImage(bytes);
+        imgView.setImageBitmap(BitmapFactory.decodeByteArray(bytes, 0, bytes.length));
         Toast.makeText(getApplicationContext(), "Read Image form database successfully", Toast.LENGTH_SHORT).show();
     }
 
-    public void setImage(byte[] bytes){
-        imgView.setImageBitmap(BitmapFactory.decodeByteArray(bytes, 0, bytes.length));
-    }
 
     @Override
     public void onClick(View v) {
