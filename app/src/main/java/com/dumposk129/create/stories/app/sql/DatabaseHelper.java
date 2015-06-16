@@ -114,10 +114,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-    public byte[] getPath(int id, String path_pic){
+    public byte[] getPath(int frame_order, String path_pic, int story_id){
         db = this.getReadableDatabase();
-        String query = "SELECT "+Schema.KEY_PATH_PIC + " = '" + path_pic + "'" + " FROM "+Schema.TABLE_FRAME
-                + " WHERE " + Schema.KEY_ID + " = " + id;
+        String query = "SELECT "+Schema.KEY_PATH_PIC + " = '" + path_pic + "'" + " FROM "+ Schema.TABLE_FRAME
+                + " WHERE " + Schema.KEY_FRAME_ORDER + " = " + frame_order + " INNER JOIN " + Schema.KEY_STORY_ID
+                + " = " + story_id + " ORDER BY " + Schema.KEY_FRAME_ORDER + " = " + frame_order;
 
         Cursor c = db.rawQuery(query, null);
         while (c.isAfterLast() == false) {

@@ -86,7 +86,18 @@ public class SelectBackground extends ActionBarActivity implements View.OnClickL
                 /* Go to Next Page */
                 intent = new Intent(SelectBackground.this, SelectCharacter.class);
                 startActivity(intent);
-            }
+            }/*else {
+                createDirectory(); //Create Directory.
+                frame_id = createFrame(); // Insert frame_id.
+                writeImagePath(bitmap); // Write Path.
+
+                // TODO: Update Path
+                updatePath(); // Update Path in db.
+
+                *//* Go to Next Page *//*
+                intent = new Intent(SelectBackground.this, SelectCharacter.class);
+                startActivity(intent);
+            }*/
         } else {
             Toast.makeText(getApplicationContext(),"Please select an action", Toast.LENGTH_LONG).show();
         }
@@ -110,6 +121,7 @@ public class SelectBackground extends ActionBarActivity implements View.OnClickL
                 imgView = (ImageView) findViewById(R.id.full_image_view);
                 imgView.setImageBitmap(BitmapFactory.decodeFile(imgDecodableString));
                 bitmap = BitmapFactory.decodeFile(imgDecodableString);
+                hasBg = true;
 
                 /* Convert to bitmap */
                 ByteArrayOutputStream baos = new ByteArrayOutputStream();

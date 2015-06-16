@@ -36,7 +36,8 @@ public class SelectCharacter  extends ActionBarActivity implements View.OnClickL
     private boolean hasBg = false;
     private String pathBg;
     private long frame_id;
-    private int frame_order = 0;
+    private long story_id;
+    private long frame_order;
     private final String PATH = "StoryApp/StoryName/Frame";
     File dir = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + PATH );
     @Override
@@ -59,7 +60,7 @@ public class SelectCharacter  extends ActionBarActivity implements View.OnClickL
     /* Show Image from database */
     private void showImage() {
         DatabaseHelper db = new DatabaseHelper(getApplicationContext());
-        byte[] bytes = db.getPath((int)frame_id, pathBg);
+        byte[] bytes = db.getPath((int) frame_order, pathBg, (int)story_id);
        /* SQLiteDatabase db;
         db = openOrCreateDatabase(Schema.TABLE_FRAME, Context.MODE_PRIVATE ,null);
         Cursor c = db.query(Schema.TABLE_FRAME, new String[]{Schema.KEY_PATH_PIC}, Schema.KEY_ID + " = ? ", null, null, null, null, null);
@@ -173,7 +174,7 @@ public class SelectCharacter  extends ActionBarActivity implements View.OnClickL
     private long createFrame() {
         DatabaseHelper db = new DatabaseHelper(getApplicationContext());
         Frame frame = new Frame();
-        frame.setFrameOrder(frame_order);
+        frame.setFrameOrder((int)frame_order);
         frame.setStepId(0);
         frame.setStoryId(2);
         return db.createNewFrame(frame);

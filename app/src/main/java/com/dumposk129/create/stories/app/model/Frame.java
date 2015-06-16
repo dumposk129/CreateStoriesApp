@@ -26,6 +26,12 @@ public class Frame {
         this.story_id = story_id;
     }
 
+    public Frame(int frame_order, String path_pic, int story_id){
+        this.frame_order = frame_order;
+        this.path_pic = path_pic;
+        this.story_id = story_id;
+    }
+
     public Frame(int frame_order, int step, int story_id){
         this.frame_order = frame_order;
         this.step = step;
