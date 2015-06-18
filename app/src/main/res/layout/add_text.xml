@@ -9,18 +9,6 @@
         android:id="@+id/app_bar"
         layout="@layout/app_bar" />
 
-    <HorizontalScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="8dp">
-
-        <LinearLayout
-            android:id="@+id/images_gallery"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:orientation="horizontal" />
-    </HorizontalScrollView>
-
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -28,22 +16,31 @@
         android:gravity="center">
 
         <ImageView
-            android:id="@+id/full_image_view"
+            android:id="@+id/imgAddText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical" />
+
+        <TextView
+            android:id="@+id/tvSubtitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:adjustViewBounds="true"
-            android:contentDescription="@null" />
+            android:text="Subtitle"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:visibility="invisible" />
 
-        <ImageView
-            android:id="@+id/imageSticker"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="0dp"
-            android:adjustViewBounds="true"
-            android:contentDescription="@null"
-            android:scaleType="fitCenter" />
     </FrameLayout>
+
+    <EditText
+        android:id="@+id/txtSubtitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:ems="10"
+        android:inputType="textMultiLine"
+        android:hint="Subtitle"
+        android:textSize="20sp"/>
 
     <Button
         android:id="@+id/btnOk"

@@ -21,7 +21,7 @@ import java.io.ByteArrayOutputStream;
 /**
  * Created by DumpOSK129
  */
-public class SelectCharacter  extends ActionBarActivity implements View.OnClickListener {
+public class SelectCharacter extends ActionBarActivity implements View.OnClickListener {
     private Button btnImage, btnGallery, btnNext, btnText;
     private static int RESULT_LOAD_IMG = 1;
     private String imgDecodableString;
@@ -79,7 +79,8 @@ public class SelectCharacter  extends ActionBarActivity implements View.OnClickL
             intent.setType("image/*");
             startActivityForResult(intent, RESULT_LOAD_IMG);
         } else if (v == btnText) {
-
+            intent = new Intent(SelectCharacter.this, AddText.class);
+            startActivity(intent);
         } else if (v == btnNext) {
                 intent = new Intent(SelectCharacter.this, AudioRecording.class);
                 startActivity(intent);

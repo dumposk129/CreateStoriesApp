@@ -3,9 +3,7 @@ package com.dumposk129.create.stories.app.create_stories;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.Matrix;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -15,7 +13,6 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import com.dumposk129.create.stories.app.R;
 import com.dumposk129.create.stories.app.sql.DatabaseHelper;
@@ -95,8 +92,6 @@ public class PhotoCharacter extends ActionBarActivity implements View.OnClickLis
 
         imgFullSize.setImageBitmap(BitmapFactory.decodeFile(path_pic));
         bitmap = BitmapFactory.decodeFile(path_pic);
-
-        Toast.makeText(getApplicationContext(), "Read Image form database successfully", Toast.LENGTH_SHORT).show();
     }
 
     /* Ticker Set On Touch */
@@ -122,17 +117,17 @@ public class PhotoCharacter extends ActionBarActivity implements View.OnClickLis
         return true;
     }
 
-    /* Resize Image */
+   /* *//* Resize Image *//*
     private Bitmap resizeBitmap(Bitmap bitmap){
         float resizedPercent = 0.82f;
         return Bitmap.createScaledBitmap(bitmap, (int)(bitmap.getWidth()*resizedPercent), (int)(bitmap.getHeight()*resizedPercent), true);
-    }
+    }*/
 
     /* Button OK */
     @Override
     public void onClick(View v) {
 
-        Bitmap bmpCombined = getImageDrawer();
+        Bitmap bmpCombined = CombineImage.getImageDrawer(imgFullSize, imgTicker);
 
         String path = PhotoHelper.writeImagePath(bmpCombined);
         PhotoHelper.updatePath(getApplicationContext(), frame_id, path);
@@ -140,48 +135,5 @@ public class PhotoCharacter extends ActionBarActivity implements View.OnClickLis
         Intent intent = new Intent(PhotoCharacter.this, SelectCharacter.class);
         intent.putExtra("frame_id", frame_id);
         startActivity(intent);
-    }
-
-    private Bitmap getImageDrawer(){
-        Bitmap bmpBg = ((BitmapDrawable) imgFullSize.getDrawable()).getBitmap();
-        Bitmap bmpSticker = ((BitmapDrawable) imgTicker.getDrawable()).getBitmap();
-
-        int mainLeft = getRelativeLeft(imgFullSize);
-        int mainTop = getRelativeTop(imgFullSize);
-        int stickerLeft = getRelativeLeft(imgTicker);
-        int stickerTop = getRelativeTop(imgTicker);
-
-        Bitmap combine = combineImage(bmpBg, bmpSticker, stickerLeft-mainLeft, stickerTop-mainTop);
-
-        imgFullSize.destroyDrawingCache();
-        imgFullSize.setImageBitmap(combine);
-
-        return combine;
-    }
-
-    /* Combine Image */
-    private Bitmap combineImage(Bitmap bmpFullSize,Bitmap bmpSticker, int left, int top) {
-        Bitmap bmpOverlay = Bitmap.createBitmap(bmpFullSize.getWidth(), bmpFullSize.getHeight(), bmpFullSize.getConfig());
-        Canvas canvas = new Canvas(bmpOverlay);
-        canvas.drawBitmap(bmpFullSize, new Matrix(), null);
-        canvas.drawBitmap(bmpSticker, left, top, null);
-
-        return bmpOverlay;
-    }
-
-    /* Get position view of LEFT */
-    private int getRelativeLeft(View v){
-        if (v.getParent() == v.getRootView())
-            return v.getLeft();
-        else
-            return v.getLeft() + getRelativeTop((View) v.getParent());
-    }
-
-    /* Get postion view of TOP*/
-    private int getRelativeTop(View v){
-        if (v.getParent() == v.getRootView())
-            return v.getTop();
-        else
-            return v.getTop() + getRelativeTop((View) v.getParent());
     }
 }

@@ -117,7 +117,7 @@ public class SelectBackground extends ActionBarActivity implements View.OnClickL
                 cursor.close();
                 imgView = (ImageView) findViewById(R.id.full_image_view);
                 imgView.setImageBitmap(BitmapFactory.decodeFile(imgDecodableString));
-                Bitmap bitmap = BitmapFactory.decodeFile(imgDecodableString);
+                bitmap = BitmapFactory.decodeFile(imgDecodableString);
                 hasBg = true;
 
                 /* Convert to bitmap */
@@ -138,7 +138,6 @@ public class SelectBackground extends ActionBarActivity implements View.OnClickL
     private void createDirectory() {
         dir.mkdirs();
     }
-
 
     /* Create Frame */
     private long createFrame() {

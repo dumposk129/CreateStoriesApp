@@ -17,9 +17,7 @@ import java.io.IOException;
 public class PhotoHelper {
     private static String pathPhoto;
     private static final String PATH = "StoryApp/StoryName/Frame";
-    static File dir = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + PATH );
-
-
+    private static File dir = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + PATH );
 
     public static String writeImagePath(Bitmap bitmap){
         FileOutputStream fos;

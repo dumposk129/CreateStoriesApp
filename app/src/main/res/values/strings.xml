@@ -52,19 +52,12 @@
     </array>
 
 
-    <!-- Background -->
-    <integer-array name="background">
-        <item>@drawable/bg1</item>
-        <item>@drawable/bg2</item>
-        <item>@drawable/bg3</item>
-        <item>@drawable/bg4</item>
-        <item>@drawable/bg5</item>
-        <item>@drawable/bg6</item>
-        <item>@drawable/bg7</item>
-        <item>@drawable/bg7</item>
-        <item>@drawable/bg8</item>
-        <item>@drawable/bg9</item>
-    </integer-array>
+    <!-- Array Color -->
+    <array name="select_color">
+        <item>Red</item>
+        <item>Black</item>
+        <item>Blue</item>
+    </array>
 
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_number_of_item">NumberOfItem</string>
