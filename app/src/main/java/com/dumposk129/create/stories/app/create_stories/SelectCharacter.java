@@ -104,7 +104,7 @@ public class SelectCharacter extends ActionBarActivity implements View.OnClickLi
                 int colIndex = cursor.getColumnIndex(filePathCol[0]);
                 imgDecodableString = cursor.getString(colIndex);
                 cursor.close();
-                imgView = (ImageView) findViewById(R.id.full_image_view);
+                imgView = (ImageView) findViewById(R.id.imageSticker);
                 imgView.setImageBitmap(BitmapFactory.decodeFile(imgDecodableString));
                 bitmap = BitmapFactory.decodeFile(imgDecodableString);
 

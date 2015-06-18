@@ -3,6 +3,7 @@ package com.dumposk129.create.stories.app.create_stories;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -25,7 +26,7 @@ import com.dumposk129.create.stories.app.sql.DatabaseHelper;
 public class AddText extends ActionBarActivity implements View.OnClickListener, View.OnTouchListener{
     private TextView tvSubtitle;
     private EditText txtSubtitle;
-    private Button btnOK;
+    private Button btnOK, btnNext;
     private ImageView imgView;
     private Bitmap bitmap;
 
@@ -39,9 +40,11 @@ public class AddText extends ActionBarActivity implements View.OnClickListener, 
         txtSubtitle = (EditText) findViewById(R.id.txtSubtitle);
         tvSubtitle = (TextView) findViewById(R.id.tvSubtitle);
         btnOK = (Button) findViewById(R.id.btnOk);
+        btnNext = (Button) findViewById(R.id.btnNext);
         imgView = (ImageView) findViewById(R.id.imgAddText);
 
         btnOK.setOnClickListener(this);
+        btnNext.setOnClickListener(this);
         tvSubtitle.setOnTouchListener(this);
         tvSubtitle.setOnClickListener(this);
 
@@ -65,7 +68,12 @@ public class AddText extends ActionBarActivity implements View.OnClickListener, 
             tvSubtitle.append(subtitle);
 
             tvSubtitle.setVisibility(View.VISIBLE);
-        }else {
+        } else if (v == btnNext){
+            combineText(bitmap, tvSubtitle);
+
+            Intent intent = new Intent(AddText.this, SelectCharacter.class);
+            startActivity(intent);
+        } else {
             AlertDialog.Builder alertDialog = new AlertDialog.Builder(getApplicationContext());
             alertDialog.setTitle("Select Color");
             alertDialog.setItems(R.array.select_color, new  Dialog.OnClickListener(){
@@ -82,6 +90,9 @@ public class AddText extends ActionBarActivity implements View.OnClickListener, 
                 }
             });
         }
+    }
+
+    private void combineText(Bitmap bitmap, TextView tvSubtitle) {
     }
 
     @Override
