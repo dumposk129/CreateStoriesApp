@@ -103,66 +103,38 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return frame_id;
     }
 
-    public void updatePath(long frame_order, int step, String path_pic) {
+    public void updatePath(int frame_id, int step, String path_pic) {
         db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
         values.put(Schema.KEY_PATH_PIC, path_pic);
         values.put(Schema.KEY_STEP, step);
-       /* String query = "UPDATE " + Schema.TABLE_FRAME + " SET " + Schema.KEY_PATH_PIC + " = " + path_pic + ", " + Schema.KEY_STEP + " = " + step
-                + " WHERE " + Schema.KEY_ID + " = " + id;*/
 
-        //Log.e(LOG, query);
-
-        db.update(Schema.TABLE_FRAME, values, Schema.KEY_FRAME_ORDER + " = " + frame_order, null);
+        db.update(Schema.TABLE_FRAME, values, Schema.KEY_ID + " = " + frame_id, null);
 
         db.close();
     }
 
-    public byte[] getPath(int frame_order, int story_id){
-        byte[] bytes;
-        db = SQLiteDatabase.openDatabase(DATABASE_NAME, null, Context.MODE_PRIVATE);
-        Cursor c = db.query(Schema.TABLE_FRAME, new String[]{Schema.KEY_PATH_PIC}, Schema.KEY_FRAME_ORDER, new String[]{" = " + story_id},
-                null, null, Schema.KEY_FRAME_ORDER, null);
+    public String getPath(int story_id){
+        db = this.getReadableDatabase();
+        String  path_pic = null;
 
-        if (c != null){
-            c.moveToFirst();
-        }
+        String query = "SELECT " +Schema.KEY_PATH_PIC  + " FROM "+ Schema.TABLE_FRAME
+                + " WHERE " + Schema.KEY_STORY_ID + " = " + story_id + " ORDER BY " + Schema.KEY_FRAME_ORDER;
 
-        while (c.isAfterLast() == false) {
-            c.moveToNext();
-        }
-
-        c.moveToFirst();
-
-        c.close();
-        db.close();
-
-        return  bytes = c.getBlob(c.getColumnIndex(Schema.KEY_PATH_PIC));
-
-
-
-       /* Frame frame = new Frame();
-        frame.setFrameOrder(c.getInt(1));
-        frame.setPathPic(c.getString(3));
-        frame.setStoryId((int) c.getInt(4));*/
-
-        /*db = this.getReadableDatabase();
-        String query = "SELECT "+Schema.KEY_PATH_PIC + " = '" + path_pic + "'" + " FROM "+ Schema.TABLE_FRAME
-                + " WHERE " + Schema.KEY_FRAME_ORDER + " = " + frame_order + " INNER JOIN " + Schema.KEY_STORY_ID
-                + " = " + story_id + " ORDER BY " + Schema.KEY_FRAME_ORDER + " = " + frame_order;
-
+        /* move cursor */
         Cursor c = db.rawQuery(query, null);
-        while (c.isAfterLast() == false) {
+        c.moveToFirst();
+
+        while (!c.isAfterLast()) {
+            path_pic = c.getString(c.getColumnIndex(Schema.KEY_PATH_PIC));
             c.moveToNext();
         }
 
         c.moveToFirst();
 
-        byte[] bytes = c.getBlob(c.getColumnIndex(Schema.KEY_PATH_PIC));
-
         c.close();
         db.close();
-        return bytes;*/
+        return path_pic;
     }
 }

@@ -20,8 +20,6 @@ import com.dumposk129.create.stories.app.sql.DatabaseHelper;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
 
 /**
  * Created by DumpOSK129.
@@ -38,7 +36,7 @@ public class SelectBackground extends ActionBarActivity implements View.OnClickL
     private long frame_id;
     private long frame_order;
     private final String PATH = "StoryApp/StoryName/Frame";
-    private long newFrameOrder;
+    private long newFrameOrder = frame_order;
 
     File dir = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + PATH );
 
@@ -56,7 +54,7 @@ public class SelectBackground extends ActionBarActivity implements View.OnClickL
         btnGallery.setOnClickListener(this);
         btnNext.setOnClickListener(this);
 
-
+        final long newFrameOrder = this.newFrameOrder;
 
         // get intent data
         Intent i = getIntent();
@@ -82,15 +80,19 @@ public class SelectBackground extends ActionBarActivity implements View.OnClickL
         } else if (v == btnNext) {
             if(hasBg){
                 createDirectory(); //Create Directory.
-                writeImagePath(bitmap); // Write Path.
-                newFrameOrder = (int) frame_order;     //TODO : DON'T FORGET INCREASE FRAME_ORDER WHEN DONE(RENDER TO VIDEO EACH FRAME).
+
+                /* Save photo path */
+                pathBg = PhotoHelper.writeImagePath(bitmap);
+
+                //TODO : DON'T FORGET INCREASE FRAME_ORDER WHEN DONE(RENDER TO VIDEO EACH FRAME).
                 frame_id = createFrame(); // Insert frame_id.
 
                 // TODO: Update Path
-                updatePath(); // Update Path in db.
+                PhotoHelper.updatePath(getApplicationContext(), (int)frame_id, pathBg); // Update Path in db.
 
                 /* Go to Next Page */
                 intent = new Intent(SelectBackground.this, SelectCharacter.class);
+                intent.putExtra("frame_id", frame_id);
                 startActivity(intent);
             }
         } else {
@@ -115,13 +117,13 @@ public class SelectBackground extends ActionBarActivity implements View.OnClickL
                 cursor.close();
                 imgView = (ImageView) findViewById(R.id.full_image_view);
                 imgView.setImageBitmap(BitmapFactory.decodeFile(imgDecodableString));
-                bitmap = BitmapFactory.decodeFile(imgDecodableString);
+                Bitmap bitmap = BitmapFactory.decodeFile(imgDecodableString);
                 hasBg = true;
 
                 /* Convert to bitmap */
-                ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-                byte[] bitmapData = baos.toByteArray();
+                ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+                byte[] bitmapData = stream.toByteArray();
                 bitmap = BitmapFactory.decodeByteArray(bitmapData, 0, bitmapData.length);
             }
             else {
@@ -137,49 +139,17 @@ public class SelectBackground extends ActionBarActivity implements View.OnClickL
         dir.mkdirs();
     }
 
-    /* Write image path */
-    private void writeImagePath(Bitmap bitmap){
-        FileOutputStream fos;
-        boolean success = false;
-        File file = new File(dir, "bg.jpg"); // TODO: change bg.jpg to framename.
-        try {
-            fos = new FileOutputStream(file);
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos);
-            fos.flush();
-            fos.close();
-            success = true;
-        } catch (IOException e) {
-            e.printStackTrace();
-            Toast.makeText(getApplicationContext(), ""+e,Toast.LENGTH_SHORT).show();
-        }
-
-        if (success == true){
-            pathBg = file.getPath();
-            Toast.makeText(getApplicationContext(), "Save path success : "+file.getPath(), Toast.LENGTH_LONG).show();
-        }else {
-            Toast.makeText(getApplicationContext(), "Error during path image", Toast.LENGTH_LONG).show();
-        }
-    }
 
     /* Create Frame */
     private long createFrame() {
         DatabaseHelper db = new DatabaseHelper(getApplicationContext());
         Frame frame = new Frame();
         if (pathBg != ""){
-            frame_order++;
+            newFrameOrder = frame_order++;
             frame.setFrameOrder((int)frame_order);
             frame.setStepId(0);
             frame.setStoryId(2);
         }
-
         return db.createNewFrame(frame);
-    }
-
-    /* Update Path*/
-    private void updatePath() {
-        if(pathBg != ""){
-            DatabaseHelper db = new DatabaseHelper(getApplicationContext());
-            db.updatePath((int)frame_order, 1, pathBg);
-        }
     }
 }

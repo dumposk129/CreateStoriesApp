@@ -38,7 +38,7 @@ public class PhotoBackground extends ActionBarActivity implements View.OnClickLi
 
         btnOk.setOnClickListener(this);
 
-
+        /* Set Image */
         for (final int id : imgsId) {
             img = new ImageView(PhotoBackground.this);  // Minimal Image
             img.setLayoutParams(new LinearLayout.LayoutParams(150, 150));
