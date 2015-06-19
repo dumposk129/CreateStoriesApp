@@ -66,4 +66,5 @@
         <activity android:name=".create_stories.AddText" />
         <activity android:name=".create_stories.SelectCharacter"/>
         <activity android:name=".create_stories.AudioRecording"/>
+        <activity android:name=".create_stories.TouchImageFromGallery"/>
 </application></manifest>

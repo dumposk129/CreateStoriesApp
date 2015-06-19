@@ -29,7 +29,7 @@ public class SelectBackground extends ActionBarActivity implements View.OnClickL
     private static int RESULT_LOAD_IMG = 1;
     private String picturePath;
     private ImageView imgView;
-    private Bitmap bmpGallery, bmpBg;
+    private Bitmap bitmap;
     Intent intent;
     private boolean hasBg = false;
     private String pathBg;
@@ -62,8 +62,8 @@ public class SelectBackground extends ActionBarActivity implements View.OnClickL
         // Selected image id
         if (i.getExtras() != null){
             byte[] byteArr = i.getExtras().getByteArray("bg");
-            bmpBg = BitmapFactory.decodeByteArray(byteArr, 0, byteArr.length);
-            imgView.setImageBitmap(bmpBg);
+            bitmap = BitmapFactory.decodeByteArray(byteArr, 0, byteArr.length);
+            imgView.setImageBitmap(bitmap);
             hasBg = true;
         }
     }
@@ -82,7 +82,7 @@ public class SelectBackground extends ActionBarActivity implements View.OnClickL
                 createDirectory(); //Create Directory.
 
                 /* Save photo path */
-                pathBg = PhotoHelper.writeImagePath(bmpBg);
+                pathBg = PhotoHelper.writeImagePath(bitmap);
 
                 //TODO : DON'T FORGET INCREASE FRAME_ORDER WHEN DONE(RENDER TO VIDEO EACH FRAME).
                 frame_id = createFrame(); // Insert frame_id.
@@ -117,14 +117,14 @@ public class SelectBackground extends ActionBarActivity implements View.OnClickL
                 cursor.close();
                 imgView = (ImageView) findViewById(R.id.full_image_view);
                 imgView.setImageBitmap(BitmapFactory.decodeFile(picturePath));
-                bmpGallery = BitmapFactory.decodeFile(picturePath);
+                bitmap = BitmapFactory.decodeFile(picturePath);
                 hasBg = true;
 
                 /* Convert to bitmap */
                 ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                bmpGallery.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
                 byte[] bitmapData = stream.toByteArray();
-                bmpGallery = BitmapFactory.decodeByteArray(bitmapData, 0, bitmapData.length);
+                bitmap = BitmapFactory.decodeByteArray(bitmapData, 0, bitmapData.length);
             }
             else {
                 Toast.makeText(this, "You haven't picked Image", Toast.LENGTH_SHORT).show();

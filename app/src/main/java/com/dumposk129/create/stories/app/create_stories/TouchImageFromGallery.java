@@ -41,16 +41,16 @@ public class TouchImageFromGallery extends ActionBarActivity implements View.OnC
 
         showImage();
 
-        String ps = getIntent().getStringExtra("imagePath");
 
-        Intent i = getIntent();
+
+        /*Intent i = getIntent();
 
         // Selected image id
         if (i.getExtras() != null){
             byte[] byteArr = i.getExtras().getByteArray("imagePath");
             bitmap = BitmapFactory.decodeByteArray(byteArr, 0, byteArr.length);
             imgTicker.setImageBitmap(bitmap);
-        }
+        }*/
     }
 
     public void showImage() {

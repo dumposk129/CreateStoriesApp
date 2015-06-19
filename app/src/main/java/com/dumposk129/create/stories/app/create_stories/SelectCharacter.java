@@ -16,8 +16,6 @@ import android.widget.Toast;
 import com.dumposk129.create.stories.app.R;
 import com.dumposk129.create.stories.app.sql.DatabaseHelper;
 
-import java.io.ByteArrayOutputStream;
-
 /**
  * Created by DumpOSK129
  */
@@ -112,15 +110,15 @@ public class SelectCharacter extends ActionBarActivity implements View.OnClickLi
                 imgView.setImageBitmap(BitmapFactory.decodeFile(picturePath));
                 bitmap = BitmapFactory.decodeFile(picturePath);*/
 
-
                 /* Convert to bitmap */
-                ByteArrayOutputStream stream = new ByteArrayOutputStream();
+               /* ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                bitmap = resizeBitmap(bitmap);
                 bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
-                byte[] bitmapData = stream.toByteArray();
-                bitmap = BitmapFactory.decodeByteArray(bitmapData, 0, bitmapData.length);
+                byte[] byteArr = stream.toByteArray();*/
+              //  bitmap = BitmapFactory.decodeByteArray(bitmapData, 0, bitmapData.length);
 
-                intent = new Intent(SelectCharacter.this, TouchImageFromGallery.class);
-                intent.putExtra("imagePath", bitmapData);
+                intent = new Intent(SelectCharacter.this.getApplicationContext(), TouchImageFromGallery.class);
+                intent.putExtra("imagePath", picturePath);
                 startActivity(intent);
             }
             else {
@@ -130,4 +128,9 @@ public class SelectCharacter extends ActionBarActivity implements View.OnClickLi
             Toast.makeText(this, "Something wrong", Toast.LENGTH_SHORT).show();
         }
     }
+
+ /*   private Bitmap resizeBitmap(Bitmap bitmap){
+        float resizedPercent = 0.82f;
+        return Bitmap.createScaledBitmap(bitmap, (int)(bitmap.getWidth()*resizedPercent), (int)(bitmap.getHeight()*resizedPercent), true);
+    }*/
 }
