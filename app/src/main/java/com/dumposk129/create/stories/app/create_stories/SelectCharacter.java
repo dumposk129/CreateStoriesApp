@@ -49,6 +49,7 @@ public class SelectCharacter extends ActionBarActivity implements View.OnClickLi
         btnImage.setOnClickListener(this);
         btnGallery.setOnClickListener(this);
         btnNext.setOnClickListener(this);
+        btnText.setOnClickListener(this);
 
         frame_id =(int)getIntent().getExtras().getLong("frame_id");
 
@@ -79,11 +80,12 @@ public class SelectCharacter extends ActionBarActivity implements View.OnClickLi
             intent.setType("image/*");
             startActivityForResult(intent, RESULT_LOAD_IMG);
         } else if (v == btnText) {
+            Toast.makeText(getApplicationContext(),"Click",Toast.LENGTH_SHORT).show();
             intent = new Intent(SelectCharacter.this, AddText.class);
             startActivity(intent);
         } else if (v == btnNext) {
-                intent = new Intent(SelectCharacter.this, AudioRecording.class);
-                startActivity(intent);
+            intent = new Intent(SelectCharacter.this, AudioRecording.class);
+            startActivity(intent);
         } else {
             Toast.makeText(getApplicationContext(),"Please select an action", Toast.LENGTH_LONG).show();
         }

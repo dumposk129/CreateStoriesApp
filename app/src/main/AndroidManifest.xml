@@ -68,6 +68,7 @@
 
         <activity android:name=".create_stories.PhotoBackground" />
         <activity android:name=".create_stories.PhotoCharacter" />
+        <activity android:name=".create_stories.AddText" />
         <activity android:name=".create_stories.SelectCharacter">
 
            <!-- <intent-filter>
