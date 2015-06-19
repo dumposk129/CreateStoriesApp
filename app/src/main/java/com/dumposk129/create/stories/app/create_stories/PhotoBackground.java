@@ -62,7 +62,6 @@ public class PhotoBackground extends ActionBarActivity implements View.OnClickLi
 
                     imgSelected.setBackgroundColor(Color.YELLOW);
                     imgOldSelected = imgSelected;
-
                 }
             });
         }

@@ -20,7 +20,7 @@ import com.dumposk129.create.stories.app.sql.DatabaseHelper;
 /**
  * Created by DumpOSK129.
  */
-public class PhotoCharacter extends ActionBarActivity implements View.OnClickListener, View.OnTouchListener{
+public class PhotoCharacter extends ActionBarActivity implements View.OnClickListener, View.OnTouchListener {
     private ImageView imgOldSelected, imgFullSize, img, imgSelected, imgTicker;
     private int[] imgsId = {R.drawable.a1, R.drawable.a2, R.drawable.a3, R.drawable.a4, R.drawable.a5, R.drawable.a6, R.drawable.a7, R.drawable.a8, R.drawable.a9, R.drawable.a10, R.drawable.a11, R.drawable.a12, R.drawable.a13, R.drawable.a14, R.drawable.a15,
             R.drawable.a16, R.drawable.a17, R.drawable.a18, R.drawable.a19, R.drawable.a20, R.drawable.a21, R.drawable.a22, R.drawable.a23, R.drawable.a24, R.drawable.a25, R.drawable.a26, R.drawable.a27, R.drawable.a28, R.drawable.a29, R.drawable.a30, R.drawable.a31,
@@ -97,23 +97,25 @@ public class PhotoCharacter extends ActionBarActivity implements View.OnClickLis
     /* Ticker Set On Touch */
     @Override
     public boolean onTouch(View v, MotionEvent event) {
-        int x = (int) event.getRawX();
-        int y = (int) event.getRawY();
 
-        switch (event.getAction()){
-            case MotionEvent.ACTION_DOWN:{}
-                break;
+        int x = (int) event.getX();
+        int y = (int) event.getY();
+
+        switch (event.getAction()) {
+            case MotionEvent.ACTION_DOWN: {
+            }
+            break;
             case MotionEvent.ACTION_MOVE: {
                 FrameLayout.LayoutParams mParams = (FrameLayout.LayoutParams) imgTicker.getLayoutParams();
-                mParams.leftMargin = x - 5;
-                mParams.topMargin = y - 5;
+                mParams.leftMargin = x;
+                mParams.topMargin = y;
                 imgTicker.setLayoutParams(mParams);
             }
-                break;
-            case MotionEvent.ACTION_UP: {}
-                break;
+            break;
+            case MotionEvent.ACTION_UP: {
+            }
+            break;
         }
-
         return true;
     }
 

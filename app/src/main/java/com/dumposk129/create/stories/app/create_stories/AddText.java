@@ -95,22 +95,26 @@ public class AddText extends ActionBarActivity implements View.OnClickListener, 
     private void combineText(Bitmap bitmap, TextView tvSubtitle) {
     }
 
+    /* Ticker Set On Touch */
     @Override
     public boolean onTouch(View v, MotionEvent event) {
-        int x = (int) event.getRawX();
-        int y = (int) event.getRawY();
 
-        switch (event.getAction()){
-            case MotionEvent.ACTION_DOWN:{}
+        int x = (int) event.getX();
+        int y = (int) event.getY();
+
+        switch (event.getAction()) {
+            case MotionEvent.ACTION_DOWN: {
+            }
             break;
             case MotionEvent.ACTION_MOVE: {
                 FrameLayout.LayoutParams mParams = (FrameLayout.LayoutParams) tvSubtitle.getLayoutParams();
-                mParams.leftMargin = x - 5;
-                mParams.topMargin = y - 5;
+                mParams.leftMargin = x;
+                mParams.topMargin = y;
                 tvSubtitle.setLayoutParams(mParams);
             }
             break;
-            case MotionEvent.ACTION_UP: {}
+            case MotionEvent.ACTION_UP: {
+            }
             break;
         }
         return true;
