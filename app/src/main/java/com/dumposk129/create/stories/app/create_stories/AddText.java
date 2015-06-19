@@ -9,6 +9,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
@@ -29,6 +30,7 @@ public class AddText extends ActionBarActivity implements View.OnClickListener, 
     private Button btnOK, btnNext;
     private ImageView imgView;
     private Bitmap bitmap;
+    private GestureDetector gestureDetector;
 
     DatabaseHelper db;
 
@@ -46,7 +48,9 @@ public class AddText extends ActionBarActivity implements View.OnClickListener, 
         btnOK.setOnClickListener(this);
         btnNext.setOnClickListener(this);
         tvSubtitle.setOnTouchListener(this);
-        tvSubtitle.setOnClickListener(this);
+      //  tvSubtitle.setOnClickListener(this);
+
+        gestureDetector = new GestureDetector(this, new SingleTapConfirm());
 
         showImage();
     }
@@ -74,6 +78,61 @@ public class AddText extends ActionBarActivity implements View.OnClickListener, 
             Intent intent = new Intent(AddText.this, SelectCharacter.class);
             startActivity(intent);
         } else {
+            /*AlertDialog.Builder alertDialog = new AlertDialog.Builder(getApplicationContext());
+            alertDialog.setTitle("Select Color");
+            alertDialog.setItems(R.array.select_color, new  Dialog.OnClickListener(){
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    switch (which){
+                        case 0: tvSubtitle.setTextColor(Color.RED);
+                            break;
+                        case 1: tvSubtitle.setTextColor(Color.BLACK);
+                            break;
+                        case 2: tvSubtitle.setTextColor(Color.BLUE);
+                            break;
+                    }
+                }
+            });*/
+        }
+    }
+
+    private void combineText(Bitmap bitmap, TextView tvSubtitle) {
+    }
+
+    /* Ticker Set On Touch */
+    @Override
+    public boolean onTouch(View v, MotionEvent event) {
+
+        /* Single Tab */
+        if (gestureDetector.onTouchEvent(event)){
+            return true;
+        } else{
+            /* Move */
+            int x = (int) event.getX();
+            int y = (int) event.getY();
+
+            switch (event.getAction()) {
+                case MotionEvent.ACTION_DOWN: {
+                }
+                break;
+                case MotionEvent.ACTION_MOVE: {
+                    FrameLayout.LayoutParams mParams = (FrameLayout.LayoutParams) tvSubtitle.getLayoutParams();
+                    mParams.leftMargin = x;
+                    mParams.topMargin = y;
+                    tvSubtitle.setLayoutParams(mParams);
+                }
+                break;
+                case MotionEvent.ACTION_UP: {
+                }
+                break;
+            }
+        }
+        return false;
+    }
+
+    private class SingleTapConfirm extends GestureDetector.SimpleOnGestureListener{
+        @Override
+        public boolean onSingleTapConfirmed(MotionEvent e) {
             AlertDialog.Builder alertDialog = new AlertDialog.Builder(getApplicationContext());
             alertDialog.setTitle("Select Color");
             alertDialog.setItems(R.array.select_color, new  Dialog.OnClickListener(){
@@ -89,34 +148,8 @@ public class AddText extends ActionBarActivity implements View.OnClickListener, 
                     }
                 }
             });
+
+            return true;
         }
-    }
-
-    private void combineText(Bitmap bitmap, TextView tvSubtitle) {
-    }
-
-    /* Ticker Set On Touch */
-    @Override
-    public boolean onTouch(View v, MotionEvent event) {
-
-        int x = (int) event.getX();
-        int y = (int) event.getY();
-
-        switch (event.getAction()) {
-            case MotionEvent.ACTION_DOWN: {
-            }
-            break;
-            case MotionEvent.ACTION_MOVE: {
-                FrameLayout.LayoutParams mParams = (FrameLayout.LayoutParams) tvSubtitle.getLayoutParams();
-                mParams.leftMargin = x;
-                mParams.topMargin = y;
-                tvSubtitle.setLayoutParams(mParams);
-            }
-            break;
-            case MotionEvent.ACTION_UP: {
-            }
-            break;
-        }
-        return true;
     }
 }

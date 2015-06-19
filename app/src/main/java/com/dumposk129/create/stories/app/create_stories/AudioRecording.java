@@ -1,16 +1,19 @@
 package com.dumposk129.create.stories.app.create_stories;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v7.app.ActionBarActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.dumposk129.create.stories.app.R;
+import com.dumposk129.create.stories.app.sql.DatabaseHelper;
 
 import java.io.File;
 import java.io.IOException;
@@ -19,39 +22,31 @@ import java.io.IOException;
  * Created by DumpOSK129.
  */
 public class AudioRecording extends ActionBarActivity implements MediaPlayer.OnCompletionListener, View.OnClickListener {
-/*    private static final String AUDIO_RECORDER_FILE_EXT_3GP = ".3gp";
-    private static final String AUDIO_RECORDER_FILE_EXT_MP4 = ".mp4";
-    private static final String AUDIO_RECORDER_FOLDER = "DCIM/Camera/Audio Record/";*/
-    private Toolbar mToolbar;
+    private ImageView imgView;
     private MediaRecorder recorder = null;
     private MediaPlayer player;
-  //  private int currentFormat = 0;
-  //  private int output_formats[] = { MediaRecorder.OutputFormat.MPEG_4, MediaRecorder.OutputFormat.THREE_GPP };
-    //private String file_exts[] = { AUDIO_RECORDER_FILE_EXT_MP4, AUDIO_RECORDER_FILE_EXT_3GP };
-    Button btnStartRecording, btnStopRecording, btnPlayRecording, btnFinishButton, btnFormat, btnOk;
+    private Button btnStartRecording, btnStopRecording, btnPlayRecording, btnFinishButton, btnOk;
+    private Bitmap bitmap;
     File audioFile;
+
+    DatabaseHelper db;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.audio);
 
-        mToolbar = (Toolbar) findViewById(R.id.app_bar);
-        setSupportActionBar(mToolbar);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-
         btnStartRecording = (Button) findViewById(R.id.btnStartRecord);
         btnStopRecording = (Button) findViewById(R.id.btnStopRecord);
         btnPlayRecording = (Button) findViewById(R.id.btnPlay);
-        btnFinishButton = (Button) findViewById(R.id.btnFinish);
-        //btnFormat = (Button) findViewById(R.id.btnFormat);
+        btnFinishButton = (Button) findViewById(R.id.btnStop);
+        imgView = (ImageView) findViewById(R.id.imgAudioRec);
         btnOk = (Button) findViewById(R.id.btnOk);
 
         btnStartRecording.setOnClickListener(this);
         btnStopRecording.setOnClickListener(this);
         btnPlayRecording.setOnClickListener(this);
         btnFinishButton.setOnClickListener(this);
-       // btnFormat.setOnClickListener(this);
         btnOk.setOnClickListener(this);
 
         btnPlayRecording.setEnabled(false);
@@ -59,40 +54,18 @@ public class AudioRecording extends ActionBarActivity implements MediaPlayer.OnC
         btnFinishButton.setEnabled(false);
         btnOk.setEnabled(false);
 
-        //setFormatButtonCaption();
+        showImage();
     }
 
-    /*private void displayFormatDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        String formats[] = {"MPEG 4", "3GPP"};
+    /* Show Image from database */
+    private void showImage() {
+        String path_pic = null;
+        db = new DatabaseHelper(getApplicationContext());
+        path_pic = db.getPath(2);
 
-        builder.setTitle(getString(R.string.choose_format_title))
-                .setSingleChoiceItems(formats, currentFormat,
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                currentFormat = which;
-                                setFormatButtonCaption();
-
-                                dialog.dismiss();
-                            }
-                        }).show();
-    }*/
-
-    /*private void setFormatButtonCaption() {
-        ((Button) findViewById(R.id.btnFormat)).setText(getString(R.string.audio_format) + " (" + file_exts[currentFormat] + ")");
-    }*/
-
-   /* private MediaRecorder.OnErrorListener errorListener = new MediaRecorder.OnErrorListener() {
-        public void onError(MediaRecorder mr, int what, int extra) {
-            Toast.makeText(AudioRecording.this, "Error: " + what + ", " + extra, Toast.LENGTH_SHORT).show();
-        }
-    };
-
-    private MediaRecorder.OnInfoListener infoListener = new MediaRecorder.OnInfoListener() {
-        public void onInfo(MediaRecorder mr, int what, int extra) {
-            Toast.makeText(AudioRecording.this, "Warning: " + what + ", " + extra, Toast.LENGTH_SHORT).show();
-        }
-    };*/
+        imgView.setImageBitmap(BitmapFactory.decodeFile(path_pic));
+        bitmap = BitmapFactory.decodeFile(path_pic);
+    }
 
     public void onCompletion(MediaPlayer mp) {
         btnStartRecording.setEnabled(true);
