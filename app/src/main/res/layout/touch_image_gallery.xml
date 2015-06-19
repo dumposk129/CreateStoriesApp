@@ -9,14 +9,6 @@
         android:id="@+id/app_bar"
         layout="@layout/app_bar" />
 
-    <Button
-        android:id="@+id/btnNext"
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="right"
-        android:text="Next" />
-
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -24,33 +16,22 @@
         android:gravity="center">
 
         <ImageView
-            android:id="@+id/imgAddText"
+            android:id="@+id/full_image_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:adjustViewBounds="true"
-            android:contentDescription="@null"/>
+            android:contentDescription="@null" />
 
-        <TextView
-            android:id="@+id/tvSubtitle"
+        <ImageView
+            android:id="@+id/imageSticker"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:visibility="invisible"
-            android:textSize="30sp"/>
-
+            android:layout_marginTop="0dp"
+            android:adjustViewBounds="true"
+            android:contentDescription="@null"
+            android:scaleType="fitCenter" />
     </FrameLayout>
-
-    <EditText
-        android:id="@+id/txtSubtitle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:ems="10"
-        android:inputType="textMultiLine"
-        android:hint="Subtitle"
-        android:textSize="20sp"/>
 
     <Button
         android:id="@+id/btnOk"
@@ -60,5 +41,4 @@
         android:gravity="center_horizontal"
         android:text="OK"
         android:textSize="20sp" />
-
 </LinearLayout>

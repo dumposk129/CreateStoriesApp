@@ -40,11 +40,6 @@
             android:name=".quizzes.AllQuestions"
             android:label="@string/title_activity_show_questions" />
 
-        <!-- Create Stories -->
-        <activity
-            android:name=".create_stories.AudioRecording"
-            android:label="@string/title_activity_audio_record" />
-
         <!-- Watches -->
 
 
@@ -69,11 +64,6 @@
         <activity android:name=".create_stories.PhotoBackground" />
         <activity android:name=".create_stories.PhotoCharacter" />
         <activity android:name=".create_stories.AddText" />
-        <activity android:name=".create_stories.SelectCharacter">
-
-           <!-- <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>-->
-    </activity>
+        <activity android:name=".create_stories.SelectCharacter"/>
+        <activity android:name=".create_stories.AudioRecording"/>
 </application></manifest>

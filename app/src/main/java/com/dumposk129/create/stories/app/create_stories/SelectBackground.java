@@ -25,11 +25,11 @@ import java.io.File;
  * Created by DumpOSK129.
  */
 public class SelectBackground extends ActionBarActivity implements View.OnClickListener {
-    private Button btnImage, btnGallery, btnNext;
+    private Button btnBg, btnGallery, btnNext;
     private static int RESULT_LOAD_IMG = 1;
-    private String imgDecodableString;
+    private String picturePath;
     private ImageView imgView;
-    private Bitmap bitmap;
+    private Bitmap bmpGallery, bmpBg;
     Intent intent;
     private boolean hasBg = false;
     private String pathBg;
@@ -45,12 +45,12 @@ public class SelectBackground extends ActionBarActivity implements View.OnClickL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.select_bg_char);
 
-        btnImage = (Button) findViewById(R.id.btnImage);
+        btnBg = (Button) findViewById(R.id.btnImage);
         btnGallery = (Button) findViewById(R.id.btnGallery);
         btnNext = (Button) findViewById(R.id.btnNext);
         imgView = (ImageView) findViewById(R.id.full_image_view);
 
-        btnImage.setOnClickListener(this);
+        btnBg.setOnClickListener(this);
         btnGallery.setOnClickListener(this);
         btnNext.setOnClickListener(this);
 
@@ -62,15 +62,15 @@ public class SelectBackground extends ActionBarActivity implements View.OnClickL
         // Selected image id
         if (i.getExtras() != null){
             byte[] byteArr = i.getExtras().getByteArray("bg");
-            bitmap = BitmapFactory.decodeByteArray(byteArr, 0, byteArr.length);
-            imgView.setImageBitmap(bitmap);
+            bmpBg = BitmapFactory.decodeByteArray(byteArr, 0, byteArr.length);
+            imgView.setImageBitmap(bmpBg);
             hasBg = true;
         }
     }
 
     @Override
     public void onClick(View v) {
-        if (v == btnImage) {
+        if (v == btnBg) {
             intent = new Intent(SelectBackground.this, PhotoBackground.class);
             startActivity(intent);
         } else if (v == btnGallery) {
@@ -82,7 +82,7 @@ public class SelectBackground extends ActionBarActivity implements View.OnClickL
                 createDirectory(); //Create Directory.
 
                 /* Save photo path */
-                pathBg = PhotoHelper.writeImagePath(bitmap);
+                pathBg = PhotoHelper.writeImagePath(bmpBg);
 
                 //TODO : DON'T FORGET INCREASE FRAME_ORDER WHEN DONE(RENDER TO VIDEO EACH FRAME).
                 frame_id = createFrame(); // Insert frame_id.
@@ -113,18 +113,18 @@ public class SelectBackground extends ActionBarActivity implements View.OnClickL
                 cursor.moveToFirst();
 
                 int colIndex = cursor.getColumnIndex(filePathCol[0]);
-                imgDecodableString = cursor.getString(colIndex);
+                picturePath = cursor.getString(colIndex);
                 cursor.close();
                 imgView = (ImageView) findViewById(R.id.full_image_view);
-                imgView.setImageBitmap(BitmapFactory.decodeFile(imgDecodableString));
-                bitmap = BitmapFactory.decodeFile(imgDecodableString);
+                imgView.setImageBitmap(BitmapFactory.decodeFile(picturePath));
+                bmpGallery = BitmapFactory.decodeFile(picturePath);
                 hasBg = true;
 
                 /* Convert to bitmap */
                 ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+                bmpGallery.compress(Bitmap.CompressFormat.JPEG, 100, stream);
                 byte[] bitmapData = stream.toByteArray();
-                bitmap = BitmapFactory.decodeByteArray(bitmapData, 0, bitmapData.length);
+                bmpGallery = BitmapFactory.decodeByteArray(bitmapData, 0, bitmapData.length);
             }
             else {
                 Toast.makeText(this, "You haven't picked Image", Toast.LENGTH_SHORT).show();

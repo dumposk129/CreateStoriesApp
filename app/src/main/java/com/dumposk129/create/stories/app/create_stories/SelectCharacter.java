@@ -24,7 +24,7 @@ import java.io.ByteArrayOutputStream;
 public class SelectCharacter extends ActionBarActivity implements View.OnClickListener {
     private Button btnImage, btnGallery, btnNext, btnText;
     private static int RESULT_LOAD_IMG = 1;
-    private String imgDecodableString;
+    private String picturePath, path_pic;
     private ImageView imgView;
     private Bitmap bitmap;
     Intent intent;
@@ -55,6 +55,7 @@ public class SelectCharacter extends ActionBarActivity implements View.OnClickLi
 
 
         /* This method is show image */
+        //ShowImage.showImage(getApplicationContext(), path_pic);
         showImage();
     }
 
@@ -104,17 +105,23 @@ public class SelectCharacter extends ActionBarActivity implements View.OnClickLi
                 cursor.moveToFirst();
 
                 int colIndex = cursor.getColumnIndex(filePathCol[0]);
-                imgDecodableString = cursor.getString(colIndex);
+                picturePath = cursor.getString(colIndex);
                 cursor.close();
-                imgView = (ImageView) findViewById(R.id.imageSticker);
-                imgView.setImageBitmap(BitmapFactory.decodeFile(imgDecodableString));
-                bitmap = BitmapFactory.decodeFile(imgDecodableString);
+
+               /* imgView = (ImageView) findViewById(R.id.imageSticker);
+                imgView.setImageBitmap(BitmapFactory.decodeFile(picturePath));
+                bitmap = BitmapFactory.decodeFile(picturePath);*/
+
 
                 /* Convert to bitmap */
                 ByteArrayOutputStream stream = new ByteArrayOutputStream();
                 bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
                 byte[] bitmapData = stream.toByteArray();
                 bitmap = BitmapFactory.decodeByteArray(bitmapData, 0, bitmapData.length);
+
+                intent = new Intent(SelectCharacter.this, TouchImageFromGallery.class);
+                intent.putExtra("imagePath", bitmapData);
+                startActivity(intent);
             }
             else {
                 Toast.makeText(this, "You haven't picked Image", Toast.LENGTH_SHORT).show();
@@ -123,5 +130,4 @@ public class SelectCharacter extends ActionBarActivity implements View.OnClickLi
             Toast.makeText(this, "Something wrong", Toast.LENGTH_SHORT).show();
         }
     }
-
 }
