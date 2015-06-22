@@ -9,6 +9,7 @@ import android.os.Environment;
 import android.support.v7.app.ActionBarActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Chronometer;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -25,9 +26,13 @@ public class AudioRecording extends ActionBarActivity implements MediaPlayer.OnC
     private ImageView imgView;
     private MediaRecorder recorder = null;
     private MediaPlayer player;
-    private Button btnStartRecording, btnStopRecording, btnPlayRecording, btnFinishButton, btnOk;
+    private Button btnStartRecording, btnStopRecording, btnPlayRecording, btnStop, btnNext;
+    private Chronometer chronometer;
     private Bitmap bitmap;
     File audioFile;
+
+    private static final String PATH = "StoryApp/StoryName/Audio Record";
+    private static File dir = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + PATH );
 
     DatabaseHelper db;
 
@@ -39,20 +44,21 @@ public class AudioRecording extends ActionBarActivity implements MediaPlayer.OnC
         btnStartRecording = (Button) findViewById(R.id.btnStartRecord);
         btnStopRecording = (Button) findViewById(R.id.btnStopRecord);
         btnPlayRecording = (Button) findViewById(R.id.btnPlay);
-        btnFinishButton = (Button) findViewById(R.id.btnStop);
+        btnStop = (Button) findViewById(R.id.btnStop);
         imgView = (ImageView) findViewById(R.id.imgAudioRec);
-        btnOk = (Button) findViewById(R.id.btnOk);
+        chronometer = (Chronometer) findViewById(R.id.chronometer);
+        btnNext = (Button) findViewById(R.id.btnNext);
 
         btnStartRecording.setOnClickListener(this);
         btnStopRecording.setOnClickListener(this);
         btnPlayRecording.setOnClickListener(this);
-        btnFinishButton.setOnClickListener(this);
-        btnOk.setOnClickListener(this);
+        btnStop.setOnClickListener(this);
+        btnNext.setOnClickListener(this);
 
         btnPlayRecording.setEnabled(false);
         btnStopRecording.setEnabled(false);
-        btnFinishButton.setEnabled(false);
-        btnOk.setEnabled(false);
+        btnStop.setEnabled(false);
+        btnNext.setEnabled(false);
 
         showImage();
     }
@@ -71,23 +77,48 @@ public class AudioRecording extends ActionBarActivity implements MediaPlayer.OnC
         btnStartRecording.setEnabled(true);
         btnStopRecording.setEnabled(false);
         btnPlayRecording.setEnabled(true);
-        btnFinishButton.setEnabled(false);
-        btnOk.setEnabled(true);
+        btnStop.setEnabled(false);
+        btnNext.setEnabled(true);
     }
 
     public void onClick(View v) {
-        if (v == btnFinishButton) {
-            Toast.makeText(AudioRecording.this, "Stop", Toast.LENGTH_SHORT).show();
-            player.stop();
+        if (v == btnStartRecording) {
+            Toast.makeText(AudioRecording.this, "Start Recording", Toast.LENGTH_SHORT).show();
+            chronometer.start();
+            recorder = new MediaRecorder();
+            recorder.setAudioSource(MediaRecorder.AudioSource.MIC);
+            recorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
+            recorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
 
-            btnStartRecording.setEnabled(true);
-            btnStopRecording.setEnabled(false);
-            btnPlayRecording.setEnabled(true);
-            btnFinishButton.setEnabled(true);
-            btnOk.setEnabled(true);
+            dir.mkdirs();
 
+            try {
+                audioFile = File.createTempFile("recording", ".3gp", dir);
+            } catch (IOException e) {
+                throw new RuntimeException("Couldn't create recording audio file", e);
+            }
+
+            recorder.setOutputFile(audioFile.getAbsolutePath());
+
+            try {
+                recorder.prepare();
+            } catch (IllegalStateException e) {
+                throw new RuntimeException(
+                        "IllegalStateException on MediaRecorder.prepare", e);
+            } catch (IOException e) {
+                throw new RuntimeException(
+                        "IOException on MediaRecorder.prepare", e);
+            }
+
+            recorder.start();
+            btnPlayRecording.setEnabled(false);
+            btnStartRecording.setEnabled(false);
+            btnStopRecording.setEnabled(true);
+            btnStop.setEnabled(false);
+            btnNext.setEnabled(false);
         } else if (v == btnStopRecording) {
             Toast.makeText(AudioRecording.this, "Stop Recording", Toast.LENGTH_SHORT).show();
+            chronometer.stop();
             recorder.stop();
             recorder.release();
 
@@ -115,54 +146,25 @@ public class AudioRecording extends ActionBarActivity implements MediaPlayer.OnC
             btnPlayRecording.setEnabled(true);
             btnStartRecording.setEnabled(true);
             btnStopRecording.setEnabled(false);
-            btnFinishButton.setEnabled(false);
-            btnOk.setEnabled(true);
-
-        } else if (v == btnStartRecording) {
-            Toast.makeText(AudioRecording.this, "Start Recording", Toast.LENGTH_SHORT).show();
-            recorder = new MediaRecorder();
-            recorder.setAudioSource(MediaRecorder.AudioSource.MIC);
-            recorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
-            recorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
-
-            File path = new File(
-                    Environment.getExternalStorageDirectory().getAbsolutePath() + "/DCIM/Camera/Audio Record/");
-            path.mkdirs();
-
-            try {
-                audioFile = File.createTempFile("recording", ".3gp", path);
-            } catch (IOException e) {
-                throw new RuntimeException("Couldn't create recording audio file", e);
-            }
-
-            recorder.setOutputFile(audioFile.getAbsolutePath());
-
-            try {
-                recorder.prepare();
-            } catch (IllegalStateException e) {
-                throw new RuntimeException(
-                        "IllegalStateException on MediaRecorder.prepare", e);
-            } catch (IOException e) {
-                throw new RuntimeException(
-                        "IOException on MediaRecorder.prepare", e);
-            }
-
-            recorder.start();
-            btnPlayRecording.setEnabled(false);
-            btnStartRecording.setEnabled(false);
-            btnStopRecording.setEnabled(true);
-            btnFinishButton.setEnabled(false);
-            btnOk.setEnabled(false);
-
+            btnStop.setEnabled(false);
+            btnNext.setEnabled(true);
         } else if (v == btnPlayRecording) {
             player.start();
             btnPlayRecording.setEnabled(false);
             btnStopRecording.setEnabled(false);
             btnStartRecording.setEnabled(false);
-            btnFinishButton.setEnabled(true);
-            btnOk.setEnabled(true);
+            btnStop.setEnabled(true);
+            btnNext.setEnabled(true);
+        } else if (v == btnStop) {
+            Toast.makeText(AudioRecording.this, "Stop", Toast.LENGTH_SHORT).show();
+            player.stop();
 
-        } else if (v == btnOk){
+            btnStartRecording.setEnabled(true);
+            btnStopRecording.setEnabled(false);
+            btnPlayRecording.setEnabled(true);
+            btnStop.setEnabled(true);
+            btnNext.setEnabled(true);
+        } else {
             /*Intent i = new Intent(getApplicationContext(), SoundPath.class);
             startActivity(i);*/
         }
