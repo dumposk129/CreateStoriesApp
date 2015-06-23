@@ -53,9 +53,7 @@ public class SelectCharacter extends ActionBarActivity implements View.OnClickLi
 
         frame_id =(int)getIntent().getExtras().getLong("frame_id");
 
-
         /* This method is show image */
-        //ShowImage.showImage(getApplicationContext(), path_pic);
         showImage();
     }
 
