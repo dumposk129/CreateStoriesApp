@@ -25,6 +25,7 @@ public class SelectCharacter extends ActionBarActivity implements View.OnClickLi
     private Button btnImage, btnGallery, btnNext, btnText;
     private static int RESULT_LOAD_IMG = 1;
     private String picturePath, path_pic;
+    private String pathBg;
     private ImageView imgView;
     private Bitmap bitmap;
     Intent intent;
@@ -82,6 +83,12 @@ public class SelectCharacter extends ActionBarActivity implements View.OnClickLi
             intent = new Intent(SelectCharacter.this, AddText.class);
             startActivity(intent);
         } else if (v == btnNext) {
+            /* Save photo path */
+            pathBg = PhotoHelper.writeImagePath(bitmap);
+
+            // TODO: Update Path
+            PhotoHelper.updatePath(getApplicationContext(), (int)frame_id, pathBg); // Update Path in db.
+
             intent = new Intent(SelectCharacter.this, AudioRecording.class);
             startActivity(intent);
         } else {

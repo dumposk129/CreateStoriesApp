@@ -27,5 +27,4 @@ dependencies {
     compile 'com.balysv:material-ripple:1.0.0'
     compile 'com.android.support:support-v4:22.0.0'
     compile 'org.apache.httpcomponents:httpmime:4.3.3'
-    compile 'info.hoang8f:fbutton:1.0.5'
 }
