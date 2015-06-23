@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import com.dumposk129.create.stories.app.model.Audio;
 import com.dumposk129.create.stories.app.model.Frame;
 import com.dumposk129.create.stories.app.model.Story;
 
@@ -136,5 +137,20 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         c.close();
         db.close();
         return path_pic;
+    }
+
+    public long createNewAudio(Audio audio){
+        db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(Schema.KEY_FRAME_ID, audio.getFrameID());
+        values.put(Schema.KEY_AUDIO_PATH, audio.getPathAudio());
+        values.put(Schema.KEY_DURATION, audio.getDuration());
+
+        long audio_id = db.insert(Schema.TABLE_AUDIO, null, values);
+
+        db.close();
+
+        return audio_id;
     }
 }

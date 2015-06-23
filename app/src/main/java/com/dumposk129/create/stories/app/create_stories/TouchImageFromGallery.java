@@ -17,7 +17,7 @@ import com.dumposk129.create.stories.app.sql.DatabaseHelper;
 /**
  * Created by DumpOSK129.
  */
-public class TouchImageFromGallery extends ActionBarActivity implements View.OnClickListener, View.OnTouchListener{
+public class TouchImageFromGallery extends ActionBarActivity implements View.OnClickListener, View.OnTouchListener {
     private Bitmap bitmap;
     private ImageView imgFullSize, imgTicker;
     private Button btnOK;
@@ -41,16 +41,14 @@ public class TouchImageFromGallery extends ActionBarActivity implements View.OnC
 
         showImage();
 
-
-
-        /*Intent i = getIntent();
+        Intent i = getIntent();
 
         // Selected image id
-        if (i.getExtras() != null){
+        if (i.getExtras() != null) {
             byte[] byteArr = i.getExtras().getByteArray("imagePath");
             bitmap = BitmapFactory.decodeByteArray(byteArr, 0, byteArr.length);
             imgTicker.setImageBitmap(bitmap);
-        }*/
+        }
     }
 
     public void showImage() {
@@ -75,16 +73,16 @@ public class TouchImageFromGallery extends ActionBarActivity implements View.OnC
 
     @Override
     public boolean onTouch(View v, MotionEvent event) {
-        int x = (int) event.getRawX();
-        int y = (int) event.getRawY();
+        int x = (int) event.getX();
+        int y = (int) event.getY();
 
-        switch (event.getAction()){
-            case MotionEvent.ACTION_DOWN:{}
+        switch (event.getAction()) {
+            case MotionEvent.ACTION_DOWN: {}
             break;
             case MotionEvent.ACTION_MOVE: {
                 FrameLayout.LayoutParams mParams = (FrameLayout.LayoutParams) imgTicker.getLayoutParams();
-                mParams.leftMargin = x - 5;
-                mParams.topMargin = y - 5;
+                mParams.leftMargin = x;
+                mParams.topMargin = y;
                 imgTicker.setLayoutParams(mParams);
             }
             break;

@@ -24,7 +24,7 @@ public class Schema {
 
     /** Audio **/
     public static String TABLE_AUDIO = "audio";
-    public static String KEY_AUDIO = "path_audio";
+    public static String KEY_AUDIO_PATH = "path_audio";
     public static String KEY_DURATION = "duration";
     public static String KEY_FRAME_ID = "frame_id";
 
@@ -51,7 +51,7 @@ public class Schema {
     public static final String CREATE_TABLE_AUDIO =
             "CREATE TABLE " + TABLE_AUDIO +
                     "(" + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,"
-                        + KEY_AUDIO + " TEXT NULL,"
+                        + KEY_AUDIO_PATH + " TEXT NULL,"
                         + KEY_DURATION + " TEXT NULL,"
                         + KEY_FRAME_ID + " INTEGER,"
                         + "FOREIGN KEY("+KEY_FRAME_ID+") REFERENCES "+TABLE_FRAME+" ("+KEY_ID+")"+
