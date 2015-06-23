@@ -33,7 +33,7 @@ public class AudioRecording extends ActionBarActivity implements MediaPlayer.OnC
     private Button btnStartRecording, btnStopRecording, btnPlayRecording, btnStop, btnNext;
     private Chronometer chronometer;
     private Bitmap bitmap;
-    private int frame_id;
+    private long frame_id;
     private double recordingDuration = 0;
     private String durationString;
     File audioFile;
@@ -69,7 +69,7 @@ public class AudioRecording extends ActionBarActivity implements MediaPlayer.OnC
 
         showImage();
 
-        frame_id = getIntent().getExtras().getInt("frame_id");
+        frame_id = (int)getIntent().getExtras().getLong("frame_id");
     }
 
     /* Show Image from database */
@@ -188,7 +188,7 @@ public class AudioRecording extends ActionBarActivity implements MediaPlayer.OnC
         db = new DatabaseHelper(getApplicationContext());
         Audio audio = new Audio();
         if (PATH != ""){
-            audio.setFrameID(frame_id);
+            audio.setFrameID((int)frame_id);
             audio.setPathAudio(PATH);
             audio.setDuration(durationString);
         }

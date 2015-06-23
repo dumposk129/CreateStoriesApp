@@ -60,7 +60,6 @@
         <item>Blue</item>
         <item>WHITE</item>
         <item>YELLOW</item>
-        <item>DARK GREY</item>
     </array>
 
     <string name="hello_world">Hello world!</string>

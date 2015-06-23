@@ -17,7 +17,7 @@ import com.dumposk129.create.stories.app.sql.DatabaseHelper;
 /**
  * Created by DumpOSK129.
  */
-public class TouchImageFromGallery extends ActionBarActivity implements View.OnClickListener, View.OnTouchListener {
+public class MoveImageFromGallery extends ActionBarActivity implements View.OnClickListener, View.OnTouchListener {
     private Bitmap bitmap;
     private ImageView imgFullSize, imgTicker;
     private Button btnOK;
@@ -66,7 +66,7 @@ public class TouchImageFromGallery extends ActionBarActivity implements View.OnC
         String path = PhotoHelper.writeImagePath(bmpCombined);
         PhotoHelper.updatePath(getApplicationContext(), frame_id, path);
 
-        Intent intent = new Intent(TouchImageFromGallery.this, SelectCharacter.class);
+        Intent intent = new Intent(MoveImageFromGallery.this, SelectCharacter.class);
         intent.putExtra("frame_id", frame_id);
         startActivity(intent);
     }

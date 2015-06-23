@@ -153,4 +153,27 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         return audio_id;
     }
+
+    public String getAudioPath(int story_id){
+        db = this.getReadableDatabase();
+        String  path_audio = null;
+
+        String query = "SELECT " +Schema.KEY_AUDIO_PATH  + " FROM "+ Schema.TABLE_AUDIO
+                + " WHERE " + Schema.KEY_STORY_ID + " = " + story_id + " ORDER BY " + Schema.KEY_FRAME_ID;
+
+        /* move cursor */
+        Cursor c = db.rawQuery(query, null);
+        c.moveToFirst();
+
+        while (!c.isAfterLast()) {
+            path_audio = c.getString(c.getColumnIndex(Schema.KEY_AUDIO_PATH));
+            c.moveToNext();
+        }
+
+        c.moveToFirst();
+
+        c.close();
+        db.close();
+        return path_audio;
+    }
 }

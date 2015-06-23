@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -28,7 +29,7 @@ public class AddText extends ActionBarActivity implements View.OnClickListener, 
     private Button btnOK, btnNext, btnColor;
     private ImageView imgView;
     private Bitmap bitmap;
-
+    private long frame_id;
     DatabaseHelper db;
 
     @Override
@@ -47,6 +48,8 @@ public class AddText extends ActionBarActivity implements View.OnClickListener, 
         btnColor.setOnClickListener(this);
         btnNext.setOnClickListener(this);
         tvSubtitle.setOnTouchListener(this);
+
+        frame_id = (int)getIntent().getExtras().getLong("frame_id");
 
         showImage();
     }
@@ -69,9 +72,19 @@ public class AddText extends ActionBarActivity implements View.OnClickListener, 
             tvSubtitle.setVisibility(View.VISIBLE);
             btnColor.setVisibility(View.VISIBLE);
         } else if (v == btnNext) {
-            combineText(bitmap, tvSubtitle);
+
+            int bmpWd = bitmap.getWidth();
+            int tvWd = tvSubtitle.getWidth();
+
+            float xPos = (bmpWd - tvWd) / 2;
+
+            tvSubtitle.setDrawingCacheEnabled(true);
+
+            Canvas canvas = new Canvas();
+            canvas.drawBitmap(tvSubtitle.getDrawingCache(), xPos, 0f, null);
 
             Intent intent = new Intent(AddText.this, SelectCharacter.class);
+            intent.putExtra("frame_id", frame_id);
             startActivity(intent);
         } else if (v == btnColor) {
             showSelectColor();
@@ -79,6 +92,14 @@ public class AddText extends ActionBarActivity implements View.OnClickListener, 
     }
 
     private void combineText(Bitmap bitmap, TextView tvSubtitle) {
+        /*int dw = bitmap.getWidth();
+        int dh = bitmap.getHeight();
+        Bitmap combineTextBitmap = Bitmap.createScaledBitmap(bitmap, dw, dh, true);
+        Bitmap mutableBitmap = combineTextBitmap.copy(Bitmap.Config.ARGB_8888, true);
+        Canvas canvas = new Canvas(mutableBitmap);
+        tvSubtitle.draw(canvas);
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        combineTextBitmap.compress(Bitmap.CompressFormat.JPEG, 90, stream);*/
     }
 
     /* Ticker Set On Touch */
@@ -126,9 +147,6 @@ public class AddText extends ActionBarActivity implements View.OnClickListener, 
                         break;
                     case 4:
                         tvSubtitle.setTextColor(Color.YELLOW);
-                        break;
-                    case 5:
-                        tvSubtitle.setTextColor(Color.DKGRAY);
                         break;
                 }
             }
