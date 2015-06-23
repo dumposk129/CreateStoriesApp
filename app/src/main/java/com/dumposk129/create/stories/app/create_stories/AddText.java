@@ -77,22 +77,6 @@ public class AddText extends ActionBarActivity implements View.OnClickListener, 
 
             Intent intent = new Intent(AddText.this, SelectCharacter.class);
             startActivity(intent);
-        } else {
-            /*AlertDialog.Builder alertDialog = new AlertDialog.Builder(getApplicationContext());
-            alertDialog.setTitle("Select Color");
-            alertDialog.setItems(R.array.select_color, new  Dialog.OnClickListener(){
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    switch (which){
-                        case 0: tvSubtitle.setTextColor(Color.RED);
-                            break;
-                        case 1: tvSubtitle.setTextColor(Color.BLACK);
-                            break;
-                        case 2: tvSubtitle.setTextColor(Color.BLUE);
-                            break;
-                    }
-                }
-            });*/
         }
     }
 
@@ -148,7 +132,6 @@ public class AddText extends ActionBarActivity implements View.OnClickListener, 
                     }
                 }
             });
-
             return true;
         }
     }

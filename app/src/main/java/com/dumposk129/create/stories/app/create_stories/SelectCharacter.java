@@ -79,7 +79,6 @@ public class SelectCharacter extends ActionBarActivity implements View.OnClickLi
             intent.setType("image/*");
             startActivityForResult(intent, RESULT_LOAD_IMG);
         } else if (v == btnText) {
-            Toast.makeText(getApplicationContext(),"Click",Toast.LENGTH_SHORT).show();
             intent = new Intent(SelectCharacter.this, AddText.class);
             startActivity(intent);
         } else if (v == btnNext) {
@@ -105,7 +104,6 @@ public class SelectCharacter extends ActionBarActivity implements View.OnClickLi
                 int colIndex = cursor.getColumnIndex(filePathCol[0]);
                 picturePath = cursor.getString(colIndex);
                 cursor.close();
-
 
                 /* Convert to bitmap */
                 ByteArrayOutputStream stream = new ByteArrayOutputStream();
