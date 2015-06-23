@@ -16,6 +16,12 @@ public class Audio {
         this.duration = duration;
     }
 
+    public Audio(int frame_id, String path_audio, String duration){
+        this.frame_id = frame_id;
+        this.path_audio = path_audio;
+        this.duration = duration;
+    }
+
     // Setter
     public void setID(int id){
         this.id = id;

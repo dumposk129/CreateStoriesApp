@@ -1,11 +1,13 @@
 package com.dumposk129.create.stories.app.create_stories;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.SystemClock;
 import android.support.v7.app.ActionBarActivity;
 import android.view.View;
 import android.widget.Button;
@@ -14,10 +16,12 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.dumposk129.create.stories.app.R;
+import com.dumposk129.create.stories.app.model.Audio;
 import com.dumposk129.create.stories.app.sql.DatabaseHelper;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.DecimalFormat;
 
 /**
  * Created by DumpOSK129.
@@ -30,6 +34,8 @@ public class AudioRecording extends ActionBarActivity implements MediaPlayer.OnC
     private Chronometer chronometer;
     private Bitmap bitmap;
     private int frame_id;
+    private double recordingDuration = 0;
+    private String durationString;
     File audioFile;
 
     private static final String PATH = "StoryApp/StoryName/Audio Record";
@@ -92,7 +98,7 @@ public class AudioRecording extends ActionBarActivity implements MediaPlayer.OnC
             recorder.setAudioSource(MediaRecorder.AudioSource.MIC);
             recorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
             recorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
-
+            chronometer.setBase(SystemClock.elapsedRealtime());
             dir.mkdirs();
 
             try {
@@ -106,11 +112,9 @@ public class AudioRecording extends ActionBarActivity implements MediaPlayer.OnC
             try {
                 recorder.prepare();
             } catch (IllegalStateException e) {
-                throw new RuntimeException(
-                        "IllegalStateException on MediaRecorder.prepare", e);
+                throw new RuntimeException("IllegalStateException on MediaRecorder.prepare", e);
             } catch (IOException e) {
-                throw new RuntimeException(
-                        "IOException on MediaRecorder.prepare", e);
+                throw new RuntimeException("IOException on MediaRecorder.prepare", e);
             }
 
             recorder.start();
@@ -124,6 +128,7 @@ public class AudioRecording extends ActionBarActivity implements MediaPlayer.OnC
             chronometer.stop();
             recorder.stop();
             recorder.release();
+            recordingDuration = (SystemClock.elapsedRealtime() - chronometer.getBase())/1000.0;
 
             player = new MediaPlayer();
             player.setOnCompletionListener(this);
@@ -145,6 +150,10 @@ public class AudioRecording extends ActionBarActivity implements MediaPlayer.OnC
             } catch (IOException e) {
                 throw new RuntimeException("IOException in MediaPlayer.prepare", e);
             }
+
+            DecimalFormat df = new DecimalFormat("#.#");
+            durationString = df.format(recordingDuration);
+            durationString += getString(R.string.s);
 
             btnPlayRecording.setEnabled(true);
             btnStartRecording.setEnabled(true);
@@ -168,21 +177,21 @@ public class AudioRecording extends ActionBarActivity implements MediaPlayer.OnC
             btnStop.setEnabled(true);
             btnNext.setEnabled(true);
         } else {
-            /*createNewAudio();
+            createAudio();
 
-            Intent intent = new Intent(getApplicationContext(), SoundPath.class);
-
-            startActivity(intent);*/
+            Intent intent = new Intent(getApplicationContext(), CreateStories.class);
+            startActivity(intent);
         }
     }
 
-   /* private long createNewAudio() {
+    private long createAudio() {
         db = new DatabaseHelper(getApplicationContext());
         Audio audio = new Audio();
-        audio.setFrameID(frame_id);
-        audio.setPathAudio(PATH);
-        audio.setDuration(chronometer);
-
+        if (PATH != ""){
+            audio.setFrameID(frame_id);
+            audio.setPathAudio(PATH);
+            audio.setDuration(durationString);
+        }
         return db.createNewAudio(audio);
-    }*/
+    }
 }

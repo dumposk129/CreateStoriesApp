@@ -9,13 +9,13 @@
     <uses-permission android:name="ANDROID.PERMISSION.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.SET_DEBUG_APP"/>
 
-    <supports-screens
+    <!--<supports-screens
         android:largeScreens="true"
-        android:normalScreens="false"
+        android:normalScreens="true"
         android:requiresSmallestWidthDp="600"
         android:resizeable="true"
         android:smallScreens="false"
-        android:xlargeScreens="true" />
+        android:xlargeScreens="true" />-->
 
     <application
         android:allowBackup="true"
@@ -67,4 +67,5 @@
         <activity android:name=".create_stories.SelectCharacter"/>
         <activity android:name=".create_stories.AudioRecording"/>
         <activity android:name=".create_stories.TouchImageFromGallery"/>
+        <activity android:name=".create_stories.CreateStories"/>
 </application></manifest>

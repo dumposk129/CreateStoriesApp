@@ -56,8 +56,6 @@ public class SelectBackground extends ActionBarActivity implements View.OnClickL
         btnGallery.setOnClickListener(this);
         btnNext.setOnClickListener(this);
 
-        final long newFrameOrder = this.newFrameOrder;
-
         // get intent data
         Intent i = getIntent();
 

@@ -33,6 +33,7 @@
     <string name="title_activity_show_questions">Show Questions</string>
     <string name="title_activity_question">Questions</string>
     <string name="title_activity_answer">Answers</string>
+    <string name="s">s</string>
 
     <string name="choose_item">Choose Item</string>
     <string name="select_color">Select Color</string>
