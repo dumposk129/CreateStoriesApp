@@ -1,7 +1,6 @@
 package com.dumposk129.create.stories.app.create_stories;
 
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -9,7 +8,6 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
-import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
@@ -24,13 +22,12 @@ import com.dumposk129.create.stories.app.sql.DatabaseHelper;
 /**
  * Created by DumpOSK129.
  */
-public class AddText extends ActionBarActivity implements View.OnClickListener, View.OnTouchListener{
+public class AddText extends ActionBarActivity implements View.OnClickListener, View.OnTouchListener {
     private TextView tvSubtitle;
     private EditText txtSubtitle;
-    private Button btnOK, btnNext;
+    private Button btnOK, btnNext, btnColor;
     private ImageView imgView;
     private Bitmap bitmap;
-    private GestureDetector gestureDetector;
 
     DatabaseHelper db;
 
@@ -43,14 +40,13 @@ public class AddText extends ActionBarActivity implements View.OnClickListener, 
         tvSubtitle = (TextView) findViewById(R.id.tvSubtitle);
         btnOK = (Button) findViewById(R.id.btnOk);
         btnNext = (Button) findViewById(R.id.btnNext);
+        btnColor = (Button) findViewById(R.id.btnSelectColor);
         imgView = (ImageView) findViewById(R.id.imgAddText);
 
         btnOK.setOnClickListener(this);
+        btnColor.setOnClickListener(this);
         btnNext.setOnClickListener(this);
         tvSubtitle.setOnTouchListener(this);
-      //  tvSubtitle.setOnClickListener(this);
-
-        gestureDetector = new GestureDetector(this, new SingleTapConfirm());
 
         showImage();
     }
@@ -67,16 +63,18 @@ public class AddText extends ActionBarActivity implements View.OnClickListener, 
 
     @Override
     public void onClick(View v) {
-        if (v == btnOK){
+        if (v == btnOK) {
             String subtitle = txtSubtitle.getText().toString();
             tvSubtitle.append(subtitle);
-
             tvSubtitle.setVisibility(View.VISIBLE);
-        } else if (v == btnNext){
+            btnColor.setVisibility(View.VISIBLE);
+        } else if (v == btnNext) {
             combineText(bitmap, tvSubtitle);
 
             Intent intent = new Intent(AddText.this, SelectCharacter.class);
             startActivity(intent);
+        } else if (v == btnColor) {
+            showSelectColor();
         }
     }
 
@@ -86,53 +84,55 @@ public class AddText extends ActionBarActivity implements View.OnClickListener, 
     /* Ticker Set On Touch */
     @Override
     public boolean onTouch(View v, MotionEvent event) {
+        /* Move */
+        int x = (int) event.getX();
+        int y = (int) event.getY();
 
-        /* Single Tab */
-        if (gestureDetector.onTouchEvent(event)){
-            return true;
-        } else{
-            /* Move */
-            int x = (int) event.getX();
-            int y = (int) event.getY();
-
-            switch (event.getAction()) {
-                case MotionEvent.ACTION_DOWN: {
-                }
-                break;
-                case MotionEvent.ACTION_MOVE: {
-                    FrameLayout.LayoutParams mParams = (FrameLayout.LayoutParams) tvSubtitle.getLayoutParams();
-                    mParams.leftMargin = x;
-                    mParams.topMargin = y;
-                    tvSubtitle.setLayoutParams(mParams);
-                }
-                break;
-                case MotionEvent.ACTION_UP: {
-                }
-                break;
+        switch (event.getAction()) {
+            case MotionEvent.ACTION_DOWN: {
             }
+            break;
+            case MotionEvent.ACTION_MOVE: {
+                FrameLayout.LayoutParams mParams = (FrameLayout.LayoutParams) tvSubtitle.getLayoutParams();
+                mParams.leftMargin = x;
+                mParams.topMargin = y;
+                tvSubtitle.setLayoutParams(mParams);
+            }
+            break;
+            case MotionEvent.ACTION_UP: {
+            }
+            break;
         }
-        return false;
+        return true;
     }
 
-    private class SingleTapConfirm extends GestureDetector.SimpleOnGestureListener{
-        @Override
-        public boolean onSingleTapConfirmed(MotionEvent e) {
-            AlertDialog.Builder alertDialog = new AlertDialog.Builder(getApplicationContext());
-            alertDialog.setTitle("Select Color");
-            alertDialog.setItems(R.array.select_color, new  Dialog.OnClickListener(){
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    switch (which){
-                        case 0: tvSubtitle.setTextColor(Color.RED);
-                            break;
-                        case 1: tvSubtitle.setTextColor(Color.BLACK);
-                            break;
-                        case 2: tvSubtitle.setTextColor(Color.BLUE);
-                            break;
-                    }
+    private void showSelectColor() {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(AddText.this);
+        builder.setTitle(R.string.select_color).setItems(R.array.color, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int postion) {
+                switch (postion) {
+                    case 0:
+                        tvSubtitle.setTextColor(Color.RED);
+                        break;
+                    case 1:
+                        tvSubtitle.setTextColor(Color.BLACK);
+                        break;
+                    case 2:
+                        tvSubtitle.setTextColor(Color.BLUE);
+                        break;
+                    case 3:
+                        tvSubtitle.setTextColor(Color.WHITE);
+                        break;
+                    case 4:
+                        tvSubtitle.setTextColor(Color.YELLOW);
+                        break;
+                    case 5:
+                        tvSubtitle.setTextColor(Color.DKGRAY);
+                        break;
                 }
-            });
-            return true;
-        }
+            }
+        });
+        builder.show();
     }
 }

@@ -35,6 +35,7 @@
     <string name="title_activity_answer">Answers</string>
 
     <string name="choose_item">Choose Item</string>
+    <string name="select_color">Select Color</string>
     <!-- Quiz -->
     <array name="questions_answers">
         <item>Create Questions</item>
@@ -52,10 +53,13 @@
 
 
     <!-- Array Color -->
-    <array name="select_color">
+    <array name="color">
         <item>Red</item>
         <item>Black</item>
         <item>Blue</item>
+        <item>WHITE</item>
+        <item>YELLOW</item>
+        <item>DARK GREY</item>
     </array>
 
     <string name="hello_world">Hello world!</string>
