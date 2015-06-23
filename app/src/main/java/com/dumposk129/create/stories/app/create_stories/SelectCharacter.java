@@ -90,6 +90,7 @@ public class SelectCharacter extends ActionBarActivity implements View.OnClickLi
             PhotoHelper.updatePath(getApplicationContext(), (int)frame_id, pathBg); // Update Path in db.
 
             intent = new Intent(SelectCharacter.this, AudioRecording.class);
+            intent.putExtra("frame_id", frame_id);
             startActivity(intent);
         } else {
             Toast.makeText(getApplicationContext(),"Please select an action", Toast.LENGTH_LONG).show();

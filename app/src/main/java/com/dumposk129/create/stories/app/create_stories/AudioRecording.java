@@ -29,6 +29,7 @@ public class AudioRecording extends ActionBarActivity implements MediaPlayer.OnC
     private Button btnStartRecording, btnStopRecording, btnPlayRecording, btnStop, btnNext;
     private Chronometer chronometer;
     private Bitmap bitmap;
+    private int frame_id;
     File audioFile;
 
     private static final String PATH = "StoryApp/StoryName/Audio Record";
@@ -61,6 +62,8 @@ public class AudioRecording extends ActionBarActivity implements MediaPlayer.OnC
         btnNext.setEnabled(false);
 
         showImage();
+
+        frame_id = getIntent().getExtras().getInt("frame_id");
     }
 
     /* Show Image from database */
@@ -165,8 +168,21 @@ public class AudioRecording extends ActionBarActivity implements MediaPlayer.OnC
             btnStop.setEnabled(true);
             btnNext.setEnabled(true);
         } else {
-            /*Intent i = new Intent(getApplicationContext(), SoundPath.class);
-            startActivity(i);*/
+            /*createNewAudio();
+
+            Intent intent = new Intent(getApplicationContext(), SoundPath.class);
+
+            startActivity(intent);*/
         }
     }
+
+   /* private long createNewAudio() {
+        db = new DatabaseHelper(getApplicationContext());
+        Audio audio = new Audio();
+        audio.setFrameID(frame_id);
+        audio.setPathAudio(PATH);
+        audio.setDuration(chronometer);
+
+        return db.createNewAudio(audio);
+    }*/
 }

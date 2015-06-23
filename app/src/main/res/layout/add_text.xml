@@ -38,9 +38,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:clickable="true"
-            android:inputType="textMultiLine"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textSize="25sp"
+            android:textSize="20sp"
             android:visibility="invisible" />
 
     </FrameLayout>

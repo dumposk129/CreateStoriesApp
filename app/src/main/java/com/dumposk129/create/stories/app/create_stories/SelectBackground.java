@@ -38,6 +38,8 @@ public class SelectBackground extends ActionBarActivity implements View.OnClickL
     private final String PATH = "StoryApp/StoryName/Frame";
     private long newFrameOrder = frame_order;
 
+    DatabaseHelper db;
+
     File dir = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + PATH );
 
     @Override
@@ -141,7 +143,7 @@ public class SelectBackground extends ActionBarActivity implements View.OnClickL
 
     /* Create Frame */
     private long createFrame() {
-        DatabaseHelper db = new DatabaseHelper(getApplicationContext());
+        db = new DatabaseHelper(getApplicationContext());
         Frame frame = new Frame();
         if (pathBg != ""){
             newFrameOrder = frame_order++;
