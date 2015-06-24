@@ -28,7 +28,7 @@ public class PhotoCharacter extends ActionBarActivity implements View.OnClickLis
             R.drawable.h13, R.drawable.h14, R.drawable.h15, R.drawable.h16, R.drawable.h17, R.drawable.h18, R.drawable.h19, R.drawable.h20, R.drawable.h21, R.drawable.h22, R.drawable.h23, R.drawable.h24, R.drawable.h25};
     private Button btnOk;
     private Bitmap bitmap;
-    private int frame_id;
+    private long frame_id;
 
     DatabaseHelper db;
 
@@ -49,8 +49,8 @@ public class PhotoCharacter extends ActionBarActivity implements View.OnClickLis
         btnOk.setOnClickListener(this);
         imgTicker.setOnTouchListener(this);
 
-        frame_id = getIntent().getExtras().getInt("frame_id");
-
+        frame_id = (int)getIntent().getExtras().getLong("frame_id");
+        //Toast.makeText(getApplicationContext(), "frame_id: " + frame_id, Toast.LENGTH_SHORT).show();
         /* This method is show image */
         showImage();
 
@@ -132,10 +132,11 @@ public class PhotoCharacter extends ActionBarActivity implements View.OnClickLis
         Bitmap bmpCombined = CombineImage.getImageDrawer(imgFullSize, imgTicker);
 
         String path = PhotoHelper.writeImagePath(bmpCombined);
-        PhotoHelper.updatePath(getApplicationContext(), frame_id, path);
+        PhotoHelper.updatePath(getApplicationContext(), (int)frame_id, path);
 
         Intent intent = new Intent(PhotoCharacter.this, SelectCharacter.class);
         intent.putExtra("frame_id", frame_id);
+        //Toast.makeText(getApplicationContext(), "frame_id: "+frame_id, Toast.LENGTH_SHORT).show();
         startActivity(intent);
     }
 }

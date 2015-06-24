@@ -54,7 +54,7 @@ public class SelectCharacter extends ActionBarActivity implements View.OnClickLi
         btnText.setOnClickListener(this);
 
         frame_id = (int)getIntent().getExtras().getLong("frame_id");
-
+        //Toast.makeText(getApplicationContext(), "frame_id: "+frame_id, Toast.LENGTH_SHORT).show();
         /* This method is show image */
         showImage();
     }
@@ -82,6 +82,7 @@ public class SelectCharacter extends ActionBarActivity implements View.OnClickLi
         } else if (v == btnText) {
             intent = new Intent(SelectCharacter.this, AddText.class);
             intent.putExtra("frame_id", frame_id);
+            //Toast.makeText(getApplicationContext(), "frame_id: "+frame_id, Toast.LENGTH_SHORT).show();
             startActivity(intent);
         } else if (v == btnNext) {
             /* Save photo path */

@@ -121,7 +121,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         String  path_pic = null;
 
         String query = "SELECT " +Schema.KEY_PATH_PIC  + " FROM "+ Schema.TABLE_FRAME
-                + " WHERE " + Schema.KEY_STORY_ID + " = " + story_id + " ORDER BY " + Schema.KEY_FRAME_ORDER;
+                + " WHERE " + Schema.KEY_STORY_ID + " = " + story_id + " ORDER BY " + Schema.KEY_ID;
 
         /* move cursor */
         Cursor c = db.rawQuery(query, null);

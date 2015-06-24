@@ -167,6 +167,8 @@ public class AudioRecording extends ActionBarActivity implements MediaPlayer.OnC
             btnNext.setEnabled(true);
         } else if (v == btnPlayRecording) {
             player.start();
+            chronometer.setBase(SystemClock.elapsedRealtime());
+            chronometer.start();
             btnPlayRecording.setEnabled(false);
             btnStopRecording.setEnabled(false);
             btnStartRecording.setEnabled(false);
@@ -175,7 +177,7 @@ public class AudioRecording extends ActionBarActivity implements MediaPlayer.OnC
         } else if (v == btnStop) {
             Toast.makeText(AudioRecording.this, "Stop", Toast.LENGTH_SHORT).show();
             player.stop();
-
+            chronometer.stop();
             btnStartRecording.setEnabled(true);
             btnStopRecording.setEnabled(false);
             btnPlayRecording.setEnabled(true);
@@ -187,9 +189,7 @@ public class AudioRecording extends ActionBarActivity implements MediaPlayer.OnC
             /* Create Path video before generate*/
             createPathOutput();
 
-            dirOutput.getPath();
-
-            String cmd = Command.genFrame(path_pic, dir.getPath(), dirOutput.getPath()+ "/"+"f1.mp4");
+            String cmd = Command.genFrame(path_pic, dir.getPath(), dirOutput.getPath()+ "/" + "f1.mp4");
 
             MuxerVideo muxerVideo = new MuxerVideo(bitmap, duration);
             muxerVideo.initialFFmpeg(getApplicationContext());
