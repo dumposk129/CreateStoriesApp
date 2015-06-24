@@ -144,9 +144,9 @@ public class SelectBackground extends ActionBarActivity implements View.OnClickL
         db = new DatabaseHelper(getApplicationContext());
         Frame frame = new Frame();
         if (pathBg != ""){
-            newFrameOrder = frame_order++;
+            /*newFrameOrder = frame_order++;
             frame.setFrameOrder((int)frame_order);
-            frame.setStepId(0);
+            frame.setStepId(0);*/
             frame.setStoryId(2);
         }
         return db.createNewFrame(frame);

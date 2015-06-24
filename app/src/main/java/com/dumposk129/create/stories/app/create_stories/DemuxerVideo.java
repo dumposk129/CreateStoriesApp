@@ -13,11 +13,11 @@ import com.github.hiteshsondhi88.libffmpeg.exceptions.FFmpegNotSupportedExceptio
 /**
  * Created by DumpOSK129.
  */
-public class MuxerVideo {
+public class DemuxerVideo {
     private static Bitmap bitmap;
     private static String duration;
 
-    public MuxerVideo(Bitmap bitmap, String duration) {
+    public DemuxerVideo(Bitmap bitmap, String duration) {
         this.bitmap = bitmap;
         this.duration = duration;
     }

@@ -93,8 +93,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put(Schema.KEY_FRAME_ORDER, frame.getFrameOrder());
-        values.put(Schema.KEY_STEP, frame.getStep());
+        /*values.put(Schema.KEY, frame.getFrameOrder());
+        values.put(Schema.KEY_STEP, frame.getStep());*/
         values.put(Schema.KEY_STORY_ID, frame.getStoryId());
 
         long frame_id = db.insert(Schema.TABLE_FRAME, null, values);
@@ -104,12 +104,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return frame_id;
     }
 
-    public void updatePath(int frame_id, int step, String path_pic) {
+    public void updatePath(int frame_id, String path_pic) {
         db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
         values.put(Schema.KEY_PATH_PIC, path_pic);
-        values.put(Schema.KEY_STEP, step);
+        /*values.put(Schema.KEY_STEP, step);*/
 
         db.update(Schema.TABLE_FRAME, values, Schema.KEY_ID + " = " + frame_id, null);
 

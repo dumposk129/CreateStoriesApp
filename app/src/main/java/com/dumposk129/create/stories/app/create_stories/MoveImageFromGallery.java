@@ -18,7 +18,7 @@ import com.dumposk129.create.stories.app.sql.DatabaseHelper;
  * Created by DumpOSK129.
  */
 public class MoveImageFromGallery extends ActionBarActivity implements View.OnClickListener, View.OnTouchListener {
-    private Bitmap bitmap;
+    private Bitmap bitmap, bmp;
     private ImageView imgFullSize, imgTicker;
     private Button btnOK;
     private int frame_id;
@@ -46,8 +46,8 @@ public class MoveImageFromGallery extends ActionBarActivity implements View.OnCl
         // Selected image id
         if (i.getExtras() != null) {
             byte[] byteArr = i.getExtras().getByteArray("imagePath");
-            bitmap = BitmapFactory.decodeByteArray(byteArr, 0, byteArr.length);
-            imgTicker.setImageBitmap(bitmap);
+            bmp = BitmapFactory.decodeByteArray(byteArr, 0, byteArr.length);
+            imgTicker.setImageBitmap(bmp);
         }
     }
 

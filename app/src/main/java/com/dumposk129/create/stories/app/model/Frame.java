@@ -18,21 +18,21 @@ public class Frame {
         this.story_id = story_id;
     }
 
-    public Frame(int frame_order, String path_video, String path_pic, int step, int story_id){
+    /*public Frame(int frame_order, String path_video, String path_pic, int step, int story_id){
         this.frame_order = frame_order;
         this.path_video = path_video;
         this.path_pic = path_pic;
         this.step = step;
         this.story_id = story_id;
-    }
+    }*/
 
-    public Frame(int frame_order, String path_pic, int story_id){
-        this.frame_order = frame_order;
+    public Frame(int id, String path_pic, int story_id){
+        this.id = id;
         this.path_pic = path_pic;
         this.story_id = story_id;
     }
 
-    public Frame(int frame_order, int step, int story_id){
+    /*public Frame(int frame_order, int step, int story_id){
         this.frame_order = frame_order;
         this.step = step;
         this.story_id = story_id;
@@ -42,7 +42,7 @@ public class Frame {
         this.id = id;
         this.step = step;
         this.path_pic = path_pic;
-    }
+    }*/
 
     // Setter
     public void setId(int id){

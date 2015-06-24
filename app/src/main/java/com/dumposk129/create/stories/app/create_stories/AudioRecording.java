@@ -12,7 +12,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.dumposk129.create.stories.app.R;
 import com.dumposk129.create.stories.app.model.Audio;
@@ -93,7 +92,6 @@ public class AudioRecording extends ActionBarActivity implements MediaPlayer.OnC
 
     public void onClick(View v) {
         if (v == btnStartRecording) {
-            Toast.makeText(AudioRecording.this, "Start Recording", Toast.LENGTH_SHORT).show();
             chronometer.start();
             recorder = new MediaRecorder();
             recorder.setAudioSource(MediaRecorder.AudioSource.MIC);
@@ -129,7 +127,6 @@ public class AudioRecording extends ActionBarActivity implements MediaPlayer.OnC
             btnStop.setEnabled(false);
             btnNext.setEnabled(false);
         } else if (v == btnStopRecording) {
-            Toast.makeText(AudioRecording.this, "Stop Recording", Toast.LENGTH_SHORT).show();
             chronometer.stop();
             recorder.stop();
             recorder.release();
@@ -175,7 +172,6 @@ public class AudioRecording extends ActionBarActivity implements MediaPlayer.OnC
             btnStop.setEnabled(true);
             btnNext.setEnabled(true);
         } else if (v == btnStop) {
-            Toast.makeText(AudioRecording.this, "Stop", Toast.LENGTH_SHORT).show();
             player.stop();
             chronometer.stop();
             btnStartRecording.setEnabled(true);
@@ -191,9 +187,9 @@ public class AudioRecording extends ActionBarActivity implements MediaPlayer.OnC
 
             String cmd = Command.genFrame(path_pic, dir.getPath(), dirOutput.getPath()+ "/" + "f1.mp4");
 
-            MuxerVideo muxerVideo = new MuxerVideo(bitmap, duration);
-            muxerVideo.initialFFmpeg(getApplicationContext());
-            muxerVideo.executeFFmpeg(getApplicationContext(), cmd);
+            DemuxerVideo demuxerVideo = new DemuxerVideo(bitmap, duration);
+            demuxerVideo.initialFFmpeg(getApplicationContext());
+            demuxerVideo.executeFFmpeg(getApplicationContext(), cmd);
 
             /*Intent intent = new Intent(getApplicationContext(), CreateStories.class);
             startActivity(intent);*/

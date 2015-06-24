@@ -45,10 +45,10 @@ public class PhotoHelper {
         return pathPhoto;
     }
 
-    public static void updatePath(Context context,int frame_id , String path){
+    public static void updatePath(Context context, int frame_id , String path){
         if(path != ""){
             DatabaseHelper db = new DatabaseHelper(context);
-            db.updatePath(frame_id, 1, path);
+            db.updatePath(frame_id, path);
         }
     }
 }
