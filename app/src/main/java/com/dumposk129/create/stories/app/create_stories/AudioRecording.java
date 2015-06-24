@@ -1,6 +1,5 @@
 package com.dumposk129.create.stories.app.create_stories;
 
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.MediaPlayer;
@@ -35,11 +34,14 @@ public class AudioRecording extends ActionBarActivity implements MediaPlayer.OnC
     private Bitmap bitmap;
     private long frame_id;
     private double recordingDuration = 0;
-    private String durationString;
-    File audioFile;
+    private String duration;
+    private String path_pic = null;
 
-    private static final String PATH = "StoryApp/StoryName/Audio Record";
-    private static File dir = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + PATH );
+    private static final String path_audio = "StoryApp/StoryName/Audio";
+    private static File dir = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + path_audio + "/audio.mp4");
+
+    private static final String path_output = "StoryApp/StoryName/Video";
+    private static File dirOutput = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + path_output);
 
     DatabaseHelper db;
 
@@ -74,7 +76,6 @@ public class AudioRecording extends ActionBarActivity implements MediaPlayer.OnC
 
     /* Show Image from database */
     private void showImage() {
-        String path_pic = null;
         db = new DatabaseHelper(getApplicationContext());
         path_pic = db.getPath(2);
 
@@ -96,18 +97,22 @@ public class AudioRecording extends ActionBarActivity implements MediaPlayer.OnC
             chronometer.start();
             recorder = new MediaRecorder();
             recorder.setAudioSource(MediaRecorder.AudioSource.MIC);
-            recorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
+            recorder.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4);
             recorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
             chronometer.setBase(SystemClock.elapsedRealtime());
             dir.mkdirs();
 
-            try {
-                audioFile = File.createTempFile("recording", ".3gp", dir);
-            } catch (IOException e) {
-                throw new RuntimeException("Couldn't create recording audio file", e);
+            if (dir.exists()){
+                dir.delete();
             }
 
-            recorder.setOutputFile(audioFile.getAbsolutePath());
+            try {
+                dir.createNewFile();
+            }catch (IOException e) {
+                throw new IllegalStateException("Failed to create " + dir.toString());
+            }
+
+            recorder.setOutputFile(dir.getAbsolutePath());
 
             try {
                 recorder.prepare();
@@ -134,7 +139,7 @@ public class AudioRecording extends ActionBarActivity implements MediaPlayer.OnC
             player.setOnCompletionListener(this);
 
             try {
-                player.setDataSource(audioFile.getAbsolutePath());
+                player.setDataSource(dir.getAbsolutePath());
             } catch (IllegalArgumentException e) {
                 throw new RuntimeException("Illegal Argument to MediaPlayer.setDataSource", e);
             } catch (IllegalStateException e) {
@@ -152,8 +157,8 @@ public class AudioRecording extends ActionBarActivity implements MediaPlayer.OnC
             }
 
             DecimalFormat df = new DecimalFormat("#.#");
-            durationString = df.format(recordingDuration);
-            durationString += getString(R.string.s);
+            duration = df.format(recordingDuration);
+            duration += getString(R.string.s);
 
             btnPlayRecording.setEnabled(true);
             btnStartRecording.setEnabled(true);
@@ -179,18 +184,33 @@ public class AudioRecording extends ActionBarActivity implements MediaPlayer.OnC
         } else {
             createAudio();
 
-            Intent intent = new Intent(getApplicationContext(), CreateStories.class);
-            startActivity(intent);
+            /* Create Path video before generate*/
+            createPathOutput();
+
+            dirOutput.getPath();
+
+            String cmd = Command.genFrame(path_pic, dir.getPath(), dirOutput.getPath()+ "/"+"f1.mp4");
+
+            MuxerVideo muxerVideo = new MuxerVideo(bitmap, duration);
+            muxerVideo.initialFFmpeg(getApplicationContext());
+            muxerVideo.executeFFmpeg(getApplicationContext(), cmd);
+
+            /*Intent intent = new Intent(getApplicationContext(), CreateStories.class);
+            startActivity(intent);*/
         }
+    }
+
+    private void createPathOutput() {
+        dirOutput.mkdirs();
     }
 
     private long createAudio() {
         db = new DatabaseHelper(getApplicationContext());
         Audio audio = new Audio();
-        if (PATH != ""){
+        if (path_audio != ""){
             audio.setFrameID((int)frame_id);
-            audio.setPathAudio(PATH);
-            audio.setDuration(durationString);
+            audio.setPathAudio(path_audio);
+            audio.setDuration(duration);
         }
         return db.createNewAudio(audio);
     }
