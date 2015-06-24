@@ -79,7 +79,7 @@ public class AddText extends ActionBarActivity implements View.OnClickListener, 
             imgTicker.setImageBitmap(tvSubtitle.getDrawingCache());
             tvSubtitle.setVisibility(View.INVISIBLE);
             txtSubtitle.setVisibility(View.INVISIBLE);
-            btnNext.setVisibility(View.INVISIBLE);
+            btnOK.setVisibility(View.INVISIBLE);
             btnColor.setVisibility(View.INVISIBLE);
             state++;
             btnNext.setText("Finish");

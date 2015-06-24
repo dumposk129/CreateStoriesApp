@@ -15,9 +15,9 @@ public class ShowImage {
     private static ImageView imgView;
     private static DatabaseHelper db;
     private static Context context;
+    private static String path_pic = null;
 
     public static void showImage(Context context, String path_pic) {
-        path_pic = null;
         db = new DatabaseHelper(context);
         path_pic = db.getPath(2);
 

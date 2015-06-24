@@ -55,9 +55,9 @@
 
     <!-- Array Color -->
     <array name="color">
-        <item>Red</item>
-        <item>Black</item>
-        <item>Blue</item>
+        <item>RED</item>
+        <item>BLACK</item>
+        <item>BLUE</item>
         <item>WHITE</item>
         <item>YELLOW</item>
     </array>
