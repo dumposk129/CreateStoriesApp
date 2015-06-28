@@ -1,6 +1,5 @@
 package com.dumposk129.create.stories.app.quizzes;
 
-import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -209,15 +208,6 @@ public class Answers extends ActionBarActivity {
         @Override
         protected void onPostExecute(JSONArray result) {
             if (progressDialog.isShowing()) progressDialog.dismiss();
-            AlertDialog.Builder alertBox = new AlertDialog.Builder(Answers.this);
-            alertBox.setTitle("Information");
-            alertBox.setNeutralButton("Ok", null);
-            if (err != null) {
-                alertBox.setMessage("Error!!!");
-            } else {
-                alertBox.setMessage("Done!");
-            }
-            alertBox.show();
             Globals.questions = Quiz.getQuestions(result);
             noOfQuestion = Globals.questions.size() - 1; // if not set size of question - 1, it will over index[start at 0] but question start at 1.
             setUIText();

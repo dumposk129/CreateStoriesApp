@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.SystemClock;
@@ -16,6 +17,7 @@ import android.widget.ImageView;
 import com.dumposk129.create.stories.app.R;
 import com.dumposk129.create.stories.app.model.Audio;
 import com.dumposk129.create.stories.app.sql.DatabaseHelper;
+import com.squareup.okhttp.MediaType;
 
 import java.io.File;
 import java.io.IOException;
@@ -39,9 +41,9 @@ public class AudioRecording extends ActionBarActivity implements MediaPlayer.OnC
     private static final String path_audio = "StoryApp/StoryName/Audio";
     private static File dir = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + path_audio + "/audio.mp4");
 
-    private static final String path_output = "StoryApp/StoryName/Video";
+  /*  private static final String path_output = "StoryApp/StoryName/Video";
     private static File dirOutput = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + path_output);
-
+*/
     DatabaseHelper db;
 
     @Override
@@ -180,27 +182,14 @@ public class AudioRecording extends ActionBarActivity implements MediaPlayer.OnC
             btnStop.setEnabled(true);
             btnNext.setEnabled(true);
         } else {
-            createAudio();
+            createAudioInSQLiteDB();
 
-            /* Create Path video before generate*/
-            createPathOutput();
-
-            String cmd = Command.genFrame(path_pic, dir.getPath(), dirOutput.getPath()+ "/" + "f1.mp4");
-
-            DemuxerVideo demuxerVideo = new DemuxerVideo(bitmap, duration);
-            demuxerVideo.initialFFmpeg(getApplicationContext());
-            demuxerVideo.executeFFmpeg(getApplicationContext(), cmd);
-
-            /*Intent intent = new Intent(getApplicationContext(), CreateStories.class);
-            startActivity(intent);*/
+            SavePhotoToServerAsyncTask savePhotoToServer = new SavePhotoToServerAsyncTask();
+            savePhotoToServer.execute();
         }
     }
 
-    private void createPathOutput() {
-        dirOutput.mkdirs();
-    }
-
-    private long createAudio() {
+    private long createAudioInSQLiteDB() {
         db = new DatabaseHelper(getApplicationContext());
         Audio audio = new Audio();
         if (path_audio != ""){
@@ -209,5 +198,14 @@ public class AudioRecording extends ActionBarActivity implements MediaPlayer.OnC
             audio.setDuration(duration);
         }
         return db.createNewAudio(audio);
+    }
+
+    private class SavePhotoToServerAsyncTask extends AsyncTask {
+        final MediaType JSON = MediaType.parse("application/json; charset=urf-8");
+
+        @Override
+        protected Object doInBackground(Object[] params) {
+            return null;
+        }
     }
 }

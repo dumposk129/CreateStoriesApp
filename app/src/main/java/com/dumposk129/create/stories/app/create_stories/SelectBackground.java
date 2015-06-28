@@ -85,7 +85,7 @@ public class SelectBackground extends ActionBarActivity implements View.OnClickL
                 pathBg = PhotoHelper.writeImagePath(bitmap);
 
                 //TODO : DON'T FORGET INCREASE FRAME_ORDER WHEN DONE(RENDER TO VIDEO EACH FRAME).
-                frame_id = createFrame(); // Insert frame_id.
+                frame_id = createFrameInSQLiteDB(); // Insert frame_id.
 
                 // TODO: Update Path
                 PhotoHelper.updatePath(getApplicationContext(), (int)frame_id, pathBg); // Update Path in db.
@@ -140,7 +140,7 @@ public class SelectBackground extends ActionBarActivity implements View.OnClickL
     }
 
     /* Create Frame */
-    private long createFrame() {
+    private long createFrameInSQLiteDB() {
         db = new DatabaseHelper(getApplicationContext());
         Frame frame = new Frame();
         if (pathBg != ""){
