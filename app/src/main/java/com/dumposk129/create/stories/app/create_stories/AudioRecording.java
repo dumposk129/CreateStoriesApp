@@ -1,10 +1,12 @@
 package com.dumposk129.create.stories.app.create_stories;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.SystemClock;
@@ -15,9 +17,16 @@ import android.widget.Chronometer;
 import android.widget.ImageView;
 
 import com.dumposk129.create.stories.app.R;
+import com.dumposk129.create.stories.app.api.ApiConfig;
 import com.dumposk129.create.stories.app.model.Audio;
 import com.dumposk129.create.stories.app.sql.DatabaseHelper;
+import com.squareup.okhttp.Headers;
 import com.squareup.okhttp.MediaType;
+import com.squareup.okhttp.MultipartBuilder;
+import com.squareup.okhttp.OkHttpClient;
+import com.squareup.okhttp.Request;
+import com.squareup.okhttp.RequestBody;
+import com.squareup.okhttp.Response;
 
 import java.io.File;
 import java.io.IOException;
@@ -38,12 +47,17 @@ public class AudioRecording extends ActionBarActivity implements MediaPlayer.OnC
     private String duration;
     private String path_pic = null;
 
+    private static final MediaType MEDIA_TYPE_JPG = MediaType.parse("image/jpg");
+    private static final MediaType MEDIA_TYPE_PNG = MediaType.parse("image/png");
+    private static final MediaType MEDIA_TYPE_MP4 = MediaType.parse("audio/mp4");
+    private static final MediaType MEDIA_TYPE_MP3 = MediaType.parse("audio/mp3");
+
+    private final OkHttpClient client = new OkHttpClient();
+    private final MultipartBuilder builder = new MultipartBuilder();
+
     private static final String path_audio = "StoryApp/StoryName/Audio";
     private static File dir = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + path_audio + "/audio.mp4");
 
-  /*  private static final String path_output = "StoryApp/StoryName/Video";
-    private static File dirOutput = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + path_output);
-*/
     DatabaseHelper db;
 
     @Override
@@ -184,9 +198,51 @@ public class AudioRecording extends ActionBarActivity implements MediaPlayer.OnC
         } else {
             createAudioInSQLiteDB();
 
-            SavePhotoToServerAsyncTask savePhotoToServer = new SavePhotoToServerAsyncTask();
-            savePhotoToServer.execute();
+            try {
+                saveImageToServer();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            AlertDialog dialog = new AlertDialog.Builder(AudioRecording.this)
+                    .setTitle("Please select")
+                    .setMessage("Do you want to continue create frame?")
+                    .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            Intent intent = new Intent(AudioRecording.this, SelectBackground.class);
+                            startActivity(intent);
+                        }
+                    })
+                    .setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            // Go to Main Page
+                        }
+                    })
+                    .show();
         }
+    }
+
+    private void saveImageToServer() throws Exception{
+        RequestBody requestBody = new MultipartBuilder()
+                .type(MultipartBuilder.FORM)
+                .addPart(Headers.of("Content-Disposition", "form-data; name=\"image\""),
+                        RequestBody.create(MEDIA_TYPE_JPG, new File(path_pic)))
+                .addPart(Headers.of("Content-Disposition", "from-data; name=\"audio\""),
+                        RequestBody.create(MEDIA_TYPE_MP4, new File(dir.getPath())))
+        .build();
+
+        Request request = new Request.Builder()
+                .url(ApiConfig.hostname("/create_frame"))
+                .post(requestBody)
+                .build();
+
+        Response response = client.newCall(request).execute();
+        if (!response.isSuccessful())
+            throw new IOException("Unexpected Code "+response);
+
+        System.out.println(response.body().string());
     }
 
     private long createAudioInSQLiteDB() {
@@ -198,14 +254,5 @@ public class AudioRecording extends ActionBarActivity implements MediaPlayer.OnC
             audio.setDuration(duration);
         }
         return db.createNewAudio(audio);
-    }
-
-    private class SavePhotoToServerAsyncTask extends AsyncTask {
-        final MediaType JSON = MediaType.parse("application/json; charset=urf-8");
-
-        @Override
-        protected Object doInBackground(Object[] params) {
-            return null;
-        }
     }
 }

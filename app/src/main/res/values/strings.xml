@@ -37,6 +37,10 @@
 
     <string name="choose_item">Choose Item</string>
     <string name="select_color">Select Color</string>
+
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+
     <!-- Quiz -->
     <array name="questions_answers">
         <item>Create Questions</item>
@@ -51,6 +55,7 @@
         <item>List of Sound</item>
         <item>Cancel</item>
     </array>
+
 
 
     <!-- Array Color -->
