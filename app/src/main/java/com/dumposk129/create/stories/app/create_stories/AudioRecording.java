@@ -20,6 +20,7 @@ import com.dumposk129.create.stories.app.R;
 import com.dumposk129.create.stories.app.api.ApiConfig;
 import com.dumposk129.create.stories.app.model.Audio;
 import com.dumposk129.create.stories.app.sql.DatabaseHelper;
+import com.dumposk129.create.stories.app.watch.ShowStories;
 import com.squareup.okhttp.Headers;
 import com.squareup.okhttp.MediaType;
 import com.squareup.okhttp.MultipartBuilder;
@@ -46,6 +47,7 @@ public class AudioRecording extends ActionBarActivity implements MediaPlayer.OnC
     private double recordingDuration = 0;
     private String duration;
     private String path_pic = null;
+    Intent intent;
 
     private static final MediaType MEDIA_TYPE_JPG = MediaType.parse("image/jpg");
     private static final MediaType MEDIA_TYPE_PNG = MediaType.parse("image/png");
@@ -210,7 +212,7 @@ public class AudioRecording extends ActionBarActivity implements MediaPlayer.OnC
                     .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            Intent intent = new Intent(AudioRecording.this, SelectBackground.class);
+                            intent = new Intent(AudioRecording.this, SelectBackground.class);
                             startActivity(intent);
                         }
                     })
@@ -218,6 +220,8 @@ public class AudioRecording extends ActionBarActivity implements MediaPlayer.OnC
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             // Go to Main Page
+                            intent = new Intent(AudioRecording.this, ShowStories.class);
+                            startActivity(intent);
                         }
                     })
                     .show();
@@ -227,14 +231,14 @@ public class AudioRecording extends ActionBarActivity implements MediaPlayer.OnC
     private void saveImageToServer() throws Exception{
         RequestBody requestBody = new MultipartBuilder()
                 .type(MultipartBuilder.FORM)
-                .addPart(Headers.of("Content-Disposition", "form-data; name=\"image\""),
+                .addPart(Headers.of("Content-Disposition", "form-data; name=\"uploadfile\""),
                         RequestBody.create(MEDIA_TYPE_JPG, new File(path_pic)))
-                .addPart(Headers.of("Content-Disposition", "from-data; name=\"audio\""),
+                .addPart(Headers.of("Content-Disposition", "from-data; name=\"uploadfile\""),
                         RequestBody.create(MEDIA_TYPE_MP4, new File(dir.getPath())))
         .build();
 
         Request request = new Request.Builder()
-                .url(ApiConfig.hostname("/create_frame"))
+                .url(ApiConfig.hostname("create_frame"))
                 .post(requestBody)
                 .build();
 
