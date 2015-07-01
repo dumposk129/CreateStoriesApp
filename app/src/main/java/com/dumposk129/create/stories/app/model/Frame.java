@@ -4,45 +4,31 @@ package com.dumposk129.create.stories.app.model;
  * Created by DumpOSK129.
  */
 public class Frame {
-    private int id, frame_order, step, story_id;
-    private String path_video, path_pic;
+    private int id, frame_order, story_id;
+    private String audio_path, pic_path;
 
     public Frame(){ }
 
-    public Frame(int id, int frame_order, String path_video, String path_pic, int step, int story_id){
+    public Frame(int id, int frame_order, String audio_path, String pic_path, int story_id){
         this.id = id;
         this.frame_order = frame_order;
-        this.path_video = path_video;
-        this.path_pic = path_pic;
-        this.step = step;
+        this.pic_path = pic_path;
+        this.audio_path = audio_path;
         this.story_id = story_id;
     }
 
-    /*public Frame(int frame_order, String path_video, String path_pic, int step, int story_id){
-        this.frame_order = frame_order;
-        this.path_video = path_video;
-        this.path_pic = path_pic;
-        this.step = step;
-        this.story_id = story_id;
-    }*/
-
-    public Frame(int id, String path_pic, int story_id){
+    public Frame(int id, String pic_path, int story_id){
         this.id = id;
-        this.path_pic = path_pic;
+        this.pic_path = pic_path;
         this.story_id = story_id;
     }
 
-    /*public Frame(int frame_order, int step, int story_id){
-        this.frame_order = frame_order;
-        this.step = step;
+    public Frame(int id, String pic_path, String audio_path, int story_id){
+        this.id = id;
+        this.pic_path = pic_path;
+        this.audio_path = audio_path;
         this.story_id = story_id;
     }
-
-    public Frame(int id, int step, String path_pic){
-        this.id = id;
-        this.step = step;
-        this.path_pic = path_pic;
-    }*/
 
     // Setter
     public void setId(int id){
@@ -52,22 +38,17 @@ public class Frame {
         this.frame_order = frame_order;
     }
 
-    public void setPathVideo(String path_video){
-        this.path_video = path_video;
-    }
-
     public void setPathPic(String path_pic){
-        this.path_pic = path_pic;
-    }
-
-    public void setStepId(int step_id){
-        this.step = step_id;
+        this.pic_path = path_pic;
     }
 
     public void setStoryId(int story_id){
         this.story_id = story_id;
     }
 
+    public void setPathAudio(String audio_path) {
+        this.audio_path = audio_path;
+    }
     // Getter
     public int getId(){
         return id;
@@ -77,19 +58,14 @@ public class Frame {
         return  frame_order;
     }
 
-    public String getPathVideo(){
-        return path_video;
-    }
-
     public String getPathPic(){
-        return path_pic;
-    }
-
-    public int getStep(){
-        return step;
+        return pic_path;
     }
 
     public int getStoryId(){
         return this.story_id;
+    }
+    public String getPathAudio() {
+        return audio_path;
     }
 }

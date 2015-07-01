@@ -15,10 +15,9 @@ import com.dumposk129.create.stories.app.api.Story;
  * Created by DumpOSK129.
  */
 public class StoryName extends ActionBarActivity{
-    private EditText txtName, tvStoryId;
+    private EditText txtName;
     private Button   btnOk;
     private String name;
-
     private int sId;
 
     @Override

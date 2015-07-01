@@ -60,14 +60,14 @@ public class SelectBackground extends ActionBarActivity implements View.OnClickL
         // get intent story_id
         Bundle bundle = getIntent().getExtras();
         if (bundle != null){
-            sId = bundle.getInt("sId");
-        }
-
-        if (i.getExtras() != null) {
-            byte[] byteArr = i.getExtras().getByteArray("bg");
-            bitmap = BitmapFactory.decodeByteArray(byteArr, 0, byteArr.length);
-            imgView.setImageBitmap(bitmap);
-            hasBg = true;
+            if (bundle.containsKey("sId")){
+                sId = bundle.getInt("sId");
+            }else {
+                byte[] byteArr = bundle.getByteArray("bg");
+                bitmap = BitmapFactory.decodeByteArray(byteArr, 0, byteArr.length);
+                imgView.setImageBitmap(bitmap);
+                hasBg = true;
+            }
         }
     }
 

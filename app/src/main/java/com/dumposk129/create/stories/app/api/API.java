@@ -11,4 +11,5 @@ public class  API {
     public static final String CREATE_QUESTION = "create_question";
     public static final String CREATE_ANSWER = "create_choice";
     public static final String CREATE_STORY = "create_story";
+    public static final String SHOW_FRAME = "show_frame";
 }

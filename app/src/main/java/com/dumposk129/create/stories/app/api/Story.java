@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by DumpOSK129 on 1/7/2558.
+ * Created by DumpOSK129.
  */
 public class Story {
     public static int saveStoryId(String title_name){

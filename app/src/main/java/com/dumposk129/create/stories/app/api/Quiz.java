@@ -18,7 +18,6 @@ import java.util.List;
  * Created by DumpOSK129.
  */
 public class Quiz {
-
     // Show All Quizzes
     public static JSONObject getAllQuiz() {
         JSONParser jParser = new JSONParser();
@@ -53,7 +52,6 @@ public class Quiz {
         params.add(new BasicNameValuePair("qId", Integer.toString(quizId)));
         params.add(new BasicNameValuePair("qName", questionName));
 
-
         JSONObject json = jsonParser.makeHttpRequest(ApiConfig.hostname(API.CREATE_QUESTION), ApiConfig.GET, params);
         try {
             int success = json.getInt(ApiConfig.TAG_SUCCESS);
@@ -70,6 +68,7 @@ public class Quiz {
         }
     }
 
+    /* Save Choices and correct choice */
     public static boolean saveChoices(List<Choice> choices, int questionID) {
         JSONParser jsonParser = new JSONParser();
         List<NameValuePair> params = new ArrayList<>();
@@ -95,6 +94,7 @@ public class Quiz {
         }
     }
 
+    /* Show question */
     public static JSONArray getShowQuestion(int quizID) {
         JSONParser jsonParser = new JSONParser();
         List<NameValuePair> params = new ArrayList<>();
@@ -117,6 +117,7 @@ public class Quiz {
         }
     }
 
+    /* Show question and answer */
     public static List<Question> getQuestions(JSONArray result) {
         List<Question> questions = new ArrayList<>();
         try {
@@ -160,9 +161,9 @@ public class Quiz {
         return questions;
     }
 
+    /* Show stories name */
     public static List<Story> getQuizList(JSONObject json){
         List<Story> storyList = new ArrayList<>();
-
         try {
             int success = json.getInt(ApiConfig.TAG_SUCCESS);
             if (success == 1){
