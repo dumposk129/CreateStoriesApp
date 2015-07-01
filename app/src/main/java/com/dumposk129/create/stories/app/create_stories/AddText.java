@@ -30,7 +30,9 @@ public class AddText extends ActionBarActivity implements View.OnClickListener, 
     private Bitmap bitmap;
     private long frame_id;
     private int state = 0;
+
     DatabaseHelper db;
+    Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +55,7 @@ public class AddText extends ActionBarActivity implements View.OnClickListener, 
         tvSubtitle.setDrawingCacheEnabled(true);
 
         frame_id = (int)getIntent().getExtras().getLong("frame_id");
+
         showImage();
     }
 
@@ -88,7 +91,7 @@ public class AddText extends ActionBarActivity implements View.OnClickListener, 
             String path = PhotoHelper.writeImagePath(bmpCombined);
             PhotoHelper.updatePath(getApplicationContext(), (int) frame_id, path);
 
-            Intent intent = new Intent(AddText.this, SelectCharacter.class);
+            intent = new Intent(AddText.this, SelectCharacter.class);
             intent.putExtra("frame_id", frame_id);
             startActivity(intent);
         } else if (v == btnColor) {

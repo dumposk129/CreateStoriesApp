@@ -23,9 +23,10 @@ public class SelectCharacter extends ActionBarActivity implements View.OnClickLi
     private String pathBg;
     private ImageView imgView;
     private Bitmap bitmap, bmp;
-    Intent intent;
     private long frame_id;
+    private int sId;
 
+    Intent intent;
     DatabaseHelper db;
 
     @Override
@@ -49,6 +50,10 @@ public class SelectCharacter extends ActionBarActivity implements View.OnClickLi
         btnText.setOnClickListener(this);
 
         frame_id = (int)getIntent().getExtras().getLong("frame_id");
+
+        intent = getIntent();
+        Bundle bundle = intent.getExtras();
+        sId = bundle.getInt("sId");
 
         /* This method is show image */
         showImage();
@@ -88,6 +93,7 @@ public class SelectCharacter extends ActionBarActivity implements View.OnClickLi
 
             intent = new Intent(SelectCharacter.this, AudioRecording.class);
             intent.putExtra("frame_id", frame_id);
+            intent.putExtra("sId", sId);
             startActivity(intent);
         } else {
             Toast.makeText(getApplicationContext(),"Please select an action", Toast.LENGTH_LONG).show();

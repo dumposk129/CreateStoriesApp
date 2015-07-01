@@ -56,8 +56,6 @@ public class Questions extends ActionBarActivity {
         rbAnswer4 = (RadioButton) findViewById(R.id.rbAnswer_4);
         btnNext = (Button) findViewById(R.id.btnNextQuestion);
 
-        btnNext.setVisibility(View.INVISIBLE);
-
         // Toolbar and Navigation Drawer.
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -87,16 +85,12 @@ public class Questions extends ActionBarActivity {
 
                 if (selectedID == rbAnswer1.getId()) {
                     correctAnswer = 1;
-                    btnNext.setVisibility(View.VISIBLE);
                 } else if (selectedID == rbAnswer2.getId()) {
                     correctAnswer = 2;
-                    btnNext.setVisibility(View.VISIBLE);
                 } else if (selectedID == rbAnswer3.getId()) {
                     correctAnswer = 3;
-                    btnNext.setVisibility(View.VISIBLE);
                 } else if (selectedID == rbAnswer4.getId()) {
                     correctAnswer = 4;
-                    btnNext.setVisibility(View.VISIBLE);
                 }
 
                 // Call AsyncTask
