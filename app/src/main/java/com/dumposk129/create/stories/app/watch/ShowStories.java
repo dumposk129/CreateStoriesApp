@@ -44,6 +44,7 @@ public class ShowStories extends ActionBarActivity{
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(ShowStories.this, Watch.class);
+                intent.putExtra("sId", id);
                 startActivity(intent);
             }
         });

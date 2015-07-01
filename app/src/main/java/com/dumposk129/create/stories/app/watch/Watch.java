@@ -1,5 +1,6 @@
 package com.dumposk129.create.stories.app.watch;
 
+import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -23,6 +24,7 @@ public class Watch extends ActionBarActivity implements MediaPlayer.OnPreparedLi
     private VideoView myVideoView;
     private MediaController mediaController;
     private int position = 0;
+    private int storyId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +41,9 @@ public class Watch extends ActionBarActivity implements MediaPlayer.OnPreparedLi
         if (mediaController == null) {
             mediaController = new MediaController(Watch.this);
         }
+
+        Intent intent = getIntent();
+        storyId = intent.getExtras().getInt("sId");
 
         /* Download Image and Audio */
         try {
