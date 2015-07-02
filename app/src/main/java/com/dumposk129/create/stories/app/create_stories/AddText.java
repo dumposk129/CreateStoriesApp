@@ -29,6 +29,7 @@ public class AddText extends ActionBarActivity implements View.OnClickListener, 
     private ImageView imgFullSize, imgTicker;
     private Bitmap bitmap;
     private long frame_id, frame_order;
+    private String path_pic = null;
     private int state = 0;
     private int sId;
 
@@ -79,9 +80,8 @@ public class AddText extends ActionBarActivity implements View.OnClickListener, 
 
     /* Show Image from database */
     private void showImage() {
-        String path_pic = null;
         db = new DatabaseHelper(getApplicationContext());
-        path_pic = db.getPath(2);
+        path_pic = db.getPath(sId);
 
         imgFullSize.setImageBitmap(BitmapFactory.decodeFile(path_pic));
         bitmap = BitmapFactory.decodeFile(path_pic);

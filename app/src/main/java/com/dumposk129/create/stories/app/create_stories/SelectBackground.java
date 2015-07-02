@@ -59,7 +59,7 @@ public class SelectBackground extends ActionBarActivity implements View.OnClickL
         Bundle bundle = getIntent().getExtras();
         if (bundle != null){
             if (bundle.containsKey("sId")){
-                sId = bundle.getInt("sId");
+                sId = getIntent().getExtras().getInt("sId");
             }
 
             if (bundle.containsKey("bg")){

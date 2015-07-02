@@ -15,7 +15,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.dumposk129.create.stories.app.R;
 import com.dumposk129.create.stories.app.model.Audio;
@@ -95,9 +94,9 @@ public class AudioRecording extends ActionBarActivity implements MediaPlayer.OnC
             }
         }
 
-        Toast.makeText(getApplicationContext(), "sId: " + sId, Toast.LENGTH_SHORT).show();
+       /* Toast.makeText(getApplicationContext(), "sId: " + sId, Toast.LENGTH_SHORT).show();
         Toast.makeText(getApplicationContext(), "frame_id: "+frame_id, Toast.LENGTH_SHORT).show();
-        Toast.makeText(getApplicationContext(), "frame_order: "+frame_order, Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), "frame_order: "+frame_order, Toast.LENGTH_SHORT).show();*/
 
         showImage();
     }
@@ -105,7 +104,7 @@ public class AudioRecording extends ActionBarActivity implements MediaPlayer.OnC
     /* Show Image from database */
     private void showImage() {
         db = new DatabaseHelper(getApplicationContext());
-        path_pic = db.getPath(2);
+        path_pic = db.getPath(sId);
 
         imgView.setImageBitmap(BitmapFactory.decodeFile(path_pic));
         bitmap = BitmapFactory.decodeFile(path_pic);

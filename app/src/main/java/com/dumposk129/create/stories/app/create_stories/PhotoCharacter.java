@@ -30,6 +30,7 @@ public class PhotoCharacter extends ActionBarActivity implements View.OnClickLis
     private Bitmap bitmap;
     private long frame_id, frame_order;
     private int sId;
+    private String path_pic;
 
     DatabaseHelper db;
 
@@ -104,9 +105,8 @@ public class PhotoCharacter extends ActionBarActivity implements View.OnClickLis
 
     /* Show Image from database */
     private void showImage() {
-        String path_pic = null;
         db = new DatabaseHelper(getApplicationContext());
-        path_pic = db.getPath(2);
+        path_pic = db.getPath(sId);
 
         imgFullSize.setImageBitmap(BitmapFactory.decodeFile(path_pic));
         bitmap = BitmapFactory.decodeFile(path_pic);

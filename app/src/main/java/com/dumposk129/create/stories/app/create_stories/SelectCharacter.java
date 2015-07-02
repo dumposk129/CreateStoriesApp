@@ -76,9 +76,9 @@ public class SelectCharacter extends ActionBarActivity implements View.OnClickLi
 
     /* Show Image from database */
     private void showImage() {
-        String path_pic = null;
+        path_pic = null;
         db = new DatabaseHelper(getApplicationContext());
-        path_pic = db.getPath(2);
+        path_pic = db.getPath(sId);
 
         imgView.setImageBitmap(BitmapFactory.decodeFile(path_pic));
         bitmap = BitmapFactory.decodeFile(path_pic);

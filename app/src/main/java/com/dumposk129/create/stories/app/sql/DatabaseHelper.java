@@ -93,8 +93,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        /*values.put(Schema.KEY, frame.getFrameOrder());
-        values.put(Schema.KEY_STEP, frame.getStep());*/
+        values.put(Schema.KEY_FRAME_ORDER, frame.getFrameOrder());
         values.put(Schema.KEY_STORY_ID, frame.getStoryId());
 
         long frame_id = db.insert(Schema.TABLE_FRAME, null, values);
@@ -109,8 +108,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         ContentValues values = new ContentValues();
         values.put(Schema.KEY_PATH_PIC, path_pic);
-        /*values.put(Schema.KEY_STEP, step);*/
-
+      
         db.update(Schema.TABLE_FRAME, values, Schema.KEY_ID + " = " + frame_id, null);
 
         db.close();
@@ -121,7 +119,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         String  path_pic = null;
 
         String query = "SELECT " +Schema.KEY_PATH_PIC  + " FROM "+ Schema.TABLE_FRAME
-                + " WHERE " + Schema.KEY_STORY_ID + " = " + story_id + " ORDER BY " + Schema.KEY_ID;
+                + " WHERE " + Schema.KEY_STORY_ID + " = " + story_id + " ORDER BY " + Schema.KEY_FRAME_ORDER;
 
         /* move cursor */
         Cursor c = db.rawQuery(query, null);
