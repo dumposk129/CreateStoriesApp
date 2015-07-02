@@ -1,6 +1,7 @@
 package com.dumposk129.create.stories.app.quizzes;
 
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -115,15 +116,24 @@ public class Quizzes extends ActionBarActivity {
     }
 
     private class LoadQuizTask extends AsyncTask<String, Void, JSONObject> {
-        // Load All Story.
+        /* Preparing Load data */
+        private ProgressDialog progressDialog = new ProgressDialog(Quizzes.this);
+        @Override
+        protected void onPreExecute() {
+            progressDialog.setMessage("Loading...");
+            progressDialog.show();
+        }
+
+        // Loading All Story.
         @Override
         protected JSONObject doInBackground(String... params) {
-            return Quiz.getAllStory();
+            return Quiz.getAllQuiz();
         }
 
         // Show Stories Name.
         @Override
         protected void onPostExecute(JSONObject jsonObject) {
+            if (progressDialog.isShowing())progressDialog.dismiss();
             Globals.stories = Quiz.getQuizList(jsonObject);
             setListData(Globals.stories);
         }

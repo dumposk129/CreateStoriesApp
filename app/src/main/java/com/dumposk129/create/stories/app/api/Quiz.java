@@ -18,11 +18,11 @@ import java.util.List;
  * Created by DumpOSK129.
  */
 public class Quiz {
-    // Show All Story
-    public static JSONObject getAllStory() {
+    // Show All Story Name in Quiz
+    public static JSONObject getAllQuiz() {
         JSONParser jParser = new JSONParser();
         List<NameValuePair> params = new ArrayList<>();
-        return jParser.makeHttpRequest(ApiConfig.hostname(API.SHOW_STORY), ApiConfig.GET, params);
+        return jParser.makeHttpRequest(ApiConfig.hostname(API.SHOW_QUIZ), ApiConfig.GET, params);
     }
 
     // Show All Answers.
@@ -161,7 +161,7 @@ public class Quiz {
         return questions;
     }
 
-    /* Show stories name */
+    /* Show stories name in quiz */
     public static List<Story> getQuizList(JSONObject json){
         List<Story> storyList = new ArrayList<>();
         try {

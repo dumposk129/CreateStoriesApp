@@ -1,5 +1,6 @@
 package com.dumposk129.create.stories.app.quizzes;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -70,7 +71,15 @@ public class AllQuestions extends ActionBarActivity{
     }
 
     private class LoadQuestionList extends AsyncTask<String, Void, JSONArray>{
-        // Load all questions.
+        /* Preparing Load data */
+        private ProgressDialog progressDialog = new ProgressDialog(AllQuestions.this);
+        @Override
+        protected void onPreExecute() {
+            progressDialog.setMessage("Loading...");
+            progressDialog.show();
+        }
+
+        // Loading all questions.
         @Override
         protected JSONArray doInBackground(String... params) {
             return Quiz.getShowQuestion(quizId);
@@ -79,6 +88,7 @@ public class AllQuestions extends ActionBarActivity{
         // Show all questions.
         @Override
         protected void onPostExecute(JSONArray jsonObject) {
+            if (progressDialog.isShowing())progressDialog.dismiss();
             Globals.questions = Quiz.getQuestions(jsonObject);
             setListQuestions(Globals.questions);
         }

@@ -20,6 +20,14 @@ public class Frame {
         return jParser.makeHttpRequest(ApiConfig.hostname(API.SHOW_FRAME), ApiConfig.GET, params);
     }
 
+    // Show All Story in Frame
+    public static JSONObject getFrameTitleName() {
+        JSONParser jParser = new JSONParser();
+        List<NameValuePair> params = new ArrayList<>();
+        return jParser.makeHttpRequest(ApiConfig.hostname(API.SHOW_FRAME_TITLE_NAME), ApiConfig.GET, params);
+    }
+
+    /* Show All Frame List */
     public static List<com.dumposk129.create.stories.app.model.Frame> getFrameList(JSONObject json){
         List<com.dumposk129.create.stories.app.model.Frame> frameList = new ArrayList<>();
         try {
@@ -46,5 +54,30 @@ public class Frame {
             Log.e("[All Frame:JSON]", e.getMessage());
         }
         return frameList;
+    }
+
+    /* Show All Stories Name in Frame */
+    public static List<com.dumposk129.create.stories.app.model.Story> getFrameTitleNameList(JSONObject json){
+        List<com.dumposk129.create.stories.app.model.Story> storyList = new ArrayList<>();
+        try {
+            int success = json.getInt(ApiConfig.TAG_SUCCESS);
+            if (success == 1){
+                JSONArray jFrameTitleNameList = json.getJSONArray("frame");
+                if (jFrameTitleNameList != null && jFrameTitleNameList.length() != 0){
+                    for (int i = 0; i < jFrameTitleNameList.length(); i++){
+                        JSONObject jFrameTitleName = jFrameTitleNameList.getJSONObject(i);
+                        int frameId = jFrameTitleName.getInt("frame_id");
+                        String frameTitleName = jFrameTitleName.getString("title_name");
+                        com.dumposk129.create.stories.app.model.Story story = new com.dumposk129.create.stories.app.model.Story();
+                        story.setQuestionId(frameId);
+                        story.setQuestionName(frameTitleName);
+                        storyList.add(story);
+                    }
+                }
+            }
+        }catch (Exception e){
+            Log.e("[All Frame:JSON]", e.getMessage());
+        }
+        return storyList;
     }
 }

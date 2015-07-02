@@ -1,5 +1,6 @@
 package com.dumposk129.create.stories.app.watch;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -13,11 +14,12 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 
 import com.dumposk129.create.stories.app.R;
+import com.dumposk129.create.stories.app.api.Frame;
 import com.dumposk129.create.stories.app.api.Globals;
-import com.dumposk129.create.stories.app.api.Quiz;
 import com.dumposk129.create.stories.app.model.Story;
 import com.dumposk129.create.stories.app.navigation_drawer.NavigationDrawerFragment;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -31,7 +33,9 @@ public class ShowStories extends ActionBarActivity{
     private ListView listView;
     private Toolbar mToolbar;
 
-    ArrayList<HashMap<String, String>> quizList = new ArrayList<>();
+    JSONArray frames = null;
+
+    ArrayList<HashMap<String, String>> frameList = new ArrayList<>();
 
     List<String> data = new ArrayList<>();
 
@@ -50,7 +54,7 @@ public class ShowStories extends ActionBarActivity{
                 getSupportFragmentManager().findFragmentById(R.id.fragment_navigation_drawer);
         drawerFragment.setUp(R.id.fragment_navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout), mToolbar);
 
-        new LoadStoryTask().execute();
+        new LoadFrameTask().execute();
 
         /*// Set Item Click Listener.
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -86,17 +90,25 @@ public class ShowStories extends ActionBarActivity{
         });
     }
 
-    private class LoadStoryTask extends AsyncTask<String, Void, JSONObject> {
-        // Load All Story.
+    private class LoadFrameTask extends AsyncTask<String, Void, JSONObject> {
+        private ProgressDialog progressDialog = new ProgressDialog(ShowStories.this);
+        @Override
+        protected void onPreExecute() {
+            progressDialog.setMessage("Loading...");
+            progressDialog.show();
+        }
+
+        // Loading All Story.
         @Override
         protected JSONObject doInBackground(String... params) {
-            return Quiz.getAllStory();
+            return Frame.getFrameTitleName();
         }
 
         // Show Stories Name.
         @Override
         protected void onPostExecute(JSONObject jsonObject) {
-            Globals.stories = Quiz.getQuizList(jsonObject);
+            if (progressDialog.isShowing())progressDialog.dismiss();
+            Globals.stories = Frame.getFrameTitleNameList(jsonObject);
             setListData(Globals.stories);
         }
     }

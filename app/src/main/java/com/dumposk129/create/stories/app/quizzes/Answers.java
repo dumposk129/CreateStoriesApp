@@ -1,7 +1,6 @@
 package com.dumposk129.create.stories.app.quizzes;
 
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.AsyncTask;
@@ -199,21 +198,15 @@ public class Answers extends ActionBarActivity {
 
     // ShowQuestionTask
     private class ShowQuestionTask extends AsyncTask<String, Void, JSONArray> {
-        // Load All Questions.
+        // Preparing load questions and answer.
         private ProgressDialog progressDialog = new ProgressDialog(Answers.this);
-        String err = null;
-
         @Override
         protected void onPreExecute() {
             progressDialog.setMessage("Loading...");
             progressDialog.show();
-            progressDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
-                public void onCancel(DialogInterface arg0) {
-                    ShowQuestionTask.this.cancel(true);
-                }
-            });
         }
 
+        // Loading Questions.
         @Override
         protected JSONArray doInBackground(String... params) {
             return Quiz.getShowQuestion(quizId);
