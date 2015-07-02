@@ -1,7 +1,7 @@
 <resources>
-    <string name="app_name">Create Stories Application</string>
+    <string name="app_name">Create Stories</string>
 
-
+    <!-- Navigation Drawer-->
     <string name="drawer_open" translatable="false">Open</string>
     <string name="drawer_close" translatable="false">Close</string>
     <array name="drawer_item_array">
@@ -10,6 +10,7 @@
         <item>Quiz</item>
     </array>
 
+    <!-- Audio Record -->
     <string name="choose_format_title">Choose Audio Format</string>
     <string name="start_recording">Start Record</string>
     <string name="stop_recording">Stop Record</string>
@@ -20,39 +21,39 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
-    <string name="title_activity_watches">Watches</string>
+
+    <!-- Create -->
     <string name="title_activity_creates">Creates</string>
+    <string name="title_activity_select_bg">Select Background</string>
+    <string name="title_activity_select_char">Select Character</string>
     <string name="title_activity_audio_record">Audio Record</string>
-    <string name="title_activity_save_title">Save Title</string>
+    <string name="title_activity_add_text">Text</string>
+    <string name="s">s</string>
+
+    <!-- Quiz -->
     <string name="title_activity_quizzes">Quizzes</string>
     <string name="title_activity_num_of_questions">Number of Questions</string>
     <string name="title_activity_show_questions">Show Questions</string>
     <string name="title_activity_question">Questions</string>
     <string name="title_activity_answer">Answers</string>
-    <string name="s">s</string>
 
+    <!-- Watch -->
+    <string name="title_activity_watches">Watches</string>
+    <string name="title_activity_select_story">Stories</string>
+
+    <!-- String -->
     <string name="choose_item">Choose Item</string>
     <string name="select_color">Select Color</string>
-
     <string name="yes">Yes</string>
     <string name="no">No</string>
 
-    <!-- Quiz -->
+    <!-- Quiz Selection-->
     <array name="questions_answers">
         <item>Create Questions</item>
         <item>Answers</item>
         <item>Show Questions</item>
         <item>Cancel</item>
     </array>
-    <!-- Create Stories -->
-    <array name="audio_record_choose_image">
-        <item>Audio Record and Choose Image</item>
-        <item>Choose Image Only</item>
-        <item>List of Sound</item>
-        <item>Cancel</item>
-    </array>
-
-
 
     <!-- Array Color -->
     <array name="color">
@@ -64,6 +65,4 @@
     </array>
 
     <string name="hello_world">Hello world!</string>
-    <string name="title_activity_number_of_item">NumberOfItem</string>
-    <string name="title_activity_select_background">SelectBackground</string>
 </resources>

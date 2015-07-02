@@ -18,11 +18,11 @@ import java.util.List;
  * Created by DumpOSK129.
  */
 public class Quiz {
-    // Show All Quizzes
-    public static JSONObject getAllQuiz() {
+    // Show All Story
+    public static JSONObject getAllStory() {
         JSONParser jParser = new JSONParser();
         List<NameValuePair> params = new ArrayList<>();
-        return jParser.makeHttpRequest(ApiConfig.hostname(API.SHOW_QUIZ), ApiConfig.GET, params);
+        return jParser.makeHttpRequest(ApiConfig.hostname(API.SHOW_STORY), ApiConfig.GET, params);
     }
 
     // Show All Answers.

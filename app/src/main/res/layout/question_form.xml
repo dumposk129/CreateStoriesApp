@@ -120,7 +120,6 @@
                 android:layout_marginLeft="45dp"
                 android:textSize="20sp" />
 
-
         </FrameLayout>
 
         <!-- Navigation Drawer -->

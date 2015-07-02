@@ -32,7 +32,6 @@ import java.util.List;
  * Created by DumpOSK129.
  */
 public class Quizzes extends ActionBarActivity {
-
     private Toolbar mToolbar;
     private ListView listView;
     private TextView tvQuizID, tvQuizName;
@@ -119,7 +118,7 @@ public class Quizzes extends ActionBarActivity {
         // Load All Story.
         @Override
         protected JSONObject doInBackground(String... params) {
-            return Quiz.getAllQuiz();
+            return Quiz.getAllStory();
         }
 
         // Show Stories Name.

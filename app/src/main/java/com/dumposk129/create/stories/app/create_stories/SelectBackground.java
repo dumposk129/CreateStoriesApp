@@ -30,7 +30,6 @@ public class SelectBackground extends ActionBarActivity implements View.OnClickL
     private String picturePath;
     private ImageView imgView;
     private Bitmap bitmap;
-    Intent intent, i;
     private boolean hasBg = false;
     private String pathBg;
     private long frame_id;
@@ -39,6 +38,7 @@ public class SelectBackground extends ActionBarActivity implements View.OnClickL
     private long newFrameOrder = frame_order;
     private int sId;
 
+    Intent intent;
     DatabaseHelper db;
 
     File dir = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + PATH);

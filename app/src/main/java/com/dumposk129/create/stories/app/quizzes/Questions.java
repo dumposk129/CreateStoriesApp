@@ -26,7 +26,6 @@ import java.util.List;
  * Created by DumpOSK129.
  */
 public class Questions extends ActionBarActivity {
-
     private Toolbar mToolbar;
     private EditText txtQuestion, txtAnswer1, txtAnswer2, txtAnswer3, txtAnswer4;
     private Button btnNext;

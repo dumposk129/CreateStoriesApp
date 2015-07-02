@@ -2,6 +2,7 @@ package com.dumposk129.create.stories.app.quizzes;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -9,6 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.dumposk129.create.stories.app.R;
+import com.dumposk129.create.stories.app.navigation_drawer.NavigationDrawerFragment;
 
 /**
  * Created by DumpOSK129.
@@ -30,9 +32,12 @@ public class NumberOfQuestion extends ActionBarActivity{
         btnOK = (Button) findViewById(R.id.btnNumOfQuestion);
         qId = (EditText) findViewById(R.id.quizId);
 
-        // Toolbar.
+        // Toolbar and Navigation Drawer.
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+        NavigationDrawerFragment drawerFragment = (NavigationDrawerFragment)
+                getSupportFragmentManager().findFragmentById(R.id.fragment_navigation_drawer);
+        drawerFragment.setUp(R.id.fragment_navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout), mToolbar);
 
         // Get quizID.
         Intent intent = getIntent();

@@ -26,7 +26,6 @@ import java.util.List;
  * Created by DumpOSK129
  */
 public class AllQuestions extends ActionBarActivity{
-
     private Toolbar mToolbar;
     private ListView listView;
     private int quizId;

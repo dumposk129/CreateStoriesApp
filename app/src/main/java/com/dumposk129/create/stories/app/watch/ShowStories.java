@@ -3,7 +3,9 @@ package com.dumposk129.create.stories.app.watch;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -14,6 +16,7 @@ import com.dumposk129.create.stories.app.R;
 import com.dumposk129.create.stories.app.api.Globals;
 import com.dumposk129.create.stories.app.api.Quiz;
 import com.dumposk129.create.stories.app.model.Story;
+import com.dumposk129.create.stories.app.navigation_drawer.NavigationDrawerFragment;
 
 import org.json.JSONObject;
 
@@ -26,6 +29,7 @@ import java.util.List;
  */
 public class ShowStories extends ActionBarActivity{
     private ListView listView;
+    private Toolbar mToolbar;
 
     ArrayList<HashMap<String, String>> quizList = new ArrayList<>();
 
@@ -35,10 +39,20 @@ public class ShowStories extends ActionBarActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.use_list_all_stories_name);
-        listView = (ListView) findViewById(R.id.listViewStoriesName);
-        new LoadQuizTask().execute();
 
-        // Set Item Click Listener.
+        listView = (ListView) findViewById(R.id.listViewStoriesName);
+        mToolbar = (Toolbar) findViewById(R.id.app_bar);
+
+        // Toolbar and Navigation Drawer.
+        setSupportActionBar(mToolbar);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        NavigationDrawerFragment drawerFragment = (NavigationDrawerFragment)
+                getSupportFragmentManager().findFragmentById(R.id.fragment_navigation_drawer);
+        drawerFragment.setUp(R.id.fragment_navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout), mToolbar);
+
+        new LoadStoryTask().execute();
+
+        /*// Set Item Click Listener.
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
@@ -47,7 +61,7 @@ public class ShowStories extends ActionBarActivity{
                 intent.putExtra("sId", id);
                 startActivity(intent);
             }
-        });
+        });*/
     }
 
     private void setListData(List<Story> stories) {
@@ -62,13 +76,21 @@ public class ShowStories extends ActionBarActivity{
 
         // Send listItem to ListView.
         listView.setAdapter(adapter);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(ShowStories.this, Watch.class);
+                startActivity(intent);
+            }
+        });
     }
 
-    private class LoadQuizTask extends AsyncTask<String, Void, JSONObject> {
+    private class LoadStoryTask extends AsyncTask<String, Void, JSONObject> {
         // Load All Story.
         @Override
         protected JSONObject doInBackground(String... params) {
-            return Quiz.getAllQuiz();
+            return Quiz.getAllStory();
         }
 
         // Show Stories Name.
