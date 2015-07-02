@@ -32,10 +32,8 @@ public class SelectBackground extends ActionBarActivity implements View.OnClickL
     private Bitmap bitmap;
     private boolean hasBg = false;
     private String pathBg;
-    private long frame_id;
-    private long frame_order;
+    private long frame_id, frame_order;
     private final String PATH = "StoryApp/StoryName/Frame";
-    private long newFrameOrder = frame_order;
     private int sId;
 
     Intent intent;
