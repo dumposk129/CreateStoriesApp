@@ -3,6 +3,7 @@ package com.dumposk129.create.stories.app.quizzes;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
@@ -30,7 +31,7 @@ import java.util.List;
  * Created by DumpOSK129.
  */
 public class Answers extends ActionBarActivity {
-    private TextView tvQuestion, tvAnswer1, tvAnswer2, tvAnswer3, tvAnswer4, tvIsCorrect;
+    private TextView tvQuestion, tvAnswer1, tvAnswer2, tvAnswer3, tvAnswer4;
     private Button btnAnswerNext;
     private RadioGroup radGrp;
     private RadioButton rbAnswer1, rbAnswer2, rbAnswer3, rbAnswer4;
@@ -55,7 +56,6 @@ public class Answers extends ActionBarActivity {
         tvAnswer3 = (TextView) findViewById(R.id.tvAnswer_3);
         tvAnswer4 = (TextView) findViewById(R.id.tvAnswer_4);
         btnAnswerNext = (Button) findViewById(R.id.btnNextAnswer);
-        tvIsCorrect = (TextView) findViewById(R.id.tvIsCorrect);
         radGrp = (RadioGroup) findViewById(R.id.rgAnswerForm);
         rbAnswer1 = (RadioButton) findViewById(R.id.rbAnswer_1);
         rbAnswer2 = (RadioButton) findViewById(R.id.rbAnswer_2);
@@ -109,25 +109,45 @@ public class Answers extends ActionBarActivity {
         });
     }
 
-    // Check Correct Answer if that correct go to ShowMessageAndNextBtn Method, else set invisible.
+    // Check Correct Answer if that correct go to showMessageAndNextBtn Method, else set invisible.
     private void checkCorrectAnswer() {
         if (selectAnswer == correctIndexAnswer) {
-            ShowMessageAndNextBtn();
+            showNextBtn();
+            changeTextColor();
         } else {
+            changeNormalText();
             btnAnswerNext.setVisibility(View.INVISIBLE);
-            tvIsCorrect.setVisibility(View.INVISIBLE);
+        }
+    }
+
+    /* Not Correct */
+    private void changeNormalText() {
+        tvAnswer1.setTextColor(Color.BLACK);
+        tvAnswer2.setTextColor(Color.BLACK);
+        tvAnswer3.setTextColor(Color.BLACK);
+        tvAnswer4.setTextColor(Color.BLACK);
+    }
+
+    /* Correct */
+    private void changeTextColor() {
+        if (rbAnswer1.isChecked()) {
+            tvAnswer1.setTextColor(Color.GREEN);
+        } else if (rbAnswer2.isChecked()) {
+            tvAnswer2.setTextColor(Color.GREEN);
+        } else if (rbAnswer3.isChecked()) {
+            tvAnswer3.setTextColor(Color.GREEN);
+        } else {
+            tvAnswer4.setTextColor(Color.GREEN);
         }
     }
 
     // Show Message And Next Button
-    private void ShowMessageAndNextBtn() {
+    private void showNextBtn() {
         // if noOfQuestion equal currentIndex change "Next" to "Finished" and set VISIBLE, else set VISIBLE ONLY.!
-        if (noOfQuestion == currentIndex){
+        if (noOfQuestion == currentIndex) {
             btnAnswerNext.setText("Finished");
-            tvIsCorrect.setVisibility(View.VISIBLE);
             btnAnswerNext.setVisibility(View.VISIBLE);
-        }else {
-            tvIsCorrect.setVisibility(View.VISIBLE);
+        } else {
             btnAnswerNext.setVisibility(View.VISIBLE);
         }
     }
@@ -201,7 +221,7 @@ public class Answers extends ActionBarActivity {
 
         @Override
         protected void onProgressUpdate(Void... values) {
-            Toast.makeText(getApplicationContext(),"Loading", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), "Loading", Toast.LENGTH_LONG).show();
         }
 
         // Show Questions.

@@ -75,11 +75,9 @@ public class Questions extends ActionBarActivity {
             btnNext.setText("Finished");
         }
 
-        // Set ButtonNextClickListener.
         btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 // SET Correct Answer
                 int selectedID = radGrp.getCheckedRadioButtonId();
 

@@ -32,10 +32,12 @@ public class Frame {
                         int frameId = jFrame.getInt("id");
                         String framePicPath = jFrame.getString("pic_path");
                         String frameAudPath = jFrame.getString("audio_path");
+                        int frameOrder = jFrame.getInt("frame_order");
                         com.dumposk129.create.stories.app.model.Frame frame = new com.dumposk129.create.stories.app.model.Frame();
                         frame.setId(frameId);
                         frame.setPathPic(framePicPath);
                         frame.setPathAudio(frameAudPath);
+                        frame.setFrameOrder(frameOrder);
                         frameList.add(frame);
                     }
                 }

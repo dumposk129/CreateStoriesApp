@@ -7,30 +7,19 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.SystemClock;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.dumposk129.create.stories.app.R;
-import com.dumposk129.create.stories.app.api.ApiConfig;
 import com.dumposk129.create.stories.app.model.Audio;
 import com.dumposk129.create.stories.app.sql.DatabaseHelper;
 import com.dumposk129.create.stories.app.watch.ShowStories;
-import com.squareup.okhttp.Headers;
-import com.squareup.okhttp.MediaType;
-import com.squareup.okhttp.MultipartBuilder;
-import com.squareup.okhttp.OkHttpClient;
-import com.squareup.okhttp.Request;
-import com.squareup.okhttp.RequestBody;
-import com.squareup.okhttp.Response;
 
 import java.io.File;
 import java.io.IOException;
@@ -52,13 +41,13 @@ public class AudioRecording extends ActionBarActivity implements MediaPlayer.OnC
     private String path_pic = null;
     private int sId;
 
-    private static final MediaType MEDIA_TYPE_JPG = MediaType.parse("image/jpg");
+/*    private static final MediaType MEDIA_TYPE_JPG = MediaType.parse("image/jpg");
     private static final MediaType MEDIA_TYPE_PNG = MediaType.parse("image/png");
     private static final MediaType MEDIA_TYPE_MP4 = MediaType.parse("audio/mp4");
     private static final MediaType MEDIA_TYPE_MP3 = MediaType.parse("audio/mp3");
 
     private final OkHttpClient client = new OkHttpClient();
-    private final MultipartBuilder builder = new MultipartBuilder();
+    private final MultipartBuilder builder = new MultipartBuilder();*/
 
     private static final String path_audio = "StoryApp/StoryName/Audio";
     private static File dir = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + path_audio + "/audio.mp4");
@@ -209,7 +198,7 @@ public class AudioRecording extends ActionBarActivity implements MediaPlayer.OnC
             createAudioInSQLiteDB();
 
             /* Call AsyncTask */
-            new saveToServerTask().execute();
+          //  new saveToServerTask().execute();
 
             AlertDialog dialog = new AlertDialog.Builder(AudioRecording.this)
                     .setTitle("Please select")
@@ -234,47 +223,6 @@ public class AudioRecording extends ActionBarActivity implements MediaPlayer.OnC
         }
     }
 
-    private class saveToServerTask extends AsyncTask<String, Void, Void> {
-
-        @Override
-        protected Void doInBackground(String... params) {
-            try {
-                saveImageToServer();
-            } catch (Exception e) {
-                Log.e("Upload Failed ", e.getMessage());
-            }
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            Toast.makeText(getApplicationContext(),"Frame saved aleady", Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    private void saveImageToServer() throws Exception {
-        RequestBody requestBody = new MultipartBuilder()
-                .type(MultipartBuilder.FORM)
-                .addPart(Headers.of("Content-Disposition", "form-data; name=\"file-image\""),
-                        RequestBody.create(MEDIA_TYPE_JPG, new File(path_pic)))
-                .addPart(Headers.of("Content-Disposition", "form-data; name=\"file-audio\""),
-                        RequestBody.create(MEDIA_TYPE_MP4, dir))
-                .addPart(Headers.of("Content-Disposition", "form-data; name=\"sId\""),
-                        RequestBody.create(null, Integer.toString(sId)))
-                .build();
-
-        Request request = new Request.Builder()
-                .url(ApiConfig.hostname("create_frame"))
-                .post(requestBody)
-                .build();
-
-        Response response = client.newCall(request).execute();
-        if (!response.isSuccessful()) {
-            throw new IOException("Unexpected Code " + response);
-        } else {
-            Log.d("Upload Success", response.body().toString());
-        }
-    }
 
     private long createAudioInSQLiteDB() {
         db = new DatabaseHelper(getApplicationContext());

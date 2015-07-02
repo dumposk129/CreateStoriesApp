@@ -65,5 +65,7 @@ dependencies {
     compile 'com.android.support:recyclerview-v7:22.0.0'
     compile 'com.balysv:material-ripple:1.0.0'
     compile 'com.android.support:support-v4:22.0.0'
-    compile 'com.squareup.okhttp:okhttp:2.4.0'
+    compile files('libs/httpclient-4.3.6.jar')
+    compile files('libs/httpcore-4.3.3.jar')
+    compile files('libs/httpmime-4.3.6.jar')
 }
