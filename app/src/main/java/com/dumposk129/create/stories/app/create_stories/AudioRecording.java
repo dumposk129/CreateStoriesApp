@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.dumposk129.create.stories.app.R;
 import com.dumposk129.create.stories.app.model.Audio;
@@ -35,7 +36,7 @@ public class AudioRecording extends ActionBarActivity implements MediaPlayer.OnC
     private Button btnStartRecording, btnStopRecording, btnPlayRecording, btnStop, btnNext;
     private Chronometer chronometer;
     private Bitmap bitmap;
-    private long frame_id;
+    private long frame_id, frame_order;
     private double recordingDuration = 0;
     private String duration;
     private String path_pic = null;
@@ -79,13 +80,26 @@ public class AudioRecording extends ActionBarActivity implements MediaPlayer.OnC
         btnStop.setEnabled(false);
         btnNext.setEnabled(false);
 
+        Bundle bundle = getIntent().getExtras();
+        if (bundle != null) {
+            if (bundle.containsKey("sId")) {
+                sId = bundle.getInt("sId");
+            }
+
+            if (bundle.containsKey("frame_id")){
+                frame_id = (int)getIntent().getExtras().getLong("frame_id");
+            }
+
+            if (bundle.containsKey("frame_order")){
+                frame_order = (int)getIntent().getExtras().getLong("frame_order");
+            }
+        }
+
+        Toast.makeText(getApplicationContext(), "sId: " + sId, Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), "frame_id: "+frame_id, Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), "frame_order: "+frame_order, Toast.LENGTH_SHORT).show();
+
         showImage();
-
-        intent = getIntent();
-        Bundle bundle = intent.getExtras();
-        sId = bundle.getInt("sId");
-
-        frame_id = (int) getIntent().getExtras().getLong("frame_id");
     }
 
     /* Show Image from database */
@@ -208,6 +222,7 @@ public class AudioRecording extends ActionBarActivity implements MediaPlayer.OnC
                         public void onClick(DialogInterface dialog, int which) {
                             intent = new Intent(AudioRecording.this, SelectBackground.class);
                             intent.putExtra("sId", sId);
+                            intent.putExtra("frame_order", frame_order);
                             startActivity(intent);
                         }
                     })
@@ -222,7 +237,6 @@ public class AudioRecording extends ActionBarActivity implements MediaPlayer.OnC
                     .show();
         }
     }
-
 
     private long createAudioInSQLiteDB() {
         db = new DatabaseHelper(getApplicationContext());

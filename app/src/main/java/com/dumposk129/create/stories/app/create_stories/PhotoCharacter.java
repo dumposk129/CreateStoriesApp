@@ -28,7 +28,8 @@ public class PhotoCharacter extends ActionBarActivity implements View.OnClickLis
             R.drawable.h13, R.drawable.h14, R.drawable.h15, R.drawable.h16, R.drawable.h17, R.drawable.h18, R.drawable.h19, R.drawable.h20, R.drawable.h21, R.drawable.h22, R.drawable.h23, R.drawable.h24, R.drawable.h25};
     private Button btnOk;
     private Bitmap bitmap;
-    private long frame_id;
+    private long frame_id, frame_order;
+    private int sId;
 
     DatabaseHelper db;
 
@@ -49,8 +50,25 @@ public class PhotoCharacter extends ActionBarActivity implements View.OnClickLis
         btnOk.setOnClickListener(this);
         imgTicker.setOnTouchListener(this);
 
-        frame_id = (int)getIntent().getExtras().getLong("frame_id");
-        //Toast.makeText(getApplicationContext(), "frame_id: " + frame_id, Toast.LENGTH_SHORT).show();
+        Bundle bundle = getIntent().getExtras();
+        if (bundle != null) {
+            if (bundle.containsKey("sId")) {
+                sId = bundle.getInt("sId");
+            }
+
+            if (bundle.containsKey("frame_id")){
+                frame_id = (int)getIntent().getExtras().getLong("frame_id");
+            }
+
+            if (bundle.containsKey("frame_order")){
+                frame_order = (int)getIntent().getExtras().getLong("frame_order");
+            }
+        }
+
+        /*Toast.makeText(getApplicationContext(), "sId: " + sId, Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), "frame_id: "+frame_id, Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), "frame_order: "+frame_order, Toast.LENGTH_SHORT).show();*/
+
         /* This method is show image */
         showImage();
 
@@ -135,7 +153,9 @@ public class PhotoCharacter extends ActionBarActivity implements View.OnClickLis
         PhotoHelper.updatePath(getApplicationContext(), (int)frame_id, path);
 
         Intent intent = new Intent(PhotoCharacter.this, SelectCharacter.class);
+        intent.putExtra("sId", sId);
         intent.putExtra("frame_id", frame_id);
+        intent.putExtra("frame_order", frame_order);
         //Toast.makeText(getApplicationContext(), "frame_id: "+frame_id, Toast.LENGTH_SHORT).show();
         startActivity(intent);
     }

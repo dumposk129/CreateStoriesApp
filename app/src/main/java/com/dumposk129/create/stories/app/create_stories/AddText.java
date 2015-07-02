@@ -28,8 +28,9 @@ public class AddText extends ActionBarActivity implements View.OnClickListener, 
     private Button btnOK, btnNext, btnColor;
     private ImageView imgFullSize, imgTicker;
     private Bitmap bitmap;
-    private long frame_id;
+    private long frame_id, frame_order;
     private int state = 0;
+    private int sId;
 
     DatabaseHelper db;
     Intent intent;
@@ -54,7 +55,24 @@ public class AddText extends ActionBarActivity implements View.OnClickListener, 
         imgTicker.setOnTouchListener(this);
         tvSubtitle.setDrawingCacheEnabled(true);
 
-        frame_id = (int)getIntent().getExtras().getLong("frame_id");
+        Bundle bundle = getIntent().getExtras();
+        if (bundle != null) {
+            if (bundle.containsKey("sId")) {
+                sId = bundle.getInt("sId");
+            }
+
+            if (bundle.containsKey("frame_id")){
+                frame_id = (int)getIntent().getExtras().getLong("frame_id");
+            }
+
+            if (bundle.containsKey("frame_order")){
+                frame_order = (int)getIntent().getExtras().getLong("frame_order");
+            }
+        }
+
+        /*Toast.makeText(getApplicationContext(), "sId: "+sId, Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), "frame_id: "+frame_id, Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), "frame_order: "+frame_order, Toast.LENGTH_SHORT).show();*/
 
         showImage();
     }
@@ -92,7 +110,9 @@ public class AddText extends ActionBarActivity implements View.OnClickListener, 
             PhotoHelper.updatePath(getApplicationContext(), (int) frame_id, path);
 
             intent = new Intent(AddText.this, SelectCharacter.class);
+            intent.putExtra("sId", sId);
             intent.putExtra("frame_id", frame_id);
+            intent.putExtra("frame_order", frame_order);
             startActivity(intent);
         } else if (v == btnColor) {
             showSelectColor();

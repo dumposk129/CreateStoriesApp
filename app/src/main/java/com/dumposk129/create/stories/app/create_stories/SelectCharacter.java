@@ -23,7 +23,7 @@ public class SelectCharacter extends ActionBarActivity implements View.OnClickLi
     private String pathBg;
     private ImageView imgView;
     private Bitmap bitmap, bmp;
-    private long frame_id;
+    private long frame_id, frame_order;
     private int sId;
 
     Intent intent;
@@ -51,9 +51,24 @@ public class SelectCharacter extends ActionBarActivity implements View.OnClickLi
 
         frame_id = (int)getIntent().getExtras().getLong("frame_id");
 
-        intent = getIntent();
-        Bundle bundle = intent.getExtras();
-        sId = bundle.getInt("sId");
+        Bundle bundle = getIntent().getExtras();
+        if (bundle != null) {
+            if (bundle.containsKey("sId")) {
+                sId = bundle.getInt("sId");
+            }
+
+            if (bundle.containsKey("frame_id")){
+                frame_id = (int)getIntent().getExtras().getLong("frame_id");
+            }
+
+            if (bundle.containsKey("frame_order")){
+                frame_order = (int)getIntent().getExtras().getLong("frame_order");
+            }
+        }
+
+        /*Toast.makeText(getApplicationContext(), "sId: "+sId, Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), "frame_id: "+frame_id, Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), "frame_order: "+frame_order, Toast.LENGTH_SHORT).show();*/
 
         /* This method is show image */
         showImage();
@@ -73,7 +88,9 @@ public class SelectCharacter extends ActionBarActivity implements View.OnClickLi
     public void onClick(View v) {
         if (v == btnImage) {
             intent = new Intent(SelectCharacter.this, PhotoCharacter.class);
+            intent.putExtra("sId", sId);
             intent.putExtra("frame_id", frame_id);
+            intent.putExtra("frame_order", frame_order);
             startActivity(intent);
         } /*else if (v == btnGallery) {
             intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
@@ -81,7 +98,9 @@ public class SelectCharacter extends ActionBarActivity implements View.OnClickLi
             startActivityForResult(intent, RESULT_LOAD_IMG);
         } */else if (v == btnText) {
             intent = new Intent(SelectCharacter.this, AddText.class);
+            intent.putExtra("sId", sId);
             intent.putExtra("frame_id", frame_id);
+            intent.putExtra("frame_order", frame_order);
             startActivity(intent);
         } else if (v == btnNext) {
             /* Save photo path */
@@ -91,8 +110,9 @@ public class SelectCharacter extends ActionBarActivity implements View.OnClickLi
             PhotoHelper.updatePath(getApplicationContext(), (int)frame_id, pathBg); // Update Path in db.
 
             intent = new Intent(SelectCharacter.this, AudioRecording.class);
-            intent.putExtra("frame_id", frame_id);
             intent.putExtra("sId", sId);
+            intent.putExtra("frame_id", frame_id);
+            intent.putExtra("frame_order", frame_order);
             startActivity(intent);
         } else {
             Toast.makeText(getApplicationContext(),"Please select an action", Toast.LENGTH_LONG).show();

@@ -57,24 +57,35 @@ public class SelectBackground extends ActionBarActivity implements View.OnClickL
         btnGallery.setOnClickListener(this);
         btnNext.setOnClickListener(this);
 
-        // get intent story_id
+        // get intent
         Bundle bundle = getIntent().getExtras();
         if (bundle != null){
             if (bundle.containsKey("sId")){
                 sId = bundle.getInt("sId");
-            }else {
+            }
+
+            if (bundle.containsKey("bg")){
                 byte[] byteArr = bundle.getByteArray("bg");
                 bitmap = BitmapFactory.decodeByteArray(byteArr, 0, byteArr.length);
                 imgView.setImageBitmap(bitmap);
                 hasBg = true;
             }
+
+            if (bundle.containsKey("frame_order")){
+                frame_order = (int)getIntent().getExtras().getLong("frame_order");
+            }
         }
+
+        /*Toast.makeText(getApplicationContext(), "sId: "+sId, Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), "frame_id: "+frame_id, Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), "frame_order: "+frame_order, Toast.LENGTH_SHORT).show();*/
     }
 
     @Override
     public void onClick(View v) {
         if (v == btnBg) {
             intent = new Intent(SelectBackground.this, PhotoBackground.class);
+            intent.putExtra("frame_order", frame_order);
             startActivity(intent);
         } else if (v == btnGallery) {
             intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
@@ -95,8 +106,9 @@ public class SelectBackground extends ActionBarActivity implements View.OnClickL
 
                 /* Go to Next Page */
                 intent = new Intent(SelectBackground.this, SelectCharacter.class);
-                intent.putExtra("frame_id", frame_id);
                 intent.putExtra("sId", sId);
+                intent.putExtra("frame_id", frame_id);
+                intent.putExtra("frame_order", frame_order);
                 startActivity(intent);
             }
         } else {
@@ -147,10 +159,9 @@ public class SelectBackground extends ActionBarActivity implements View.OnClickL
         db = new DatabaseHelper(getApplicationContext());
         Frame frame = new Frame();
         if (pathBg != "") {
-            /*newFrameOrder = frame_order++;
+            frame_order++;
             frame.setFrameOrder((int)frame_order);
-            frame.setStepId(0);*/
-            frame.setStoryId(2);
+            frame.setStoryId(sId);
         }
         return db.createNewFrame(frame);
     }

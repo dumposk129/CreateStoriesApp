@@ -16,7 +16,7 @@ public class Schema {
 
     /** Frame **/
     public static String TABLE_FRAME = "frame";
-    //public static String KEY_FRAME_ORDER = "frame_order";
+    public static String KEY_FRAME_ORDER = "frame_order";
     public static String KEY_PATH_VIDEO = "path_video";
     public static String KEY_PATH_PIC = "path_pic";
     public static String KEY_STORY_ID = "story_id";
@@ -39,7 +39,7 @@ public class Schema {
     public static final String CREATE_TABLE_FRAME =
             "CREATE TABLE " + TABLE_FRAME +
                     "(" + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,"
-                      //  + KEY_FRAME_ORDER + " INTEGER NOT NULL,"
+                        + KEY_FRAME_ORDER + " INTEGER NOT NULL,"
                         + KEY_PATH_VIDEO +  " TEXT NULL,"
                         + KEY_PATH_PIC + " TEXT NULL,"
                         + KEY_STORY_ID + " INTEGER,"

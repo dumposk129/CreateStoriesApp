@@ -24,6 +24,8 @@ public class PhotoBackground extends ActionBarActivity implements View.OnClickLi
             R.drawable.bg7,R.drawable.bg8, R.drawable.bg9,};
     private Button btnOk;
     private Bitmap bitmap;
+    private int sId;
+    private long frame_id, frame_order;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +37,26 @@ public class PhotoBackground extends ActionBarActivity implements View.OnClickLi
 
         imgFullSize = (ImageView) findViewById(R.id.full_image_view);
         btnOk = (Button) findViewById(R.id.btnOk);
+
+        Bundle bundle = getIntent().getExtras();
+        if (bundle != null) {
+            if (bundle.containsKey("sId")) {
+                sId = bundle.getInt("sId");
+            }
+
+            if (bundle.containsKey("frame_id")){
+                frame_id = (int)getIntent().getExtras().getLong("frame_id");
+            }
+
+            if (bundle.containsKey("frame_order")){
+                frame_order = (int)getIntent().getExtras().getLong("frame_order");
+            }
+        }
+
+        /*Toast.makeText(getApplicationContext(), "sId: " + sId, Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), "frame_id: "+frame_id, Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), "frame_order: "+frame_order, Toast.LENGTH_SHORT).show();*/
+
 
         btnOk.setOnClickListener(this);
 
@@ -83,6 +105,8 @@ public class PhotoBackground extends ActionBarActivity implements View.OnClickLi
 
         Intent intent = new Intent(PhotoBackground.this.getApplicationContext(),SelectBackground.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.putExtra("sId", sId);
+        intent.putExtra("frame_order", frame_order);
         intent.putExtra("bg", byteArr);
         v.getContext().startActivity(intent);
     }
