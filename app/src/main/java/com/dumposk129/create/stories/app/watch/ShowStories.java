@@ -32,8 +32,10 @@ import java.util.List;
 public class ShowStories extends ActionBarActivity{
     private ListView listView;
     private Toolbar mToolbar;
-
+    private int sId, index = 0, size;
     JSONArray frames = null;
+
+    List<com.dumposk129.create.stories.app.model.Frame> list = new ArrayList<>();
 
     ArrayList<HashMap<String, String>> frameList = new ArrayList<>();
 
@@ -55,24 +57,13 @@ public class ShowStories extends ActionBarActivity{
         drawerFragment.setUp(R.id.fragment_navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout), mToolbar);
 
         new LoadFrameTask().execute();
-
-        /*// Set Item Click Listener.
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(ShowStories.this, Watch.class);
-                intent.putExtra("sId", id);
-                startActivity(intent);
-            }
-        });*/
     }
 
     private void setListData(List<Story> stories) {
         // Assign data.
         String[] data = new String[stories.size()];
         for (int i = 0; i < stories.size(); i++) {
-            data[i] = stories.get(i).getQuestionName();
+            data[i] = stories.get(i).getTitle();
         }
 
         // Create ArrayAdapter.
@@ -84,7 +75,21 @@ public class ShowStories extends ActionBarActivity{
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(ShowStories.this, Watch.class);
+                sId = position;
+
+                new LoadFrameList().execute();
+                Globals.frames = Frame.getFrameList(sId);
+                size = list.size() - 1;
+
+                Intent intent = new Intent(ShowStories.this, TestFrameList.class);
+                intent.putExtra("sId", sId);
+                intent.putExtra("size", size);
+                intent.putExtra("index", index);
+
+
+                //TODO:: Loadframelist (Async Task) หลังจากที่ได้ข้อมูลมาแล้วให้มาเก็บในตัวแปล Global.frame = API.Frame.getFrameList(story_id)
+                //TODO:: send extra index = 0
+                //TODO:: send size of list(frame)
                 startActivity(intent);
             }
         });
@@ -101,15 +106,24 @@ public class ShowStories extends ActionBarActivity{
         // Loading All Story.
         @Override
         protected JSONObject doInBackground(String... params) {
-            return Frame.getFrameTitleName();
+            return com.dumposk129.create.stories.app.api.Story.getStoryTitleName();
         }
 
         // Show Stories Name.
         @Override
         protected void onPostExecute(JSONObject jsonObject) {
             if (progressDialog.isShowing())progressDialog.dismiss();
-            Globals.stories = Frame.getFrameTitleNameList(jsonObject);
+            Globals.stories = com.dumposk129.create.stories.app.api.Story.getStoryList(jsonObject);
             setListData(Globals.stories);
+        }
+    }
+
+    private class LoadFrameList extends AsyncTask<String, Void, Void> {
+
+        @Override
+        protected Void doInBackground(String... params) {
+            list = Frame.getFrameList(sId);
+            return null;
         }
     }
 }
