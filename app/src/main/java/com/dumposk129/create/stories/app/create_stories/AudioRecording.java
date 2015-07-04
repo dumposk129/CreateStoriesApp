@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.SystemClock;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Chronometer;
@@ -265,21 +266,25 @@ public class AudioRecording extends ActionBarActivity implements MediaPlayer.OnC
     private void saveToServers() throws Exception {
         RequestBody requestBody = new MultipartBuilder()
                 .type(MultipartBuilder.FORM)
-                .addPart(Headers.of("Content-Disposition", "form-data; name=\"image\""),
+                .addPart(Headers.of("Content-Disposition", "form-data; name=\"img\""),
                         RequestBody.create(MEDIA_TYPE_JPG, new File(path_pic)))
                 .addPart(Headers.of("Content-Disposition", "from-data; name=\"audio\""),
                         RequestBody.create(MEDIA_TYPE_MP4, new File(dir.getPath())))
+                .addPart(Headers.of("Content-Disposition", "form-data; name=\"sId\""),
+                        RequestBody.create(null, Integer.toString(sId)))
                 .build();
 
         Request request = new Request.Builder()
-                .url(ApiConfig.hostname("/create_frame"))
+                .url(ApiConfig.hostname("create_frame"))
                 .post(requestBody)
                 .build();
 
         Response response = client.newCall(request).execute();
-        if (!response.isSuccessful())
-            throw new IOException("Unexpected Code " + response);
-        System.out.println(response.body().string());
+        if (!response.isSuccessful()) {
+                throw new IOException("Unexpected Code " + response);
+        } else {
+                Log.d("Upload Success", response.body().toString());
+        }
     }
 
     private class saveToServer extends AsyncTask<Void, Void, Void>{
