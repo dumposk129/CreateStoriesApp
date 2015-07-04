@@ -24,8 +24,12 @@ public class Frame {
 
     /* Show All Frame List */
     public static List<com.dumposk129.create.stories.app.model.Frame> getFrameList(int story_id){
-        JSONObject json = getAllFrame(story_id);
+        JSONParser jsonParser = new JSONParser();
         List<com.dumposk129.create.stories.app.model.Frame> frameList = new ArrayList<>();
+        List<NameValuePair> params = new ArrayList<>();
+        params.add(new BasicNameValuePair("sId", Integer.toString(story_id)));
+        JSONObject json = jsonParser.makeHttpRequest(ApiConfig.hostname(API.SHOW_FRAME), ApiConfig.GET, params);
+
         try {
             int success = json.getInt(ApiConfig.TAG_SUCCESS);
             if (success == 1){
