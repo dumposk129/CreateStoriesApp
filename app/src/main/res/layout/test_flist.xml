@@ -4,11 +4,23 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <!-- App Bar -->
+    <include
+        android:id="@+id/app_bar"
+        layout="@layout/app_bar" />
+
     <TextView
+        android:id="@+id/tvTest"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:gravity="center"
         android:text="Test"
-        android:textSize="50sp"/>
+        android:textSize="50sp" />
+
+    <Button
+        android:id="@+id/btnNext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="next"/>
 </LinearLayout>

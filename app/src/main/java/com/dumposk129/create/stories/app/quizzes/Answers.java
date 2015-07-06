@@ -214,7 +214,7 @@ public class Answers extends ActionBarActivity {
 
         @Override
         protected void onProgressUpdate(Void... values) {
-            Toast.makeText(getApplicationContext(), "Loading", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), "Loading", Toast.LENGTH_SHORT).show();
         }
 
         // Show Questions.

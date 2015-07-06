@@ -17,6 +17,14 @@ public class Frame {
         this.story_id = story_id;
     }
 
+    public Frame(int id, String audio_path, String pic_path, int story_id){
+        this.id = id;
+        this.pic_path = pic_path;
+        this.audio_path = audio_path;
+        this.story_id = story_id;
+    }
+
+
     public Frame(int id, String pic_path, int story_id){
         this.id = id;
         this.pic_path = pic_path;
