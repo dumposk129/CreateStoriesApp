@@ -37,15 +37,13 @@ public class Frame {
                 if (jFrameList != null && jFrameList.length() != 0){
                     for (int i = 0; i < jFrameList.length(); i++){
                         JSONObject jFrame = jFrameList.getJSONObject(i);
-                        int frameId = jFrame.getInt("id");
+                        int frameId = jFrame.getInt("frame_id");
                         String framePicPath = jFrame.getString("pic_path");
                         String frameAudPath = jFrame.getString("audio_path");
-     //                   int frameOrder = jFrame.getInt("frame_order");
                         com.dumposk129.create.stories.app.model.Frame frame = new com.dumposk129.create.stories.app.model.Frame();
                         frame.setId(frameId);
                         frame.setPathPic(framePicPath);
                         frame.setPathAudio(frameAudPath);
-       //                 frame.setFrameOrder(frameOrder);
                         frameList.add(frame);
                     }
                 }

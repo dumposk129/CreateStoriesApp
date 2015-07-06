@@ -9,6 +9,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.dumposk129.create.stories.app.R;
+import com.dumposk129.create.stories.app.api.Globals;
 
 /**
  * Created by DumpOSK129.
@@ -49,11 +50,9 @@ public class TestFrameList extends ActionBarActivity implements View.OnClickList
 
         if (index == size){
             btnNext.setText("Done");
-            tv.setText(" "+index);
-        }else {
-            tv.setText(" "+index);
-            index++;
         }
+        tv.setText("PicPath: "+ Globals.frames.get(index).getPathPic() + "\n AudPath: "+Globals.frames.get(index).getPathAudio());
+
 
         btnNext.setOnClickListener(this);
     }
@@ -65,7 +64,7 @@ public class TestFrameList extends ActionBarActivity implements View.OnClickList
             startActivity(intent);
         }else {
             intent = new Intent(TestFrameList.this, TestFrameList.class);
-            intent.putExtra("index", index);
+            intent.putExtra("index", index+1);
             intent.putExtra("size", size);
             startActivity(intent);
         }

@@ -75,22 +75,10 @@ public class ShowStories extends ActionBarActivity{
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                sId = position;
+                sId = Globals.stories.get(position).getId();
 
                 new LoadFrameList().execute();
-                Globals.frames = Frame.getFrameList(sId);
-                size = list.size() - 1;
 
-                Intent intent = new Intent(ShowStories.this, TestFrameList.class);
-                intent.putExtra("sId", sId);
-                intent.putExtra("size", size);
-                intent.putExtra("index", index);
-
-
-                //TODO:: Loadframelist (Async Task) หลังจากที่ได้ข้อมูลมาแล้วให้มาเก็บในตัวแปล Global.frame = API.Frame.getFrameList(story_id)
-                //TODO:: send extra index = 0
-                //TODO:: send size of list(frame)
-                startActivity(intent);
             }
         });
     }
@@ -117,13 +105,25 @@ public class ShowStories extends ActionBarActivity{
             setListData(Globals.stories);
         }
     }
-
     private class LoadFrameList extends AsyncTask<String, Void, Void> {
 
         @Override
         protected Void doInBackground(String... params) {
-            list = Frame.getFrameList(sId);
+            Globals.frames = Frame.getFrameList(sId);
             return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+
+            size = Globals.frames.size() - 1;
+
+            Intent intent = new Intent(ShowStories.this, Watch.class);
+            intent.putExtra("sId", sId);
+            intent.putExtra("size", size);
+            intent.putExtra("index", index);
+
+            startActivity(intent);
         }
     }
 }

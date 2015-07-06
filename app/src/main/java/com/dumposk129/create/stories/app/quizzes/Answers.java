@@ -112,23 +112,23 @@ public class Answers extends ActionBarActivity {
     private void checkCorrectAnswer() {
         if (selectAnswer == correctIndexAnswer) {
             showNextBtn();
-            changeTextColor();
+            changeCorrectTextColor();
         } else {
-            changeNormalText();
+            changeInCorrectTextColor();
             btnAnswerNext.setVisibility(View.INVISIBLE);
         }
     }
 
     /* Not Correct */
-    private void changeNormalText() {
-        tvAnswer1.setTextColor(Color.BLACK);
-        tvAnswer2.setTextColor(Color.BLACK);
-        tvAnswer3.setTextColor(Color.BLACK);
-        tvAnswer4.setTextColor(Color.BLACK);
+    private void changeInCorrectTextColor() {
+        tvAnswer1.setTextColor(Color.RED);
+        tvAnswer2.setTextColor(Color.RED);
+        tvAnswer3.setTextColor(Color.RED);
+        tvAnswer4.setTextColor(Color.RED);
     }
 
     /* Correct */
-    private void changeTextColor() {
+    private void changeCorrectTextColor() {
         if (rbAnswer1.isChecked()) {
             tvAnswer1.setTextColor(Color.GREEN);
         } else if (rbAnswer2.isChecked()) {

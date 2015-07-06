@@ -5,9 +5,10 @@ package com.dumposk129.create.stories.app.api;
  */
 public class ApiConfig {
     public static final String hostname(String api_name) {
-      return  "http://dump.geozigzag.com/api/"+api_name+".php";
+      return apiUrl + api_name + ".php";
 
     }
+    public static final String apiUrl = "http://dump.geozigzag.com/api/";
     public static final String TAG_SUCCESS = "success";
     public static final String POST = "POST";
     public static final String GET = "GET";

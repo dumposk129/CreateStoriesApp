@@ -223,10 +223,71 @@ public class AudioRecording extends ActionBarActivity implements MediaPlayer.OnC
 
             /* Call AsyncTask */
             try {
-                new saveToServer().execute();
+                new saveToServerTask().execute();
             } catch (Exception e) {
                 e.printStackTrace();
             }
+
+
+        }
+    }
+
+    private long createAudioInSQLiteDB() {
+        db = new DatabaseHelper(getApplicationContext());
+        Audio audio = new Audio();
+        if (path_audio != "") {
+            audio.setFrameID((int) frame_id);
+            audio.setPathAudio(path_audio);
+            audio.setDuration(duration);
+        }
+        return db.createNewAudio(audio);
+    }
+
+    private void saveToServers() throws Exception {
+        RequestBody requestBody = new MultipartBuilder()
+                .type(MultipartBuilder.FORM)
+                .addPart(Headers.of("Content-Disposition", "form-data; name=\"img\""),
+                        RequestBody.create(MEDIA_TYPE_JPG, path_pic))
+                .addPart(Headers.of("Content-Disposition", "from-data; name=\"audio\""),
+                        RequestBody.create(MEDIA_TYPE_MP4, dir))
+                .addPart(Headers.of("Content-Disposition", "form-data; name=\"sId\""),
+                        RequestBody.create(null, Integer.toString(sId)))
+                .build();
+
+        Request request = new Request.Builder()
+                .url(ApiConfig.hostname("create_frame"))
+                .post(requestBody)
+                .build();
+
+        Response response = client.newCall(request).execute();
+        if (!response.isSuccessful()) {
+                throw new IOException("Unexpected Code " + response);
+        } else {
+                Log.d("Upload Success", response.body().toString());
+        }
+    }
+
+    private class saveToServerTask extends AsyncTask<Void, Void, Void>{
+        private ProgressDialog progressDialog = new ProgressDialog(getApplicationContext());
+        @Override
+        protected void onPreExecute() {
+            progressDialog.setMessage("Uploading...");
+            progressDialog.show();
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            try {
+                saveToServers();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            if (progressDialog.isShowing())progressDialog.dismiss();
 
             AlertDialog dialog = new AlertDialog.Builder(AudioRecording.this)
                     .setTitle("Please select")
@@ -249,65 +310,6 @@ public class AudioRecording extends ActionBarActivity implements MediaPlayer.OnC
                         }
                     })
                     .show();
-        }
-    }
-
-    private long createAudioInSQLiteDB() {
-        db = new DatabaseHelper(getApplicationContext());
-        Audio audio = new Audio();
-        if (path_audio != "") {
-            audio.setFrameID((int) frame_id);
-            audio.setPathAudio(path_audio);
-            audio.setDuration(duration);
-        }
-        return db.createNewAudio(audio);
-    }
-
-    private void saveToServers() throws Exception {
-        RequestBody requestBody = new MultipartBuilder()
-                .type(MultipartBuilder.FORM)
-                .addPart(Headers.of("Content-Disposition", "form-data; name=\"img\""),
-                        RequestBody.create(MEDIA_TYPE_JPG, new File(path_pic)))
-                .addPart(Headers.of("Content-Disposition", "from-data; name=\"audio\""),
-                        RequestBody.create(MEDIA_TYPE_MP4, new File(dir.getPath())))
-                .addPart(Headers.of("Content-Disposition", "form-data; name=\"sId\""),
-                        RequestBody.create(null, Integer.toString(sId)))
-                .build();
-
-        Request request = new Request.Builder()
-                .url(ApiConfig.hostname("create_frame"))
-                .post(requestBody)
-                .build();
-
-        Response response = client.newCall(request).execute();
-        if (!response.isSuccessful()) {
-                throw new IOException("Unexpected Code " + response);
-        } else {
-                Log.d("Upload Success", response.body().toString());
-        }
-    }
-
-    private class saveToServer extends AsyncTask<Void, Void, Void>{
-        private ProgressDialog progressDialog = new ProgressDialog(getApplicationContext());
-        @Override
-        protected void onPreExecute() {
-            progressDialog.setMessage("Saving...");
-            progressDialog.show();
-        }
-
-        @Override
-        protected Void doInBackground(Void... params) {
-            try {
-                saveToServers();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            if (progressDialog.isShowing())progressDialog.dismiss();
         }
     }
 }
