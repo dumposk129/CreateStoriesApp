@@ -21,7 +21,7 @@ public class Story {
         return jParser.makeHttpRequest(ApiConfig.hostname(API.SHOW_TITLE_NAME), ApiConfig.GET, params);
     }
 
-
+    /* Save sId in Create Story*/
     public static int saveStoryId(String title_name){
         JSONParser jsonParser = new JSONParser();
         List<NameValuePair> params = new ArrayList<>();

@@ -9,6 +9,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.dumposk129.create.stories.app.R;
 import com.dumposk129.create.stories.app.api.Story;
@@ -45,10 +46,6 @@ public class StoryName extends ActionBarActivity{
             public void onClick(View v) {
                 name = txtName.getText().toString();
                 new SaveStoryTask().execute();
-
-                Intent intent = new Intent(StoryName.this, SelectBackground.class);
-                intent.putExtra("sId", sId);
-                startActivity(intent);
             }
         });
     }
@@ -58,6 +55,14 @@ public class StoryName extends ActionBarActivity{
         protected Void doInBackground(String... params) {
             sId = Story.saveStoryId(name);
             return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            Toast.makeText(getApplicationContext(), "sId: " + sId, Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(StoryName.this, SelectBackground.class);
+            intent.putExtra("sId", sId);
+            startActivity(intent);
         }
     }
 }

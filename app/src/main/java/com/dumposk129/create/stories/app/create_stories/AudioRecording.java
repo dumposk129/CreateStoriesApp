@@ -24,7 +24,6 @@ import com.dumposk129.create.stories.app.api.ApiConfig;
 import com.dumposk129.create.stories.app.model.Audio;
 import com.dumposk129.create.stories.app.sql.DatabaseHelper;
 import com.dumposk129.create.stories.app.watch.ShowStories;
-import com.squareup.okhttp.Headers;
 import com.squareup.okhttp.MediaType;
 import com.squareup.okhttp.MultipartBuilder;
 import com.squareup.okhttp.OkHttpClient;
@@ -222,8 +221,34 @@ public class AudioRecording extends ActionBarActivity implements MediaPlayer.OnC
             createAudioInSQLiteDB();
 
             /* Call AsyncTask */
-            new saveToServerTask().execute();
+            new SaveToServerTask().execute();
+
+
         }
+    }
+
+    private void showDialog() {
+        AlertDialog dialog = new AlertDialog.Builder(AudioRecording.this)
+                .setTitle("Please select")
+                .setMessage("Do you want to continue create frame?")
+                .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        intent = new Intent(AudioRecording.this, SelectBackground.class);
+                        intent.putExtra("sId", sId);
+                        intent.putExtra("frame_order", frame_order);
+                        startActivity(intent);
+                    }
+                })
+                .setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // Go to Main Page
+                        intent = new Intent(AudioRecording.this, ShowStories.class);
+                        startActivity(intent);
+                    }
+                })
+                .show();
     }
 
     private long createAudioInSQLiteDB() {
@@ -240,12 +265,9 @@ public class AudioRecording extends ActionBarActivity implements MediaPlayer.OnC
     private void saveToServers() throws Exception {
         RequestBody requestBody = new MultipartBuilder()
                 .type(MultipartBuilder.FORM)
-                .addPart(Headers.of("Content-Disposition", "form-data; name=\"img\""),
-                        RequestBody.create(MEDIA_TYPE_JPG, path_pic))
-                .addPart(Headers.of("Content-Disposition", "from-data; name=\"audio\""),
-                        RequestBody.create(MEDIA_TYPE_MP4, dir))
-                .addPart(Headers.of("Content-Disposition", "form-data; name=\"sId\""),
-                        RequestBody.create(null, Integer.toString(sId)))
+                .addFormDataPart("img", null, RequestBody.create(MEDIA_TYPE_JPG, path_pic))
+                .addFormDataPart("audio", null, RequestBody.create(MEDIA_TYPE_MP4, dir))
+                .addFormDataPart("sId", Integer.toString(sId))
                 .build();
 
         Request request = new Request.Builder()
@@ -261,11 +283,17 @@ public class AudioRecording extends ActionBarActivity implements MediaPlayer.OnC
         }
     }
 
-    private class saveToServerTask extends AsyncTask<Void, Void, Void> {
-        private ProgressDialog progressDialog = new ProgressDialog(getApplicationContext());
+    private class SaveToServerTask extends AsyncTask<Void, Void, Void> {
+        private ProgressDialog progressDialog = new ProgressDialog(AudioRecording.this);
 
         @Override
         protected void onPreExecute() {
+            progressDialog.setMessage("Uploading...");
+            progressDialog.show();
+        }
+
+        @Override
+        protected void onProgressUpdate(Void... values) {
             progressDialog.setMessage("Uploading...");
             progressDialog.show();
         }
@@ -283,28 +311,7 @@ public class AudioRecording extends ActionBarActivity implements MediaPlayer.OnC
         @Override
         protected void onPostExecute(Void aVoid) {
             if (progressDialog.isShowing()) progressDialog.dismiss();
-
-            AlertDialog dialog = new AlertDialog.Builder(AudioRecording.this)
-                    .setTitle("Please select")
-                    .setMessage("Do you want to continue create frame?")
-                    .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            intent = new Intent(AudioRecording.this, SelectBackground.class);
-                            intent.putExtra("sId", sId);
-                            intent.putExtra("frame_order", frame_order);
-                            startActivity(intent);
-                        }
-                    })
-                    .setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            // Go to Main Page
-                            intent = new Intent(AudioRecording.this, ShowStories.class);
-                            startActivity(intent);
-                        }
-                    })
-                    .show();
+            showDialog();
         }
     }
 }

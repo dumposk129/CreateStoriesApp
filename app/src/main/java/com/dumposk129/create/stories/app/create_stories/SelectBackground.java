@@ -74,8 +74,8 @@ public class SelectBackground extends ActionBarActivity implements View.OnClickL
             }
         }
 
-        /*Toast.makeText(getApplicationContext(), "sId: "+sId, Toast.LENGTH_SHORT).show();
-        Toast.makeText(getApplicationContext(), "frame_id: "+frame_id, Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), "sId: "+sId, Toast.LENGTH_SHORT).show();
+       /* Toast.makeText(getApplicationContext(), "frame_id: "+frame_id, Toast.LENGTH_SHORT).show();
         Toast.makeText(getApplicationContext(), "frame_order: "+frame_order, Toast.LENGTH_SHORT).show();*/
     }
 
