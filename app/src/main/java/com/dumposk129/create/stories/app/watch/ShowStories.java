@@ -22,8 +22,6 @@ import com.dumposk129.create.stories.app.navigation_drawer.NavigationDrawerFragm
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -34,12 +32,6 @@ public class ShowStories extends ActionBarActivity{
     private Toolbar mToolbar;
     private int sId, index = 0, size;
     JSONArray frames = null;
-
-    List<com.dumposk129.create.stories.app.model.Frame> list = new ArrayList<>();
-
-    ArrayList<HashMap<String, String>> frameList = new ArrayList<>();
-
-    List<String> data = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

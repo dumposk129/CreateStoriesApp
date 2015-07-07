@@ -44,7 +44,7 @@ public class AudioRecording extends ActionBarActivity implements MediaPlayer.OnC
     private MediaRecorder recorder = null;
     private MediaPlayer player;
     private Button btnStartRecording, btnStopRecording, btnPlayRecording, btnStop, btnNext;
-    private Chronometer chronometer, t800, t1000;
+    private Chronometer chronometer;
     private Bitmap bitmap;
     private long frame_id, frame_order;
     private double recordingDuration = 0;
@@ -58,7 +58,7 @@ public class AudioRecording extends ActionBarActivity implements MediaPlayer.OnC
     private static final MediaType MEDIA_TYPE_MP3 = MediaType.parse("audio/mp3");
 
     private final OkHttpClient client = new OkHttpClient();
-    private final MultipartBuilder builder = new MultipartBuilder();
+    // private final MultipartBuilder builder = new MultipartBuilder();
 
     private static final String path_audio = "StoryApp/StoryName/Audio";
     private static File dir = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + path_audio + "/audio.mp4");
@@ -222,13 +222,7 @@ public class AudioRecording extends ActionBarActivity implements MediaPlayer.OnC
             createAudioInSQLiteDB();
 
             /* Call AsyncTask */
-            try {
-                new saveToServerTask().execute();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
-
+            new saveToServerTask().execute();
         }
     }
 
@@ -261,14 +255,15 @@ public class AudioRecording extends ActionBarActivity implements MediaPlayer.OnC
 
         Response response = client.newCall(request).execute();
         if (!response.isSuccessful()) {
-                throw new IOException("Unexpected Code " + response);
+            throw new IOException("Unexpected Code " + response);
         } else {
-                Log.d("Upload Success", response.body().toString());
+            Log.d("Upload Success", response.body().toString());
         }
     }
 
-    private class saveToServerTask extends AsyncTask<Void, Void, Void>{
+    private class saveToServerTask extends AsyncTask<Void, Void, Void> {
         private ProgressDialog progressDialog = new ProgressDialog(getApplicationContext());
+
         @Override
         protected void onPreExecute() {
             progressDialog.setMessage("Uploading...");
@@ -287,7 +282,7 @@ public class AudioRecording extends ActionBarActivity implements MediaPlayer.OnC
 
         @Override
         protected void onPostExecute(Void aVoid) {
-            if (progressDialog.isShowing())progressDialog.dismiss();
+            if (progressDialog.isShowing()) progressDialog.dismiss();
 
             AlertDialog dialog = new AlertDialog.Builder(AudioRecording.this)
                     .setTitle("Please select")

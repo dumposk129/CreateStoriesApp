@@ -22,11 +22,8 @@ import com.dumposk129.create.stories.app.api.Quiz;
 import com.dumposk129.create.stories.app.model.Story;
 import com.dumposk129.create.stories.app.navigation_drawer.NavigationDrawerFragment;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -37,11 +34,11 @@ public class Quizzes extends ActionBarActivity {
     private ListView listView;
     private TextView tvQuizID, tvQuizName;
 
-    JSONArray quizzes = null;
+    //JSONArray quizzes = null;
 
-    ArrayList<HashMap<String, String>> quizList = new ArrayList<>();
+    /*ArrayList<HashMap<String, String>> quizList = new ArrayList<>();
 
-    List<String> data = new ArrayList<>();
+    List<String> data = new ArrayList<>();*/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

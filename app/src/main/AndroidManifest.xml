@@ -80,6 +80,5 @@
             android:name=".create_stories.AudioRecording"
             android:label="@string/title_activity_audio_record" />
 
-        <activity android:name=".watch.TestFrameList"/>
     </application>
 </manifest>

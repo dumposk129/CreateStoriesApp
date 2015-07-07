@@ -14,7 +14,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.MediaController;
 import android.widget.SeekBar;
 
 import com.dumposk129.create.stories.app.R;
@@ -35,7 +34,6 @@ import com.squareup.okhttp.Response;*/
  */
 public class Watch extends ActionBarActivity implements View.OnClickListener, View.OnTouchListener, MediaPlayer.OnBufferingUpdateListener, MediaPlayer.OnCompletionListener {
     private ImageView imgBg;
-    private MediaController mediaController;
     private MediaPlayer mPlayer = new MediaPlayer();
     private ProgressDialog progressDialog;
     private Button btnNext;
@@ -54,17 +52,11 @@ public class Watch extends ActionBarActivity implements View.OnClickListener, Vi
         setContentView(R.layout.slide_audio);
 
         imgBg = (ImageView) findViewById(R.id.imgBg);
-        mediaController = (MediaController) findViewById(R.id.mediaController);
         btnNext = (Button) findViewById(R.id.btnNext);
         mSeekbar = (SeekBar) findViewById(R.id.seekBar);
         imgBtnPlay = (ImageButton) findViewById(R.id.imgBtnPlay);
 
-        mediaController = new MediaController(Watch.this);
         mSeekbar.setMax(99); //0-100
-
-        if (mediaController == null) {
-            mediaController = new MediaController(Watch.this);
-        }
 
         /* Get Extra */
         Bundle bundle = getIntent().getExtras();
@@ -96,8 +88,6 @@ public class Watch extends ActionBarActivity implements View.OnClickListener, Vi
 
         if (Globals.frames.get(index).getPathAudio() != "" || Globals.frames.get(index).getPathAudio() == null) {
             audioPath = ApiConfig.apiUrl + Globals.frames.get(index).getPathAudio();
-            mSeekbar.setVisibility(View.VISIBLE);
-            imgBtnPlay.setVisibility(View.VISIBLE);
         }
 
         mPlayer.setOnBufferingUpdateListener(this);
@@ -105,19 +95,6 @@ public class Watch extends ActionBarActivity implements View.OnClickListener, Vi
         mSeekbar.setOnTouchListener(this);
         btnNext.setOnClickListener(this);
         imgBtnPlay.setOnClickListener(this);
-    }
-
-    private void primarySeekBarProgressUpdater() {
-        mSeekbar.setProgress((int)(((float) mPlayer.getCurrentPosition() / mediaFileLengthInMilliseconds) * 100));
-        if (mPlayer.isPlaying()){
-            Runnable runnable = new Runnable() {
-                @Override
-                public void run() {
-                    primarySeekBarProgressUpdater();
-                }
-            };
-            handler.postDelayed(runnable, 1000);
-        }
     }
 
     @Override
@@ -136,8 +113,7 @@ public class Watch extends ActionBarActivity implements View.OnClickListener, Vi
             try {
                 mPlayer.setDataSource(audioPath);
                 mPlayer.prepare();
-                mSeekbar.setVisibility(View.VISIBLE);
-            } catch (IOException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
 
@@ -152,6 +128,19 @@ public class Watch extends ActionBarActivity implements View.OnClickListener, Vi
             }
 
             primarySeekBarProgressUpdater();
+        }
+    }
+
+    private void primarySeekBarProgressUpdater() {
+        mSeekbar.setProgress((int)(((float) mPlayer.getCurrentPosition() / mediaFileLengthInMilliseconds) * 100));
+        if (mPlayer.isPlaying()){
+            Runnable runnable = new Runnable() {
+                @Override
+                public void run() {
+                    primarySeekBarProgressUpdater();
+                }
+            };
+            handler.postDelayed(runnable, 1000);
         }
     }
 

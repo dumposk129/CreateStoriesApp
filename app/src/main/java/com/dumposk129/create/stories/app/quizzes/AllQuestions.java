@@ -19,8 +19,6 @@ import com.dumposk129.create.stories.app.navigation_drawer.NavigationDrawerFragm
 
 import org.json.JSONArray;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -30,8 +28,8 @@ public class AllQuestions extends ActionBarActivity{
     private Toolbar mToolbar;
     private ListView listView;
     private int quizId;
-    ArrayList<HashMap<String, String>> questionList = new ArrayList<>();
-    List<String> questions = new ArrayList<>();;
+  /*  ArrayList<HashMap<String, String>> questionList = new ArrayList<>();
+    List<String> questions = new ArrayList<>();;*/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
