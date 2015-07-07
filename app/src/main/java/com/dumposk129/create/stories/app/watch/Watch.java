@@ -36,7 +36,7 @@ public class Watch extends ActionBarActivity implements View.OnClickListener, Vi
     private ImageView imgBg;
     private MediaPlayer mPlayer = new MediaPlayer();
     private ProgressDialog progressDialog;
-    private Button btnNext;
+    private Button btnNext, btnPrev;
     private int index, size, sId;
     private String picPath, audioPath = "";
     private SeekBar mSeekbar;
@@ -53,6 +53,7 @@ public class Watch extends ActionBarActivity implements View.OnClickListener, Vi
 
         imgBg = (ImageView) findViewById(R.id.imgBg);
         btnNext = (Button) findViewById(R.id.btnNext);
+        btnPrev = (Button) findViewById(R.id.btnPrev);
         mSeekbar = (SeekBar) findViewById(R.id.seekBar);
         imgBtnPlay = (ImageButton) findViewById(R.id.imgBtnPlay);
 
@@ -74,8 +75,13 @@ public class Watch extends ActionBarActivity implements View.OnClickListener, Vi
             }
         }
 
+        /* If index equal size change text to Done */
         if (index == size) {
             btnNext.setText("Done");
+        }
+
+        if (index > 0){
+            btnPrev.setVisibility(View.VISIBLE);
         }
 
         /* Set PicPath and AudioPath*/
@@ -94,6 +100,7 @@ public class Watch extends ActionBarActivity implements View.OnClickListener, Vi
         mPlayer.setOnCompletionListener(this);
         mSeekbar.setOnTouchListener(this);
         btnNext.setOnClickListener(this);
+        btnPrev.setOnClickListener(this);
         imgBtnPlay.setOnClickListener(this);
     }
 
@@ -109,7 +116,12 @@ public class Watch extends ActionBarActivity implements View.OnClickListener, Vi
                 intent.putExtra("size", size);
                 startActivity(intent);
             }
-        }else {
+        } else if (v.getId() == R.id.btnPrev){
+                intent = new Intent(Watch.this, Watch.class);
+                intent.putExtra("index", index - 1);
+                intent.putExtra("size", size);
+                startActivity(intent);
+        } else {
             try {
                 mPlayer.setDataSource(audioPath);
                 mPlayer.prepare();
