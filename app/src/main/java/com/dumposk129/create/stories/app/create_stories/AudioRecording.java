@@ -41,7 +41,7 @@ import java.text.DecimalFormat;
 public class AudioRecording extends ActionBarActivity implements MediaPlayer.OnCompletionListener, View.OnClickListener {
     private ImageView imgView;
     private MediaRecorder recorder = null;
-    private MediaPlayer player;
+    private MediaPlayer mPlayer;
     private Button btnStartRecording, btnStopRecording, btnPlayRecording, btnStop, btnNext;
     private Chronometer chronometer;
     private Bitmap bitmap;
@@ -126,6 +126,7 @@ public class AudioRecording extends ActionBarActivity implements MediaPlayer.OnC
         btnPlayRecording.setEnabled(true);
         btnStop.setEnabled(false);
         btnNext.setEnabled(true);
+        chronometer.stop();
     }
 
     public void onClick(View v) {
@@ -169,12 +170,11 @@ public class AudioRecording extends ActionBarActivity implements MediaPlayer.OnC
             recorder.stop();
             recorder.release();
             recordingDuration = (SystemClock.elapsedRealtime() - chronometer.getBase()) / 1000.0;
-
-            player = new MediaPlayer();
-            player.setOnCompletionListener(this);
+            mPlayer = new MediaPlayer();
+            mPlayer.setOnCompletionListener(this);
 
             try {
-                player.setDataSource(dir.getAbsolutePath());
+                mPlayer.setDataSource(dir.getAbsolutePath());
             } catch (IllegalArgumentException e) {
                 throw new RuntimeException("Illegal Argument to MediaPlayer.setDataSource", e);
             } catch (IllegalStateException e) {
@@ -184,7 +184,7 @@ public class AudioRecording extends ActionBarActivity implements MediaPlayer.OnC
             }
 
             try {
-                player.prepare();
+                mPlayer.prepare();
             } catch (IllegalStateException e) {
                 throw new RuntimeException("IllegalStateException in MediaPlayer.prepare", e);
             } catch (IOException e) {
@@ -201,7 +201,7 @@ public class AudioRecording extends ActionBarActivity implements MediaPlayer.OnC
             btnStop.setEnabled(false);
             btnNext.setEnabled(true);
         } else if (v == btnPlayRecording) {
-            player.start();
+            mPlayer.start();
             chronometer.setBase(SystemClock.elapsedRealtime());
             chronometer.start();
             btnPlayRecording.setEnabled(false);
@@ -210,7 +210,7 @@ public class AudioRecording extends ActionBarActivity implements MediaPlayer.OnC
             btnStop.setEnabled(true);
             btnNext.setEnabled(true);
         } else if (v == btnStop) {
-            player.stop();
+            mPlayer.stop();
             chronometer.stop();
             btnStartRecording.setEnabled(true);
             btnStopRecording.setEnabled(false);
@@ -236,6 +236,7 @@ public class AudioRecording extends ActionBarActivity implements MediaPlayer.OnC
                     public void onClick(DialogInterface dialog, int which) {
                         intent = new Intent(AudioRecording.this, SelectBackground.class);
                         intent.putExtra("sId", sId);
+                        intent.putExtra("frame_id", frame_id);
                         intent.putExtra("frame_order", frame_order);
                         startActivity(intent);
                     }

@@ -54,7 +54,7 @@ public class PhotoCharacter extends ActionBarActivity implements View.OnClickLis
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
             if (bundle.containsKey("sId")) {
-                sId = bundle.getInt("sId");
+                sId = getIntent().getExtras().getInt("sId");
             }
 
             if (bundle.containsKey("frame_id")){

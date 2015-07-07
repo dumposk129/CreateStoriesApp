@@ -75,11 +75,12 @@ public class Watch extends ActionBarActivity implements View.OnClickListener, Vi
             }
         }
 
-        /* If index equal size change text to Done */
+        /* If index equal size change text to Done. */
         if (index == size) {
             btnNext.setText("Done");
         }
 
+        /* If index more than zero then show btnPrev. */
         if (index > 0){
             btnPrev.setVisibility(View.VISIBLE);
         }
@@ -143,6 +144,7 @@ public class Watch extends ActionBarActivity implements View.OnClickListener, Vi
         }
     }
 
+    /* Seekbar update */
     private void primarySeekBarProgressUpdater() {
         mSeekbar.setProgress((int)(((float) mPlayer.getCurrentPosition() / mediaFileLengthInMilliseconds) * 100));
         if (mPlayer.isPlaying()){
@@ -156,6 +158,7 @@ public class Watch extends ActionBarActivity implements View.OnClickListener, Vi
         }
     }
 
+    /* Seekbar slide from current position to anothor position*/
     @Override
     public boolean onTouch(View v, MotionEvent event) {
         if (v.getId() == R.id.seekBar) {
@@ -173,6 +176,7 @@ public class Watch extends ActionBarActivity implements View.OnClickListener, Vi
         mSeekbar.setSecondaryProgress(percent);
     }
 
+    /* When play finish change logo to play*/
     @Override
     public void onCompletion(MediaPlayer mp) {
         imgBtnPlay.setImageResource(R.drawable.ic_action_play_circle_outline);

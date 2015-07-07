@@ -74,8 +74,8 @@ public class SelectBackground extends ActionBarActivity implements View.OnClickL
             }
         }
 
-        Toast.makeText(getApplicationContext(), "sId: "+sId, Toast.LENGTH_SHORT).show();
-       /* Toast.makeText(getApplicationContext(), "frame_id: "+frame_id, Toast.LENGTH_SHORT).show();
+        /*Toast.makeText(getApplicationContext(), "sId: "+sId, Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), "frame_id: "+frame_id, Toast.LENGTH_SHORT).show();
         Toast.makeText(getApplicationContext(), "frame_order: "+frame_order, Toast.LENGTH_SHORT).show();*/
     }
 
@@ -83,10 +83,14 @@ public class SelectBackground extends ActionBarActivity implements View.OnClickL
     public void onClick(View v) {
         if (v == btnBg) {
             intent = new Intent(SelectBackground.this, PhotoBackground.class);
+            intent.putExtra("sId", sId);
+            intent.putExtra("frame_id", frame_id);
             intent.putExtra("frame_order", frame_order);
             startActivity(intent);
         } else if (v == btnGallery) {
             intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+            intent.putExtra("sId", sId);
+            intent.putExtra("frame_id", frame_id);
             intent.setType("image/*");
             startActivityForResult(intent, RESULT_LOAD_IMG);
         } else if (v == btnNext) {

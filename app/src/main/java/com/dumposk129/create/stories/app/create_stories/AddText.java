@@ -59,7 +59,7 @@ public class AddText extends ActionBarActivity implements View.OnClickListener, 
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
             if (bundle.containsKey("sId")) {
-                sId = bundle.getInt("sId");
+                sId = getIntent().getExtras().getInt("sId");
             }
 
             if (bundle.containsKey("frame_id")){
@@ -71,7 +71,7 @@ public class AddText extends ActionBarActivity implements View.OnClickListener, 
             }
         }
 
-        /*Toast.makeText(getApplicationContext(), "sId: "+sId, Toast.LENGTH_SHORT).show();
+       /* Toast.makeText(getApplicationContext(), "sId: " + sId, Toast.LENGTH_SHORT).show();
         Toast.makeText(getApplicationContext(), "frame_id: "+frame_id, Toast.LENGTH_SHORT).show();
         Toast.makeText(getApplicationContext(), "frame_order: "+frame_order, Toast.LENGTH_SHORT).show();*/
 

@@ -41,7 +41,7 @@ public class PhotoBackground extends ActionBarActivity implements View.OnClickLi
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
             if (bundle.containsKey("sId")) {
-                sId = bundle.getInt("sId");
+                sId = getIntent().getExtras().getInt("sId");
             }
 
             if (bundle.containsKey("frame_id")){
