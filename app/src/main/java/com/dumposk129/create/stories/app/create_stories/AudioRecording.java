@@ -266,8 +266,8 @@ public class AudioRecording extends ActionBarActivity implements MediaPlayer.OnC
     private void saveToServers() throws Exception {
         RequestBody requestBody = new MultipartBuilder()
                 .type(MultipartBuilder.FORM)
-                .addFormDataPart("img", null, RequestBody.create(MEDIA_TYPE_JPG, path_pic))
-                .addFormDataPart("audio", null, RequestBody.create(MEDIA_TYPE_MP4, dir))
+                .addFormDataPart("image", "pic_path", RequestBody.create(MEDIA_TYPE_JPG, path_pic))
+                .addFormDataPart("audio", "audio_path", RequestBody.create(MEDIA_TYPE_MP4, dir))
                 .addFormDataPart("sId", Integer.toString(sId))
                 .build();
 
