@@ -104,7 +104,7 @@ public class SelectCharacter extends ActionBarActivity implements View.OnClickLi
             startActivity(intent);
         } else if (v == btnNext) {
             /* Save photo path */
-            pathBg = PhotoHelper.writeImagePath(bitmap);
+            pathBg = PhotoHelper.writeImagePath(bitmap,true);
 
             // TODO: Update Path
             PhotoHelper.updatePath(getApplicationContext(), (int)frame_id, pathBg); // Update Path in db.

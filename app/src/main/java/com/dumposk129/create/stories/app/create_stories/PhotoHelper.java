@@ -19,10 +19,17 @@ public class PhotoHelper {
     private static final String PATH = "StoryApp/StoryName/Frame";
     private static File dir = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + PATH );
 
-    public static String writeImagePath(Bitmap bitmap){
+    public static String writeImagePath(Bitmap bitmap,boolean isFinal){
         FileOutputStream fos;
         boolean success = false;
-        File file = new File(dir, "bg.jpg"); // TODO: change bg.jpg to frame name.
+        String fName = "";
+        if (isFinal) {
+            java.util.Date date = new java.util.Date();
+            fName = "bg_" +  date.getTime() + ".jpg";
+        }else{
+            fName = "bg.jpg";
+        }
+        File file = new File(dir, fName); // TODO: change bg.jpg to frame name.
         try {
             fos = new FileOutputStream(file);
             bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos);
@@ -43,6 +50,10 @@ public class PhotoHelper {
         }
 
         return pathPhoto;
+    }
+
+    public static String writeImagePath(Bitmap bitmap){
+        return writeImagePath(bitmap,false);
     }
 
     public static void updatePath(Context context, int frame_id , String path){

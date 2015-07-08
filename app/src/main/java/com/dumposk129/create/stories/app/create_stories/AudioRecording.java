@@ -18,6 +18,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 
 import com.dumposk129.create.stories.app.R;
 import com.dumposk129.create.stories.app.api.ApiConfig;
@@ -52,15 +53,15 @@ public class AudioRecording extends ActionBarActivity implements MediaPlayer.OnC
     private int sId;
 
     private static final MediaType MEDIA_TYPE_JPG = MediaType.parse("image/jpg");
-    private static final MediaType MEDIA_TYPE_PNG = MediaType.parse("image/png");
     private static final MediaType MEDIA_TYPE_MP4 = MediaType.parse("audio/mp4");
-    private static final MediaType MEDIA_TYPE_MP3 = MediaType.parse("audio/mp3");
 
-    private final OkHttpClient client = new OkHttpClient();
+
     // private final MultipartBuilder builder = new MultipartBuilder();
 
     private static final String path_audio = "StoryApp/StoryName/Audio";
-    private static File dir = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + path_audio + "/audio.mp4");
+    private static java.util.Date date = new java.util.Date();
+    private static String fName = "audio_" + date.getTime() + ".mp4";
+    private static File dir = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + path_audio + "/"+fName);
 
     DatabaseHelper db;
     Intent intent;
@@ -149,7 +150,7 @@ public class AudioRecording extends ActionBarActivity implements MediaPlayer.OnC
                 throw new IllegalStateException("Failed to create " + dir.toString());
             }
 
-            recorder.setOutputFile(dir.getAbsolutePath());
+            recorder.setOutputFile(dir.getPath());
 
             try {
                 recorder.prepare();
@@ -222,8 +223,6 @@ public class AudioRecording extends ActionBarActivity implements MediaPlayer.OnC
 
             /* Call AsyncTask */
             new SaveToServerTask().execute();
-
-
         }
     }
 
@@ -264,11 +263,13 @@ public class AudioRecording extends ActionBarActivity implements MediaPlayer.OnC
     }
 
     private void saveToServers() throws Exception {
+        OkHttpClient client = new OkHttpClient();
+        File imgFile = new File(path_pic);
         RequestBody requestBody = new MultipartBuilder()
                 .type(MultipartBuilder.FORM)
-                .addFormDataPart("image", "pic_path", RequestBody.create(MEDIA_TYPE_JPG, path_pic))
-                .addFormDataPart("audio", "audio_path", RequestBody.create(MEDIA_TYPE_MP4, dir))
                 .addFormDataPart("sId", Integer.toString(sId))
+                .addFormDataPart("image", imgFile.getName() , RequestBody.create(MEDIA_TYPE_JPG,imgFile))
+                .addFormDataPart("audio", dir.getName(), RequestBody.create(MEDIA_TYPE_MP4,dir))
                 .build();
 
         Request request = new Request.Builder()
@@ -286,12 +287,13 @@ public class AudioRecording extends ActionBarActivity implements MediaPlayer.OnC
 
     private class SaveToServerTask extends AsyncTask<Void, Void, Void> {
         private ProgressDialog progressDialog = new ProgressDialog(AudioRecording.this);
+        private ProgressBar progressBar = new ProgressBar(AudioRecording.this);
 
-        @Override
+        /*@Override
         protected void onPreExecute() {
             progressDialog.setMessage("Uploading...");
             progressDialog.show();
-        }
+        }*/
 
         @Override
         protected void onProgressUpdate(Void... values) {
