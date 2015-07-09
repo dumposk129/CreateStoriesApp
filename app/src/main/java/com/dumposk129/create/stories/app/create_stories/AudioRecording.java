@@ -11,6 +11,8 @@ import android.media.MediaRecorder;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
+import android.os.Message;
 import android.os.SystemClock;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
@@ -34,6 +36,7 @@ import com.squareup.okhttp.Response;
 import java.io.File;
 import java.io.IOException;
 import java.text.DecimalFormat;
+import java.text.NumberFormat;
 
 /**
  * Created by DumpOSK129.
@@ -50,7 +53,6 @@ public class AudioRecording extends ActionBarActivity implements MediaPlayer.OnC
     private String duration;
     private String path_pic = null;
     private int sId;
-
     private static final MediaType MEDIA_TYPE_JPG = MediaType.parse("image/jpg");
     private static final MediaType MEDIA_TYPE_MP4 = MediaType.parse("audio/mp4");
 
@@ -60,7 +62,7 @@ public class AudioRecording extends ActionBarActivity implements MediaPlayer.OnC
     private static final String path_audio = "StoryApp/StoryName/Audio";
     private static java.util.Date date = new java.util.Date();
     private static String fName = "audio_" + date.getTime() + ".mp4";
-    private static File dir = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + path_audio + "/"+ fName);
+    private static File dir = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + path_audio + "/" + fName);
 
     DatabaseHelper db;
     Intent intent;
@@ -268,7 +270,7 @@ public class AudioRecording extends ActionBarActivity implements MediaPlayer.OnC
         RequestBody requestBody = new MultipartBuilder()
                 .type(MultipartBuilder.FORM)
                 .addFormDataPart("sId", Integer.toString(sId))
-                .addFormDataPart("image", imgFile.getName() , RequestBody.create(MEDIA_TYPE_JPG, imgFile))
+                .addFormDataPart("image", imgFile.getName(), RequestBody.create(MEDIA_TYPE_JPG, imgFile))
                 .addFormDataPart("audio", dir.getName(), RequestBody.create(MEDIA_TYPE_MP4, dir))
                 .build();
 
@@ -285,15 +287,47 @@ public class AudioRecording extends ActionBarActivity implements MediaPlayer.OnC
         }
     }
 
-    private class SaveToServerTask extends AsyncTask<Void, Void, Void> {
+    private class SaveToServerTask extends AsyncTask<Void, Integer, Void> {
         private ProgressDialog progressDialog = new ProgressDialog(AudioRecording.this);
 
 
         @Override
         protected void onPreExecute() {
             progressDialog.setMessage("Uploading...");
+            progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+            progressDialog.setMax(100);
+            progressDialog.setCancelable(false);
+            progressDialog.setIndeterminate(false);
+            progressDialog.setCanceledOnTouchOutside(false);
+            progressDialog.setProgressPercentFormat(NumberFormat.getPercentInstance());
             progressDialog.show();
+
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        while (progressDialog.getProgress() <= progressDialog.getMax()) {
+                            Thread.sleep(500);
+                            handler.sendMessage(handler.obtainMessage());
+                            if (progressDialog.getProgress() == progressDialog.getMax()) {
+                                progressDialog.dismiss();
+                            }
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }).start();
         }
+
+
+        Handler handler = new Handler() {
+            @Override
+            public void handleMessage(Message msg) {
+                super.handleMessage(msg);
+                progressDialog.incrementProgressBy(1);
+            }
+        };
 
         @Override
         protected Void doInBackground(Void... params) {
@@ -303,6 +337,12 @@ public class AudioRecording extends ActionBarActivity implements MediaPlayer.OnC
                 e.printStackTrace();
             }
             return null;
+        }
+
+        @Override
+        protected void onProgressUpdate(Integer... progress) {
+            super.onProgressUpdate(progress);
+            progressDialog.incrementProgressBy(1);
         }
 
         @Override
