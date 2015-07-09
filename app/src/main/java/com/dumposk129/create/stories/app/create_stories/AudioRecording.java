@@ -264,32 +264,8 @@ public class AudioRecording extends ActionBarActivity implements MediaPlayer.OnC
         return db.createNewAudio(audio);
     }
 
-    private void saveToServers() throws Exception {
-        OkHttpClient client = new OkHttpClient();
-        File imgFile = new File(path_pic);
-        RequestBody requestBody = new MultipartBuilder()
-                .type(MultipartBuilder.FORM)
-                .addFormDataPart("sId", Integer.toString(sId))
-                .addFormDataPart("image", imgFile.getName(), RequestBody.create(MEDIA_TYPE_JPG, imgFile))
-                .addFormDataPart("audio", dir.getName(), RequestBody.create(MEDIA_TYPE_MP4, dir))
-                .build();
-
-        Request request = new Request.Builder()
-                .url(ApiConfig.hostname("create_frame"))
-                .post(requestBody)
-                .build();
-
-        Response response = client.newCall(request).execute();
-        if (!response.isSuccessful()) {
-            throw new IOException("Unexpected Code " + response);
-        } else {
-            Log.d("Upload Success", response.body().toString());
-        }
-    }
-
     private class SaveToServerTask extends AsyncTask<Void, Integer, Void> {
         private ProgressDialog progressDialog = new ProgressDialog(AudioRecording.this);
-
 
         @Override
         protected void onPreExecute() {
@@ -349,6 +325,29 @@ public class AudioRecording extends ActionBarActivity implements MediaPlayer.OnC
         protected void onPostExecute(Void aVoid) {
             if (progressDialog.isShowing()) progressDialog.dismiss();
             showDialog();
+        }
+    }
+
+    private void saveToServers() throws Exception {
+        OkHttpClient client = new OkHttpClient();
+        File imgFile = new File(path_pic);
+        RequestBody requestBody = new MultipartBuilder()
+                .type(MultipartBuilder.FORM)
+                .addFormDataPart("sId", Integer.toString(sId))
+                .addFormDataPart("image", imgFile.getName(), RequestBody.create(MEDIA_TYPE_JPG, imgFile))
+                .addFormDataPart("audio", dir.getName(), RequestBody.create(MEDIA_TYPE_MP4, dir))
+                .build();
+
+        Request request = new Request.Builder()
+                .url(ApiConfig.hostname("create_frame"))
+                .post(requestBody)
+                .build();
+
+        Response response = client.newCall(request).execute();
+        if (!response.isSuccessful()) {
+            throw new IOException("Unexpected Code " + response);
+        } else {
+            Log.d("Upload Success", response.body().toString());
         }
     }
 }
