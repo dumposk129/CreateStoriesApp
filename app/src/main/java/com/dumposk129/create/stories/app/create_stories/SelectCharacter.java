@@ -1,9 +1,12 @@
 package com.dumposk129.create.stories.app.create_stories;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v7.app.ActionBarActivity;
 import android.view.View;
 import android.widget.Button;
@@ -12,6 +15,8 @@ import android.widget.Toast;
 
 import com.dumposk129.create.stories.app.R;
 import com.dumposk129.create.stories.app.sql.DatabaseHelper;
+
+import java.io.ByteArrayOutputStream;
 
 /**
  * Created by DumpOSK129
@@ -42,14 +47,13 @@ public class SelectCharacter extends ActionBarActivity implements View.OnClickLi
 
         btnImage.setText("Character");
         btnText.setVisibility(View.VISIBLE);
-        btnGallery.setVisibility(View.GONE);
 
         btnImage.setOnClickListener(this);
         btnGallery.setOnClickListener(this);
         btnNext.setOnClickListener(this);
         btnText.setOnClickListener(this);
 
-        frame_id = (int)getIntent().getExtras().getLong("frame_id");
+        frame_id = (int) getIntent().getExtras().getLong("frame_id");
 
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
@@ -57,12 +61,12 @@ public class SelectCharacter extends ActionBarActivity implements View.OnClickLi
                 sId = getIntent().getExtras().getInt("sId");
             }
 
-            if (bundle.containsKey("frame_id")){
-                frame_id = (int)getIntent().getExtras().getLong("frame_id");
+            if (bundle.containsKey("frame_id")) {
+                frame_id = (int) getIntent().getExtras().getLong("frame_id");
             }
 
-            if (bundle.containsKey("frame_order")){
-                frame_order = (int)getIntent().getExtras().getLong("frame_order");
+            if (bundle.containsKey("frame_order")) {
+                frame_order = (int) getIntent().getExtras().getLong("frame_order");
             }
         }
 
@@ -92,11 +96,13 @@ public class SelectCharacter extends ActionBarActivity implements View.OnClickLi
             intent.putExtra("frame_id", frame_id);
             intent.putExtra("frame_order", frame_order);
             startActivity(intent);
-        } /*else if (v == btnGallery) {
+        } else if (v == btnGallery) {
             intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-            intent.setType("image*//*");
+            intent.putExtra("sId", sId);
+            intent.putExtra("frame_id", frame_id);
+            intent.setType("image/*");
             startActivityForResult(intent, RESULT_LOAD_IMG);
-        } */else if (v == btnText) {
+        } else if (v == btnText) {
             intent = new Intent(SelectCharacter.this, AddText.class);
             intent.putExtra("sId", sId);
             intent.putExtra("frame_id", frame_id);
@@ -104,10 +110,10 @@ public class SelectCharacter extends ActionBarActivity implements View.OnClickLi
             startActivity(intent);
         } else if (v == btnNext) {
             /* Save photo path */
-            pathBg = PhotoHelper.writeImagePath(bitmap,true);
+            pathBg = PhotoHelper.writeImagePath(bitmap, true);
 
             // TODO: Update Path
-            PhotoHelper.updatePath(getApplicationContext(), (int)frame_id, pathBg); // Update Path in db.
+            PhotoHelper.updatePath(getApplicationContext(), (int) frame_id, pathBg); // Update Path in db.
 
             intent = new Intent(SelectCharacter.this, AudioRecording.class);
             intent.putExtra("sId", sId);
@@ -115,11 +121,11 @@ public class SelectCharacter extends ActionBarActivity implements View.OnClickLi
             intent.putExtra("frame_order", frame_order);
             startActivity(intent);
         } else {
-            Toast.makeText(getApplicationContext(),"Please select an action", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), "Please select an action", Toast.LENGTH_LONG).show();
         }
     }
 
-  /*  *//* Show Image from Gallery *//*
+    /* Show Image from Gallery */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -135,7 +141,7 @@ public class SelectCharacter extends ActionBarActivity implements View.OnClickLi
                 picturePath = cursor.getString(colIndex);
                 cursor.close();
 
-                *//*Convert to bitmap*//*
+                /*Convert to bitmap*/
                 ByteArrayOutputStream stream = new ByteArrayOutputStream();
                 bmp = resizeBitmap(bitmap);
                 bmp.compress(Bitmap.CompressFormat.JPEG, 100, stream);
@@ -144,8 +150,7 @@ public class SelectCharacter extends ActionBarActivity implements View.OnClickLi
                 intent = new Intent(SelectCharacter.this.getApplicationContext(), MoveImageFromGallery.class);
                 intent.putExtra("imagePath", byteArr);
                 startActivity(intent);
-            }
-            else {
+            } else {
                 Toast.makeText(this, "You haven't picked Image", Toast.LENGTH_SHORT).show();
             }
         } catch (Exception e) {
@@ -153,8 +158,8 @@ public class SelectCharacter extends ActionBarActivity implements View.OnClickLi
         }
     }
 
-    private Bitmap resizeBitmap(Bitmap bitmap){
+    private Bitmap resizeBitmap(Bitmap bitmap) {
         float resizedPercent = 0.82f;
-        return Bitmap.createScaledBitmap(bitmap, (int)(bitmap.getWidth()*resizedPercent), (int)(bitmap.getHeight()*resizedPercent), true);
-    }*/
+        return Bitmap.createScaledBitmap(bitmap, (int) (bitmap.getWidth() * resizedPercent), (int) (bitmap.getHeight() * resizedPercent), true);
+    }
 }
