@@ -18,7 +18,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 
 import com.dumposk129.create.stories.app.R;
 import com.dumposk129.create.stories.app.api.ApiConfig;
@@ -61,7 +60,7 @@ public class AudioRecording extends ActionBarActivity implements MediaPlayer.OnC
     private static final String path_audio = "StoryApp/StoryName/Audio";
     private static java.util.Date date = new java.util.Date();
     private static String fName = "audio_" + date.getTime() + ".mp4";
-    private static File dir = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + path_audio + "/"+fName);
+    private static File dir = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + path_audio + "/"+ fName);
 
     DatabaseHelper db;
     Intent intent;
@@ -234,6 +233,7 @@ public class AudioRecording extends ActionBarActivity implements MediaPlayer.OnC
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         intent = new Intent(AudioRecording.this, SelectBackground.class);
+                        Runtime.getRuntime().freeMemory();
                         intent.putExtra("sId", sId);
                         intent.putExtra("frame_id", frame_id);
                         intent.putExtra("frame_order", frame_order);
@@ -268,8 +268,8 @@ public class AudioRecording extends ActionBarActivity implements MediaPlayer.OnC
         RequestBody requestBody = new MultipartBuilder()
                 .type(MultipartBuilder.FORM)
                 .addFormDataPart("sId", Integer.toString(sId))
-                .addFormDataPart("image", imgFile.getName() , RequestBody.create(MEDIA_TYPE_JPG,imgFile))
-                .addFormDataPart("audio", dir.getName(), RequestBody.create(MEDIA_TYPE_MP4,dir))
+                .addFormDataPart("image", imgFile.getName() , RequestBody.create(MEDIA_TYPE_JPG, imgFile))
+                .addFormDataPart("audio", dir.getName(), RequestBody.create(MEDIA_TYPE_MP4, dir))
                 .build();
 
         Request request = new Request.Builder()
@@ -287,16 +287,10 @@ public class AudioRecording extends ActionBarActivity implements MediaPlayer.OnC
 
     private class SaveToServerTask extends AsyncTask<Void, Void, Void> {
         private ProgressDialog progressDialog = new ProgressDialog(AudioRecording.this);
-        private ProgressBar progressBar = new ProgressBar(AudioRecording.this);
 
-        /*@Override
-        protected void onPreExecute() {
-            progressDialog.setMessage("Uploading...");
-            progressDialog.show();
-        }*/
 
         @Override
-        protected void onProgressUpdate(Void... values) {
+        protected void onPreExecute() {
             progressDialog.setMessage("Uploading...");
             progressDialog.show();
         }

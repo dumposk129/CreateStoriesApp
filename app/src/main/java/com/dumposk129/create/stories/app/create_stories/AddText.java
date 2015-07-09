@@ -32,7 +32,6 @@ public class AddText extends ActionBarActivity implements View.OnClickListener, 
     private String path_pic = null;
     private int state = 0;
     private int sId;
-
     DatabaseHelper db;
     Intent intent;
 

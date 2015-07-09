@@ -48,12 +48,11 @@ public class PhotoHelper {
             pathPhoto = "";
             Log.e("Save path", "Error can't save");
         }
-
         return pathPhoto;
     }
 
     public static String writeImagePath(Bitmap bitmap){
-        return writeImagePath(bitmap,false);
+        return writeImagePath(bitmap, false);
     }
 
     public static void updatePath(Context context, int frame_id , String path){
