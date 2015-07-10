@@ -11,11 +11,13 @@
 
     <Button
         android:id="@+id/btnNext"
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_gravity="right"
-        android:text="Next" />
+        android:background="@color/greenA400"
+        android:text="@string/next"
+        android:padding="10dp"
+        android:layout_margin="5dp"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -32,33 +34,39 @@
     <TableLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal|bottom">
+        android:layout_gravity="center_horizontal|bottom"
+        android:weightSum="1">
 
         <TableRow
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:padding="5dp">
 
             <Button
                 android:id="@+id/btnImage"
-                style="?android:attr/buttonStyleSmall"
-                android:layout_width="wrap_content"
+                android:layout_width="150dp"
                 android:layout_height="wrap_content"
+                android:gravity="center"
+                android:background="@color/tealA400"
                 android:text="Background" />
 
             <Button
                 android:id="@+id/btnGallery"
-                style="?android:attr/buttonStyleSmall"
-                android:layout_width="wrap_content"
+                android:layout_width="150dp"
                 android:layout_height="wrap_content"
-                android:text="Gallery" />
+                android:gravity="center"
+                android:background="@color/orangeA400"
+                android:text="Gallery"
+                android:layout_marginLeft="20dp"/>
 
             <Button
                 android:id="@+id/btnText"
-                style="?android:attr/buttonStyleSmall"
-                android:layout_width="wrap_content"
+                android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:text="Text"
-                android:visibility="invisible" />
+                android:background="@color/primaryColor"
+                android:visibility="invisible"
+                android:layout_marginLeft="20dp"/>
 
         </TableRow>
     </TableLayout>

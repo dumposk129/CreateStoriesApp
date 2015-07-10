@@ -11,11 +11,13 @@
 
     <Button
         android:id="@+id/btnNext"
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_gravity="right"
-        android:text="Next" />
+        android:background="@color/greenA400"
+        android:text="@string/next"
+        android:padding="10dp"
+        android:layout_margin="5dp"/>
 
 
     <FrameLayout
@@ -58,31 +60,37 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:padding="3dp">
 
         <EditText
             android:id="@+id/txtSubtitle"
-            android:layout_width="wrap_content"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:ems="10"
             android:hint="Subtitle"
             android:inputType="textMultiLine"
             android:textSize="20sp" />
 
         <Button
             android:id="@+id/btnOk"
-            android:layout_width="wrap_content"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:text="OK" />
+            android:layout_marginTop="20dp"
+            android:background="#80CBC4"
+            android:text="@string/ok"
+            android:layout_marginLeft="10dp"/>
 
         <Button
-            android:id="@+id/btnSelectColor"
-            android:layout_width="wrap_content"
+            android:id="@+id/btnTxtColor"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:text="Color"
+            android:layout_marginTop="20dp"
+            android:background="@color/deepOrange100"
+            android:text="@string/select_color"
+            android:layout_marginLeft="20dp"
             android:visibility="invisible" />
     </LinearLayout>
 </LinearLayout>

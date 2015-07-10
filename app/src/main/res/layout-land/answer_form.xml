@@ -28,18 +28,19 @@
                 android:layout_height="wrap_content"
                 android:hint="What is your question?"
                 android:paddingLeft="20dp"
-                android:textSize="30sp" />
+                android:textSize="30sp"
+                android:layout_marginTop="10dp"/>
 
             <!-- Button OK -->
             <Button
                 android:id="@+id/btnNextAnswer"
-                android:layout_width="wrap_content"
+                android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right|bottom"
                 android:layout_margin="20dp"
-                android:onClick="onQuestionNextClickListener"
-                android:text="Next"
-                android:visibility="invisible" />
+                android:onClick="onAnswerNextClickListener"
+                android:text="@string/next"
+                android:background="@color/greenA400" />
 
             <!-- Radio Group for Answer -->
             <RadioGroup
@@ -118,18 +119,6 @@
                 android:layout_marginTop="215dp"
                 android:hint="answer 4"
                 android:textSize="20sp" />
-
-            <!-- Is Correct -->
-            <TextView
-                android:id="@+id/tvIsCorrect"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="left|bottom"
-                android:layout_margin="20dp"
-                android:text="Correct"
-                android:textColor="@color/green"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:visibility="invisible" />
 
         </FrameLayout>
 

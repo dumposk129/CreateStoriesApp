@@ -45,7 +45,7 @@ public class AudioRecording extends ActionBarActivity implements MediaPlayer.OnC
     private ImageView imgView;
     private MediaRecorder recorder = null;
     private MediaPlayer mPlayer;
-    private Button btnStartRecording, btnStopRecording, btnPlayRecording, btnStop, btnNext;
+    private Button btnStartRecording,btnPlayRecording, btnNext;
     private Chronometer chronometer;
     private Bitmap bitmap;
     private long frame_id, frame_order;
@@ -53,9 +53,9 @@ public class AudioRecording extends ActionBarActivity implements MediaPlayer.OnC
     private String duration;
     private String path_pic = null;
     private int sId;
+    private int stateRec = 0, statePlay = 0;
     private static final MediaType MEDIA_TYPE_JPG = MediaType.parse("image/jpg");
     private static final MediaType MEDIA_TYPE_MP4 = MediaType.parse("audio/mp4");
-
 
     // private final MultipartBuilder builder = new MultipartBuilder();
 
@@ -73,22 +73,16 @@ public class AudioRecording extends ActionBarActivity implements MediaPlayer.OnC
         setContentView(R.layout.audio);
 
         btnStartRecording = (Button) findViewById(R.id.btnStartRecord);
-        btnStopRecording = (Button) findViewById(R.id.btnStopRecord);
         btnPlayRecording = (Button) findViewById(R.id.btnPlay);
-        btnStop = (Button) findViewById(R.id.btnStop);
         imgView = (ImageView) findViewById(R.id.imgAudioRec);
         chronometer = (Chronometer) findViewById(R.id.chronometer);
         btnNext = (Button) findViewById(R.id.btnNext);
 
         btnStartRecording.setOnClickListener(this);
-        btnStopRecording.setOnClickListener(this);
         btnPlayRecording.setOnClickListener(this);
-        btnStop.setOnClickListener(this);
         btnNext.setOnClickListener(this);
 
         btnPlayRecording.setEnabled(false);
-        btnStopRecording.setEnabled(false);
-        btnStop.setEnabled(false);
         btnNext.setEnabled(false);
 
         Bundle bundle = getIntent().getExtras();
@@ -124,15 +118,16 @@ public class AudioRecording extends ActionBarActivity implements MediaPlayer.OnC
 
     public void onCompletion(MediaPlayer mp) {
         btnStartRecording.setEnabled(true);
-        btnStopRecording.setEnabled(false);
         btnPlayRecording.setEnabled(true);
-        btnStop.setEnabled(false);
         btnNext.setEnabled(true);
         chronometer.stop();
+
+        btnPlayRecording.setText("PLAY AUDIO");
+        btnPlayRecording.setBackgroundColor(getResources().getColor(R.color.tealA400));
     }
 
     public void onClick(View v) {
-        if (v == btnStartRecording) {
+        if (v == btnStartRecording && stateRec == 0) {
             chronometer.start();
             recorder = new MediaRecorder();
             recorder.setAudioSource(MediaRecorder.AudioSource.MIC);
@@ -163,14 +158,16 @@ public class AudioRecording extends ActionBarActivity implements MediaPlayer.OnC
 
             recorder.start();
             btnPlayRecording.setEnabled(false);
-            btnStartRecording.setEnabled(false);
-            btnStopRecording.setEnabled(true);
-            btnStop.setEnabled(false);
-            btnNext.setEnabled(false);
-        } else if (v == btnStopRecording) {
+
+            btnStartRecording.setText("STOP RECORD");
+            btnStartRecording.setBackgroundColor(getResources().getColor(R.color.red));
+
+            stateRec++;
+        } else if (v == btnStartRecording && stateRec == 1) {
             chronometer.stop();
             recorder.stop();
             recorder.release();
+
             recordingDuration = (SystemClock.elapsedRealtime() - chronometer.getBase()) / 1000.0;
             mPlayer = new MediaPlayer();
             mPlayer.setOnCompletionListener(this);
@@ -195,30 +192,40 @@ public class AudioRecording extends ActionBarActivity implements MediaPlayer.OnC
 
             DecimalFormat df = new DecimalFormat("#.#");
             duration = df.format(recordingDuration);
-            duration += getString(R.string.s);
+            duration += getString(R.string.duration);
 
-            btnPlayRecording.setEnabled(true);
             btnStartRecording.setEnabled(true);
-            btnStopRecording.setEnabled(false);
-            btnStop.setEnabled(false);
+            btnPlayRecording.setEnabled(true);
             btnNext.setEnabled(true);
-        } else if (v == btnPlayRecording) {
+
+            btnStartRecording.setBackgroundColor(getResources().getColor(R.color.amber400));
+            btnStartRecording.setText("START RECORD");
+
+            stateRec = 0;
+        } else if (v == btnPlayRecording && statePlay == 0) {
             mPlayer.start();
             chronometer.setBase(SystemClock.elapsedRealtime());
             chronometer.start();
-            btnPlayRecording.setEnabled(false);
-            btnStopRecording.setEnabled(false);
+
             btnStartRecording.setEnabled(false);
-            btnStop.setEnabled(true);
-            btnNext.setEnabled(true);
-        } else if (v == btnStop) {
+            btnNext.setEnabled(false);
+
+            btnPlayRecording.setText("STOP AUDIO");
+            btnPlayRecording.setBackgroundColor(getResources().getColor(R.color.red));
+
+            statePlay++;
+        } else if (v == btnPlayRecording && statePlay == 1) {
             mPlayer.stop();
             chronometer.stop();
+
             btnStartRecording.setEnabled(true);
-            btnStopRecording.setEnabled(false);
             btnPlayRecording.setEnabled(true);
-            btnStop.setEnabled(true);
             btnNext.setEnabled(true);
+
+            btnPlayRecording.setBackgroundColor(getResources().getColor(R.color.cyan400));
+            btnPlayRecording.setText("PLAY AUDIO");
+
+            statePlay = 0;
         } else {
             createAudioInSQLiteDB();
 
@@ -296,7 +303,6 @@ public class AudioRecording extends ActionBarActivity implements MediaPlayer.OnC
             }).start();
         }
 
-
         Handler handler = new Handler() {
             @Override
             public void handleMessage(Message msg) {
@@ -307,10 +313,30 @@ public class AudioRecording extends ActionBarActivity implements MediaPlayer.OnC
 
         @Override
         protected Void doInBackground(Void... params) {
+            OkHttpClient client = new OkHttpClient();
+            File imgFile = new File(path_pic);
+            RequestBody requestBody = new MultipartBuilder()
+                    .type(MultipartBuilder.FORM)
+                    .addFormDataPart("sId", Integer.toString(sId))
+                    .addFormDataPart("image", imgFile.getName(), RequestBody.create(MEDIA_TYPE_JPG, imgFile))
+                    .addFormDataPart("audio", dir.getName(), RequestBody.create(MEDIA_TYPE_MP4, dir))
+                    .build();
+
+            Request request = new Request.Builder()
+                    .url(ApiConfig.hostname("create_frame"))
+                    .post(requestBody)
+                    .build();
+
+            Response response = null;
             try {
-                saveToServers();
-            } catch (Exception e) {
+                response = client.newCall(request).execute();
+            } catch (IOException e) {
                 e.printStackTrace();
+            }
+            if (!response.isSuccessful()) {
+                new IOException("Unexpected Code " + response);
+            } else {
+                Log.d("Upload Success", response.body().toString());
             }
             return null;
         }
@@ -329,7 +355,7 @@ public class AudioRecording extends ActionBarActivity implements MediaPlayer.OnC
     }
 
     private void saveToServers() throws Exception {
-        OkHttpClient client = new OkHttpClient();
+        /*OkHttpClient client = new OkHttpClient();
         File imgFile = new File(path_pic);
         RequestBody requestBody = new MultipartBuilder()
                 .type(MultipartBuilder.FORM)
@@ -348,6 +374,6 @@ public class AudioRecording extends ActionBarActivity implements MediaPlayer.OnC
             throw new IOException("Unexpected Code " + response);
         } else {
             Log.d("Upload Success", response.body().toString());
-        }
+        }*/
     }
 }

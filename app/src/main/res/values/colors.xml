@@ -11,8 +11,14 @@
     <color name="textSecondaryColor">#616161</color>
     <color name="colorHighlight">#B6B6B6</color>
     <color name="black_semi_transparent">#B2000000</color>
-    <color name="green">#00C853</color>
+    <color name="greenA400">#76FF03</color>
+    <color name="amber400">#FFCA28</color>
+    <color name="teal200">#80CBC4</color>
     <color name="seekbar_bg">#80D8FF</color>
     <color name="seekbar_progress">#40C4FF</color>
     <color name="seekbar_sec_progress">#4FC3F7</color>
+    <color name="cyan400">#26C6DA</color>
+    <color name="tealA400">#1DE9B6</color>
+    <color name="orangeA400">#FFA726</color>
+    <color name="deepOrange100">#FFCCBC</color>
 </resources>

@@ -4,7 +4,6 @@
     android:layout_height="match_parent"
     tools:context="com.dumposk129.create.stories.app.navigation_drawer.NavigationDrawerFragment">
 
-
     <android.support.v7.widget.RecyclerView
         android:id="@+id/drawerList"
         android:layout_width="match_parent"

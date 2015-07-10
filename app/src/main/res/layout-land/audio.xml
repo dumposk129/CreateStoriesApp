@@ -11,11 +11,14 @@
 
     <Button
         android:id="@+id/btnNext"
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_gravity="right"
-        android:text="Next" />
+        android:background="@color/greenA400"
+        android:text="Next"
+        android:padding="10dp"
+        android:layout_margin="5dp"/>
+
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -41,43 +44,51 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:weightSum="2">
+        android:padding="10dp">
 
 
         <Button
             android:id="@+id/btnStartRecord"
-            android:layout_width="wrap_content"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:layout_weight="1.0"
+            android:background="@color/amber400"
             android:text="@string/start_recording" />
 
-        <Button
+        <!--<Button
             android:id="@+id/btnStopRecord"
-            android:layout_width="wrap_content"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:layout_weight="1.0"
-            android:text="@string/stop_recording" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:weightSum="2">
-
+            android:text="@string/stop_recording" />-->
         <Button
             android:id="@+id/btnPlay"
-            android:layout_width="wrap_content"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:layout_weight="1.0"
+            android:background="@color/cyan400"
+            android:layout_marginLeft="10dp"
             android:text="@string/play_recording" />
-
-        <Button
-            android:id="@+id/btnStop"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1.0"
-            android:text="@string/stop" />
     </LinearLayout>
+
+    <!-- <LinearLayout
+         android:layout_width="fill_parent"
+         android:layout_height="wrap_content"
+         android:orientation="horizontal"
+         android:weightSum="2">
+
+         <Button
+             android:id="@+id/btnPlay"
+             android:layout_width="150dp"
+             android:layout_height="wrap_content"
+             android:layout_weight="1.0"
+             android:text="@string/play_recording" />
+
+         <Button
+             android:id="@+id/btnStop"
+             android:layout_width="150dp"
+             android:layout_height="wrap_content"
+             android:layout_weight="1.0"
+             android:text="@string/stop" />
+     </LinearLayout>-->
 </LinearLayout>

@@ -5,7 +5,6 @@
     android:orientation="vertical"
     android:weightSum="1">
 
-
     <!-- App Bar -->
     <include
         android:id="@+id/app_bar"
@@ -17,7 +16,6 @@
         android:id="@+id/drawer_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
 
         <!-- Below App Bar for use show question name and answer-->
         <FrameLayout
@@ -31,17 +29,19 @@
                 android:id="@+id/txtQuestionName"
                 android:hint="What is your question?"
                 android:textSize="30sp"
-                android:paddingLeft="20dp" />
+                android:paddingLeft="20dp"
+                android:layout_marginTop="5dp"/>
 
             <!-- Button OK -->
             <Button
-                android:layout_width="wrap_content"
+                android:layout_width="150dp"
                 android:layout_height="wrap_content"
-                android:text="Next"
                 android:id="@+id/btnNextQuestion"
                 android:layout_gravity="right|bottom"
                 android:onClick="onQuestionNextClickListener"
-                android:layout_margin="20dp"/>
+                android:layout_margin="20dp"
+                android:text="@string/next"
+                android:background="@color/greenA400" />
 
             <!-- Radio Group for Answer -->
             <RadioGroup
@@ -132,5 +132,7 @@
             android:layout_gravity="start"
             app:layout="@layout/navigation_drawer"
             tools:layout="@layout/navigation_drawer" />
+
     </android.support.v4.widget.DrawerLayout>
+
 </LinearLayout>

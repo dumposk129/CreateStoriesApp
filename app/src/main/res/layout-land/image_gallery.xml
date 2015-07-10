@@ -31,26 +31,28 @@
             android:id="@+id/full_image_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
             android:adjustViewBounds="true"
-            android:contentDescription="@null"
-            android:layout_gravity="center_horizontal"/>
+            android:contentDescription="@null" />
 
         <ImageView
             android:id="@+id/imageSticker"
-            android:layout_width="100dp"
-            android:layout_height="120dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginTop="0dp"
             android:adjustViewBounds="true"
             android:contentDescription="@null"
-            android:scaleType="fitCenter"/>
+            android:scaleType="fitCenter" />
     </FrameLayout>
 
     <Button
         android:id="@+id/btnOk"
-        android:layout_width="wrap_content"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:gravity="center"
-        android:text="OK" />
+        android:layout_marginTop="20dp"
+        android:background="@color/teal200"
+        android:text="@string/ok"
+        android:layout_marginBottom="7dp"/>
 
 </LinearLayout>

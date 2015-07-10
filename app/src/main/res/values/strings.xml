@@ -17,7 +17,7 @@
     <string name="play_recording">Play Record</string>
     <string name="stop">Stop</string>
     <string name="audio_record">Audio Record</string>
-    <string name="ok">OK</string>
+
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
@@ -28,7 +28,7 @@
     <string name="title_activity_select_char">Select Character</string>
     <string name="title_activity_audio_record">Audio Record</string>
     <string name="title_activity_add_text">Text</string>
-    <string name="s">s</string>
+    <string name="duration">duration</string>
 
     <!-- Quiz -->
     <string name="title_activity_quizzes">Quizzes</string>
@@ -41,11 +41,14 @@
     <string name="title_activity_watches">Watches</string>
     <string name="title_activity_select_story">Stories</string>
 
-    <!-- String -->
+    <!-- General String -->
     <string name="choose_item">Choose Item</string>
     <string name="select_color">Select Color</string>
-    <string name="yes">Yes</string>
-    <string name="no">No</string>
+    <string name="ok">OK</string>
+    <string name="next">NEXT</string>
+    <string name="prev">PREVIOUS</string>
+    <string name="yes">YES</string>
+    <string name="no">NO</string>
 
     <!-- Quiz Selection-->
     <array name="questions_answers">

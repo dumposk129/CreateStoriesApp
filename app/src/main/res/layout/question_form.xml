@@ -29,18 +29,19 @@
                 android:id="@+id/txtQuestionName"
                 android:hint="What is your question?"
                 android:textSize="30sp"
-                android:paddingLeft="20dp" />
-
+                android:paddingLeft="20dp"
+                android:layout_marginTop="5dp"/>
 
             <!-- Button OK -->
             <Button
-                android:layout_width="wrap_content"
+                android:layout_width="150dp"
                 android:layout_height="wrap_content"
-                android:text="Next"
                 android:id="@+id/btnNextQuestion"
                 android:layout_gravity="right|bottom"
                 android:onClick="onQuestionNextClickListener"
-                android:layout_margin="20dp"/>
+                android:layout_margin="20dp"
+                android:text="@string/next"
+                android:background="@color/greenA400" />
 
             <!-- Radio Group for Answer -->
             <RadioGroup
