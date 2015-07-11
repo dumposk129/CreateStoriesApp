@@ -55,7 +55,7 @@ public class NumberOfQuestion extends ActionBarActivity{
                 String number = numOfQues.getText().toString();
 
                 if (TextUtils.isEmpty(number)){
-                    numOfQues.setError("Please enter Story Name");
+                    numOfQues.setError("Please number of question.");
                 }else {
                     // Send Data to Question.class
                     Intent intent = new Intent(NumberOfQuestion.this, Questions.class);

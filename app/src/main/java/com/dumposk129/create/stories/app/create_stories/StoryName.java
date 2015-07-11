@@ -46,7 +46,7 @@ public class StoryName extends ActionBarActivity{
             public void onClick(View v) {
                 name = txtName.getText().toString();
                 if (TextUtils.isEmpty(name)){
-                    txtName.setError("Please enter Story Name");
+                    txtName.setError("Please enter Story Name.");
                 }else {
                     new SaveStoryTask().execute();
                 }
