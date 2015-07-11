@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -53,12 +54,16 @@ public class NumberOfQuestion extends ActionBarActivity{
             public void onClick(View v) {
                 String number = numOfQues.getText().toString();
 
-                // Send Data to Question.class
-                Intent intent = new Intent(NumberOfQuestion.this, Questions.class);
-                intent.putExtra("NumOfQuestion", Integer.parseInt(number));
-                intent.putExtra("QuizID", quizID);
-                intent.putExtra("index", 0);
-                startActivity(intent);
+                if (TextUtils.isEmpty(number)){
+                    numOfQues.setError("Please enter Story Name");
+                }else {
+                    // Send Data to Question.class
+                    Intent intent = new Intent(NumberOfQuestion.this, Questions.class);
+                    intent.putExtra("NumOfQuestion", Integer.parseInt(number));
+                    intent.putExtra("QuizID", quizID);
+                    intent.putExtra("index", 0);
+                    startActivity(intent);
+                }
             }
         });
     }

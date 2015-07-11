@@ -80,7 +80,9 @@ public class Questions extends ActionBarActivity {
                 // SET Correct Answer
                 int selectedID = radGrp.getCheckedRadioButtonId();
 
-                if (selectedID == rbAnswer1.getId()) {
+                if (selectedID == -1) {
+                    Toast.makeText(getApplicationContext(), "Please check radio button for answer", Toast.LENGTH_SHORT).show();
+                } else if (selectedID == rbAnswer1.getId()) {
                     correctAnswer = 1;
                 } else if (selectedID == rbAnswer2.getId()) {
                     correctAnswer = 2;
@@ -90,8 +92,10 @@ public class Questions extends ActionBarActivity {
                     correctAnswer = 4;
                 }
 
-                // Call AsyncTask
-                new SaveQuestionTask().execute();
+                if (selectedID != -1) {
+                    // Call AsyncTask
+                    new SaveQuestionTask().execute();
+                }
             }
         });
     }
@@ -106,8 +110,10 @@ public class Questions extends ActionBarActivity {
         answer[2] = txtAnswer3.getText().toString();
         answer[3] = txtAnswer4.getText().toString();
 
+        int questionID;
+
         // Save Question to DB.
-        int questionID = Quiz.saveQuestion(question, quizId); //get question from db
+        questionID = Quiz.saveQuestion(question, quizId); //get question from db
 
         // Set up choices data, it should be ready for saving to DB.
         List<Choice> choices = new ArrayList<>(4);

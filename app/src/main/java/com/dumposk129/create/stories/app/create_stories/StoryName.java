@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -44,7 +45,11 @@ public class StoryName extends ActionBarActivity{
             @Override
             public void onClick(View v) {
                 name = txtName.getText().toString();
-                new SaveStoryTask().execute();
+                if (TextUtils.isEmpty(name)){
+                    txtName.setError("Please enter Story Name");
+                }else {
+                    new SaveStoryTask().execute();
+                }
             }
         });
     }
