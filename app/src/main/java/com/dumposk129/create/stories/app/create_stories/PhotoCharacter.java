@@ -31,6 +31,7 @@ public class PhotoCharacter extends ActionBarActivity implements View.OnClickLis
     private long frame_id, frame_order;
     private int sId;
     private String path_pic;
+    private float x, y;
 
     DatabaseHelper db;
 
@@ -116,21 +117,24 @@ public class PhotoCharacter extends ActionBarActivity implements View.OnClickLis
     @Override
     public boolean onTouch(View v, MotionEvent event) {
 
-        int x = (int) event.getX();
-        int y = (int) event.getY();
-
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN: {
+                x = event.getX();
+                y = event.getY();
+            }
+            break;
+            case MotionEvent.ACTION_UP: {
+                x = event.getX();
+                y = event.getY();
             }
             break;
             case MotionEvent.ACTION_MOVE: {
                 FrameLayout.LayoutParams mParams = (FrameLayout.LayoutParams) imgTicker.getLayoutParams();
-                mParams.leftMargin = x;
-                mParams.topMargin = y;
+                x = event.getX();
+                y = event.getY();
+                mParams.leftMargin = Math.round(x);
+                mParams.topMargin = Math.round(y);
                 imgTicker.setLayoutParams(mParams);
-            }
-            break;
-            case MotionEvent.ACTION_UP: {
             }
             break;
         }

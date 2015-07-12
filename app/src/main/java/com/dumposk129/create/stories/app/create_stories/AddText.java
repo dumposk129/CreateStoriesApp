@@ -32,6 +32,8 @@ public class AddText extends ActionBarActivity implements View.OnClickListener, 
     private String path_pic = null;
     private int state = 0;
     private int sId;
+    private float x,y;
+
     DatabaseHelper db;
     Intent intent;
 
@@ -139,21 +141,24 @@ public class AddText extends ActionBarActivity implements View.OnClickListener, 
     @Override
     public boolean onTouch(View v, MotionEvent event) {
         /* Move */
-        int x = (int) event.getX();
-        int y = (int) event.getY();
-
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN: {
+                x = event.getX();
+                y = event.getY();
+            }
+            break;
+            case MotionEvent.ACTION_UP: {
+                x = event.getX();
+                y = event.getY();
             }
             break;
             case MotionEvent.ACTION_MOVE: {
                 FrameLayout.LayoutParams mParams = (FrameLayout.LayoutParams) imgTicker.getLayoutParams();
-                mParams.leftMargin = x;
-                mParams.topMargin = y;
+                x = event.getX();
+                y = event.getY();
+                mParams.leftMargin = Math.round(x);
+                mParams.topMargin = Math.round(y);
                 imgTicker.setLayoutParams(mParams);
-            }
-            break;
-            case MotionEvent.ACTION_UP: {
             }
             break;
         }

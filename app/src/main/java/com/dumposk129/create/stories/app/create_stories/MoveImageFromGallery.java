@@ -21,7 +21,9 @@ public class MoveImageFromGallery extends ActionBarActivity implements View.OnCl
     private Bitmap bitmap;
     private ImageView imgFullSize, imgTicker;
     private Button btnOK;
-    private int frame_id;
+    private long frame_id, frame_order;
+    private int sId;
+    private float x, y;
 
     DatabaseHelper db;
 
@@ -37,18 +39,28 @@ public class MoveImageFromGallery extends ActionBarActivity implements View.OnCl
         btnOK.setOnClickListener(this);
         imgTicker.setOnTouchListener(this);
 
-        frame_id = getIntent().getExtras().getInt("frame_id");
+        Bundle bundle = getIntent().getExtras();
+        if (bundle != null) {
+            if (bundle.containsKey("sId")) {
+                sId = getIntent().getExtras().getInt("sId");
+            }
+
+            if (bundle.containsKey("frame_id")) {
+                frame_id = (int) getIntent().getExtras().getLong("frame_id");
+            }
+
+            if (bundle.containsKey("frame_order")) {
+                frame_order = (int) getIntent().getExtras().getLong("frame_order");
+            }
+
+            if (bundle.containsKey("imagePath")) {
+                byte[] byteArr = bundle.getByteArray("imagePath");
+                bitmap = BitmapFactory.decodeByteArray(byteArr, 0, byteArr.length);
+                imgTicker.setImageBitmap(bitmap);
+            }
+        }
 
         showImage();
-
-        Intent i = getIntent();
-
-        // Selected image id
-        if (i.getExtras() != null) {
-            byte[] byteArr = i.getExtras().getByteArray("imagePath");
-            bitmap = BitmapFactory.decodeByteArray(byteArr, 0, byteArr.length);
-            imgTicker.setImageBitmap(bitmap);
-        }
     }
 
     public void showImage() {
@@ -64,29 +76,36 @@ public class MoveImageFromGallery extends ActionBarActivity implements View.OnCl
     public void onClick(View v) {
         Bitmap bmpCombined = CombineImage.getImageDrawer(imgFullSize, imgTicker);
         String path = PhotoHelper.writeImagePath(bmpCombined);
-        PhotoHelper.updatePath(getApplicationContext(), frame_id, path);
+        PhotoHelper.updatePath(getApplicationContext(), (int) frame_id, path);
 
         Intent intent = new Intent(MoveImageFromGallery.this, SelectCharacter.class);
+        intent.putExtra("sId", sId);
         intent.putExtra("frame_id", frame_id);
+        intent.putExtra("frame_order", frame_order);
         startActivity(intent);
     }
 
     @Override
     public boolean onTouch(View v, MotionEvent event) {
-        int x = (int) event.getX();
-        int y = (int) event.getY();
-
         switch (event.getAction()) {
-            case MotionEvent.ACTION_DOWN: {}
+            case MotionEvent.ACTION_DOWN: {
+                x = event.getX();
+                y = event.getY();
+            }
+            break;
+            case MotionEvent.ACTION_UP: {
+                x = event.getX();
+                y = event.getY();
+            }
             break;
             case MotionEvent.ACTION_MOVE: {
                 FrameLayout.LayoutParams mParams = (FrameLayout.LayoutParams) imgTicker.getLayoutParams();
-                mParams.leftMargin = x;
-                mParams.topMargin = y;
+                x = event.getX();
+                y = event.getY();
+                mParams.leftMargin = Math.round(x);
+                mParams.topMargin = Math.round(y);
                 imgTicker.setLayoutParams(mParams);
             }
-            break;
-            case MotionEvent.ACTION_UP: {}
             break;
         }
         return true;

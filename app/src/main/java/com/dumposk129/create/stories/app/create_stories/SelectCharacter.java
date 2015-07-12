@@ -53,8 +53,6 @@ public class SelectCharacter extends ActionBarActivity implements View.OnClickLi
         btnNext.setOnClickListener(this);
         btnText.setOnClickListener(this);
 
-        frame_id = (int) getIntent().getExtras().getLong("frame_id");
-
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
             if (bundle.containsKey("sId")) {
