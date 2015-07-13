@@ -114,7 +114,7 @@ public class SelectBackground extends ActionBarActivity implements View.OnClickL
                 startActivity(intent);
             }
         } else {
-            Toast.makeText(getApplicationContext(), "Please select an action", Toast.LENGTH_LONG).show();
+            Toast.makeText(SelectBackground.this, "Please select background", Toast.LENGTH_SHORT).show();
         }
     }
 

@@ -21,7 +21,7 @@ import java.io.ByteArrayOutputStream;
 public class PhotoBackground extends ActionBarActivity implements View.OnClickListener{
     private ImageView imgOldSelected, imgFullSize, img, imgSelected;
     private int[] imgsId = {R.drawable.bg1, R.drawable.bg2, R.drawable.bg3, R.drawable.bg4 ,R.drawable.bg5 ,R.drawable.bg6,
-            R.drawable.bg7,R.drawable.bg8, R.drawable.bg9,};
+            R.drawable.bg7,R.drawable.bg8, R.drawable.bg9, R.drawable.bg10};
     private Button btnOk;
     private Bitmap bitmap;
     private int sId;
