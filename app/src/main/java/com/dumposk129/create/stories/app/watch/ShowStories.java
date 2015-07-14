@@ -48,9 +48,11 @@ public class ShowStories extends ActionBarActivity{
                 getSupportFragmentManager().findFragmentById(R.id.fragment_navigation_drawer);
         drawerFragment.setUp(R.id.fragment_navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout), mToolbar);
 
+        // Call LoadFrameTask
         new LoadFrameTask().execute();
     }
 
+    /* This method is set data after load story has been finished. */
     private void setListData(List<Story> stories) {
         // Assign data.
         String[] data = new String[stories.size()];
@@ -69,14 +71,17 @@ public class ShowStories extends ActionBarActivity{
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 sId = Globals.stories.get(position).getId();
 
+                // Call LoadFrameList
                 new LoadFrameList().execute();
 
             }
         });
     }
 
+    /* This class is load story in story */
     private class LoadFrameTask extends AsyncTask<String, Void, JSONObject> {
         private ProgressDialog progressDialog = new ProgressDialog(ShowStories.this);
+        /* Preparing loading */
         @Override
         protected void onPreExecute() {
             progressDialog.setMessage("Loading...");
@@ -97,24 +102,26 @@ public class ShowStories extends ActionBarActivity{
             setListData(Globals.stories);
         }
     }
+
+    /* This class is load all frame using story_id*/
     private class LoadFrameList extends AsyncTask<String, Void, Void> {
 
+        // Load All Frame
         @Override
         protected Void doInBackground(String... params) {
             Globals.frames = Frame.getFrameList(sId);
             return null;
         }
 
+        // Set size and intent data
         @Override
         protected void onPostExecute(Void aVoid) {
-
-            size = Globals.frames.size() - 1;
+            size = Globals.frames.size() - 1; // Set size
 
             Intent intent = new Intent(ShowStories.this, Watch.class);
             intent.putExtra("sId", sId);
             intent.putExtra("size", size);
             intent.putExtra("index", index);
-
             startActivity(intent);
         }
     }

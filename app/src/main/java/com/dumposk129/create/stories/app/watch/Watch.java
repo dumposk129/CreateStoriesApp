@@ -51,15 +51,17 @@ public class Watch extends ActionBarActivity implements View.OnClickListener, Vi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.slide_audio);
 
+        // Casting.
         imgBg = (ImageView) findViewById(R.id.imgBg);
         btnNext = (Button) findViewById(R.id.btnNext);
         btnPrev = (Button) findViewById(R.id.btnPrev);
         mSeekbar = (SeekBar) findViewById(R.id.seekBar);
         imgBtnPlay = (ImageButton) findViewById(R.id.imgBtnPlay);
 
+        // Set seekbar is 99%
         mSeekbar.setMax(99); //0-100
 
-        /* Get Extra */
+        // Get Data
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
             if (bundle.containsKey("sId")) {
@@ -93,10 +95,11 @@ public class Watch extends ActionBarActivity implements View.OnClickListener, Vi
             new LoadImageTask().execute();
         }
 
-        if (Globals.frames.get(index).getPathAudio() != "" || Globals.frames.get(index).getPathAudio() == null) {
+       /* if (Globals.frames.get(index).getPathAudio() != "" || Globals.frames.get(index).getPathAudio() == null) {
             audioPath = ApiConfig.apiUrl + Globals.frames.get(index).getPathAudio();
-        }
+        }*/
 
+        // Set Listener.
         mPlayer.setOnBufferingUpdateListener(this);
         mPlayer.setOnCompletionListener(this);
         mSeekbar.setOnTouchListener(this);
@@ -107,65 +110,66 @@ public class Watch extends ActionBarActivity implements View.OnClickListener, Vi
 
     @Override
     public void onClick(View v) {
-        if (v.getId() == R.id.btnNext){
-            if (index == size) {
+        if (v.getId() == R.id.btnNext){ // Click btnNext.
+            if (index == size) { // if index equal size, go to Show Stories
                 intent = new Intent(Watch.this, ShowStories.class);
                 startActivity(intent);
-            } else {
+            } else { // if not do-while index equal size.
                 intent = new Intent(Watch.this, Watch.class);
                 intent.putExtra("index", index + 1);
                 intent.putExtra("size", size);
                 startActivity(intent);
             }
-        } else if (v.getId() == R.id.btnPrev){
+        } else if (v.getId() == R.id.btnPrev){ // Click prev. and index - 1.
                 intent = new Intent(Watch.this, Watch.class);
                 intent.putExtra("index", index - 1);
                 intent.putExtra("size", size);
                 startActivity(intent);
-        } else {
+        } else { // Click play button(imgBtn)
             try {
-                mPlayer.setDataSource(audioPath);
+                mPlayer.setDataSource(audioPath); // Set audioPath and preparing.
                 mPlayer.prepare();
             } catch (Exception e) {
                 e.printStackTrace();
             }
 
-            mediaFileLengthInMilliseconds = mPlayer.getDuration();
+            mediaFileLengthInMilliseconds = mPlayer.getDuration(); // Set mediaFileLength.
 
-            if (!mPlayer.isPlaying()){
+            if (!mPlayer.isPlaying()){ // playing and set icon pause.
                 mPlayer.start();
                 imgBtnPlay.setImageResource(R.drawable.ic_action_pause);
-            }else {
+            }else { // pause and set icon play.
                 mPlayer.pause();
                 imgBtnPlay.setImageResource(R.drawable.ic_action_play_circle_outline);
             }
 
-            primarySeekBarProgressUpdater();
+            primarySeekBarProgressUpdater(); // Call method primarySeekBarProgressUpdater
         }
     }
 
     /* Seekbar update */
     private void primarySeekBarProgressUpdater() {
+        // seekbar update follow player.
         mSeekbar.setProgress((int)(((float) mPlayer.getCurrentPosition() / mediaFileLengthInMilliseconds) * 100));
         if (mPlayer.isPlaying()){
             Runnable runnable = new Runnable() {
                 @Override
                 public void run() {
-                    primarySeekBarProgressUpdater();
+                    primarySeekBarProgressUpdater(); // Update seekbar until finish.
                 }
             };
-            handler.postDelayed(runnable, 1000);
+            handler.postDelayed(runnable, 1000); // Set delay.
         }
     }
 
-    /* Seekbar slide from current position to anothor position*/
+    /* Seekbar slide from current position to another position */
     @Override
     public boolean onTouch(View v, MotionEvent event) {
         if (v.getId() == R.id.seekBar) {
             if (mPlayer.isPlaying()) {
                 SeekBar sb = (SeekBar) v;
-                int playPosition = (mediaFileLengthInMilliseconds / 100) * sb.getProgress();
-                mPlayer.seekTo(playPosition);
+                int playPosition = (mediaFileLengthInMilliseconds / 100) * sb.getProgress(); // Calculate position.
+                mPlayer.seekTo(playPosition); // seekTo position.
             }
         }
         return false;
@@ -173,7 +177,7 @@ public class Watch extends ActionBarActivity implements View.OnClickListener, Vi
 
     @Override
     public void onBufferingUpdate(MediaPlayer mp, int percent) {
-        mSeekbar.setSecondaryProgress(percent);
+        mSeekbar.setSecondaryProgress(percent); // Update SecondaryProgress of Seekbar.
     }
 
     /* When play finish change logo to play*/
@@ -184,7 +188,7 @@ public class Watch extends ActionBarActivity implements View.OnClickListener, Vi
 
     /* Load Image from url */
     private class LoadImageTask extends AsyncTask<String, Void, Bitmap> {
-        // Preparing load questions and answer.
+        // Preparing load image.
         private ProgressDialog progressDialog = new ProgressDialog(Watch.this);
 
         @Override
@@ -193,10 +197,10 @@ public class Watch extends ActionBarActivity implements View.OnClickListener, Vi
             progressDialog.show();
         }
 
+        /* Loading image from URL(picPath) */
         @Override
         protected Bitmap doInBackground(String... params) {
             Bitmap bmp = null;
-
             try {
                 URL url = new URL(picPath);
                 bmp = BitmapFactory.decodeStream(url.openConnection().getInputStream());
@@ -208,6 +212,7 @@ public class Watch extends ActionBarActivity implements View.OnClickListener, Vi
             return bmp;
         }
 
+        /* Show image */
         @Override
         protected void onPostExecute(Bitmap bitmap) {
             if (progressDialog.isShowing()) progressDialog.dismiss();

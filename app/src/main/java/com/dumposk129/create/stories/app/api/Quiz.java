@@ -18,21 +18,21 @@ import java.util.List;
  * Created by DumpOSK129.
  */
 public class Quiz {
-    // Show All Story Name in Quiz
+    /* This method is show all Story Name in Quiz. */
     public static JSONObject getAllQuiz() {
         JSONParser jParser = new JSONParser(); // Call JSONParser.
         List<NameValuePair> params = new ArrayList<>(); // Create list of param.
         return jParser.makeHttpRequest(ApiConfig.hostname(API.SHOW_QUIZ), ApiConfig.GET, params); // return SHOW_QUIZ.
     }
 
-    // Show All Answers.
+    /* This method is show all Answers. */
     public static JSONObject getAllAnswer() {
         JSONParser jParser = new JSONParser(); // Call JSONParser.
         List<NameValuePair> params = new ArrayList<>(); // Create list of param
         return jParser.makeHttpRequest(ApiConfig.hostname(API.LIST_CHOICE), ApiConfig.GET, params); // return LIST_CHOICE.
     }
 
-    // Show All Questions.
+    /* This method is show all Question. */
     public static JSONObject getAllQuestion() {
         JSONParser jParser = new JSONParser(); // Call JSONParser.
         List<NameValuePair> params = new ArrayList<>(); // Create list of param.
