@@ -1,7 +1,7 @@
 package com.dumposk129.create.stories.app.api;
 
 /**
- * Created by DumpOSK129 on 4/19/2015.
+ * Created by DumpOSK129.
  */
 public class ApiConfig {
     public static final String hostname(String api_name) {
