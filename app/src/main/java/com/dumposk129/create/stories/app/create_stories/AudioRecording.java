@@ -20,6 +20,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.dumposk129.create.stories.app.R;
 import com.dumposk129.create.stories.app.api.ApiConfig;
@@ -54,15 +55,18 @@ public class AudioRecording extends ActionBarActivity implements MediaPlayer.OnC
     private String path_pic = null;
     private int sId;
     private int stateRec = 0, statePlay = 0;
+
+
     private static final MediaType MEDIA_TYPE_JPG = MediaType.parse("image/jpg");
     private static final MediaType MEDIA_TYPE_MP4 = MediaType.parse("audio/mp4");
 
     // private final MultipartBuilder builder = new MultipartBuilder();
 
     private static final String path_audio = "StoryApp/StoryName/Audio";
-    private static java.util.Date date = new java.util.Date();
-    private static String fName = "audio_" + date.getTime() + ".mp4";
-    private static File dir = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + path_audio + "/" + fName);
+    private java.util.Date date;
+
+    private String fName;
+    private File dir;
 
     DatabaseHelper db;
     Intent intent;
@@ -84,6 +88,11 @@ public class AudioRecording extends ActionBarActivity implements MediaPlayer.OnC
 
         btnPlayRecording.setEnabled(false);
         btnNext.setEnabled(false);
+
+        date = new java.util.Date();
+        fName = "audio_" + date.getTime() + ".mp4";
+        dir = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + path_audio + "/" + fName);
+
 
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
@@ -227,7 +236,11 @@ public class AudioRecording extends ActionBarActivity implements MediaPlayer.OnC
 
             statePlay = 0;
         } else {
+            Toast.makeText(getApplicationContext(), " "+dir.getPath(), Toast.LENGTH_LONG).show();
+
             createAudioInSQLiteDB();
+
+
 
             /* Call AsyncTask */
             new SaveToServerTask().execute();
@@ -278,7 +291,7 @@ public class AudioRecording extends ActionBarActivity implements MediaPlayer.OnC
         protected void onPreExecute() {
             progressDialog.setMessage("Uploading...");
             progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-            progressDialog.setMax(100);
+            progressDialog.setMax(1000);
             progressDialog.setCancelable(false);
             progressDialog.setIndeterminate(false);
             progressDialog.setCanceledOnTouchOutside(false);
@@ -290,7 +303,7 @@ public class AudioRecording extends ActionBarActivity implements MediaPlayer.OnC
                 public void run() {
                     try {
                         while (progressDialog.getProgress() <= progressDialog.getMax()) {
-                            Thread.sleep(500);
+                            Thread.sleep(1500);
                             handler.sendMessage(handler.obtainMessage());
                             if (progressDialog.getProgress() == progressDialog.getMax()) {
                                 progressDialog.dismiss();
