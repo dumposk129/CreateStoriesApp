@@ -33,7 +33,10 @@ public class Quizzes extends ActionBarActivity {
     private Toolbar mToolbar;
     private ListView listView;
     private TextView tvQuizID, tvQuizName;
+    private int quizId;
+    private int selectedStory;
 
+    Intent intent;
     //JSONArray quizzes = null;
 
     /*ArrayList<HashMap<String, String>> quizList = new ArrayList<>();
@@ -63,14 +66,13 @@ public class Quizzes extends ActionBarActivity {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                final int selectedStory = position;
+                selectedStory = position;
 
                 // Show Dialog and user choose it.
                 final AlertDialog.Builder builder = new AlertDialog.Builder(Quizzes.this);
                 builder.setTitle(R.string.choose_item).setItems(R.array.questions_answers, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int position) {
-                        Intent intent;
                         switch (position) {
                             case 0:
                                 intent = new Intent(Quizzes.this, NumberOfQuestion.class);
@@ -78,10 +80,23 @@ public class Quizzes extends ActionBarActivity {
                                 startActivity(intent);
                                 break;
                             case 1:
-                                intent = new Intent(Quizzes.this, Answers.class);
-                                intent.putExtra("quizID", Globals.stories.get(selectedStory).getQuestionId());
-                                intent.putExtra("index", 0);
-                                startActivity(intent);
+                                new LoadQuestionList().execute();
+                                /*if (Globals.questions.size() == 0) {
+                                    AlertDialog dialog1 = new AlertDialog.Builder(Quizzes.this)
+                                            .setTitle("No Question")
+                                            .setMessage("Please create question first.")
+                                            .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+                                                @Override
+                                                public void onClick(DialogInterface dialog, int which) {
+                                                }
+                                            })
+                                            .show();
+                                } else {
+                                    intent = new Intent(Quizzes.this, Answers.class);
+                                    intent.putExtra("quizID", Globals.stories.get(selectedStory).getQuestionId());
+                                    intent.putExtra("index", 0);
+                                    startActivity(intent);
+                                }*/
                                 break;
                             case 2:
                                 intent = new Intent(Quizzes.this, AllQuestions.class);
@@ -112,9 +127,11 @@ public class Quizzes extends ActionBarActivity {
         listView.setAdapter(adapter);
     }
 
+    /* Load Story all name */
     private class LoadQuizTask extends AsyncTask<String, Void, JSONObject> {
         /* Preparing Load data */
         private ProgressDialog progressDialog = new ProgressDialog(Quizzes.this);
+
         @Override
         protected void onPreExecute() {
             progressDialog.setMessage("Loading...");
@@ -130,9 +147,39 @@ public class Quizzes extends ActionBarActivity {
         // Show Stories Name.
         @Override
         protected void onPostExecute(JSONObject jsonObject) {
-            if (progressDialog.isShowing())progressDialog.dismiss();
+            if (progressDialog.isShowing()) progressDialog.dismiss();
             Globals.stories = Quiz.getQuizList(jsonObject);
             setListData(Globals.stories);
+        }
+    }
+
+    /* Load Question */
+    private class LoadQuestionList extends AsyncTask<String, Void, JSONObject>{
+
+        @Override
+        protected JSONObject doInBackground(String... params) {
+            Quiz.getAllQuestion();
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(JSONObject jsonObject) {
+            if (Globals.questions.size() == 0) {
+                AlertDialog dialog1 = new AlertDialog.Builder(Quizzes.this)
+                        .setTitle("No Question")
+                        .setMessage("Please create question first.")
+                        .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                            }
+                        })
+                        .show();
+            } else {
+                intent = new Intent(Quizzes.this, Answers.class);
+                intent.putExtra("quizID", Globals.stories.get(selectedStory).getQuestionId());
+                intent.putExtra("index", 0);
+                startActivity(intent);
+            }
         }
     }
 }

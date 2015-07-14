@@ -110,6 +110,28 @@ public class Questions extends ActionBarActivity {
         answer[2] = txtAnswer3.getText().toString();
         answer[3] = txtAnswer4.getText().toString();
 
+       /*
+        boolean hasEmptyAnswer = false;
+        String warningTxt = "Please fill answer number ";
+        for(int i = 0; i > answer.length; i++){
+            if(answer[i].isEmpty()){
+                hasEmptyAnswer = true;
+                warningTxt += " "+(i+1);
+            }
+        }
+        if(hasEmptyAnswer){
+            new AlertDialog.Builder(Questions.this)
+                    .setTitle("Please enter answer")
+                    .setMessage(warningTxt)
+                    .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                        }
+                    })
+                    .show();
+            return;
+        }*/
+
         // Save Question to DB.
         int questionID = Quiz.saveQuestion(question, quizId); //get question from db
 
@@ -145,6 +167,7 @@ public class Questions extends ActionBarActivity {
                 startActivity(intent);
             }
         }
+
     }
 
     // Class SaveQuestionTask using AsyncTask.
