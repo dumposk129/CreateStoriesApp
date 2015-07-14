@@ -23,6 +23,7 @@ public class MoveImageFromGallery extends ActionBarActivity implements View.OnCl
     private Button btnOK;
     private long frame_id, frame_order;
     private int sId;
+    private String path_pic;
     private float x, y;
 
     DatabaseHelper db;
@@ -55,18 +56,18 @@ public class MoveImageFromGallery extends ActionBarActivity implements View.OnCl
 
             if (bundle.containsKey("imagePath")) {
                 byte[] byteArr = bundle.getByteArray("imagePath");
-                bitmap = BitmapFactory.decodeByteArray(byteArr, 0, byteArr.length);
-                imgTicker.setImageBitmap(bitmap);
+                Bitmap bmp = BitmapFactory.decodeByteArray(byteArr, 0, byteArr.length);
+                imgTicker.setImageBitmap(bmp);
             }
         }
 
         showImage();
     }
 
-    public void showImage() {
-        String path_pic = null;
+    private void showImage() {
+        path_pic = null;
         db = new DatabaseHelper(getApplicationContext());
-        path_pic = db.getPath(2);
+        path_pic = db.getPath(sId);
 
         imgFullSize.setImageBitmap(BitmapFactory.decodeFile(path_pic));
         bitmap = BitmapFactory.decodeFile(path_pic);

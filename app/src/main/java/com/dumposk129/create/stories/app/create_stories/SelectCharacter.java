@@ -1,8 +1,10 @@
 package com.dumposk129.create.stories.app.create_stories;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v7.app.ActionBarActivity;
@@ -14,16 +16,18 @@ import android.widget.Toast;
 import com.dumposk129.create.stories.app.R;
 import com.dumposk129.create.stories.app.sql.DatabaseHelper;
 
+import java.io.ByteArrayOutputStream;
+
 /**
  * Created by DumpOSK129
  */
 public class SelectCharacter extends ActionBarActivity implements View.OnClickListener {
     private Button btnImage, btnGallery, btnNext, btnText;
     private static int RESULT_LOAD_IMG = 1;
-    private String picturePath, path_pic;
+    private String path_pic;
     private String pathBg;
     private ImageView imgView;
-    private Bitmap bitmap, bmp;
+    private Bitmap bitmap;
     private long frame_id, frame_order;
     private int sId;
 
@@ -42,7 +46,7 @@ public class SelectCharacter extends ActionBarActivity implements View.OnClickLi
         imgView = (ImageView) findViewById(R.id.full_image_view);
 
         btnImage.setText("Character");
-        btnGallery.setVisibility(View.GONE);
+        //btnGallery.setVisibility(View.GONE);
 
         btnImage.setOnClickListener(this);
         btnGallery.setOnClickListener(this);
@@ -118,7 +122,7 @@ public class SelectCharacter extends ActionBarActivity implements View.OnClickLi
     }
 
     /* Show Image from Gallery */
-   /* @Override
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         try {
@@ -130,16 +134,18 @@ public class SelectCharacter extends ActionBarActivity implements View.OnClickLi
                 cursor.moveToFirst();
 
                 int colIndex = cursor.getColumnIndex(filePathCol[0]);
-                picturePath = cursor.getString(colIndex);
+                String picturePath = cursor.getString(colIndex);
                 cursor.close();
 
-                *//*Convert to bitmap*//*
+               /* Convert to bitmap*/
                 ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                //bmp = resizeBitmap(bitmap);
-                bmp.compress(Bitmap.CompressFormat.JPEG, 90, stream);
+                Bitmap bmp, bmpResize;
+                bmp = BitmapFactory.decodeFile(picturePath);
+                bmpResize = resizeBitmap(bmp);
+                bmpResize.compress(Bitmap.CompressFormat.JPEG, 90, stream);
                 byte[] byteArr = stream.toByteArray();
 
-                intent.setClass(getApplicationContext(), MoveImageFromGallery.class);
+                intent = new Intent(SelectCharacter.this, MoveImageFromGallery.class);
                 intent.putExtra("sId", sId);
                 intent.putExtra("frame_id", frame_id);
                 intent.putExtra("imagePath", byteArr);
@@ -155,5 +161,5 @@ public class SelectCharacter extends ActionBarActivity implements View.OnClickLi
     private Bitmap resizeBitmap(Bitmap bitmap) {
         float resizedPercent = 0.82f;
         return Bitmap.createScaledBitmap(bitmap, (int) (bitmap.getWidth() * resizedPercent), (int) (bitmap.getHeight() * resizedPercent), true);
-    }*/
+    }
 }

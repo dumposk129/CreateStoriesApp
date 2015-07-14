@@ -26,6 +26,7 @@
     <string name="title_activity_creates">Creates</string>
     <string name="title_activity_select_bg">Select Background</string>
     <string name="title_activity_select_char">Select Character</string>
+    <string name="title_activity_combine_char_from_gal">Combine Character</string>
     <string name="title_activity_audio_record">Audio Record</string>
     <string name="title_activity_add_text">Text</string>
     <string name="duration">duration</string>

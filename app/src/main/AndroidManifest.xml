@@ -78,6 +78,9 @@
             android:name=".create_stories.PhotoCharacter"
             android:label="@string/title_activity_select_char" />
         <activity
+            android:name=".create_stories.MoveImageFromGallery"
+            android:label="@string/title_activity_combine_char_from_gal"/>
+        <activity
             android:name=".create_stories.AddText"
             android:label="title_activity_add_text" />
         <activity
