@@ -20,23 +20,23 @@ import java.util.List;
 public class Quiz {
     // Show All Story Name in Quiz
     public static JSONObject getAllQuiz() {
-        JSONParser jParser = new JSONParser();
-        List<NameValuePair> params = new ArrayList<>();
-        return jParser.makeHttpRequest(ApiConfig.hostname(API.SHOW_QUIZ), ApiConfig.GET, params);
+        JSONParser jParser = new JSONParser(); // Call JSONParser.
+        List<NameValuePair> params = new ArrayList<>(); // Create list of param.
+        return jParser.makeHttpRequest(ApiConfig.hostname(API.SHOW_QUIZ), ApiConfig.GET, params); // return SHOW_QUIZ.
     }
 
     // Show All Answers.
     public static JSONObject getAllAnswer() {
-        JSONParser jParser = new JSONParser();
-        List<NameValuePair> params = new ArrayList<>();
-        return jParser.makeHttpRequest(ApiConfig.hostname(API.LIST_CHOICE), ApiConfig.GET, params);
+        JSONParser jParser = new JSONParser(); // Call JSONParser.
+        List<NameValuePair> params = new ArrayList<>(); // Create list of param
+        return jParser.makeHttpRequest(ApiConfig.hostname(API.LIST_CHOICE), ApiConfig.GET, params); // return LIST_CHOICE.
     }
 
     // Show All Questions.
     public static JSONObject getAllQuestion() {
-        JSONParser jParser = new JSONParser();
-        List<NameValuePair> params = new ArrayList<>();
-        return jParser.makeHttpRequest(ApiConfig.hostname(API.SHOW_QUESTION), ApiConfig.GET, params);
+        JSONParser jParser = new JSONParser(); // Call JSONParser.
+        List<NameValuePair> params = new ArrayList<>(); // Create list of param.
+        return jParser.makeHttpRequest(ApiConfig.hostname(API.SHOW_QUESTION), ApiConfig.GET, params); // return SHOW_QUESTION.
     }
 
     /**
@@ -47,11 +47,11 @@ public class Quiz {
      * @return questionId from API
      */
     public static int saveQuestion(String questionName, int quizId) {
-        JSONParser jsonParser = new JSONParser();
-        List<NameValuePair> params = new ArrayList<>();
+        JSONParser jsonParser = new JSONParser(); // Call JSONParser.
+        List<NameValuePair> params = new ArrayList<>(); // Create list of param and add data.
         params.add(new BasicNameValuePair("qId", Integer.toString(quizId)));
         params.add(new BasicNameValuePair("qName", questionName));
-
+        // Create JSONObject for get CREATE_QUESTION.
         JSONObject json = jsonParser.makeHttpRequest(ApiConfig.hostname(API.CREATE_QUESTION), ApiConfig.GET, params);
         try {
             int success = json.getInt(ApiConfig.TAG_SUCCESS);
@@ -70,14 +70,15 @@ public class Quiz {
 
     /* Save Choices and correct choice */
     public static boolean saveChoices(List<Choice> choices, int questionID) {
-        JSONParser jsonParser = new JSONParser();
-        List<NameValuePair> params = new ArrayList<>();
+        JSONParser jsonParser = new JSONParser(); // Call JSONParser.
+        List<NameValuePair> params = new ArrayList<>(); // Create list of param and add data.
         for (int i = 1; i <= 4; i++) {
             params.add(new BasicNameValuePair("a" + i, choices.get(i - 1).getChoiceName()));
             params.add(new BasicNameValuePair("isA" + i, Integer.toString(choices.get(i - 1).isCorrect())));
         }
         params.add(new BasicNameValuePair("qId", Integer.toString(questionID)));
 
+        // Create JSONObject for get CREATE_ANSWER.
         JSONObject json = jsonParser.makeHttpRequest(ApiConfig.hostname(API.CREATE_ANSWER), ApiConfig.GET, params);
         try {
             int success = json.getInt(ApiConfig.TAG_SUCCESS);
@@ -96,12 +97,11 @@ public class Quiz {
 
     /* Show question */
     public static JSONArray getShowQuestion(int quizID) {
-        JSONParser jsonParser = new JSONParser();
-        List<NameValuePair> params = new ArrayList<>();
+        JSONParser jsonParser = new JSONParser(); // Call JSONParser.
+        List<NameValuePair> params = new ArrayList<>(); // Create list of param and add data.
         params.add(new BasicNameValuePair("qz_id", Integer.toString(quizID)));
-
+        // Create JSONObject for get SHOW_QUESTION.
         JSONObject json = jsonParser.makeHttpRequest(ApiConfig.hostname(API.SHOW_QUESTION), ApiConfig.GET, params);
-
         try {
             int success = json.getInt(ApiConfig.TAG_SUCCESS);
             if (success == 1) {
@@ -119,7 +119,7 @@ public class Quiz {
 
     /* Show question and answer */
     public static List<Question> getQuestions(JSONArray result) {
-        List<Question> questions = new ArrayList<>();
+        List<Question> questions = new ArrayList<>(); // Create list of questions.
         try {
             if (result != null) {
                 for (int i = 0; i <= result.length(); i++) {
@@ -139,20 +139,22 @@ public class Quiz {
                             String answerName = jChoice.getString("answer_name");
                             int isCorrect = jChoice.getInt("is_correct");
 
+                            // Set choice
                             Choice choice = new Choice();
                             choice.setChoiceId(answerID);
                             choice.setOrder(order);
                             choice.setChoiceName(answerName);
                             choice.setIsCorrect(isCorrect);
-                            choices.add(choice);
+                            choices.add(choice); // Add choice into choices.
                         }
                     }
-                    Question question = new Question();
+                    Question question = new Question(); // Call Question and set data.
                     question.setQuestionId(questionID);
                     question.setQuestionName(questionName);
-                    if (jChoices.length() > 0)
+                    if (jChoices.length() > 0) {
                         question.setChoices(choices);
-                    questions.add(question);
+                    }
+                    questions.add(question); // Add question into questions.
                 }
             }
         } catch (Exception e) {
@@ -163,26 +165,29 @@ public class Quiz {
 
     /* Show stories name in quiz */
     public static List<Story> getQuizList(JSONObject json){
-        List<Story> storyList = new ArrayList<>();
+        List<Story> storyList = new ArrayList<>(); // Create list of storyList
         try {
             int success = json.getInt(ApiConfig.TAG_SUCCESS);
             if (success == 1){
-                JSONArray jQuizList = json.getJSONArray("quiz");
+                JSONArray jQuizList = json.getJSONArray("quiz"); // Create jQuizList
                 if (jQuizList != null && jQuizList.length() != 0){
-                    for (int i = 0; i < jQuizList.length(); i++){
+                    for (int i = 0; i < jQuizList.length(); i++){ // Add data
                         JSONObject jQuiz = jQuizList.getJSONObject(i);
                         int quizId = jQuiz.getInt("quiz_id");
                         String quizName = jQuiz.getString("title_name");
+
+                        // SET value from jQuiz.
                         Story story = new Story();
                         story.setQuestionId(quizId);
                         story.setQuestionName(quizName);
-                        storyList.add(story);
+
+                        storyList.add(story); // Add All into storyList.
                     }
                 }
             }
         }catch (Exception e){
             Log.e("[All Quiz:JSON]", e.getMessage());
         }
-        return storyList;
+        return storyList; // return storyList.
     }
 }

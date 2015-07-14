@@ -56,6 +56,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public long createNewStory(Story story) {
         db = this.getWritableDatabase();
+
+        // Add data into TABLE STORY.
         ContentValues values = new ContentValues();
         values.put(Schema.KEY_TITLE_NAME, story.getTitle());
         values.put(Schema.KEY_IS_COMPLETE, story.getIsCompleteInt());
@@ -64,11 +66,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         db.close();
 
-        return story_id;
+        return story_id; // return story_id.
     }
 
     public Story getStory(int id) {
         db = this.getReadableDatabase();
+
+        // Select data from story
         String query = "SELECT * FROM " + Schema.TABLE_STORY + " WHERE " + Schema.KEY_ID + " = " + id;
 
         Log.e(LOG, query);
@@ -81,17 +85,19 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         boolean isComplete = c.getInt(c.getColumnIndex(Schema.KEY_IS_COMPLETE)) == 1 ? true : false;
 
+        // Read data
         Story story = new Story(c.getInt(c.getColumnIndex(Schema.KEY_ID)), c.getString(c.getColumnIndex(Schema.KEY_TITLE_NAME)), isComplete);
 
         c.close();
         db.close();
         
-        return story;
+        return story; // return story.
     }
 
     public long createNewFrame(Frame frame) {
         db = this.getWritableDatabase();
 
+        // Add data into TABLE FRAME.
         ContentValues values = new ContentValues();
         values.put(Schema.KEY_FRAME_ORDER, frame.getFrameOrder());
         values.put(Schema.KEY_STORY_ID, frame.getStoryId());
@@ -100,15 +106,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         db.close();
 
-        return frame_id;
+        return frame_id; // return frame_id.
     }
 
     public void updatePath(int frame_id, String path_pic) {
         db = this.getWritableDatabase();
 
+        // Add path_pic
         ContentValues values = new ContentValues();
         values.put(Schema.KEY_PATH_PIC, path_pic);
-      
+
+        // Update path_pic from frame.
         db.update(Schema.TABLE_FRAME, values, Schema.KEY_ID + " = " + frame_id, null);
 
         db.close();
@@ -118,6 +126,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db = this.getReadableDatabase();
         String  path_pic = null;
 
+        // Read path_pic from frame.
         String query = "SELECT " +Schema.KEY_PATH_PIC  + " FROM "+ Schema.TABLE_FRAME
                 + " WHERE " + Schema.KEY_STORY_ID + " = " + story_id + " ORDER BY " + Schema.KEY_FRAME_ORDER;
 
@@ -125,6 +134,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         Cursor c = db.rawQuery(query, null);
         c.moveToFirst();
 
+        // move until cursor is last.
         while (!c.isAfterLast()) {
             path_pic = c.getString(c.getColumnIndex(Schema.KEY_PATH_PIC));
             c.moveToNext();
@@ -140,6 +150,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public long createNewAudio(Audio audio){
         db = this.getWritableDatabase();
 
+        // Add data into TABLE AUDIO.
         ContentValues values = new ContentValues();
         values.put(Schema.KEY_FRAME_ID, audio.getFrameID());
         values.put(Schema.KEY_AUDIO_PATH, audio.getPathAudio());
@@ -149,6 +160,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         db.close();
 
-        return audio_id;
+        return audio_id; // return audio_id
     }
 }
