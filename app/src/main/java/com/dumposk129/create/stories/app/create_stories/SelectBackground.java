@@ -25,7 +25,7 @@ import java.io.File;
  * Created by DumpOSK129.
  */
 public class SelectBackground extends ActionBarActivity implements View.OnClickListener {
-    private Button btnBg, btnGallery, btnNext;
+    private Button btnBg, btnGallery, btnNext, btnText;
     private static int RESULT_LOAD_IMG = 1;
     private String picturePath;
     private ImageView imgView;
@@ -49,7 +49,10 @@ public class SelectBackground extends ActionBarActivity implements View.OnClickL
         btnBg = (Button) findViewById(R.id.btnImage);
         btnGallery = (Button) findViewById(R.id.btnGallery);
         btnNext = (Button) findViewById(R.id.btnNext);
+        btnText = (Button) findViewById(R.id.btnText);
         imgView = (ImageView) findViewById(R.id.full_image_view);
+
+        btnText.setVisibility(View.GONE);
 
         btnBg.setOnClickListener(this);
         btnGallery.setOnClickListener(this);

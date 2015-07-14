@@ -65,7 +65,6 @@
                 android:layout_height="wrap_content"
                 android:text="Text"
                 android:background="@color/primaryColor"
-                android:visibility="invisible"
                 android:layout_marginLeft="20dp"/>
 
         </TableRow>
