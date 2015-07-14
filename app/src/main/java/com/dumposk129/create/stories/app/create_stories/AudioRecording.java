@@ -20,7 +20,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.dumposk129.create.stories.app.R;
 import com.dumposk129.create.stories.app.api.ApiConfig;
@@ -236,11 +235,7 @@ public class AudioRecording extends ActionBarActivity implements MediaPlayer.OnC
 
             statePlay = 0;
         } else {
-            Toast.makeText(getApplicationContext(), " "+dir.getPath(), Toast.LENGTH_LONG).show();
-
             createAudioInSQLiteDB();
-
-
 
             /* Call AsyncTask */
             new SaveToServerTask().execute();
@@ -303,7 +298,7 @@ public class AudioRecording extends ActionBarActivity implements MediaPlayer.OnC
                 public void run() {
                     try {
                         while (progressDialog.getProgress() <= progressDialog.getMax()) {
-                            Thread.sleep(1500);
+                            Thread.sleep(500);
                             handler.sendMessage(handler.obtainMessage());
                             if (progressDialog.getProgress() == progressDialog.getMax()) {
                                 progressDialog.dismiss();
@@ -365,28 +360,5 @@ public class AudioRecording extends ActionBarActivity implements MediaPlayer.OnC
             if (progressDialog.isShowing()) progressDialog.dismiss();
             showDialog();
         }
-    }
-
-    private void saveToServers() throws Exception {
-        /*OkHttpClient client = new OkHttpClient();
-        File imgFile = new File(path_pic);
-        RequestBody requestBody = new MultipartBuilder()
-                .type(MultipartBuilder.FORM)
-                .addFormDataPart("sId", Integer.toString(sId))
-                .addFormDataPart("image", imgFile.getName(), RequestBody.create(MEDIA_TYPE_JPG, imgFile))
-                .addFormDataPart("audio", dir.getName(), RequestBody.create(MEDIA_TYPE_MP4, dir))
-                .build();
-
-        Request request = new Request.Builder()
-                .url(ApiConfig.hostname("create_frame"))
-                .post(requestBody)
-                .build();
-
-        Response response = client.newCall(request).execute();
-        if (!response.isSuccessful()) {
-            throw new IOException("Unexpected Code " + response);
-        } else {
-            Log.d("Upload Success", response.body().toString());
-        }*/
     }
 }
