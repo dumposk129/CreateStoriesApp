@@ -53,11 +53,6 @@ public class PhotoBackground extends ActionBarActivity implements View.OnClickLi
             }
         }
 
-        /*Toast.makeText(getApplicationContext(), "sId: " + sId, Toast.LENGTH_SHORT).show();
-        Toast.makeText(getApplicationContext(), "frame_id: "+frame_id, Toast.LENGTH_SHORT).show();
-        Toast.makeText(getApplicationContext(), "frame_order: "+frame_order, Toast.LENGTH_SHORT).show();*/
-
-
         btnOk.setOnClickListener(this);
 
         /* Set Image */

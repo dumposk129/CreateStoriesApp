@@ -22,6 +22,7 @@ import com.dumposk129.create.stories.app.api.Quiz;
 import com.dumposk129.create.stories.app.model.Story;
 import com.dumposk129.create.stories.app.navigation_drawer.NavigationDrawerFragment;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.List;
@@ -37,18 +38,13 @@ public class Quizzes extends ActionBarActivity {
     private int selectedStory;
 
     Intent intent;
-    //JSONArray quizzes = null;
-
-    /*ArrayList<HashMap<String, String>> quizList = new ArrayList<>();
-
-    List<String> data = new ArrayList<>();*/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.use_list_all_stories_name);
 
-        // Casting
+        // Casting.
         mToolbar = (Toolbar) findViewById(R.id.app_bar);
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -80,23 +76,8 @@ public class Quizzes extends ActionBarActivity {
                                 startActivity(intent);
                                 break;
                             case 1:
+                                quizId = Globals.stories.get(selectedStory).getQuestionId();
                                 new LoadQuestionList().execute();
-                                /*if (Globals.questions.size() == 0) {
-                                    AlertDialog dialog1 = new AlertDialog.Builder(Quizzes.this)
-                                            .setTitle("No Question")
-                                            .setMessage("Please create question first.")
-                                            .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
-                                                @Override
-                                                public void onClick(DialogInterface dialog, int which) {
-                                                }
-                                            })
-                                            .show();
-                                } else {
-                                    intent = new Intent(Quizzes.this, Answers.class);
-                                    intent.putExtra("quizID", Globals.stories.get(selectedStory).getQuestionId());
-                                    intent.putExtra("index", 0);
-                                    startActivity(intent);
-                                }*/
                                 break;
                             case 2:
                                 intent = new Intent(Quizzes.this, AllQuestions.class);
@@ -154,17 +135,18 @@ public class Quizzes extends ActionBarActivity {
     }
 
     /* Load Question */
-    private class LoadQuestionList extends AsyncTask<String, Void, JSONObject>{
+    private class LoadQuestionList extends AsyncTask<String, Void, JSONArray> {
 
+        // Load all questions.
         @Override
-        protected JSONObject doInBackground(String... params) {
-            Quiz.getAllQuestion();
-            return null;
+        protected JSONArray doInBackground(String... params) {
+            return Quiz.getShowQuestion(quizId);
         }
 
         @Override
-        protected void onPostExecute(JSONObject jsonObject) {
-            if (Globals.questions.size() == 0) {
+        protected void onPostExecute(JSONArray jsonArray) {
+            Globals.questions = Quiz.getQuestions(jsonArray); // get question pass Quiz.getQuestions
+            if (Globals.questions.size() == 0) { // if no question show dialog.
                 AlertDialog dialog1 = new AlertDialog.Builder(Quizzes.this)
                         .setTitle("No Question")
                         .setMessage("Please create question first.")
@@ -174,7 +156,7 @@ public class Quizzes extends ActionBarActivity {
                             }
                         })
                         .show();
-            } else {
+            } else { // has question and set quizID, index and then go to Answers.
                 intent = new Intent(Quizzes.this, Answers.class);
                 intent.putExtra("quizID", Globals.stories.get(selectedStory).getQuestionId());
                 intent.putExtra("index", 0);

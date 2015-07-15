@@ -76,10 +76,6 @@ public class SelectBackground extends ActionBarActivity implements View.OnClickL
                 frame_order = (int)getIntent().getExtras().getLong("frame_order");
             }
         }
-
-        /*Toast.makeText(getApplicationContext(), "sId: "+sId, Toast.LENGTH_SHORT).show();
-        Toast.makeText(getApplicationContext(), "frame_id: "+frame_id, Toast.LENGTH_SHORT).show();
-        Toast.makeText(getApplicationContext(), "frame_order: "+frame_order, Toast.LENGTH_SHORT).show();*/
     }
 
     @Override
@@ -103,10 +99,8 @@ public class SelectBackground extends ActionBarActivity implements View.OnClickL
                 /* Save photo path */
                 pathBg = PhotoHelper.writeImagePath(bitmap);
 
-                //TODO : DON'T FORGET INCREASE FRAME_ORDER WHEN DONE(RENDER TO VIDEO EACH FRAME).
                 frame_id = createFrameInSQLiteDB(); // Insert frame_id.
 
-                // TODO: Update Path
                 PhotoHelper.updatePath(getApplicationContext(), (int) frame_id, pathBg); // Update Path in db.
 
                 /* Go to Next Page */

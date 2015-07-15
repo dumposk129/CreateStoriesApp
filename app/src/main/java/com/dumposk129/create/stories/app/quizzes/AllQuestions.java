@@ -28,8 +28,6 @@ public class AllQuestions extends ActionBarActivity{
     private Toolbar mToolbar;
     private ListView listView;
     private int quizId;
-  /*  ArrayList<HashMap<String, String>> questionList = new ArrayList<>();
-    List<String> questions = new ArrayList<>();;*/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,9 +83,9 @@ public class AllQuestions extends ActionBarActivity{
 
         // Show all questions.
         @Override
-        protected void onPostExecute(JSONArray jsonObject) {
+        protected void onPostExecute(JSONArray jsonArray) {
             if (progressDialog.isShowing())progressDialog.dismiss();
-            Globals.questions = Quiz.getQuestions(jsonObject);
+            Globals.questions = Quiz.getQuestions(jsonArray);
             setListQuestions(Globals.questions);
         }
     }

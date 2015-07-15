@@ -19,7 +19,7 @@ public class PhotoHelper {
     private static final String PATH = "StoryApp/StoryName/Frame";
     private static File dir = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + PATH );
 
-    public static String writeImagePath(Bitmap bitmap,boolean isFinal){
+    public static String writeImagePath(Bitmap bitmap, boolean isFinal){
         FileOutputStream fos;
         boolean success = false;
         String fName = "";

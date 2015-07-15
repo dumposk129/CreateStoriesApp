@@ -13,7 +13,6 @@ import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.dumposk129.create.stories.app.R;
 import com.dumposk129.create.stories.app.api.Globals;
@@ -206,11 +205,6 @@ public class Answers extends ActionBarActivity {
         @Override
         protected JSONArray doInBackground(String... params) {
             return Quiz.getShowQuestion(quizId);
-        }
-
-        @Override
-        protected void onProgressUpdate(Void... values) {
-            Toast.makeText(getApplicationContext(), "Loading", Toast.LENGTH_SHORT).show();
         }
 
         // Show Questions.

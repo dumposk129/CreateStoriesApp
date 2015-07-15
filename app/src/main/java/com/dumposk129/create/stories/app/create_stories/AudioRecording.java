@@ -5,7 +5,6 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
 import android.os.AsyncTask;
@@ -96,7 +95,7 @@ public class AudioRecording extends ActionBarActivity implements MediaPlayer.OnC
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
             if (bundle.containsKey("sId")) {
-                sId = bundle.getInt("sId");
+                sId = getIntent().getExtras().getInt("sId");
             }
 
             if (bundle.containsKey("frame_id")) {
@@ -108,20 +107,8 @@ public class AudioRecording extends ActionBarActivity implements MediaPlayer.OnC
             }
         }
 
-       /* Toast.makeText(getApplicationContext(), "sId: " + sId, Toast.LENGTH_SHORT).show();
-        Toast.makeText(getApplicationContext(), "frame_id: "+frame_id, Toast.LENGTH_SHORT).show();
-        Toast.makeText(getApplicationContext(), "frame_order: "+frame_order, Toast.LENGTH_SHORT).show();*/
-
-        showImage();
-    }
-
-    /* Show Image from database */
-    private void showImage() {
-        db = new DatabaseHelper(getApplicationContext());
-        path_pic = db.getPath(sId);
-
-        imgView.setImageBitmap(BitmapFactory.decodeFile(path_pic));
-        bitmap = BitmapFactory.decodeFile(path_pic);
+        // Call class ShowImage.
+        ShowImage.showImage(AudioRecording.this, sId, imgView);
     }
 
     public void onCompletion(MediaPlayer mp) {

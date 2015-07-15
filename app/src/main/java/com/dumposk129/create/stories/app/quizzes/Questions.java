@@ -172,7 +172,7 @@ public class Questions extends ActionBarActivity {
 
     // Class SaveQuestionTask using AsyncTask.
     private class SaveQuestionTask extends AsyncTask<String, Void, Void> {
-        // Do method onNextCLickListener in background.
+        // Do method onNextClickListener in background.
         @Override
         protected Void doInBackground(String... params) {
             onNextClickListener();

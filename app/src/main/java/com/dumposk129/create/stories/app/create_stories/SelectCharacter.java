@@ -46,7 +46,6 @@ public class SelectCharacter extends ActionBarActivity implements View.OnClickLi
         imgView = (ImageView) findViewById(R.id.full_image_view);
 
         btnImage.setText("Character");
-        //btnGallery.setVisibility(View.GONE);
 
         btnImage.setOnClickListener(this);
         btnGallery.setOnClickListener(this);
@@ -68,22 +67,8 @@ public class SelectCharacter extends ActionBarActivity implements View.OnClickLi
             }
         }
 
-        /*Toast.makeText(getApplicationContext(), "sId: "+sId, Toast.LENGTH_SHORT).show();
-        Toast.makeText(getApplicationContext(), "frame_id: "+frame_id, Toast.LENGTH_SHORT).show();
-        Toast.makeText(getApplicationContext(), "frame_order: "+frame_order, Toast.LENGTH_SHORT).show();*/
-
-        /* This method is show image */
-        showImage();
-    }
-
-    /* Show Image from database */
-    private void showImage() {
-        path_pic = null;
-        db = new DatabaseHelper(getApplicationContext());
-        path_pic = db.getPath(sId);
-
-        imgView.setImageBitmap(BitmapFactory.decodeFile(path_pic));
-        bitmap = BitmapFactory.decodeFile(path_pic);
+        // Call class ShowImage.
+        ShowImage.showImage(SelectCharacter.this, sId, imgView);
     }
 
     @Override

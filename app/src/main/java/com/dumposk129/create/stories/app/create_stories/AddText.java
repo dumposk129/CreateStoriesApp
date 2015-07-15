@@ -4,7 +4,6 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -17,7 +16,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.dumposk129.create.stories.app.R;
-import com.dumposk129.create.stories.app.sql.DatabaseHelper;
 
 /**
  * Created by DumpOSK129.
@@ -34,7 +32,6 @@ public class AddText extends ActionBarActivity implements View.OnClickListener, 
     private int sId;
     private float x,y;
 
-    DatabaseHelper db;
     Intent intent;
 
     @Override
@@ -42,7 +39,7 @@ public class AddText extends ActionBarActivity implements View.OnClickListener, 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_text);
 
-        // Matching
+        // Casting.
         txtSubtitle = (EditText) findViewById(R.id.txtSubtitle);
         tvSubtitle = (TextView) findViewById(R.id.tvSubtitle);
         btnOK = (Button) findViewById(R.id.btnOk);
@@ -77,21 +74,8 @@ public class AddText extends ActionBarActivity implements View.OnClickListener, 
             }
         }
 
-       /* Toast.makeText(getApplicationContext(), "sId: " + sId, Toast.LENGTH_SHORT).show();
-        Toast.makeText(getApplicationContext(), "frame_id: "+frame_id, Toast.LENGTH_SHORT).show();
-        Toast.makeText(getApplicationContext(), "frame_order: "+frame_order, Toast.LENGTH_SHORT).show();*/
-
-        // Show Image
-        showImage();
-    }
-
-    /* Show Image from database */
-    private void showImage() {
-        db = new DatabaseHelper(getApplicationContext());
-        path_pic = db.getPath(sId);
-
-        imgFullSize.setImageBitmap(BitmapFactory.decodeFile(path_pic));
-        bitmap = BitmapFactory.decodeFile(path_pic);
+        // Call class ShowImage.
+        ShowImage.showImage(AddText.this, sId, imgFullSize);
     }
 
     @Override

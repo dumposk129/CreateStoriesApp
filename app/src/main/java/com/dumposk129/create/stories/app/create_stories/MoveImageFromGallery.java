@@ -12,7 +12,6 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 
 import com.dumposk129.create.stories.app.R;
-import com.dumposk129.create.stories.app.sql.DatabaseHelper;
 
 /**
  * Created by DumpOSK129.
@@ -25,8 +24,6 @@ public class MoveImageFromGallery extends ActionBarActivity implements View.OnCl
     private int sId;
     private String path_pic;
     private float x, y;
-
-    DatabaseHelper db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,16 +58,8 @@ public class MoveImageFromGallery extends ActionBarActivity implements View.OnCl
             }
         }
 
-        showImage();
-    }
-
-    private void showImage() {
-        path_pic = null;
-        db = new DatabaseHelper(getApplicationContext());
-        path_pic = db.getPath(sId);
-
-        imgFullSize.setImageBitmap(BitmapFactory.decodeFile(path_pic));
-        bitmap = BitmapFactory.decodeFile(path_pic);
+        // Call class ShowImage.
+        ShowImage.showImage(MoveImageFromGallery.this, sId, imgFullSize);
     }
 
     @Override

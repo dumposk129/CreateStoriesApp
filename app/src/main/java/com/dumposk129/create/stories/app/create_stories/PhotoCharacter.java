@@ -2,7 +2,6 @@ package com.dumposk129.create.stories.app.create_stories;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
@@ -72,12 +71,8 @@ public class PhotoCharacter extends ActionBarActivity implements View.OnClickLis
             }
         }
 
-        /*Toast.makeText(getApplicationContext(), "sId: " + sId, Toast.LENGTH_SHORT).show();
-        Toast.makeText(getApplicationContext(), "frame_id: "+frame_id, Toast.LENGTH_SHORT).show();
-        Toast.makeText(getApplicationContext(), "frame_order: "+frame_order, Toast.LENGTH_SHORT).show();*/
-
-        /* This method is show image */
-        showImage();
+        // Call class ShowImage.
+        ShowImage.showImage(PhotoCharacter.this, sId, imgFullSize);
 
         /* Set Image */
         for (final int id : imgsId) {
@@ -109,15 +104,6 @@ public class PhotoCharacter extends ActionBarActivity implements View.OnClickLis
         }
     }
 
-    /* Show Image from database */
-    private void showImage() {
-        db = new DatabaseHelper(getApplicationContext());
-        path_pic = db.getPath(sId);
-
-        imgFullSize.setImageBitmap(BitmapFactory.decodeFile(path_pic));
-        bitmap = BitmapFactory.decodeFile(path_pic);
-    }
-
     /* Ticker Set On Touch */
     @Override
     public boolean onTouch(View v, MotionEvent event) {
@@ -146,8 +132,8 @@ public class PhotoCharacter extends ActionBarActivity implements View.OnClickLis
         return true;
     }
 
-   /* *//* Resize Image *//*
-    private Bitmap resizeBitmap(Bitmap bitmap){
+     /* Resize Image */
+    /*private Bitmap resizeBitmap(Bitmap bitmap){
         float resizedPercent = 0.82f;
         return Bitmap.createScaledBitmap(bitmap, (int)(bitmap.getWidth()*resizedPercent), (int)(bitmap.getHeight()*resizedPercent), true);
     }*/
