@@ -32,7 +32,8 @@
             android:adjustViewBounds="true"
             android:contentDescription="@null"
             android:scaleType="fitCenter"
-            android:padding="10dp"/>
+            android:padding="40dp"
+            android:layout_marginLeft="40dp"/>
     </FrameLayout>
 
     <Button

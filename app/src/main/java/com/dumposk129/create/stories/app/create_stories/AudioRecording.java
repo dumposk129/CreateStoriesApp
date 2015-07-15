@@ -109,7 +109,9 @@ public class AudioRecording extends ActionBarActivity implements MediaPlayer.OnC
         }
 
         // Call class ShowImage.
-        ShowImage.showImage(AudioRecording.this, sId, imgView);
+        bitmap = ShowImage.showImage(AudioRecording.this, sId, imgView);
+        db = new DatabaseHelper(getApplicationContext());
+        path_pic = db.getPath(sId);
     }
 
     /* This method is when play finish, show and set data to default. */
@@ -301,7 +303,7 @@ public class AudioRecording extends ActionBarActivity implements MediaPlayer.OnC
                 public void run() {
                     try {
                         while (progressDialog.getProgress() <= progressDialog.getMax()) {
-                            Thread.sleep(500);
+                            Thread.sleep(200);
                             handler.sendMessage(handler.obtainMessage());
                             if (progressDialog.getProgress() == progressDialog.getMax()) {
                                 progressDialog.dismiss();

@@ -14,7 +14,6 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.dumposk129.create.stories.app.R;
-import com.dumposk129.create.stories.app.sql.DatabaseHelper;
 
 import java.io.ByteArrayOutputStream;
 
@@ -32,8 +31,7 @@ public class SelectCharacter extends ActionBarActivity implements View.OnClickLi
     private int sId;
 
     Intent intent;
-    DatabaseHelper db;
-
+ 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,7 +66,7 @@ public class SelectCharacter extends ActionBarActivity implements View.OnClickLi
         }
 
         // Call class ShowImage.
-        ShowImage.showImage(SelectCharacter.this, sId, imgView);
+        bitmap = ShowImage.showImage(SelectCharacter.this, sId, imgView);
     }
 
     @Override

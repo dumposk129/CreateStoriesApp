@@ -25,12 +25,10 @@ public class AddText extends ActionBarActivity implements View.OnClickListener, 
     private EditText txtSubtitle;
     private Button btnOK, btnNext, btnColor;
     private ImageView imgFullSize, imgTicker;
-    private Bitmap bitmap;
     private long frame_id, frame_order;
-    private String path_pic = null;
     private int state = 0;
     private int sId;
-    private float x,y;
+    private float x, y;
 
     Intent intent;
 
