@@ -14,7 +14,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.dumposk129.create.stories.app.R;
-import com.dumposk129.create.stories.app.sql.DatabaseHelper;
 
 /**
  * Created by DumpOSK129.
@@ -34,10 +33,7 @@ public class PhotoCharacter extends ActionBarActivity implements View.OnClickLis
     private Bitmap bitmap;
     private long frame_id, frame_order;
     private int sId;
-    private String path_pic;
     private float x, y;
-
-    DatabaseHelper db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,10 +48,10 @@ public class PhotoCharacter extends ActionBarActivity implements View.OnClickLis
         imgTicker.bringToFront();
         btnOk = (Button) findViewById(R.id.btnOk);
 
-        /* Set Listener */
         btnOk.setOnClickListener(this);
         imgTicker.setOnTouchListener(this);
 
+        // Get Extra.
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
             if (bundle.containsKey("sId")) {
@@ -76,7 +72,7 @@ public class PhotoCharacter extends ActionBarActivity implements View.OnClickLis
 
         /* Set Image */
         for (final int id : imgsId) {
-            img = new ImageView(PhotoCharacter.this);  // Minimal Image
+            img = new ImageView(PhotoCharacter.this);  // Set minimal image
             img.setLayoutParams(new LinearLayout.LayoutParams(150, 150));
             img.setPadding(8, 8, 8, 8);
             img.setImageResource(id);
@@ -84,19 +80,19 @@ public class PhotoCharacter extends ActionBarActivity implements View.OnClickLis
             img.setId(id);
             position++;
 
-            gallery.addView(img);
-            img.setOnClickListener(new View.OnClickListener() {
+            gallery.addView(img); // Show minimal image.
+            img.setOnClickListener(new View.OnClickListener() { // Click minimal image.
                 @Override
                 public void onClick(View v) {
                     imgSelected = (ImageView) v;
                     bitmap = ((BitmapDrawable) imgSelected.getDrawable()).getBitmap();
-                    imgTicker.setImageBitmap(bitmap); // Show Image in full size;
+                    imgTicker.setImageBitmap(bitmap); // Show Image in ticker image.
 
                     if (imgOldSelected != null) {
-                        imgOldSelected.setBackgroundColor(Color.TRANSPARENT);
+                        imgOldSelected.setBackgroundColor(Color.TRANSPARENT); // When change image bg changed transparent.
                     }
 
-                    imgSelected.setBackgroundColor(Color.YELLOW);
+                    imgSelected.setBackgroundColor(Color.YELLOW); // When select image and bg change yellow.
                     imgOldSelected = imgSelected;
 
                 }
@@ -107,7 +103,6 @@ public class PhotoCharacter extends ActionBarActivity implements View.OnClickLis
     /* Ticker Set On Touch */
     @Override
     public boolean onTouch(View v, MotionEvent event) {
-
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN: {
                 x = event.getX();
@@ -132,26 +127,23 @@ public class PhotoCharacter extends ActionBarActivity implements View.OnClickLis
         return true;
     }
 
-     /* Resize Image */
+     /* Resize Image and return bitmap after resized. */
     /*private Bitmap resizeBitmap(Bitmap bitmap){
         float resizedPercent = 0.82f;
         return Bitmap.createScaledBitmap(bitmap, (int)(bitmap.getWidth()*resizedPercent), (int)(bitmap.getHeight()*resizedPercent), true);
     }*/
 
-    /* Button OK */
     @Override
     public void onClick(View v) {
+        Bitmap bmpCombined = CombineImage.getImageDrawer(imgFullSize, imgTicker); // Call class CombineImage
+        String path = PhotoHelper.writeImagePath(bmpCombined); // Write image path.
+        PhotoHelper.updatePath(getApplicationContext(), (int)frame_id, path); // update path.
 
-        Bitmap bmpCombined = CombineImage.getImageDrawer(imgFullSize, imgTicker);
-
-        String path = PhotoHelper.writeImagePath(bmpCombined);
-        PhotoHelper.updatePath(getApplicationContext(), (int)frame_id, path);
-
+        // Intent and putExtra to SelectCharacter.
         Intent intent = new Intent(PhotoCharacter.this, SelectCharacter.class);
         intent.putExtra("sId", sId);
         intent.putExtra("frame_id", frame_id);
         intent.putExtra("frame_order", frame_order);
-        //Toast.makeText(getApplicationContext(), "frame_id: "+frame_id, Toast.LENGTH_SHORT).show();
         startActivity(intent);
     }
 }

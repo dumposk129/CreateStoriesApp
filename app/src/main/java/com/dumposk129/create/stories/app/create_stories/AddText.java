@@ -107,17 +107,16 @@ public class AddText extends ActionBarActivity implements View.OnClickListener, 
             btnNext.setText("Finish");
         } else if (v == btnNext && state == 1){
             Bitmap bmpCombined = CombineImage.getImageDrawer(imgFullSize, imgTicker);
-            String path = PhotoHelper.writeImagePath(bmpCombined);
-            PhotoHelper.updatePath(getApplicationContext(), (int) frame_id, path);
+            String path = PhotoHelper.writeImagePath(bmpCombined); // Write Image Path
+            PhotoHelper.updatePath(getApplicationContext(), (int) frame_id, path); // Update Path
 
-            // Intent and putExtra to SelectCharacter.
-            intent = new Intent(AddText.this, SelectCharacter.class);
+            intent = new Intent(AddText.this, SelectCharacter.class); // Intent and putExtra to SelectCharacter.
             intent.putExtra("sId", sId);
             intent.putExtra("frame_id", frame_id);
             intent.putExtra("frame_order", frame_order);
             startActivity(intent);
         } else if (v == btnColor) {
-            showSelectColor();
+            showSelectColor(); // Call method showSelectColor.
         }
     }
 

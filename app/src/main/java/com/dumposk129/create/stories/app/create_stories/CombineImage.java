@@ -15,22 +15,24 @@ public class CombineImage {
         Bitmap bmpBg = ((BitmapDrawable) imgFullSize.getDrawable()).getBitmap();
         Bitmap bmpSticker = ((BitmapDrawable) imgTicker.getDrawable()).getBitmap();
 
+        // Set position main and sticker
         int mainLeft = getRelativeLeft(imgFullSize);
         int mainTop = getRelativeTop(imgFullSize);
         int stickerLeft = getRelativeLeft(imgTicker);
         int stickerTop = getRelativeTop(imgTicker);
 
-        Bitmap combine = combineImage(bmpBg, bmpSticker, stickerLeft-mainLeft, stickerTop-mainTop);
+        Bitmap combine = combineImage(bmpBg, bmpSticker, stickerLeft-mainLeft, stickerTop-mainTop); // Call method combine.
 
-        imgFullSize.destroyDrawingCache();
-        imgFullSize.setImageBitmap(combine);
+        imgFullSize.destroyDrawingCache(); // Destroy old imgFullSize.
+        imgFullSize.setImageBitmap(combine); // Set imgFullSize after combined.
 
-        return combine;
+        return combine; // Return combine.
     }
 
     /* Combine Image */
     public static Bitmap combineImage(Bitmap bmpFullSize,Bitmap bmpSticker, int left, int top) {
         Bitmap bmpOverlay = Bitmap.createBitmap(bmpFullSize.getWidth(), bmpFullSize.getHeight(), bmpFullSize.getConfig());
+        // Draw Image
         Canvas canvas = new Canvas(bmpOverlay);
         canvas.drawBitmap(bmpFullSize, new Matrix(), null);
         canvas.drawBitmap(bmpSticker, left, top, null);

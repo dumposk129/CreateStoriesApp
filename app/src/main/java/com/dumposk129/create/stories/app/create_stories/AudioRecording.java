@@ -54,11 +54,8 @@ public class AudioRecording extends ActionBarActivity implements MediaPlayer.OnC
     private int sId;
     private int stateRec = 0, statePlay = 0;
 
-
     private static final MediaType MEDIA_TYPE_JPG = MediaType.parse("image/jpg");
     private static final MediaType MEDIA_TYPE_MP4 = MediaType.parse("audio/mp4");
-
-    // private final MultipartBuilder builder = new MultipartBuilder();
 
     private static final String path_audio = "StoryApp/StoryName/Audio";
     private java.util.Date date;
@@ -74,24 +71,28 @@ public class AudioRecording extends ActionBarActivity implements MediaPlayer.OnC
         super.onCreate(savedInstanceState);
         setContentView(R.layout.audio);
 
+        // Casting
         btnStartRecording = (Button) findViewById(R.id.btnStartRecord);
         btnPlayRecording = (Button) findViewById(R.id.btnPlay);
         imgView = (ImageView) findViewById(R.id.imgAudioRec);
         chronometer = (Chronometer) findViewById(R.id.chronometer);
         btnNext = (Button) findViewById(R.id.btnNext);
 
+        // Set Listener.
         btnStartRecording.setOnClickListener(this);
         btnPlayRecording.setOnClickListener(this);
         btnNext.setOnClickListener(this);
 
+        // Set Enable.
         btnPlayRecording.setEnabled(false);
         btnNext.setEnabled(false);
 
+        // Set audio name.
         date = new java.util.Date();
         fName = "audio_" + date.getTime() + ".mp4";
         dir = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + path_audio + "/" + fName);
 
-
+        // Get data.
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
             if (bundle.containsKey("sId")) {
@@ -111,6 +112,7 @@ public class AudioRecording extends ActionBarActivity implements MediaPlayer.OnC
         ShowImage.showImage(AudioRecording.this, sId, imgView);
     }
 
+    /* This method is when play finish, show and set data to default. */
     public void onCompletion(MediaPlayer mp) {
         btnStartRecording.setEnabled(true);
         btnPlayRecording.setEnabled(true);
@@ -122,53 +124,57 @@ public class AudioRecording extends ActionBarActivity implements MediaPlayer.OnC
     }
 
     public void onClick(View v) {
-        if (v == btnStartRecording && stateRec == 0) {
+        if (v == btnStartRecording && stateRec == 0) { // Check btnStartRec and stateRec = 0
             chronometer.start();
+            // Set type recorder.
             recorder = new MediaRecorder();
             recorder.setAudioSource(MediaRecorder.AudioSource.MIC);
             recorder.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4);
             recorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
-            chronometer.setBase(SystemClock.elapsedRealtime());
-            dir.mkdirs();
 
-            if (dir.exists()) {
+            chronometer.setBase(SystemClock.elapsedRealtime());
+
+            dir.mkdirs(); // Create folder.
+
+            if (dir.exists()) { // Check file is exist and then delete.
                 dir.delete();
             }
 
             try {
-                dir.createNewFile();
+                dir.createNewFile(); // Create file.
             } catch (IOException e) {
                 throw new IllegalStateException("Failed to create " + dir.toString());
             }
 
-            recorder.setOutputFile(dir.getPath());
+            recorder.setOutputFile(dir.getPath()); // Set output file follow dir.
 
             try {
-                recorder.prepare();
+                recorder.prepare(); // Preparation before start.
             } catch (IllegalStateException e) {
                 throw new RuntimeException("IllegalStateException on MediaRecorder.prepare", e);
             } catch (IOException e) {
                 throw new RuntimeException("IOException on MediaRecorder.prepare", e);
             }
 
-            recorder.start();
-            btnPlayRecording.setEnabled(false);
+            recorder.start(); // Start record.
+            btnPlayRecording.setEnabled(false); // Set btnPlay enable false.
 
+            // Change text and background color.
             btnStartRecording.setText("STOP RECORD");
             btnStartRecording.setBackgroundColor(getResources().getColor(R.color.red));
 
             stateRec++;
-        } else if (v == btnStartRecording && stateRec == 1) {
+        } else if (v == btnStartRecording && stateRec == 1) { // Check btnStartRec and stateRec = 1
             chronometer.stop();
             recorder.stop();
             recorder.release();
 
-            recordingDuration = (SystemClock.elapsedRealtime() - chronometer.getBase()) / 1000.0;
+            recordingDuration = (SystemClock.elapsedRealtime() - chronometer.getBase()) / 1000.0; // Calculate record duration.
             mPlayer = new MediaPlayer();
             mPlayer.setOnCompletionListener(this);
 
             try {
-                mPlayer.setDataSource(dir.getAbsolutePath());
+                mPlayer.setDataSource(dir.getAbsolutePath()); // Set audio path from dir.
             } catch (IllegalArgumentException e) {
                 throw new RuntimeException("Illegal Argument to MediaPlayer.setDataSource", e);
             } catch (IllegalStateException e) {
@@ -185,26 +191,31 @@ public class AudioRecording extends ActionBarActivity implements MediaPlayer.OnC
                 throw new RuntimeException("IOException in MediaPlayer.prepare", e);
             }
 
+            // Convert time to string.
             DecimalFormat df = new DecimalFormat("#.#");
             duration = df.format(recordingDuration);
             duration += getString(R.string.duration);
 
+            // Set Enable.
             btnStartRecording.setEnabled(true);
             btnPlayRecording.setEnabled(true);
             btnNext.setEnabled(true);
 
+            // Set Text and background color.
             btnStartRecording.setBackgroundColor(getResources().getColor(R.color.amber400));
             btnStartRecording.setText("START RECORD");
 
             stateRec = 0;
         } else if (v == btnPlayRecording && statePlay == 0) {
             mPlayer.start();
-            chronometer.setBase(SystemClock.elapsedRealtime());
+            chronometer.setBase(SystemClock.elapsedRealtime()); // Set Timer is 0.
             chronometer.start();
 
+            // Set Enable.
             btnStartRecording.setEnabled(false);
             btnNext.setEnabled(false);
 
+            // Change text and background.
             btnPlayRecording.setText("STOP AUDIO");
             btnPlayRecording.setBackgroundColor(getResources().getColor(R.color.red));
 
@@ -213,27 +224,30 @@ public class AudioRecording extends ActionBarActivity implements MediaPlayer.OnC
             mPlayer.stop();
             chronometer.stop();
 
+            // Set Enable.
             btnStartRecording.setEnabled(true);
             btnPlayRecording.setEnabled(true);
             btnNext.setEnabled(true);
 
+            // Change text and background.
             btnPlayRecording.setBackgroundColor(getResources().getColor(R.color.cyan400));
             btnPlayRecording.setText("PLAY AUDIO");
 
             statePlay = 0;
         } else {
-            createAudioInSQLiteDB();
+            createAudioInSQLiteDB(); // Save To SQLiteDB
 
-            /* Call AsyncTask */
-            new SaveToServerTask().execute();
+            // Call AsyncTask
+            new UploadToServerTask().execute();
         }
     }
 
+    /* Show Dialog "Do you want to create frame continue." */
     private void showDialog() {
         AlertDialog dialog = new AlertDialog.Builder(AudioRecording.this)
                 .setTitle("Please select")
                 .setMessage("Do you want to continue create frame?")
-                .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+                .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() { // Yes
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         intent = new Intent(AudioRecording.this, SelectBackground.class);
@@ -244,7 +258,7 @@ public class AudioRecording extends ActionBarActivity implements MediaPlayer.OnC
                         startActivity(intent);
                     }
                 })
-                .setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
+                .setNegativeButton(R.string.no, new DialogInterface.OnClickListener() { //No
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         // Go to Main Page
@@ -258,7 +272,7 @@ public class AudioRecording extends ActionBarActivity implements MediaPlayer.OnC
     private long createAudioInSQLiteDB() {
         db = new DatabaseHelper(getApplicationContext());
         Audio audio = new Audio();
-        if (path_audio != "") {
+        if (path_audio != "") { // Check path_audio isn't empty.
             audio.setFrameID((int) frame_id);
             audio.setPathAudio(path_audio);
             audio.setDuration(duration);
@@ -266,9 +280,10 @@ public class AudioRecording extends ActionBarActivity implements MediaPlayer.OnC
         return db.createNewAudio(audio);
     }
 
-    private class SaveToServerTask extends AsyncTask<Void, Integer, Void> {
+    private class UploadToServerTask extends AsyncTask<Void, Integer, Void> {
         private ProgressDialog progressDialog = new ProgressDialog(AudioRecording.this);
 
+        // Preparing before upload.
         @Override
         protected void onPreExecute() {
             progressDialog.setMessage("Uploading...");
@@ -280,6 +295,7 @@ public class AudioRecording extends ActionBarActivity implements MediaPlayer.OnC
             progressDialog.setProgressPercentFormat(NumberFormat.getPercentInstance());
             progressDialog.show();
 
+            // Set dialog when runnable.
             new Thread(new Runnable() {
                 @Override
                 public void run() {
@@ -298,6 +314,7 @@ public class AudioRecording extends ActionBarActivity implements MediaPlayer.OnC
             }).start();
         }
 
+        // Increase each 1 percent.
         Handler handler = new Handler() {
             @Override
             public void handleMessage(Message msg) {
@@ -308,8 +325,10 @@ public class AudioRecording extends ActionBarActivity implements MediaPlayer.OnC
 
         @Override
         protected Void doInBackground(Void... params) {
+            // Upload file using httpOk.
             OkHttpClient client = new OkHttpClient();
             File imgFile = new File(path_pic);
+            // requestBody file.
             RequestBody requestBody = new MultipartBuilder()
                     .type(MultipartBuilder.FORM)
                     .addFormDataPart("sId", Integer.toString(sId))
@@ -317,11 +336,13 @@ public class AudioRecording extends ActionBarActivity implements MediaPlayer.OnC
                     .addFormDataPart("audio", dir.getName(), RequestBody.create(MEDIA_TYPE_MP4, dir))
                     .build();
 
+            // Uploading
             Request request = new Request.Builder()
                     .url(ApiConfig.hostname("create_frame"))
                     .post(requestBody)
                     .build();
 
+            // Response.
             Response response = null;
             try {
                 response = client.newCall(request).execute();
@@ -336,12 +357,14 @@ public class AudioRecording extends ActionBarActivity implements MediaPlayer.OnC
             return null;
         }
 
+        // Update percent while uploading.
         @Override
         protected void onProgressUpdate(Integer... progress) {
             super.onProgressUpdate(progress);
             progressDialog.incrementProgressBy(1);
         }
 
+        // show dialog when upload has been finish.
         @Override
         protected void onPostExecute(Void aVoid) {
             if (progressDialog.isShowing()) progressDialog.dismiss();

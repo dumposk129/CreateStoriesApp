@@ -17,9 +17,9 @@ public class ShowImage {
 
     public static Bitmap showImage(Context context, int sId, ImageView imgFullSize){
         db = new DatabaseHelper(context);
-        path_pic = db.getPath(sId);
+        path_pic = db.getPath(sId); // Read image from sId
 
-        imgFullSize.setImageBitmap(BitmapFactory.decodeFile(path_pic));
-        return bitmap = BitmapFactory.decodeFile(path_pic);
+        imgFullSize.setImageBitmap(BitmapFactory.decodeFile(path_pic)); // set ImageBitmap
+        return bitmap = BitmapFactory.decodeFile(path_pic); // Return bitmap.
     }
 }

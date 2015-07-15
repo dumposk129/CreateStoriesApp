@@ -30,6 +30,7 @@ public class StoryName extends ActionBarActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.title_name);
 
+        // Casting
         mToolbar = (Toolbar) findViewById(R.id.app_bar);
         txtName = (EditText) findViewById(R.id.txtName);
         btnOk = (Button) findViewById(R.id.btnOk);
@@ -45,25 +46,26 @@ public class StoryName extends ActionBarActivity{
             @Override
             public void onClick(View v) {
                 name = txtName.getText().toString();
-                if (TextUtils.isEmpty(name)){
+                if (TextUtils.isEmpty(name)){ // Check EditText is empty or not.
                     txtName.setError("Please enter Story Name.");
                 }else {
-                    new SaveStoryTask().execute();
+                    new SaveStoryTask().execute(); // Call SaveStoryTask
                 }
             }
         });
     }
 
+    /* Save story_id and title name*/
     private class SaveStoryTask extends AsyncTask<String, Void, Void>{
         @Override
         protected Void doInBackground(String... params) {
-            sId = Story.saveStoryId(name);
+            sId = Story.saveStoryId(name); // Get sId.
             return null;
         }
 
         @Override
         protected void onPostExecute(Void aVoid) {
-            Intent intent = new Intent(StoryName.this, SelectBackground.class);
+            Intent intent = new Intent(StoryName.this, SelectBackground.class); // Intent and putExtra sId.
             intent.putExtra("sId", sId);
             startActivity(intent);
         }

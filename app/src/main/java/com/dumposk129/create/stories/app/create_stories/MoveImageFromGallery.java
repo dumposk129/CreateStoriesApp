@@ -17,12 +17,10 @@ import com.dumposk129.create.stories.app.R;
  * Created by DumpOSK129.
  */
 public class MoveImageFromGallery extends ActionBarActivity implements View.OnClickListener, View.OnTouchListener{
-    private Bitmap bitmap;
     private ImageView imgFullSize, imgTicker;
     private Button btnOK;
     private long frame_id, frame_order;
     private int sId;
-    private String path_pic;
     private float x, y;
 
     @Override
@@ -64,10 +62,11 @@ public class MoveImageFromGallery extends ActionBarActivity implements View.OnCl
 
     @Override
     public void onClick(View v) {
-        Bitmap bmpCombined = CombineImage.getImageDrawer(imgFullSize, imgTicker);
-        String path = PhotoHelper.writeImagePath(bmpCombined);
-        PhotoHelper.updatePath(getApplicationContext(), (int) frame_id, path);
+        Bitmap bmpCombined = CombineImage.getImageDrawer(imgFullSize, imgTicker); // Call class CombineImage
+        String path = PhotoHelper.writeImagePath(bmpCombined); // Write image path.
+        PhotoHelper.updatePath(getApplicationContext(), (int) frame_id, path); // update path.
 
+        // Intent and putExtra to SelectCharacter.
         Intent intent = new Intent(MoveImageFromGallery.this, SelectCharacter.class);
         intent.putExtra("sId", sId);
         intent.putExtra("frame_id", frame_id);
@@ -77,6 +76,7 @@ public class MoveImageFromGallery extends ActionBarActivity implements View.OnCl
 
     @Override
     public boolean onTouch(View v, MotionEvent event) {
+        // Move
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN: {
                 x = event.getX();

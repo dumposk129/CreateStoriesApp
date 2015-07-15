@@ -65,8 +65,8 @@ public class PhotoBackground extends ActionBarActivity implements View.OnClickLi
             img.setId(id);
             position++;
 
-            gallery.addView(img);
-            img.setOnClickListener(new View.OnClickListener() {
+            gallery.addView(img); // Show minimal image.
+            img.setOnClickListener(new View.OnClickListener() {  // Click minimal image.
                 @Override
                 public void onClick(View v) {
                     imgSelected = (ImageView) v;
@@ -74,30 +74,30 @@ public class PhotoBackground extends ActionBarActivity implements View.OnClickLi
                     imgFullSize.setImageBitmap(bitmap); // Show Image in full size;
 
                     if (imgOldSelected != null) {
-                        imgOldSelected.setBackgroundColor(Color.TRANSPARENT);
+                        imgOldSelected.setBackgroundColor(Color.TRANSPARENT); // When change image bg changed transparent.
                     }
 
-                    imgSelected.setBackgroundColor(Color.YELLOW);
+                    imgSelected.setBackgroundColor(Color.YELLOW); // When select image and bg change yellow.
                     imgOldSelected = imgSelected;
                 }
             });
         }
     }
 
-    /* Resize Image */
+    /* Resize Image and return bitmap after resized. */
     private Bitmap resizeBitmap(Bitmap bitmap){
         float resizedPercent = 0.82f;
         return Bitmap.createScaledBitmap(bitmap, (int)(bitmap.getWidth()*resizedPercent), (int)(bitmap.getHeight()*resizedPercent), true);
     }
 
-    /* Button OK */
     @Override
     public void onClick(View v) {
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         bitmap = resizeBitmap(bitmap);
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream); // Compress bitmap.
         byte[] byteArr = stream.toByteArray();
 
+        // Intent and putExtra.
         Intent intent = new Intent(PhotoBackground.this.getApplicationContext(),SelectBackground.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
         intent.putExtra("sId", sId);

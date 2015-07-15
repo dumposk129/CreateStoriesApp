@@ -96,14 +96,13 @@ public class SelectBackground extends ActionBarActivity implements View.OnClickL
             if (hasBg) {
                 createDirectory(); //Create Directory.
 
-                /* Save photo path */
-                pathBg = PhotoHelper.writeImagePath(bitmap);
+                pathBg = PhotoHelper.writeImagePath(bitmap); // Save photo path
 
                 frame_id = createFrameInSQLiteDB(); // Insert frame_id.
 
                 PhotoHelper.updatePath(getApplicationContext(), (int) frame_id, pathBg); // Update Path in db.
 
-                /* Go to Next Page */
+                // Intent and putExtra.
                 intent = new Intent(SelectBackground.this, SelectCharacter.class);
                 intent.putExtra("sId", sId);
                 intent.putExtra("frame_id", frame_id);
@@ -124,12 +123,16 @@ public class SelectBackground extends ActionBarActivity implements View.OnClickL
                 Uri selectImage = data.getData();
                 String[] filePathCol = {MediaStore.Images.Media.DATA};
 
+                // Move cursor follow select image.
                 Cursor cursor = getContentResolver().query(selectImage, filePathCol, null, null, null);
                 cursor.moveToFirst();
 
+                // Get path from gallery.
                 int colIndex = cursor.getColumnIndex(filePathCol[0]);
                 picturePath = cursor.getString(colIndex);
                 cursor.close();
+
+                // Set ImageView.
                 imgView = (ImageView) findViewById(R.id.full_image_view);
                 imgView.setImageBitmap(BitmapFactory.decodeFile(picturePath));
                 bitmap = BitmapFactory.decodeFile(picturePath);
