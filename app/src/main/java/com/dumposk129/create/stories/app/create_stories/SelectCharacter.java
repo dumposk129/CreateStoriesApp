@@ -73,16 +73,19 @@ public class SelectCharacter extends ActionBarActivity implements View.OnClickLi
     public void onClick(View v) {
         if (v == btnImage) {
             intent = new Intent(SelectCharacter.this, PhotoCharacter.class);
+            Runtime.getRuntime().freeMemory();
             intent.putExtra("sId", sId);
             intent.putExtra("frame_id", frame_id);
             intent.putExtra("frame_order", frame_order);
             startActivity(intent);
         } else if (v == btnGallery) {
             intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+            Runtime.getRuntime().freeMemory();
             intent.setType("image/*");
             startActivityForResult(intent, RESULT_LOAD_IMG);
         } else if (v == btnText) {
             intent = new Intent(SelectCharacter.this, AddText.class);
+            Runtime.getRuntime().freeMemory();
             intent.putExtra("sId", sId);
             intent.putExtra("frame_id", frame_id);
             intent.putExtra("frame_order", frame_order);
@@ -95,6 +98,7 @@ public class SelectCharacter extends ActionBarActivity implements View.OnClickLi
             PhotoHelper.updatePath(getApplicationContext(), (int) frame_id, pathBg); // Update Path in db.
 
             intent = new Intent(SelectCharacter.this, AudioRecording.class);
+            Runtime.getRuntime().freeMemory();
             intent.putExtra("sId", sId);
             intent.putExtra("frame_id", frame_id);
             intent.putExtra("frame_order", frame_order);

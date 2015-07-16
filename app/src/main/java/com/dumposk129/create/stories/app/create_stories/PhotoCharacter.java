@@ -141,6 +141,7 @@ public class PhotoCharacter extends ActionBarActivity implements View.OnClickLis
 
         // Intent and putExtra to SelectCharacter.
         Intent intent = new Intent(PhotoCharacter.this, SelectCharacter.class);
+        Runtime.getRuntime().freeMemory();
         intent.putExtra("sId", sId);
         intent.putExtra("frame_id", frame_id);
         intent.putExtra("frame_order", frame_order);

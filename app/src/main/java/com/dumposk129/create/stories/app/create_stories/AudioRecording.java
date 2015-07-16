@@ -265,6 +265,7 @@ public class AudioRecording extends ActionBarActivity implements MediaPlayer.OnC
                     public void onClick(DialogInterface dialog, int which) {
                         // Go to Main Page
                         intent = new Intent(AudioRecording.this, ShowStories.class);
+                        Runtime.getRuntime().freeMemory();
                         startActivity(intent);
                     }
                 })

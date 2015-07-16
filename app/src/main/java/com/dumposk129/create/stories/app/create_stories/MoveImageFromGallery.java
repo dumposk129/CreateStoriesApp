@@ -68,6 +68,7 @@ public class MoveImageFromGallery extends ActionBarActivity implements View.OnCl
 
         // Intent and putExtra to SelectCharacter.
         Intent intent = new Intent(MoveImageFromGallery.this, SelectCharacter.class);
+        Runtime.getRuntime().freeMemory();
         intent.putExtra("sId", sId);
         intent.putExtra("frame_id", frame_id);
         intent.putExtra("frame_order", frame_order);

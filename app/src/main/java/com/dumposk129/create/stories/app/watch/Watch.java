@@ -83,7 +83,7 @@ public class Watch extends ActionBarActivity implements View.OnClickListener, Vi
         }
 
         /* If index more than zero then show btnPrev. */
-        if (index > 0){
+        if (index > 0) {
             btnPrev.setVisibility(View.VISIBLE);
         }
 
@@ -110,21 +110,24 @@ public class Watch extends ActionBarActivity implements View.OnClickListener, Vi
 
     @Override
     public void onClick(View v) {
-        if (v.getId() == R.id.btnNext){ // Click btnNext.
+        if (v.getId() == R.id.btnNext) { // Click btnNext.
             if (index == size) { // if index equal size, go to Show Stories
                 intent = new Intent(Watch.this, ShowStories.class);
+                Runtime.getRuntime().freeMemory();
                 startActivity(intent);
             } else { // if not do-while index equal size.
                 intent = new Intent(Watch.this, Watch.class);
+                Runtime.getRuntime().freeMemory();
                 intent.putExtra("index", index + 1);
                 intent.putExtra("size", size);
                 startActivity(intent);
             }
-        } else if (v.getId() == R.id.btnPrev){ // Click prev. and index - 1.
-                intent = new Intent(Watch.this, Watch.class);
-                intent.putExtra("index", index - 1);
-                intent.putExtra("size", size);
-                startActivity(intent);
+        } else if (v.getId() == R.id.btnPrev) { // Click prev. and index - 1.
+            intent = new Intent(Watch.this, Watch.class);
+            Runtime.getRuntime().freeMemory();
+            intent.putExtra("index", index - 1);
+            intent.putExtra("size", size);
+            startActivity(intent);
         } else { // Click play button(imgBtn)
             try {
                 mPlayer.setDataSource(audioPath); // Set audioPath and preparing.
@@ -135,10 +138,10 @@ public class Watch extends ActionBarActivity implements View.OnClickListener, Vi
 
             mediaFileLengthInMilliseconds = mPlayer.getDuration(); // Set mediaFileLength.
 
-            if (!mPlayer.isPlaying()){ // playing and set icon pause.
+            if (!mPlayer.isPlaying()) { // playing and set icon pause.
                 mPlayer.start();
                 imgBtnPlay.setImageResource(R.drawable.ic_action_pause);
-            }else { // pause and set icon play.
+            } else { // pause and set icon play.
                 mPlayer.pause();
                 imgBtnPlay.setImageResource(R.drawable.ic_action_play_circle_outline);
             }
@@ -150,8 +153,8 @@ public class Watch extends ActionBarActivity implements View.OnClickListener, Vi
     /* Seekbar update */
     private void primarySeekBarProgressUpdater() {
         // seekbar update follow player.
-        mSeekbar.setProgress((int)(((float) mPlayer.getCurrentPosition() / mediaFileLengthInMilliseconds) * 100));
-        if (mPlayer.isPlaying()){
+        mSeekbar.setProgress((int) (((float) mPlayer.getCurrentPosition() / mediaFileLengthInMilliseconds) * 100));
+        if (mPlayer.isPlaying()) {
             Runnable runnable = new Runnable() {
                 @Override
                 public void run() {

@@ -109,6 +109,7 @@ public class AddText extends ActionBarActivity implements View.OnClickListener, 
             PhotoHelper.updatePath(getApplicationContext(), (int) frame_id, path); // Update Path
 
             intent = new Intent(AddText.this, SelectCharacter.class); // Intent and putExtra to SelectCharacter.
+            Runtime.getRuntime().freeMemory();
             intent.putExtra("sId", sId);
             intent.putExtra("frame_id", frame_id);
             intent.putExtra("frame_order", frame_order);

@@ -82,12 +82,14 @@ public class SelectBackground extends ActionBarActivity implements View.OnClickL
     public void onClick(View v) {
         if (v == btnBg) {
             intent = new Intent(SelectBackground.this, PhotoBackground.class);
+            Runtime.getRuntime().freeMemory();
             intent.putExtra("sId", sId);
             intent.putExtra("frame_id", frame_id);
             intent.putExtra("frame_order", frame_order);
             startActivity(intent);
         } else if (v == btnGallery) {
             intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+            Runtime.getRuntime().freeMemory();
             intent.putExtra("sId", sId);
             intent.putExtra("frame_id", frame_id);
             intent.setType("image/*");
@@ -104,6 +106,7 @@ public class SelectBackground extends ActionBarActivity implements View.OnClickL
 
                 // Intent and putExtra.
                 intent = new Intent(SelectBackground.this, SelectCharacter.class);
+                Runtime.getRuntime().freeMemory();
                 intent.putExtra("sId", sId);
                 intent.putExtra("frame_id", frame_id);
                 intent.putExtra("frame_order", frame_order);

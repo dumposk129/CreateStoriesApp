@@ -100,6 +100,7 @@ public class PhotoBackground extends ActionBarActivity implements View.OnClickLi
         // Intent and putExtra.
         Intent intent = new Intent(PhotoBackground.this.getApplicationContext(),SelectBackground.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        Runtime.getRuntime().freeMemory();
         intent.putExtra("sId", sId);
         intent.putExtra("frame_order", frame_order);
         intent.putExtra("bg", byteArr);
