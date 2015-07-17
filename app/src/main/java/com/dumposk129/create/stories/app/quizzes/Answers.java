@@ -110,7 +110,7 @@ public class Answers extends ActionBarActivity {
     // Check Correct Answer if that correct go to showMessageAndNextBtn Method, else set invisible.
     private void checkCorrectAnswer() {
         if (selectAnswer == correctIndexAnswer) {
-            showBtnNext();
+            changeTextBtn();
             changeCorrectTextColor();
         } else {
             changeInCorrectTextColor();
@@ -138,8 +138,8 @@ public class Answers extends ActionBarActivity {
         }
     }
 
-    // Show Message And Next Button
-    private void showBtnNext() {
+    // Change text button
+    private void changeTextBtn() {
         // if noOfQuestion equal currentIndex change "Next" to "Finished" and set VISIBLE, else set VISIBLE ONLY.!
         if (noOfQuestion == currentIndex) {
             btnAnswerNext.setText("Finished");

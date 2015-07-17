@@ -90,9 +90,12 @@ public class Watch extends ActionBarActivity implements View.OnClickListener, Vi
             new LoadImageTask().execute();
         }
 
-       /* if (Globals.frames.get(index).getPathAudio() != "" || Globals.frames.get(index).getPathAudio() == null) {
+        if (Globals.frames.get(index).getPathAudio() != "" || Globals.frames.get(index).getPathAudio() == null) {
             audioPath = ApiConfig.apiUrl + Globals.frames.get(index).getPathAudio();
-        }*/
+        }else {
+            imgBtnPlay.setVisibility(View.INVISIBLE);
+            mSeekbar.setVisibility(View.INVISIBLE);
+        }
 
         // Set Listener.
         mPlayer.setOnBufferingUpdateListener(this);

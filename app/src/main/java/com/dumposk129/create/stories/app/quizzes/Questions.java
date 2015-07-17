@@ -102,7 +102,7 @@ public class Questions extends ActionBarActivity {
 
     // Method Next Click Listener.
     private void onNextClickListener() {
-        // Fill Question amd Answer.
+        // Fill Question and Answer.
         String question = txtQuestion.getText().toString();
         String[] answer = new String[4];
         answer[0] = txtAnswer1.getText().toString();
