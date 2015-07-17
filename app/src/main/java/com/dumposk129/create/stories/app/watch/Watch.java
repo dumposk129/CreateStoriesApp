@@ -138,7 +138,7 @@ public class Watch extends ActionBarActivity implements View.OnClickListener, Vi
 
             if (!mPlayer.isPlaying()) { // playing and set icon pause.
                 mPlayer.start();
-                imgBtnPlay.setImageResource(R.drawable.ic_action_pause);
+                imgBtnPlay.setImageResource(R.drawable.ic_action_pause_circle_outline);
             } else { // pause and set icon play.
                 mPlayer.pause();
                 imgBtnPlay.setImageResource(R.drawable.ic_action_play_circle_outline);

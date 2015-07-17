@@ -22,7 +22,7 @@
             android:layout_weight="1.0"
             android:text="@string/prev"
             android:layout_marginRight="20dp"
-            android:visibility="invisible"
+            android:visibility="visible"
             android:background="@color/amber400"/>
 
         <Button
