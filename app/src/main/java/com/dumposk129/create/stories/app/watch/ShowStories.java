@@ -73,7 +73,6 @@ public class ShowStories extends ActionBarActivity{
 
                 // Call LoadFrameList
                 new LoadFrameList().execute();
-
             }
         });
     }

@@ -103,8 +103,6 @@ public class SelectCharacter extends ActionBarActivity implements View.OnClickLi
             intent.putExtra("frame_id", frame_id);
             intent.putExtra("frame_order", frame_order);
             startActivity(intent);
-        } else {
-            Toast.makeText(getApplicationContext(), "Please select an action", Toast.LENGTH_LONG).show();
         }
     }
 
