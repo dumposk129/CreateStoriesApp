@@ -12,5 +12,4 @@
         android:padding="15dp"
         android:text="Hello"
         android:textColor="@color/textSecondaryColor" />
-
 </LinearLayout>
