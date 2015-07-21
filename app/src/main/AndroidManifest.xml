@@ -8,15 +8,12 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="ANDROID.PERMISSION.ACCESS_NETWORK_STATE" />
 
-
-    <!--<supports-screens
+    <supports-screens
+        android:xlargeScreens="true"
         android:largeScreens="true"
-        android:normalScreens="true"
-        android:requiresSmallestWidthDp="600"
-        android:resizeable="true"
+        android:normalScreens="false"
         android:smallScreens="false"
-        android:xlargeScreens="true" />-->
-
+        android:resizeable="true"/>
 
     <application
         android:allowBackup="true"
@@ -29,29 +26,36 @@
         
         <activity
             android:name=".MainActivity"
-            android:label="@string/app_name" />
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"/>
 
         <!-- Quizzes Menu-->
         <activity
             android:name=".quizzes.Quizzes"
-            android:label="@string/title_activity_quizzes" />
+            android:label="@string/title_activity_quizzes"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".quizzes.NumberOfQuestion"
-            android:label="@string/title_activity_num_of_questions" />
+            android:label="@string/title_activity_num_of_questions"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".quizzes.Questions"
-            android:label="@string/title_activity_question" />
+            android:label="@string/title_activity_question"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".quizzes.Answers"
-            android:label="@string/title_activity_answer" />
+            android:label="@string/title_activity_answer"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".quizzes.AllQuestions"
-            android:label="@string/title_activity_show_questions" />
+            android:label="@string/title_activity_show_questions"
+            android:screenOrientation="portrait"/>
 
         <!-- Watches -->
         <activity
             android:name=".watch.ShowStories"
-            android:label="@string/title_activity_select_story">
+            android:label="@string/title_activity_select_story"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -59,32 +63,41 @@
         </activity>
         <activity
             android:name=".watch.Watch"
-            android:label="@string/title_activity_watches" />
+            android:label="@string/title_activity_watches"
+            android:screenOrientation="portrait"/>
 
         <!-- Create Stories -->
         <activity
             android:name=".create_stories.StoryName"
-            android:label="@string/title_activity_creates" />
+            android:label="@string/title_activity_creates"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".create_stories.SelectBackground"
-            android:label="@string/title_activity_select_bg" />
+            android:label="@string/title_activity_select_bg"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".create_stories.PhotoBackground"
-            android:label="@string/title_activity_select_bg" />
+            android:label="@string/title_activity_select_bg"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".create_stories.SelectCharacter"
-            android:label="@string/title_activity_select_char" />
+            android:label="@string/title_activity_select_char"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".create_stories.PhotoCharacter"
-            android:label="@string/title_activity_select_char" />
+            android:label="@string/title_activity_select_char"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".create_stories.MoveImageFromGallery"
-            android:label="@string/title_activity_combine_char_from_gal"/>
+            android:label="@string/title_activity_combine_char_from_gal"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".create_stories.AddText"
-            android:label="title_activity_add_text" />
+            android:label="@string/title_activity_add_text"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".create_stories.AudioRecording"
-            android:label="@string/title_activity_audio_record" />
+            android:label="@string/title_activity_audio_record"
+            android:screenOrientation="portrait"/>
     </application>
 </manifest>
