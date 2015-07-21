@@ -229,7 +229,7 @@ public class AudioRecording extends ActionBarActivity implements MediaPlayer.OnC
             // Set Enable.
             btnStartRecording.setEnabled(true);
             btnPlayRecording.setEnabled(true);
-            btnNext.setEnabled(true);
+            btnNext.setEnabled(false);
 
             // Change text and background.
             btnPlayRecording.setBackgroundColor(getResources().getColor(R.color.cyan400));
