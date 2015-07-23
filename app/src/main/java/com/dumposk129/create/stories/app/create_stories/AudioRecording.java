@@ -44,7 +44,7 @@ public class AudioRecording extends ActionBarActivity implements MediaPlayer.OnC
     private ImageView imgView;
     private MediaRecorder recorder = null;
     private MediaPlayer mPlayer;
-    private Button btnStartRecording,btnPlayRecording, btnNext;
+    private Button btnStartRecording,btnPlayRecording, btnUpload;
     private Chronometer chronometer;
     private Bitmap bitmap;
     private long frame_id, frame_order;
@@ -76,16 +76,16 @@ public class AudioRecording extends ActionBarActivity implements MediaPlayer.OnC
         btnPlayRecording = (Button) findViewById(R.id.btnPlay);
         imgView = (ImageView) findViewById(R.id.imgAudioRec);
         chronometer = (Chronometer) findViewById(R.id.chronometer);
-        btnNext = (Button) findViewById(R.id.btnNext);
+        btnUpload = (Button) findViewById(R.id.btnUpload);
 
         // Set Listener.
         btnStartRecording.setOnClickListener(this);
         btnPlayRecording.setOnClickListener(this);
-        btnNext.setOnClickListener(this);
+        btnUpload.setOnClickListener(this);
 
         // Set Enable.
         btnPlayRecording.setEnabled(false);
-        btnNext.setEnabled(true);
+        btnUpload.setEnabled(true);
 
         // Set audio name.
         date = new java.util.Date();
@@ -118,7 +118,7 @@ public class AudioRecording extends ActionBarActivity implements MediaPlayer.OnC
     public void onCompletion(MediaPlayer mp) {
         btnStartRecording.setEnabled(true);
         btnPlayRecording.setEnabled(true);
-        btnNext.setEnabled(true);
+        btnUpload.setEnabled(true);
         chronometer.stop();
 
         btnPlayRecording.setText("PLAY AUDIO");
@@ -201,7 +201,7 @@ public class AudioRecording extends ActionBarActivity implements MediaPlayer.OnC
             // Set Enable.
             btnStartRecording.setEnabled(true);
             btnPlayRecording.setEnabled(true);
-            btnNext.setEnabled(true);
+            btnUpload.setEnabled(true);
 
             // Set Text and background color.
             btnStartRecording.setBackgroundColor(getResources().getColor(R.color.amber400));
@@ -215,7 +215,7 @@ public class AudioRecording extends ActionBarActivity implements MediaPlayer.OnC
 
             // Set Enable.
             btnStartRecording.setEnabled(false);
-            btnNext.setEnabled(false);
+            btnUpload.setEnabled(false);
 
             // Change text and background.
             btnPlayRecording.setText("STOP AUDIO");
@@ -229,7 +229,7 @@ public class AudioRecording extends ActionBarActivity implements MediaPlayer.OnC
             // Set Enable.
             btnStartRecording.setEnabled(true);
             btnPlayRecording.setEnabled(true);
-            btnNext.setEnabled(true);
+            btnUpload.setEnabled(true);
 
             // Change text and background.
             btnPlayRecording.setBackgroundColor(getResources().getColor(R.color.cyan400));
