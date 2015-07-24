@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
@@ -57,6 +58,7 @@ public class Quizzes extends ActionBarActivity implements SwipeRefreshLayout.OnR
         tvQuizID = (TextView) findViewById(R.id.quizzesId);
         tvQuizName = (TextView) findViewById(R.id.quizzesName);
         swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipeRefresh);
+        swipeRefreshLayout.setColorSchemeColors(Color.BLUE, Color.GREEN, Color.RED);
 
         new LoadQuizTask().execute();
 
@@ -115,7 +117,6 @@ public class Quizzes extends ActionBarActivity implements SwipeRefreshLayout.OnR
 
     @Override
     public void onRefresh() {
-        swipeRefreshLayout.setColorSchemeColors(R.color.red, R.color.teal200, R.color.primaryColorDark, R.color.greenA400);
         new LoadQuizTask().execute();
 
     }

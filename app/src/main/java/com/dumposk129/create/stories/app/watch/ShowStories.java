@@ -2,6 +2,7 @@ package com.dumposk129.create.stories.app.watch;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
@@ -51,6 +52,8 @@ public class ShowStories extends ActionBarActivity implements SwipeRefreshLayout
                 getSupportFragmentManager().findFragmentById(R.id.fragment_navigation_drawer);
         drawerFragment.setUp(R.id.fragment_navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout), mToolbar);
 
+        swipeRefreshLayout.setColorSchemeColors(Color.BLUE, Color.GREEN, Color.RED);
+
         // Call LoadFrameTask
         new LoadFrameTask().execute();
 
@@ -84,7 +87,6 @@ public class ShowStories extends ActionBarActivity implements SwipeRefreshLayout
 
     @Override
     public void onRefresh() {
-        swipeRefreshLayout.setColorSchemeColors(R.color.red, R.color.teal200, R.color.primaryColorDark, R.color.greenA400);
         new LoadFrameTask().execute();
     }
 
