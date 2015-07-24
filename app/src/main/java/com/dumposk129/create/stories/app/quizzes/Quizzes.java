@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -30,10 +31,11 @@ import java.util.List;
 /**
  * Created by DumpOSK129.
  */
-public class Quizzes extends ActionBarActivity {
+public class Quizzes extends ActionBarActivity implements SwipeRefreshLayout.OnRefreshListener {
     private Toolbar mToolbar;
     private ListView listView;
     private TextView tvQuizID, tvQuizName;
+    private SwipeRefreshLayout swipeRefreshLayout;
     private int quizId;
     private int selectedStory;
 
@@ -54,8 +56,11 @@ public class Quizzes extends ActionBarActivity {
         listView = (ListView) findViewById(R.id.listViewStoriesName);
         tvQuizID = (TextView) findViewById(R.id.quizzesId);
         tvQuizName = (TextView) findViewById(R.id.quizzesName);
+        swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipeRefresh);
 
         new LoadQuizTask().execute();
+
+        swipeRefreshLayout.setOnRefreshListener(this);
 
         // Set Item Click Listener.
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -108,6 +113,13 @@ public class Quizzes extends ActionBarActivity {
         listView.setAdapter(adapter);
     }
 
+    @Override
+    public void onRefresh() {
+        swipeRefreshLayout.setColorSchemeColors(R.color.red, R.color.teal200, R.color.primaryColorDark, R.color.greenA400);
+        new LoadQuizTask().execute();
+
+    }
+
     /* Load Story all name */
     private class LoadQuizTask extends AsyncTask<String, Void, JSONObject> {
         /* Preparing Load data */
@@ -128,7 +140,11 @@ public class Quizzes extends ActionBarActivity {
         // Show Stories Name.
         @Override
         protected void onPostExecute(JSONObject jsonObject) {
-            if (progressDialog.isShowing()) progressDialog.dismiss();
+            if (progressDialog.isShowing())
+                progressDialog.dismiss();
+            if (swipeRefreshLayout.isRefreshing())
+                swipeRefreshLayout.setRefreshing(false);
+
             Globals.stories = Quiz.getQuizList(jsonObject);
             setListData(Globals.stories);
         }

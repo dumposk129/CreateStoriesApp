@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -27,10 +28,11 @@ import java.util.List;
 /**
  * Created by DumpOSK129.
  */
-public class ShowStories extends ActionBarActivity{
+public class ShowStories extends ActionBarActivity implements SwipeRefreshLayout.OnRefreshListener {
     private ListView listView;
     private Toolbar mToolbar;
     private int sId, index = 0, size;
+    private SwipeRefreshLayout swipeRefreshLayout;
     JSONArray frames = null;
 
     @Override
@@ -40,6 +42,7 @@ public class ShowStories extends ActionBarActivity{
 
         listView = (ListView) findViewById(R.id.listViewStoriesName);
         mToolbar = (Toolbar) findViewById(R.id.app_bar);
+        swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipeRefresh);
 
         // Toolbar and Navigation Drawer.
         setSupportActionBar(mToolbar);
@@ -50,6 +53,8 @@ public class ShowStories extends ActionBarActivity{
 
         // Call LoadFrameTask
         new LoadFrameTask().execute();
+
+        swipeRefreshLayout.setOnRefreshListener(this);
     }
 
     /* This method is set data after load story has been finished. */
@@ -77,6 +82,12 @@ public class ShowStories extends ActionBarActivity{
         });
     }
 
+    @Override
+    public void onRefresh() {
+        swipeRefreshLayout.setColorSchemeColors(R.color.red, R.color.teal200, R.color.primaryColorDark, R.color.greenA400);
+        new LoadFrameTask().execute();
+    }
+
     /* This class is load story in story */
     private class LoadFrameTask extends AsyncTask<String, Void, JSONObject> {
         private ProgressDialog progressDialog = new ProgressDialog(ShowStories.this);
@@ -96,7 +107,11 @@ public class ShowStories extends ActionBarActivity{
         // Show Stories Name.
         @Override
         protected void onPostExecute(JSONObject jsonObject) {
-            if (progressDialog.isShowing())progressDialog.dismiss();
+            if (progressDialog.isShowing())
+                progressDialog.dismiss();
+            if (swipeRefreshLayout.isRefreshing())
+                swipeRefreshLayout.setRefreshing(false);
+
             Globals.stories = com.dumposk129.create.stories.app.api.Story.getStoryList(jsonObject);
             setListData(Globals.stories);
         }
