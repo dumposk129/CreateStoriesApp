@@ -16,8 +16,8 @@ public class CombineImage {
         Bitmap bmpSticker = ((BitmapDrawable) imgTicker.getDrawable()).getBitmap();
 
         // Set position main and sticker
-        int mainLeft = getRelativeLeft(imgFullSize);
-        int mainTop = getRelativeTop(imgFullSize);
+      //  int mainLeft = getRelativeLeft(imgFullSize);
+       // int mainTop = getRelativeTop(imgFullSize);
 //        int stickerLeft = getRelativeLeft(imgTicker);
 //        int stickerTop = getRelativeTop(imgTicker);
 

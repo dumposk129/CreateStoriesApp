@@ -144,7 +144,7 @@ public class AddText extends ActionBarActivity implements View.OnClickListener, 
                 // mParams.leftMargin = Math.round(x);
                 //mParams.topMargin = Math.round(y);
                 imgTicker.setTranslationX(x - imgTicker.getWidth()/2);
-                imgTicker.setTranslationY(y - (imgTicker.getHeight() * 3/2));
+                imgTicker.setTranslationY(y - (imgTicker.getHeight() * 7/2));
                 // imgTicker.setLayoutParams(mParams);
             }
             break;
