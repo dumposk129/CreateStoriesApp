@@ -49,6 +49,7 @@ public class StoryName extends ActionBarActivity{
                 if (TextUtils.isEmpty(name)){ // Check EditText is empty or not.
                     txtName.setError("Please enter Story Name.");
                 }else {
+                    btnOk.setEnabled(false);
                     new SaveStoryTask().execute(); // Call SaveStoryTask
                 }
             }
