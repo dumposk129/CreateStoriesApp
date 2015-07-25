@@ -85,7 +85,7 @@ public class AudioRecording extends ActionBarActivity implements MediaPlayer.OnC
 
         // Set Enable.
         btnPlayRecording.setEnabled(false);
-        btnUpload.setEnabled(true);
+        btnUpload.setEnabled(false);
 
         // Set audio name.
         date = new java.util.Date();
