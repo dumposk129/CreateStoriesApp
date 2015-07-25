@@ -7,6 +7,7 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
 import android.provider.MediaStore;
 import android.support.v7.app.ActionBarActivity;
 import android.view.View;
@@ -35,6 +36,8 @@ public class SelectBackground extends ActionBarActivity implements View.OnClickL
     private long frame_id, frame_order;
     private final String PATH = "StoryApp/StoryName/Frame";
     private int sId;
+
+    private boolean doubleBackToExitPressedOnce = false;
 
     Intent intent;
     DatabaseHelper db;
@@ -169,5 +172,25 @@ public class SelectBackground extends ActionBarActivity implements View.OnClickL
             frame.setStoryId(sId);
         }
         return db.createNewFrame(frame);
+    }
+
+
+    @Override
+    public void onBackPressed() {
+        if (doubleBackToExitPressedOnce) {
+            super.onBackPressed();
+            return;
+        }
+
+        this.doubleBackToExitPressedOnce = true;
+        Toast.makeText(this, "Please click BACK again to exit", Toast.LENGTH_SHORT).show();
+
+        new Handler().postDelayed(new Runnable() {
+
+            @Override
+            public void run() {
+                doubleBackToExitPressedOnce = false;
+            }
+        }, 2000);
     }
 }

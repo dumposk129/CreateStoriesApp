@@ -19,6 +19,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.dumposk129.create.stories.app.R;
 import com.dumposk129.create.stories.app.api.ApiConfig;
@@ -62,6 +63,8 @@ public class AudioRecording extends ActionBarActivity implements MediaPlayer.OnC
 
     private String fName;
     private File dir;
+
+    private boolean doubleBackToExitPressedOnce = false;
 
     DatabaseHelper db;
     Intent intent;
@@ -373,5 +376,24 @@ public class AudioRecording extends ActionBarActivity implements MediaPlayer.OnC
             if (progressDialog.isShowing()) progressDialog.dismiss();
             showDialog();
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (doubleBackToExitPressedOnce) {
+            super.onBackPressed();
+            return;
+        }
+
+        this.doubleBackToExitPressedOnce = true;
+        Toast.makeText(this, "Please click BACK again to exit", Toast.LENGTH_SHORT).show();
+
+        new Handler().postDelayed(new Runnable() {
+
+            @Override
+            public void run() {
+                doubleBackToExitPressedOnce = false;
+            }
+        }, 2000);
     }
 }

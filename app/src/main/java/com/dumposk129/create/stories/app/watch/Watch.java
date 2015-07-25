@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.SeekBar;
+import android.widget.Toast;
 
 import com.dumposk129.create.stories.app.R;
 import com.dumposk129.create.stories.app.api.ApiConfig;
@@ -38,6 +39,7 @@ public class Watch extends ActionBarActivity implements View.OnClickListener, Vi
     private int mediaFileLengthInMilliseconds;
     private Handler handler = new Handler();
     private ImageButton imgBtnPlay;
+    private boolean doubleBackToExitPressedOnce = false;
 
     Intent intent;
 
@@ -219,5 +221,24 @@ public class Watch extends ActionBarActivity implements View.OnClickListener, Vi
             if (progressDialog.isShowing()) progressDialog.dismiss();
             imgBg.setImageBitmap(bitmap);
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (doubleBackToExitPressedOnce) {
+            super.onBackPressed();
+            return;
+        }
+
+        this.doubleBackToExitPressedOnce = true;
+        Toast.makeText(this, "Please click BACK again to exit", Toast.LENGTH_SHORT).show();
+
+        new Handler().postDelayed(new Runnable() {
+
+            @Override
+            public void run() {
+                doubleBackToExitPressedOnce=false;
+            }
+        }, 2000);
     }
 }

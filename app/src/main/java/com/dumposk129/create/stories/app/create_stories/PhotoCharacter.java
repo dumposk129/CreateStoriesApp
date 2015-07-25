@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.ActionBarActivity;
 import android.view.MotionEvent;
 import android.view.View;
@@ -12,6 +13,7 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.dumposk129.create.stories.app.R;
 
@@ -34,6 +36,7 @@ public class PhotoCharacter extends ActionBarActivity implements View.OnClickLis
     private long frame_id, frame_order;
     private int sId;
     private float x, y;
+    private boolean doubleBackToExitPressedOnce = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -116,11 +119,13 @@ public class PhotoCharacter extends ActionBarActivity implements View.OnClickLis
             break;
             case MotionEvent.ACTION_MOVE: {
                 FrameLayout.LayoutParams mParams = (FrameLayout.LayoutParams) imgTicker.getLayoutParams();
-                x = event.getX();
-                y = event.getY();
-                mParams.leftMargin = Math.round(x);
-                mParams.topMargin = Math.round(y);
-                imgTicker.setLayoutParams(mParams);
+                x = event.getRawX();
+                y = event.getRawY();
+               // mParams.leftMargin = Math.round(x);
+                //mParams.topMargin = Math.round(y);
+                imgTicker.setTranslationX(x - imgTicker.getWidth()/2);
+                imgTicker.setTranslationY(y - (imgTicker.getHeight()*3/2));
+               // imgTicker.setLayoutParams(mParams);
             }
             break;
         }
@@ -146,5 +151,25 @@ public class PhotoCharacter extends ActionBarActivity implements View.OnClickLis
         intent.putExtra("frame_id", frame_id);
         intent.putExtra("frame_order", frame_order);
         startActivity(intent);
+    }
+
+
+    @Override
+    public void onBackPressed() {
+        if (doubleBackToExitPressedOnce) {
+            super.onBackPressed();
+            return;
+        }
+
+        this.doubleBackToExitPressedOnce = true;
+        Toast.makeText(this, "Please click BACK again to exit", Toast.LENGTH_SHORT).show();
+
+        new Handler().postDelayed(new Runnable() {
+
+            @Override
+            public void run() {
+                doubleBackToExitPressedOnce = false;
+            }
+        }, 2000);
     }
 }
