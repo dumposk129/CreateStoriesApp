@@ -8,7 +8,9 @@ import android.media.MediaPlayer;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
@@ -20,6 +22,7 @@ import android.widget.Toast;
 import com.dumposk129.create.stories.app.R;
 import com.dumposk129.create.stories.app.api.ApiConfig;
 import com.dumposk129.create.stories.app.api.Globals;
+import com.dumposk129.create.stories.app.navigation_drawer.NavigationDrawerFragment;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -39,6 +42,7 @@ public class Watch extends ActionBarActivity implements View.OnClickListener, Vi
     private int mediaFileLengthInMilliseconds;
     private Handler handler = new Handler();
     private ImageButton imgBtnPlay;
+    private Toolbar mToolbar;
     private boolean doubleBackToExitPressedOnce = false;
 
     Intent intent;
@@ -54,6 +58,14 @@ public class Watch extends ActionBarActivity implements View.OnClickListener, Vi
         btnPrev = (Button) findViewById(R.id.btnPrev);
         mSeekbar = (SeekBar) findViewById(R.id.seekBar);
         imgBtnPlay = (ImageButton) findViewById(R.id.imgBtnPlay);
+        mToolbar = (Toolbar) findViewById(R.id.app_bar);
+
+        // Toolbar and Navigation Drawer.
+        setSupportActionBar(mToolbar);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        NavigationDrawerFragment drawerFragment = (NavigationDrawerFragment)
+                getSupportFragmentManager().findFragmentById(R.id.fragment_navigation_drawer);
+        drawerFragment.setUp(R.id.fragment_navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout), mToolbar);
 
         // Set seekbar is 99%
         mSeekbar.setMax(99); //0-100

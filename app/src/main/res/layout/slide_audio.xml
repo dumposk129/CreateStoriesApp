@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical">
 
     <!-- App Bar -->
@@ -9,63 +10,85 @@
         android:id="@+id/app_bar"
         layout="@layout/app_bar" />
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="right"
-        android:layout_margin="6dp">
-
-        <Button
-            android:id="@+id/btnPrev"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1.0"
-            android:text="@string/prev"
-            android:layout_marginRight="20dp"
-            android:visibility="invisible"
-            android:background="@color/amber400"/>
-
-        <Button
-            android:id="@+id/btnNext"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            android:background="@color/greenA400"
-            android:text="@string/next"
-            android:padding="10dp" />
-
-    </LinearLayout>
-
-    <LinearLayout
+    <!-- Navigation Drawer -->
+    <android.support.v4.widget.DrawerLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/drawer_layout"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:gravity="center">
+        android:layout_height="match_parent">
 
-        <ImageView
-            android:id="@+id/imgBg"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-    </LinearLayout>
-
-    <TableLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal|bottom">
-
-        <ImageButton
-            android:id="@+id/imgBtnPlay"
+        <!-- Below App Bar for use show question name and answer-->
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_action_play_circle_outline"
-            android:background="@color/colorHighlight"/>
+            android:layout_height="match_parent">
 
-        <SeekBar
-            android:id="@+id/seekBar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:progressTint="@color/seekbar_progress" />
-    </TableLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:layout_margin="6dp">
 
+                <Button
+                    android:id="@+id/btnPrev"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="20dp"
+                    android:layout_weight="1.0"
+                    android:background="@color/amber400"
+                    android:text="@string/prev"
+                    android:visibility="invisible" />
+
+                <Button
+                    android:id="@+id/btnNext"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:background="@color/greenA400"
+                    android:padding="10dp"
+                    android:text="@string/next" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center">
+
+                <ImageView
+                    android:id="@+id/imgBg"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <TableLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal|bottom">
+
+                <ImageButton
+                    android:id="@+id/imgBtnPlay"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorHighlight"
+                    android:src="@drawable/ic_action_play_circle_outline" />
+
+                <SeekBar
+                    android:id="@+id/seekBar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:progressTint="@color/seekbar_progress" />
+            </TableLayout>
+        </FrameLayout>
+        <!-- Navigation Drawer -->
+        <fragment
+            android:id="@+id/fragment_navigation_drawer"
+            android:name="com.dumposk129.create.stories.app.navigation_drawer.NavigationDrawerFragment"
+            tools:layout="@layout/navigation_drawer"
+            android:layout_width="@dimen/nav_drawer_width"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            app:layout="@layout/navigation_drawer" />
+
+    </android.support.v4.widget.DrawerLayout>
 </LinearLayout>
