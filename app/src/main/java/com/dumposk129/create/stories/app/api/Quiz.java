@@ -9,6 +9,7 @@ import com.dumposk129.create.stories.app.model.Story;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -139,7 +140,7 @@ public class Quiz {
                 Log.e("[Delete Question:API]", json.getString("message"));
                 return null;
             }
-        } catch (Exception e) {
+        } catch (JSONException e) {
             Log.e("[Delete Question:JSON]", e.getMessage());
             e.printStackTrace();
             return null;
