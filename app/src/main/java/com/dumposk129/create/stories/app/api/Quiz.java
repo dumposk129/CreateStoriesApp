@@ -141,6 +141,7 @@ public class Quiz {
             }
         } catch (Exception e) {
             Log.e("[Delete Question:JSON]", e.getMessage());
+            e.printStackTrace();
             return null;
         }
     }

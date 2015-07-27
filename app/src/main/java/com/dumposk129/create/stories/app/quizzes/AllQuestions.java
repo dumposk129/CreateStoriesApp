@@ -131,6 +131,9 @@ public class AllQuestions extends ActionBarActivity implements AdapterView.OnIte
             if (progressDialog.isShowing())
                 progressDialog.dismiss();
 
+            if (swipeRefreshLayout.isRefreshing())
+                swipeRefreshLayout.setRefreshing(false);
+
             Globals.questions = Quiz.getQuestions(jsonArray);
             setListQuestions(Globals.questions);
         }
@@ -155,9 +158,6 @@ public class AllQuestions extends ActionBarActivity implements AdapterView.OnIte
         protected void onPostExecute(JSONArray jsonArray) {
             if (progressDialog.isShowing())
                 progressDialog.dismiss();
-
-            if (swipeRefreshLayout.isRefreshing())
-                swipeRefreshLayout.setRefreshing(false);
 
             new LoadQuestionList().execute();
         }
