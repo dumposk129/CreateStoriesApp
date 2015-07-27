@@ -1,5 +1,6 @@
 package com.dumposk129.create.stories.app.quizzes;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -153,6 +154,14 @@ public class Questions extends ActionBarActivity {
 
     // Class SaveQuestionTask using AsyncTask.
     private class SaveQuestionTask extends AsyncTask<String, Void, Void> {
+        // Preparing load questions and answer.
+        private ProgressDialog progressDialog = new ProgressDialog(Questions.this);
+        @Override
+        protected void onPreExecute() {
+            progressDialog.setMessage("Saving...");
+            progressDialog.show();
+        }
+
         // Do method onNextClickListener in background.
         @Override
         protected Void doInBackground(String... params) {
@@ -163,10 +172,9 @@ public class Questions extends ActionBarActivity {
         // When save data has finished.
         @Override
         protected void onPostExecute(Void s) {
-            Toast.makeText(getApplicationContext(), "Save Question Already", Toast.LENGTH_SHORT).show();
+            if (progressDialog.isShowing()) progressDialog.dismiss();
         }
     }
-
 
     @Override
     public void onBackPressed() {

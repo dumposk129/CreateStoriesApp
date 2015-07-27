@@ -13,4 +13,5 @@ public class  API {
     public static final String CREATE_STORY = "create_story";
     public static final String SHOW_FRAME = "show_frame";
     public static final String SHOW_TITLE_NAME = "show_title_name";
+    public static final String DELETE_QUESTION = "delete_question";
 }

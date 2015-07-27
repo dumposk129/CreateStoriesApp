@@ -220,7 +220,6 @@ public class Answers extends ActionBarActivity {
         }
     }
 
-
     @Override
     public void onBackPressed() {
         if (doubleBackToExitPressedOnce) {

@@ -39,6 +39,13 @@ public class Quiz {
         return jParser.makeHttpRequest(ApiConfig.hostname(API.SHOW_QUESTION), ApiConfig.GET, params); // return SHOW_QUESTION.
     }
 
+    /* This method is delete question */
+    public static JSONObject deleteQuestion() {
+        JSONParser jParser = new JSONParser();
+        List<NameValuePair> params = new ArrayList<>();
+        return jParser.makeHttpRequest(ApiConfig.hostname(API.DELETE_QUESTION), ApiConfig.GET, params);
+    }
+
     /**
      * Save question to database then return question id
      *
@@ -117,6 +124,27 @@ public class Quiz {
         }
     }
 
+    public static JSONArray removeQuestion(int questionID) {
+        JSONParser jsonParser = new JSONParser(); // Call JSONParser.
+        List<NameValuePair> params = new ArrayList<>(); // Create list of param and add data.
+        params.add(new BasicNameValuePair("quesId", Integer.toString(questionID)));
+
+        JSONObject json = jsonParser.makeHttpRequest(ApiConfig.hostname(API.DELETE_QUESTION), ApiConfig.GET, params);
+        try {
+            int success = json.getInt(ApiConfig.TAG_SUCCESS);
+            if (success == 1) {
+                // return List<Question>
+                return json.getJSONArray("result");
+            } else {
+                Log.e("[Delete Question:API]", json.getString("message"));
+                return null;
+            }
+        } catch (Exception e) {
+            Log.e("[Delete Question:JSON]", e.getMessage());
+            return null;
+        }
+    }
+
     /* Show question and answer */
     public static List<Question> getQuestions(JSONArray result) {
         List<Question> questions = new ArrayList<>(); // Create list of questions.
@@ -164,14 +192,14 @@ public class Quiz {
     }
 
     /* Show stories name in quiz */
-    public static List<Story> getQuizList(JSONObject json){
+    public static List<Story> getQuizList(JSONObject json) {
         List<Story> storyList = new ArrayList<>(); // Create list of storyList
         try {
             int success = json.getInt(ApiConfig.TAG_SUCCESS);
-            if (success == 1){
+            if (success == 1) {
                 JSONArray jQuizList = json.getJSONArray("quiz"); // Create jQuizList
-                if (jQuizList != null && jQuizList.length() != 0){
-                    for (int i = 0; i < jQuizList.length(); i++){ // Add data
+                if (jQuizList != null && jQuizList.length() != 0) {
+                    for (int i = 0; i < jQuizList.length(); i++) { // Add data
                         JSONObject jQuiz = jQuizList.getJSONObject(i);
                         int quizId = jQuiz.getInt("quiz_id");
                         String quizName = jQuiz.getString("title_name");
@@ -185,7 +213,7 @@ public class Quiz {
                     }
                 }
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             Log.e("[All Quiz:JSON]", e.getMessage());
         }
         return storyList; // return storyList.

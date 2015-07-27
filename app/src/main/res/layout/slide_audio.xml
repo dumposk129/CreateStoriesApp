@@ -10,17 +10,19 @@
         android:id="@+id/app_bar"
         layout="@layout/app_bar" />
 
-    <!-- Navigation Drawer -->
+<!--
+    &lt;!&ndash; Navigation Drawer &ndash;&gt;
     <android.support.v4.widget.DrawerLayout xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/drawer_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <!-- Below App Bar for use show question name and answer-->
+        &lt;!&ndash; Below App Bar for use show question name and answer&ndash;&gt;
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+-->
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -79,8 +81,8 @@
                     android:layout_centerInParent="true"
                     android:progressTint="@color/seekbar_progress" />
             </TableLayout>
-        </FrameLayout>
-        <!-- Navigation Drawer -->
+ <!--       </FrameLayout>
+        &lt;!&ndash; Navigation Drawer &ndash;&gt;
         <fragment
             android:id="@+id/fragment_navigation_drawer"
             android:name="com.dumposk129.create.stories.app.navigation_drawer.NavigationDrawerFragment"
@@ -90,5 +92,5 @@
             android:layout_gravity="start"
             app:layout="@layout/navigation_drawer" />
 
-    </android.support.v4.widget.DrawerLayout>
+    </android.support.v4.widget.DrawerLayout>-->
 </LinearLayout>
