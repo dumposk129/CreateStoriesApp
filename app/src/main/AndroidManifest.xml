@@ -23,6 +23,11 @@
 
         <!-- Quizzes Menu-->
         <activity
+            android:name=".quizzes.QuizzesVerGridView"
+            android:label="@string/title_activity_quizzes"
+            android:screenOrientation="portrait"/>
+
+        <activity
             android:name=".quizzes.Quizzes"
             android:label="@string/title_activity_quizzes"
             android:screenOrientation="portrait"/>
@@ -44,8 +49,7 @@
             android:screenOrientation="portrait"/>
 
         <!-- Watches -->
-        <activity
-            android:name=".watch.ShowStories"
+        <activity android:name=".watch.ShowStoriesVerGridView"
             android:label="@string/title_activity_select_story"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -53,6 +57,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!--activity
+            android:name=".watch.ShowStories"
+            android:label="@string/title_activity_select_story"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>-->
         <activity
             android:name=".watch.Watch"
             android:label="@string/title_activity_watches"

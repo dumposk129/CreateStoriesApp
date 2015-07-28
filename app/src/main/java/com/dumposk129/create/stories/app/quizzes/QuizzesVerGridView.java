@@ -1,7 +1,9 @@
-package com.dumposk129.create.stories.app.watch;
+package com.dumposk129.create.stories.app.quizzes;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
@@ -22,13 +24,17 @@ import android.widget.Toast;
 
 import com.dumposk129.create.stories.app.R;
 import com.dumposk129.create.stories.app.api.ApiConfig;
-import com.dumposk129.create.stories.app.api.Frame;
 import com.dumposk129.create.stories.app.api.Globals;
+import com.dumposk129.create.stories.app.api.Quiz;
 import com.dumposk129.create.stories.app.navigation_drawer.NavigationDrawerFragment;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
-public class ShowStoriesVerGridView extends ActionBarActivity {
+/**
+ * Created by DumpOSK129 on 28/7/2558.
+ */
+public class QuizzesVerGridView extends ActionBarActivity {
     private Toolbar mToolbar;
     private SwipeRefreshLayout swipeRefreshLayout;
     private int sId, index = 0, size;
@@ -36,6 +42,10 @@ public class ShowStoriesVerGridView extends ActionBarActivity {
     private GridView gridView;
     private int number;
     String[] titleNAME, img, name, imgPath;
+    private int quizId;
+    private int selectedStory;
+
+    Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,14 +59,12 @@ public class ShowStoriesVerGridView extends ActionBarActivity {
                 getSupportFragmentManager().findFragmentById(R.id.fragment_navigation_drawer);
         drawerFragment.setUp(R.id.fragment_navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout), mToolbar);
 
-      /*  swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipeRefresh);
-        swipeRefreshLayout.setColorSchemeColors(Color.BLUE, Color.GREEN, Color.RED);
-        swipeRefreshLayout.setOnRefreshListener(this);*/
 
-        new LoadFrameTask().execute();
+        new LoadQuizTask().execute();
 
         gridView = (GridView) findViewById(R.id.gridImage);
     }
+
 
     private String[] getImageListForStoryName(int number) {
         img = new String[number];
@@ -81,15 +89,11 @@ public class ShowStoriesVerGridView extends ActionBarActivity {
         return titleNAME;
     }
 
-    /*@Override
-    public void onRefresh() {
-        new LoadFrameTask().execute();
-    }*/
 
-    //This class is load story in story
-    private class LoadFrameTask extends AsyncTask<String, Void, JSONObject> {
-        private ProgressDialog progressDialog = new ProgressDialog(ShowStoriesVerGridView.this);
-        //Preparing loading
+    /* Load Story all name */
+    private class LoadQuizTask extends AsyncTask<String, Void, JSONObject> {
+        /* Preparing Load data */
+        private ProgressDialog progressDialog = new ProgressDialog(QuizzesVerGridView.this);
 
         @Override
         protected void onPreExecute() {
@@ -100,7 +104,7 @@ public class ShowStoriesVerGridView extends ActionBarActivity {
         // Loading All Story.
         @Override
         protected JSONObject doInBackground(String... params) {
-            return com.dumposk129.create.stories.app.api.Story.getStoryTitleName();
+            return Quiz.getAllQuiz();
         }
 
         // Show Stories Name.
@@ -108,10 +112,10 @@ public class ShowStoriesVerGridView extends ActionBarActivity {
         protected void onPostExecute(JSONObject jsonObject) {
             if (progressDialog.isShowing())
                 progressDialog.dismiss();
-           /* if (swipeRefreshLayout.isRefreshing())
+            /*if (swipeRefreshLayout.isRefreshing())
                 swipeRefreshLayout.setRefreshing(false);*/
 
-            Globals.stories = com.dumposk129.create.stories.app.api.Story.getStoryList(jsonObject);
+            Globals.stories = Quiz.getQuizList(jsonObject);
             number = Globals.stories.size();
             getListStoryName(number);
             getImageListForStoryName(number);
@@ -119,25 +123,34 @@ public class ShowStoriesVerGridView extends ActionBarActivity {
         }
     }
 
-    private class LoadFrameList extends AsyncTask<String, Void, Void> {
+    /* Load Question */
+    private class LoadQuestionList extends AsyncTask<String, Void, JSONArray> {
 
-        // Load All Frame
+        // Load all questions.
         @Override
-        protected Void doInBackground(String... params) {
-            Globals.frames = Frame.getFrameList(sId);
-            return null;
+        protected JSONArray doInBackground(String... params) {
+            return Quiz.getShowQuestion(quizId);
         }
 
-        // Set size and intent data
         @Override
-        protected void onPostExecute(Void aVoid) {
-            size = Globals.frames.size() - 1; // Set size
-
-            Intent intent = new Intent(ShowStoriesVerGridView.this, Watch.class);
-            intent.putExtra("sId", sId);
-            intent.putExtra("size", size);
-            intent.putExtra("index", index);
-            startActivity(intent);
+        protected void onPostExecute(JSONArray jsonArray) {
+            Globals.questions = Quiz.getQuestions(jsonArray); // get question pass Quiz.getQuestions
+            if (Globals.questions.size() == 0) { // if no question show dialog.
+                AlertDialog dialog1 = new AlertDialog.Builder(QuizzesVerGridView.this)
+                        .setTitle("No Question")
+                        .setMessage("Please create question first.")
+                        .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                            }
+                        })
+                        .show();
+            } else { // has question and set quizID, index and then go to Answers.
+                intent = new Intent(QuizzesVerGridView.this, Answers.class);
+                intent.putExtra("quizID", Globals.stories.get(selectedStory).getQuestionId());
+                intent.putExtra("index", 0);
+                startActivity(intent);
+            }
         }
     }
 
@@ -167,7 +180,7 @@ public class ShowStoriesVerGridView extends ActionBarActivity {
 
         LayoutInflater inflater = null;
 
-        public CustomAdapter(LoadFrameTask showStoriesVerGridView, String[] name, String[] imgPath) {
+        public CustomAdapter(LoadQuizTask loadQuizTask, String[] name, String[] imgPath) {
             titleName = name;
             picPath = imgPath;
             inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -210,10 +223,34 @@ public class ShowStoriesVerGridView extends ActionBarActivity {
                 public void onClick(View v) {
                     sId = Globals.stories.get(position).getId();
 
-                    Toast.makeText(ShowStoriesVerGridView.this, " " + titleName[position], Toast.LENGTH_LONG).show();
+                    Toast.makeText(QuizzesVerGridView.this, " " + titleName[position], Toast.LENGTH_LONG).show();
 
-                    // Call LoadFrameList
-                    new LoadFrameList().execute();
+                    // Show Dialog and user choose it.
+                    final AlertDialog.Builder builder = new AlertDialog.Builder(QuizzesVerGridView.this);
+                    builder.setTitle(R.string.choose_item).setItems(R.array.questions_answers, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int position) {
+                            switch (position) {
+                                case 0:
+                                    intent = new Intent(QuizzesVerGridView.this, NumberOfQuestion.class);
+                                    intent.putExtra("quizID", Globals.stories.get(position).getQuestionId());
+                                    startActivity(intent);
+                                    break;
+                                case 1:
+                                    quizId = Globals.stories.get(position).getQuestionId();
+                                    new LoadQuestionList().execute();
+                                    break;
+                                case 2:
+                                    intent = new Intent(QuizzesVerGridView.this, AllQuestions.class);
+                                    intent.putExtra("quizID", Globals.stories.get(position).getQuestionId());
+                                    startActivity(intent);
+                                    break;
+                                case 3:
+                                    dialog.dismiss();
+                            }
+                        }
+                    });
+                    builder.show();
                 }
             });
             return rowView;

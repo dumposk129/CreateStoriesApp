@@ -20,11 +20,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <android.support.v4.widget.SwipeRefreshLayout
-                android:id="@+id/swipeRefresh"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
-
                 <TextView
                     android:id="@+id/tvTitleName"
                     android:layout_width="wrap_content"
@@ -43,7 +38,7 @@
                 android:layout_height="match_parent"
                 android:layout_alignParentLeft="true"
                 android:layout_marginTop="60dp"
-                android:numColumns="4" />
+                android:numColumns="3" />
 
 
         </FrameLayout>
