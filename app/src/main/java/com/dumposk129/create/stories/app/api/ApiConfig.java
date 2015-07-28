@@ -9,6 +9,8 @@ public class ApiConfig {
     }
     public static final String apiUrl = "http://dump.geozigzag.com/api/";
     public static final String TAG_SUCCESS = "success";
+    public static final String TAG_SUCCESS_A = "successA";
+    public static final String TAG_SUCCESS_Q = "successQ";
     public static final String POST = "POST";
     public static final String GET = "GET";
     public static final String TAG_QUIZ = "quiz";

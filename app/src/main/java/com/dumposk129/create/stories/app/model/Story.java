@@ -7,6 +7,8 @@ public class Story {
     private int id;
     private String title_name;
     private boolean is_complete;
+
+    private String pic_path;
     private int questionId;
     private String questionName;
 
@@ -23,6 +25,21 @@ public class Story {
         this.title_name = title_name;
         this.is_complete = is_complete;
     }
+
+    public Story(String title_name, String pic_path){
+        this.title_name = title_name;
+        this.pic_path = pic_path;
+    }
+
+
+    public String getPic_path() {
+        return pic_path;
+    }
+
+    public void setPic_path(String pic_pth) {
+        this.pic_path = pic_pth;
+    }
+
 
     // Setter.
     public void setId(int id){

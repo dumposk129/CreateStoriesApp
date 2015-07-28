@@ -37,6 +37,8 @@ public class AllQuestions extends ActionBarActivity implements AdapterView.OnIte
     private ListView listView;
     private int quizId;
     private int questionId;
+    private boolean isDeleted = false;
+
     private SwipeRefreshLayout swipeRefreshLayout;
 
     private boolean doubleBackToExitPressedOnce = false;
@@ -140,7 +142,7 @@ public class AllQuestions extends ActionBarActivity implements AdapterView.OnIte
     }
 
     // Delete Question
-    private class DeleteQuestion extends AsyncTask<Void, Void, JSONArray>{
+    private class DeleteQuestion extends AsyncTask<String, Void, Void>{
         private ProgressDialog progressDialog = new ProgressDialog(AllQuestions.this);
 
         @Override
@@ -150,16 +152,20 @@ public class AllQuestions extends ActionBarActivity implements AdapterView.OnIte
         }
 
         @Override
-        protected JSONArray doInBackground(Void... params) {
-            return Quiz.removeQuestion(questionId);
+        protected Void doInBackground(String... params) {
+            isDeleted = Quiz.removeQuestion(questionId);
+            return null;
         }
 
         @Override
-        protected void onPostExecute(JSONArray jsonArray) {
+        protected void onPostExecute(Void aVoid) {
             if (progressDialog.isShowing())
                 progressDialog.dismiss();
 
-            new LoadQuestionList().execute();
+            if (isDeleted) {
+                Toast.makeText(AllQuestions.this, "Delete answers and question successfully.", Toast.LENGTH_LONG).show();
+                new LoadQuestionList().execute();
+            }
         }
     }
 

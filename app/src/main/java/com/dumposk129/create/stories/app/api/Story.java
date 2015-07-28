@@ -55,11 +55,13 @@ public class Story {
                         JSONObject jObjStoryList = jStoryList.getJSONObject(i);
                         int storyId = jObjStoryList.getInt("story_id");
                         String storyTitleName = jObjStoryList.getString("title_name");
+                        String storyImgPath = jObjStoryList.getString("pic_path");
 
                         // SET value from jObjStoryList.
                         com.dumposk129.create.stories.app.model.Story story = new com.dumposk129.create.stories.app.model.Story();
                         story.setId(storyId);
                         story.setTitle(storyTitleName);
+                        story.setPic_path(storyImgPath);
 
                         storyList.add(story); // Add All into storyList.
                     }

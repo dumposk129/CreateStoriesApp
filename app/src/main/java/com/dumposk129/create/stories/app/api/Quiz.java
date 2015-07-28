@@ -9,7 +9,6 @@ import com.dumposk129.create.stories.app.model.Story;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -125,25 +124,31 @@ public class Quiz {
         }
     }
 
-    public static JSONArray removeQuestion(int questionID) {
+    // Remove Question and Answer.
+    public static boolean removeQuestion(int questionID) {
         JSONParser jsonParser = new JSONParser(); // Call JSONParser.
         List<NameValuePair> params = new ArrayList<>(); // Create list of param and add data.
-        params.add(new BasicNameValuePair("quesId", Integer.toString(questionID)));
+        params.add(new BasicNameValuePair("question_id", Integer.toString(questionID)));
 
         JSONObject json = jsonParser.makeHttpRequest(ApiConfig.hostname(API.DELETE_QUESTION), ApiConfig.GET, params);
         try {
-            int success = json.getInt(ApiConfig.TAG_SUCCESS);
-            if (success == 1) {
+            int successA = json.getInt(ApiConfig.TAG_SUCCESS_A);
+            int successQ = json.getInt(ApiConfig.TAG_SUCCESS_Q);
+            if (successA == 1 && successQ == 1) {
                 // return List<Question>
-                return json.getJSONArray("result");
+                return true;
+            } else if (successA == 0) {
+                Log.e("[Delete Answer:API]", json.getString("messageA"));
+                return false;
+            } else if (successQ == 0) {
+                Log.e("[Delete Question:API]", json.getString("messageQ"));
+                return false;
             } else {
-                Log.e("[Delete Question:API]", json.getString("message"));
-                return null;
+                return false;
             }
-        } catch (JSONException e) {
+        } catch (Exception e){
             Log.e("[Delete Question:JSON]", e.getMessage());
-            e.printStackTrace();
-            return null;
+            return false;
         }
     }
 
@@ -205,11 +210,13 @@ public class Quiz {
                         JSONObject jQuiz = jQuizList.getJSONObject(i);
                         int quizId = jQuiz.getInt("quiz_id");
                         String quizName = jQuiz.getString("title_name");
+                        String quizImagePath = jQuiz.getString("pic_path");
 
                         // SET value from jQuiz.
                         Story story = new Story();
                         story.setQuestionId(quizId);
                         story.setQuestionName(quizName);
+                        story.setPic_path(quizImagePath);
 
                         storyList.add(story); // Add All into storyList.
                     }
