@@ -10,7 +10,11 @@
         android:layout_height="88dp"
         android:layout_gravity="center"
         android:layout_marginBottom="5dp"
-        android:layout_marginTop="5dp" />
+        android:layout_marginTop="5dp"
+        android:scrollbars="vertical"
+        android:scrollbarSize="4dp"
+        android:scrollbarTrackVertical="@color/transparent"
+        android:scrollbarThumbVertical="@color/primaryColor"/>
 
     <TextView
         android:id="@+id/textView1"
@@ -20,5 +24,10 @@
         android:layout_marginBottom="5dp"
         android:layout_marginTop="5dp"
         android:text="TextView"
-        android:textSize="20dp" />
+        android:textSize="20dp"
+        android:scrollbars="vertical"
+        android:scrollbarSize="4dp"
+        android:scrollbarTrackVertical="@color/transparent"
+        android:scrollbarThumbVertical="@color/primaryColor"/>
+
 </LinearLayout>

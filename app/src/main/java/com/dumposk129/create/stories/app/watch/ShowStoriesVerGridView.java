@@ -3,7 +3,8 @@ package com.dumposk129.create.stories.app.watch;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -28,6 +29,10 @@ import com.dumposk129.create.stories.app.navigation_drawer.NavigationDrawerFragm
 
 import org.json.JSONObject;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
+
 public class ShowStoriesVerGridView extends ActionBarActivity {
     private Toolbar mToolbar;
     private SwipeRefreshLayout swipeRefreshLayout;
@@ -36,6 +41,7 @@ public class ShowStoriesVerGridView extends ActionBarActivity {
     private GridView gridView;
     private int number;
     String[] titleNAME, img, name, imgPath;
+    Bitmap[] bitmap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,13 +72,13 @@ public class ShowStoriesVerGridView extends ActionBarActivity {
             img[i] = ApiConfig.apiUrl + Globals.stories.get(i).getPic_path();
             imgPath[i] = img[i];
         }
-
         return img;
     }
 
     private String[] getListStoryName(int number) {
         titleNAME = new String[number];
         name = new String[number];
+
         for (int i = 0; i < Globals.stories.size(); i++) {
             titleNAME[i] = Globals.stories.get(i).getTitle();
             name[i] = titleNAME[i];
@@ -161,9 +167,9 @@ public class ShowStoriesVerGridView extends ActionBarActivity {
     }
 
     private class CustomAdapter extends BaseAdapter {
-        private String[] titleName;
-        private Context context;
-        private String[] picPath;
+        String[] titleName;
+        Context context;
+        String[] picPath;
 
         LayoutInflater inflater = null;
 
@@ -203,7 +209,31 @@ public class ShowStoriesVerGridView extends ActionBarActivity {
             holder.img = (ImageView) rowView.findViewById(R.id.imgView);
 
             holder.tv.setText(titleName[position]);
-            holder.img.setBackground(Drawable.createFromPath(picPath[position]));
+
+            for (int i = 0; i < number; i++) {
+
+                final int finalI = i;
+                new AsyncTask<String, Void, Bitmap>() {
+                    @Override
+                    protected Bitmap doInBackground(String... params) {
+                        bitmap = new Bitmap[finalI];
+                        try {
+                            URL url = new URL(picPath[finalI]);
+                            bitmap[finalI] = BitmapFactory.decodeStream(url.openConnection().getInputStream());
+                        } catch (MalformedURLException e) {
+                            e.printStackTrace();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        return bitmap[finalI];
+                    }
+
+                    @Override
+                    protected void onPostExecute(Bitmap bitmap) {
+                        holder.img.setImageBitmap(bitmap);
+                    }
+                };
+            }
 
             rowView.setOnClickListener(new View.OnClickListener() {
                 @Override

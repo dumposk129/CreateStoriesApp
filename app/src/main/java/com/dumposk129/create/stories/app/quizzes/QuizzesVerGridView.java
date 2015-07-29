@@ -59,7 +59,6 @@ public class QuizzesVerGridView extends ActionBarActivity {
                 getSupportFragmentManager().findFragmentById(R.id.fragment_navigation_drawer);
         drawerFragment.setUp(R.id.fragment_navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout), mToolbar);
 
-
         new LoadQuizTask().execute();
 
         gridView = (GridView) findViewById(R.id.gridImage);

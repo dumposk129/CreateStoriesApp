@@ -215,7 +215,7 @@ public class Quiz {
                         // SET value from jQuiz.
                         Story story = new Story();
                         story.setQuestionId(quizId);
-                        story.setQuestionName(quizName);
+                        story.setTitle(quizName);
                         story.setPic_path(quizImagePath);
 
                         storyList.add(story); // Add All into storyList.
