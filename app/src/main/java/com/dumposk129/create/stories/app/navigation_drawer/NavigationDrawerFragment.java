@@ -16,8 +16,8 @@ import android.view.ViewGroup;
 
 import com.dumposk129.create.stories.app.R;
 import com.dumposk129.create.stories.app.create_stories.StoryName;
-import com.dumposk129.create.stories.app.quizzes.QuizzesVerGridView;
-import com.dumposk129.create.stories.app.watch.ShowStoriesVerGridView;
+import com.dumposk129.create.stories.app.quizzes.Quizzes;
+import com.dumposk129.create.stories.app.watch.ShowStories;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -128,11 +128,11 @@ public class NavigationDrawerFragment extends Fragment implements MyAdapter.Clic
     @Override
     public void itemClicked(View view, int position) {
         switch (position){
-            case 0: startActivity(new Intent(getActivity(), ShowStoriesVerGridView.class));
+            case 0: startActivity(new Intent(getActivity(), ShowStories.class));
                 break;
             case 1: startActivity(new Intent(getActivity(), StoryName.class));
                 break;
-            case 2: startActivity(new Intent(getActivity(), QuizzesVerGridView.class));
+            case 2: startActivity(new Intent(getActivity(), Quizzes.class));
                 break;
         }
     }

@@ -1,8 +1,9 @@
 package com.dumposk129.create.stories.app.watch;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
+import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -10,94 +11,88 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ListAdapter;
-import android.widget.ListView;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
+import android.widget.GridView;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.dumposk129.create.stories.app.R;
+import com.dumposk129.create.stories.app.api.ApiConfig;
 import com.dumposk129.create.stories.app.api.Frame;
 import com.dumposk129.create.stories.app.api.Globals;
-import com.dumposk129.create.stories.app.model.Story;
 import com.dumposk129.create.stories.app.navigation_drawer.NavigationDrawerFragment;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.util.List;
-
-/**
- * Created by DumpOSK129.
- */
-public class ShowStories extends ActionBarActivity implements SwipeRefreshLayout.OnRefreshListener {
-    private ListView listView;
+public class ShowStories extends ActionBarActivity {
     private Toolbar mToolbar;
-    private int sId, index = 0, size;
     private SwipeRefreshLayout swipeRefreshLayout;
+    private int sId, index = 0, size;
     private boolean doubleBackToExitPressedOnce = false;
-
-    JSONArray frames = null;
+    private GridView gridView;
+    private int number;
+    String[] titleNAME, img, name, imgPath;
+    Bitmap bitmap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.use_list_all_stories_name);
+        setContentView(R.layout.show_stories);
 
-        listView = (ListView) findViewById(R.id.listViewStoriesName);
         mToolbar = (Toolbar) findViewById(R.id.app_bar);
-        swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipeRefresh);
-
-        // Toolbar and Navigation Drawer.
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         NavigationDrawerFragment drawerFragment = (NavigationDrawerFragment)
                 getSupportFragmentManager().findFragmentById(R.id.fragment_navigation_drawer);
         drawerFragment.setUp(R.id.fragment_navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout), mToolbar);
 
+      /*  swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipeRefresh);
         swipeRefreshLayout.setColorSchemeColors(Color.BLUE, Color.GREEN, Color.RED);
+        swipeRefreshLayout.setOnRefreshListener(this);*/
 
-        // Call LoadFrameTask
         new LoadFrameTask().execute();
 
-        swipeRefreshLayout.setOnRefreshListener(this);
+        gridView = (GridView) findViewById(R.id.gridImage);
     }
 
-    /* This method is set data after load story has been finished. */
-    private void setListData(List<Story> stories) {
-        // Assign data.
-        String[] data = new String[stories.size()];
-        for (int i = 0; i < stories.size(); i++) {
-            data[i] = stories.get(i).getTitle();
+    private String[] getImageListForStoryName(int number) {
+        img = new String[number];
+        imgPath = new String[number];
+
+        for (int i = 0; i < Globals.stories.size(); i++) {
+            img[i] = ApiConfig.apiUrl + Globals.stories.get(i).getPic_path();
+            imgPath[i] = img[i];
+        }
+        return img;
+    }
+
+    private String[] getListStoryName(int number) {
+        titleNAME = new String[number];
+        name = new String[number];
+
+        for (int i = 0; i < Globals.stories.size(); i++) {
+            titleNAME[i] = Globals.stories.get(i).getTitle();
+            name[i] = titleNAME[i];
         }
 
-        // Create ArrayAdapter.
-        ListAdapter adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, android.R.id.text1, data);
-
-        // Send listItem to ListView.
-        listView.setAdapter(adapter);
-
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                sId = Globals.stories.get(position).getId();
-
-                // Call LoadFrameList
-                new LoadFrameList().execute();
-            }
-        });
+        return titleNAME;
     }
 
-    @Override
+    /*@Override
     public void onRefresh() {
         new LoadFrameTask().execute();
-    }
+    }*/
 
-    /* This class is load story in story */
+    //This class is load story in story
     private class LoadFrameTask extends AsyncTask<String, Void, JSONObject> {
         private ProgressDialog progressDialog = new ProgressDialog(ShowStories.this);
-        /* Preparing loading */
+        //Preparing loading
+
         @Override
         protected void onPreExecute() {
             progressDialog.setMessage("Loading...");
@@ -115,15 +110,17 @@ public class ShowStories extends ActionBarActivity implements SwipeRefreshLayout
         protected void onPostExecute(JSONObject jsonObject) {
             if (progressDialog.isShowing())
                 progressDialog.dismiss();
-            if (swipeRefreshLayout.isRefreshing())
-                swipeRefreshLayout.setRefreshing(false);
+           /* if (swipeRefreshLayout.isRefreshing())
+                swipeRefreshLayout.setRefreshing(false);*/
 
             Globals.stories = com.dumposk129.create.stories.app.api.Story.getStoryList(jsonObject);
-            setListData(Globals.stories);
+            number = Globals.stories.size();
+            getListStoryName(number);
+            getImageListForStoryName(number);
+            gridView.setAdapter(new CustomAdapter(this, name, imgPath));
         }
     }
 
-    /* This class is load all frame using story_id*/
     private class LoadFrameList extends AsyncTask<String, Void, Void> {
 
         // Load All Frame
@@ -160,8 +157,72 @@ public class ShowStories extends ActionBarActivity implements SwipeRefreshLayout
 
             @Override
             public void run() {
-                doubleBackToExitPressedOnce=false;
+                doubleBackToExitPressedOnce = false;
             }
         }, 2000);
+    }
+
+    private class CustomAdapter extends BaseAdapter {
+        String[] titleName;
+        Context context;
+        String[] picPath;
+
+        LayoutInflater inflater = null;
+
+        public CustomAdapter(LoadFrameTask showStoriesVerGridView, String[] name, String[] imgPath) {
+            titleName = name;
+            picPath = imgPath;
+            inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        }
+
+        @Override
+        public int getCount() {
+            return titleName.length;
+        }
+
+        @Override
+        public Object getItem(int position) {
+            return position;
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return position;
+        }
+
+        public class Holder {
+            TextView tv;
+            ImageView img;
+        }
+
+        @Override
+        public View getView(final int position, View convertView, ViewGroup parent) {
+            final Holder holder = new Holder();
+            View rowView;
+
+            rowView = inflater.inflate(R.layout.content_story, null);
+            holder.tv = (TextView) rowView.findViewById(R.id.textView1);
+            holder.img = (ImageView) rowView.findViewById(R.id.imgView);
+
+            holder.tv.setText(titleName[position]);
+
+            Glide.with(ShowStories.this)
+                    .load(picPath[position])
+                    .centerCrop()
+                    .into(holder.img);
+
+            rowView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    sId = Globals.stories.get(position).getId();
+
+                    Toast.makeText(ShowStories.this, " " + titleName[position], Toast.LENGTH_LONG).show();
+
+                    // Call LoadFrameList
+                    new LoadFrameList().execute();
+                }
+            });
+            return rowView;
+        }
     }
 }

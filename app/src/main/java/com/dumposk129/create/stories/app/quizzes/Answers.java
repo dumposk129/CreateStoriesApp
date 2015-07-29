@@ -153,7 +153,7 @@ public class Answers extends ActionBarActivity {
     private void onAnswerNextClickListener() {
         if (currentIndex == noOfQuestion) {
             // Go to Quizzes Page
-            Intent intent = new Intent(Answers.this, QuizzesVerGridView.class);
+            Intent intent = new Intent(Answers.this, Quizzes.class);
             startActivity(intent);
         } else {
             // Answer Next

@@ -2,9 +2,9 @@ package com.dumposk129.create.stories.app.quizzes;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -12,117 +12,172 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ListAdapter;
-import android.widget.ListView;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
+import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.dumposk129.create.stories.app.R;
+import com.dumposk129.create.stories.app.api.ApiConfig;
 import com.dumposk129.create.stories.app.api.Globals;
 import com.dumposk129.create.stories.app.api.Quiz;
-import com.dumposk129.create.stories.app.model.Story;
 import com.dumposk129.create.stories.app.navigation_drawer.NavigationDrawerFragment;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.util.List;
-
 /**
- * Created by DumpOSK129.
+ * Created by DumpOSK129 on 28/7/2558.
  */
-public class Quizzes extends ActionBarActivity implements SwipeRefreshLayout.OnRefreshListener {
+public class Quizzes extends ActionBarActivity {
     private Toolbar mToolbar;
-    private ListView listView;
-    private TextView tvQuizID, tvQuizName;
     private SwipeRefreshLayout swipeRefreshLayout;
-    private int quizId;
-    private int selectedStory;
-
+    private int sId;
     private boolean doubleBackToExitPressedOnce = false;
+    private GridView gridView;
+    private int number;
+    String[] titleNAME, img, name, imgPath;
+    private int quizId;
+    private TextView tvQuizID, tvQuizName;
+    private int selectedStory;
 
     Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.use_list_all_stories_name);
+        setContentView(R.layout.show_stories);
 
-        // Casting.
         mToolbar = (Toolbar) findViewById(R.id.app_bar);
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         NavigationDrawerFragment drawerFragment = (NavigationDrawerFragment)
                 getSupportFragmentManager().findFragmentById(R.id.fragment_navigation_drawer);
         drawerFragment.setUp(R.id.fragment_navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout), mToolbar);
-        listView = (ListView) findViewById(R.id.listViewStoriesName);
+
         tvQuizID = (TextView) findViewById(R.id.quizzesId);
         tvQuizName = (TextView) findViewById(R.id.quizzesName);
-        swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipeRefresh);
-        swipeRefreshLayout.setColorSchemeColors(Color.BLUE, Color.GREEN, Color.RED);
 
         new LoadQuizTask().execute();
 
-        swipeRefreshLayout.setOnRefreshListener(this);
-
-        // Set Item Click Listener.
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                selectedStory = position;
-
-                // Show Dialog and user choose it.
-                final AlertDialog.Builder builder = new AlertDialog.Builder(Quizzes.this);
-                builder.setTitle(R.string.choose_item).setItems(R.array.questions_answers, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int position) {
-                        switch (position) {
-                            case 0:
-                                intent = new Intent(Quizzes.this, NumberOfQuestion.class);
-                                intent.putExtra("quizID", Globals.stories.get(selectedStory).getQuestionId());
-                                startActivity(intent);
-                                break;
-                            case 1:
-                                quizId = Globals.stories.get(selectedStory).getQuestionId();
-                                new LoadQuestionList().execute();
-                                break;
-                            case 2:
-                                intent = new Intent(Quizzes.this, AllQuestions.class);
-                                intent.putExtra("quizID", Globals.stories.get(selectedStory).getQuestionId());
-                                startActivity(intent);
-                                break;
-                            case 3:
-                                dialog.dismiss();
-                        }
-                    }
-                });
-                builder.show();
-            }
-        });
+        gridView = (GridView) findViewById(R.id.gridImage);
     }
 
-    private void setListData(List<Story> stories) {
-        // Assign data.
-        String[] data = new String[stories.size()];
-        for (int i = 0; i < stories.size(); i++) {
-            data[i] = stories.get(i).getQuestionName();
+
+    private String[] getImageListForStoryName(int number) {
+        img = new String[number];
+        imgPath = new String[number];
+
+        for (int i = 0; i < Globals.stories.size(); i++) {
+            img[i] = ApiConfig.apiUrl + Globals.stories.get(i).getPic_path();
+            imgPath[i] = img[i];
         }
 
-        // Create ArrayAdapter.
-        ListAdapter adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, android.R.id.text1, data);
-
-        // Send listItem to ListView.
-        listView.setAdapter(adapter);
+        return img;
     }
 
-    @Override
-    public void onRefresh() {
-        new LoadQuizTask().execute();
+    private String[] getListStoryName(int number) {
+        titleNAME = new String[number];
+        name = new String[number];
+        for (int i = 0; i < Globals.stories.size(); i++) {
+            titleNAME[i] = Globals.stories.get(i).getTitle();
+            name[i] = titleNAME[i];
+        }
 
+        return titleNAME;
+    }
+
+    private class CustomAdapter extends BaseAdapter {
+        private String[] titleName;
+        private Context context;
+        private String[] picPath;
+
+        LayoutInflater inflater = null;
+
+        public CustomAdapter(LoadQuizTask loadQuizTask, String[] name, String[] imgPath) {
+            titleName = name;
+            picPath = imgPath;
+            inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        }
+
+        @Override
+        public int getCount() {
+            return titleName.length;
+        }
+
+        @Override
+        public Object getItem(int position) {
+            return position;
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return position;
+        }
+
+        public class Holder {
+            TextView tv;
+            ImageView img;
+        }
+
+        @Override
+        public View getView(final int position, View convertView, ViewGroup parent) {
+            final Holder holder = new Holder();
+            View rowView;
+
+            rowView = inflater.inflate(R.layout.content_story, null);
+            holder.tv = (TextView) rowView.findViewById(R.id.textView1);
+            holder.img = (ImageView) rowView.findViewById(R.id.imgView);
+
+            holder.tv.setText(titleName[position]);
+            Glide.with(Quizzes.this)
+                    .load(picPath[position])
+                    .centerCrop()
+                    .into(holder.img);
+
+            rowView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    sId = Globals.stories.get(position).getId();
+                    selectedStory = position;
+
+                    Toast.makeText(Quizzes.this, " " + titleName[position], Toast.LENGTH_LONG).show();
+
+                    // Show Dialog and user choose it.
+                    final AlertDialog.Builder builder = new AlertDialog.Builder(Quizzes.this);
+                    builder.setTitle(R.string.choose_item).setItems(R.array.questions_answers, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int position) {
+                            switch (position) {
+                                case 0:
+                                    intent = new Intent(Quizzes.this, NumberOfQuestion.class);
+                                    intent.putExtra("quizID", Globals.stories.get(selectedStory).getQuestionId());
+                                    startActivity(intent);
+                                    break;
+                                case 1:
+                                    quizId = Globals.stories.get(selectedStory).getQuestionId();
+                                    new LoadQuestionList().execute();
+                                    break;
+                                case 2:
+                                    intent = new Intent(Quizzes.this, AllQuestions.class);
+                                    intent.putExtra("quizID", Globals.stories.get(selectedStory).getQuestionId());
+                                    startActivity(intent);
+                                    break;
+                                case 3:
+                                    dialog.dismiss();
+                            }
+                        }
+                    });
+                    builder.show();
+                }
+            });
+            return rowView;
+        }
     }
 
     /* Load Story all name */
@@ -147,11 +202,14 @@ public class Quizzes extends ActionBarActivity implements SwipeRefreshLayout.OnR
         protected void onPostExecute(JSONObject jsonObject) {
             if (progressDialog.isShowing())
                 progressDialog.dismiss();
-            if (swipeRefreshLayout.isRefreshing())
-                swipeRefreshLayout.setRefreshing(false);
+            /*if (swipeRefreshLayout.isRefreshing())
+                swipeRefreshLayout.setRefreshing(false);*/
 
             Globals.stories = Quiz.getQuizList(jsonObject);
-            setListData(Globals.stories);
+            number = Globals.stories.size();
+            getListStoryName(number);
+            getImageListForStoryName(number);
+            gridView.setAdapter(new CustomAdapter(this, name, imgPath));
         }
     }
 
@@ -167,6 +225,7 @@ public class Quizzes extends ActionBarActivity implements SwipeRefreshLayout.OnR
         @Override
         protected void onPostExecute(JSONArray jsonArray) {
             Globals.questions = Quiz.getQuestions(jsonArray); // get question pass Quiz.getQuestions
+
             if (Globals.questions.size() == 0) { // if no question show dialog.
                 AlertDialog dialog1 = new AlertDialog.Builder(Quizzes.this)
                         .setTitle("No Question")
