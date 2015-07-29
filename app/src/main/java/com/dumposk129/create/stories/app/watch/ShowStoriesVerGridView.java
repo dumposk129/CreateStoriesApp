@@ -41,7 +41,7 @@ public class ShowStoriesVerGridView extends ActionBarActivity {
     private GridView gridView;
     private int number;
     String[] titleNAME, img, name, imgPath;
-    Bitmap[] bitmap;
+    Bitmap bitmap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -210,30 +210,27 @@ public class ShowStoriesVerGridView extends ActionBarActivity {
 
             holder.tv.setText(titleName[position]);
 
-            for (int i = 0; i < number; i++) {
-
-                final int finalI = i;
-                new AsyncTask<String, Void, Bitmap>() {
-                    @Override
-                    protected Bitmap doInBackground(String... params) {
-                        bitmap = new Bitmap[finalI];
-                        try {
-                            URL url = new URL(picPath[finalI]);
-                            bitmap[finalI] = BitmapFactory.decodeStream(url.openConnection().getInputStream());
-                        } catch (MalformedURLException e) {
-                            e.printStackTrace();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                        return bitmap[finalI];
+            new AsyncTask<String, Void, Bitmap>(){
+                @Override
+                protected Bitmap doInBackground(String... params) {
+                    Bitmap bmp = null;
+                    try {
+                        URL url = new URL(picPath[position]);
+                        bmp = BitmapFactory.decodeStream(url.openConnection().getInputStream());
+                    } catch (MalformedURLException e) {
+                        e.printStackTrace();
+                    } catch (IOException e) {
+                        e.printStackTrace();
                     }
+                    return bmp;
+                }
 
-                    @Override
-                    protected void onPostExecute(Bitmap bitmap) {
-                        holder.img.setImageBitmap(bitmap);
-                    }
-                };
-            }
+                /* Show image */
+                @Override
+                protected void onPostExecute(Bitmap bitmap) {
+                    holder.img.setImageBitmap(bitmap);
+                }
+            };
 
             rowView.setOnClickListener(new View.OnClickListener() {
                 @Override
