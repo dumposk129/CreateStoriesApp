@@ -138,7 +138,7 @@ public class Questions extends ActionBarActivity {
         if (isSuccess) {
             if (currentIndex == noOfQuestion) {
                 // Go to Quizzes Page.
-                Intent intent = new Intent(Questions.this, Quizzes.class);
+                Intent intent = new Intent(Questions.this, QuizzesVerGridView.class);
                 startActivity(intent);
             } else {
                 // Create Next Question.

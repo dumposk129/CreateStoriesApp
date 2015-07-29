@@ -120,7 +120,7 @@ public class Watch extends ActionBarActivity implements View.OnClickListener, Vi
     public void onClick(View v) {
         if (v.getId() == R.id.btnNext) { // Click btnNext.
             if (index == size) { // if index equal size, go to Show Stories
-                intent = new Intent(Watch.this, ShowStories.class);
+                intent = new Intent(Watch.this, ShowStoriesVerGridView.class);
                 Runtime.getRuntime().freeMemory();
                 startActivity(intent);
             } else { // if not do-while index equal size.
