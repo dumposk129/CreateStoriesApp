@@ -5,7 +5,6 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -22,6 +21,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.dumposk129.create.stories.app.R;
 import com.dumposk129.create.stories.app.api.ApiConfig;
 import com.dumposk129.create.stories.app.api.Globals;
@@ -215,7 +215,10 @@ public class QuizzesVerGridView extends ActionBarActivity {
             holder.img = (ImageView) rowView.findViewById(R.id.imgView);
 
             holder.tv.setText(titleName[position]);
-            holder.img.setBackground(Drawable.createFromPath(picPath[position]));
+            Glide.with(QuizzesVerGridView.this)
+                    .load(picPath[position])
+                    .centerCrop()
+                    .into(holder.img);
 
             rowView.setOnClickListener(new View.OnClickListener() {
                 @Override

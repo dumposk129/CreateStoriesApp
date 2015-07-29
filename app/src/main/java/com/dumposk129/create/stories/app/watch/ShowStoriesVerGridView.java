@@ -4,7 +4,6 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -21,6 +20,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.dumposk129.create.stories.app.R;
 import com.dumposk129.create.stories.app.api.ApiConfig;
 import com.dumposk129.create.stories.app.api.Frame;
@@ -28,10 +28,6 @@ import com.dumposk129.create.stories.app.api.Globals;
 import com.dumposk129.create.stories.app.navigation_drawer.NavigationDrawerFragment;
 
 import org.json.JSONObject;
-
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
 
 public class ShowStoriesVerGridView extends ActionBarActivity {
     private Toolbar mToolbar;
@@ -210,27 +206,10 @@ public class ShowStoriesVerGridView extends ActionBarActivity {
 
             holder.tv.setText(titleName[position]);
 
-            new AsyncTask<String, Void, Bitmap>(){
-                @Override
-                protected Bitmap doInBackground(String... params) {
-                    Bitmap bmp = null;
-                    try {
-                        URL url = new URL(picPath[position]);
-                        bmp = BitmapFactory.decodeStream(url.openConnection().getInputStream());
-                    } catch (MalformedURLException e) {
-                        e.printStackTrace();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    return bmp;
-                }
-
-                /* Show image */
-                @Override
-                protected void onPostExecute(Bitmap bitmap) {
-                    holder.img.setImageBitmap(bitmap);
-                }
-            };
+            Glide.with(ShowStoriesVerGridView.this)
+                    .load(picPath[position])
+                    .centerCrop()
+                    .into(holder.img);
 
             rowView.setOnClickListener(new View.OnClickListener() {
                 @Override
